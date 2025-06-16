@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Navbar from '../components/Navbar'
+
 import fone1 from '../assets/fones.jpeg'
 import fone2 from '../assets/fones2.jpeg'
 
@@ -55,7 +57,9 @@ export default function TiposAparelhos() {
   const atual = modalIndex !== null ? aparelhos[modalIndex] : null
 
   return (
-    <section className="pt-32 pb-20 px-4 bg-white bg-[url('/assets/bg-wave.svg')] bg-no-repeat bg-cover">
+    <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-[#F7F9F9] to-[#A8E6CF]/30">
+      <Navbar />
+
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-10">
           <h1 className="text-4xl font-bold text-[#213547]">
@@ -86,7 +90,7 @@ export default function TiposAparelhos() {
               />
               <h3 className="text-xl font-bold text-[#213547] mb-1">{aparelho.sigla}</h3>
               <p className="text-gray-400 text-sm mb-2">{aparelho.nome}</p>
-              <p className="text-gray-600 text-sm mb-4 line-clamp-4">
+              <p className="text-gray-600 text-sm mb-4">
                 {aparelho.descricao}
               </p>
               <button

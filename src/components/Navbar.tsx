@@ -1,25 +1,13 @@
-import { useEffect, useState } from 'react'
-import { FiMapPin, FiMenu } from 'react-icons/fi'
+import { useState } from 'react'
+import { FiMapPin, FiMenu, FiX } from 'react-icons/fi'
 import logo from '../assets/logomaarca.jpeg'
 import { Link } from 'react-router-dom'
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-transparent' : 'bg-[#A8E6CF]'
-      }`}
-    >
+    <header className="fixed top-0 left-0 w-full z-50 bg-[#A8E6CF] shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
         {/* Logo + Nome */}
         <div className="flex items-center space-x-2">
@@ -27,7 +15,7 @@ export default function Navbar() {
           <span className="text-xl font-bold text-[#4A90E2]">FonoVital</span>
         </div>
 
-        {/* Menu */}
+        {/* Menu Desktop */}
         <nav className="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
           <Link to="/" className="hover:scale-105 transition-transform duration-200">
             Home
@@ -35,9 +23,15 @@ export default function Navbar() {
           <Link to="/tipos-de-aparelhos" className="hover:scale-105 transition-transform duration-200">
             Tipos de Aparelhos
           </Link>
-          <a href="#" className="hover:scale-105 transition-transform duration-200">Modelos</a>
-          <a href="#" className="hover:scale-105 transition-transform duration-200">Marcas</a>
-          <a href="#" className="hover:scale-105 transition-transform duration-200">Blog</a>
+          <Link to="#" className="hover:scale-105 transition-transform duration-200">
+            Modelos
+          </Link>
+          <Link to="#" className="hover:scale-105 transition-transform duration-200">
+            Marcas
+          </Link>
+          <Link to="#" className="hover:scale-105 transition-transform duration-200">
+            Blog
+          </Link>
           <a
             href="#"
             className="flex items-center space-x-1 text-[#4A90E2] hover:scale-105 transition-transform duration-200"
@@ -47,7 +41,7 @@ export default function Navbar() {
           </a>
         </nav>
 
-        {/* WhatsApp */}
+        {/* WhatsApp Desktop */}
         <div className="hidden md:block">
           <a
             href="https://wa.me/5532999069763"
@@ -59,11 +53,50 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile menu */}
+        {/* Menu Mobile Icon */}
         <div className="md:hidden">
-          <FiMenu size={24} />
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <FiX size={26} /> : <FiMenu size={26} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden bg-[#A8E6CF] px-6 py-4 space-y-4 text-gray-700 font-medium shadow-md">
+          <Link to="/" onClick={() => setMenuOpen(false)} className="block">
+            Home
+          </Link>
+          <Link to="/tipos-de-aparelhos" onClick={() => setMenuOpen(false)} className="block">
+            Tipos de Aparelhos
+          </Link>
+          <Link to="#" onClick={() => setMenuOpen(false)} className="block">
+            Modelos
+          </Link>
+          <Link to="#" onClick={() => setMenuOpen(false)} className="block">
+            Marcas
+          </Link>
+          <Link to="#" onClick={() => setMenuOpen(false)} className="block">
+            Blog
+          </Link>
+          <a
+            href="#"
+            className="flex items-center space-x-1 text-[#4A90E2]"
+            onClick={() => setMenuOpen(false)}
+          >
+            <FiMapPin />
+            <span>Unidades</span>
+          </a>
+          <a
+            href="https://wa.me/5532999069763"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-[#4A90E2] text-white px-4 py-2 rounded font-semibold text-center"
+          >
+            WhatsApp
+          </a>
+        </div>
+      )}
     </header>
   )
 }

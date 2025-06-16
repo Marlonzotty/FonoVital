@@ -15,14 +15,18 @@ const perguntas = [
 const frequencias = [250, 500, 1000, 2000, 4000, 8000]
 
 export default function TesteAuditivo() {
+  // Estado para Autoavaliação
   const [respostas, setRespostas] = useState<number[]>(Array(perguntas.length).fill(0))
   const [mostrarTeste, setMostrarTeste] = useState(false)
   const [mostrarResultado, setMostrarResultado] = useState(false)
 
-  const [mostrarFrequencia, setMostrarFrequencia] = useState(false)
+  // Estado para Frequência
+  const [iniciarFrequencia, setIniciarFrequencia] = useState(false)
   const [freqIndex, setFreqIndex] = useState(0)
   const [respostasFreq, setRespostasFreq] = useState<boolean[]>([])
+  const [mostrarResultadoFreq, setMostrarResultadoFreq] = useState(false)
 
+  // Resultado Autoavaliação
   const total = respostas.reduce((acc, curr) => acc + curr, 0)
   const resultado =
     total <= 2
@@ -31,44 +35,57 @@ export default function TesteAuditivo() {
       ? 'Atenção! Pode haver perda leve'
       : 'Recomendado buscar avaliação mais aprofundada'
 
+  // Som Frequência
   const tocarSom = () => {
     const context = new (window.AudioContext || (window as any).webkitAudioContext)()
-    const o = context.createOscillator()
-    o.type = 'sine'
-    o.frequency.value = frequencias[freqIndex]
-    o.connect(context.destination)
-    o.start()
-    o.stop(context.currentTime + 1)
+    const oscillator = context.createOscillator()
+    const gainNode = context.createGain()
+
+    oscillator.type = 'sine'
+    oscillator.frequency.value = frequencias[freqIndex]
+    gainNode.gain.value = 0.1
+
+    oscillator.connect(gainNode)
+    gainNode.connect(context.destination)
+
+    oscillator.start()
+    oscillator.stop(context.currentTime + 1)
   }
 
   const avancarFreq = (ouviu: boolean) => {
-    setRespostasFreq([...respostasFreq, ouviu])
+    const novas = [...respostasFreq, ouviu]
+    setRespostasFreq(novas)
     if (freqIndex < frequencias.length - 1) {
       setFreqIndex(freqIndex + 1)
     } else {
-      setMostrarFrequencia(false)
-      alert(`Você ouviu ${respostasFreq.filter(Boolean).length + (ouviu ? 1 : 0)} de ${frequencias.length} sons.`)
+      setIniciarFrequencia(false)
+      setMostrarResultadoFreq(true)
       setFreqIndex(0)
-      setRespostasFreq([])
     }
   }
 
+  const reiniciarFreq = () => {
+    setRespostasFreq([])
+    setFreqIndex(0)
+    setMostrarResultadoFreq(false)
+  }
+
   return (
-    <section className="min-h-screen bg-gradient-to-b from-[#F7F9F9] to-[#A8E6CF]/30 relative pb-20">
+    <section className="min-h-screen bg-gradient-to-b from-[#F7F9F9] to-[#A8E6CF]/30 pb-20">
       <Navbar />
 
-      <div className="max-w-3xl mx-auto pt-32 px-4">
+      <div className="max-w-4xl mx-auto pt-32 px-4">
         <h1 className="text-4xl font-bold text-[#213547] mb-4 text-center">
-          🎧 Teste Auditivo Rápido
+          🎧 Teste Auditivo Online
         </h1>
         <p className="text-gray-600 text-center mb-10">
-          Descubra se está na hora de procurar um especialista com um teste simples e interativo.
+          Utilize fones de ouvido e esteja em um ambiente silencioso.
         </p>
 
-        {/* Botões para os dois testes */}
+        {/* Botões dos dois testes */}
         <div className="grid md:grid-cols-2 gap-6 text-center">
           <div className="border border-[#4A90E2] p-6 rounded-xl bg-white/50">
-            <p className="mb-4 font-medium text-[#4A90E2]">Autoavaliação com Perguntas</p>
+            <p className="mb-4 font-medium text-[#4A90E2]">Teste de Autoavaliação</p>
             <button
               onClick={() => setMostrarTeste(true)}
               className="bg-[#4A90E2] text-white px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
@@ -80,9 +97,9 @@ export default function TesteAuditivo() {
             <p className="mb-4 font-medium text-[#4A90E2]">Teste de Frequência com Áudio</p>
             <button
               onClick={() => {
-                setMostrarFrequencia(true)
-                setFreqIndex(0)
+                setIniciarFrequencia(true)
                 setRespostasFreq([])
+                setFreqIndex(0)
               }}
               className="bg-[#A8E6CF] text-[#4A90E2] px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
             >
@@ -91,20 +108,21 @@ export default function TesteAuditivo() {
           </div>
         </div>
 
+        {/* Link voltar */}
         <div className="mt-10 text-center">
           <Link
             to="/"
             className="text-[#4A90E2] underline hover:text-[#213547] transition"
           >
-            Voltar ao início
+            Voltar ao Início
           </Link>
         </div>
       </div>
 
-      {/* Modal Autoavaliação */}
+      {/* Modal Perguntas */}
       {mostrarTeste && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
           onClick={() => setMostrarTeste(false)}
         >
           <div
@@ -151,7 +169,7 @@ export default function TesteAuditivo() {
       {/* Modal Resultado Autoavaliação */}
       {mostrarResultado && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
           onClick={() => setMostrarResultado(false)}
         >
           <div
@@ -173,49 +191,89 @@ export default function TesteAuditivo() {
                 to="/tipos-de-aparelhos"
                 className="text-sm text-[#4A90E2] underline hover:text-[#213547]"
               >
-                Deseja saber quais aparelhos podem ajudar no seu caso?
+                Ver quais aparelhos podem te ajudar
               </Link>
             </div>
           </div>
         </div>
       )}
 
-      {/* Modal Teste de Frequência */}
-      {mostrarFrequencia && (
+      {/* Modal Frequência */}
+      {iniciarFrequencia && (
         <div
           className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
-          onClick={() => setMostrarFrequencia(false)}
+          onClick={() => setIniciarFrequencia(false)}
         >
           <div
             className="bg-white rounded-xl p-6 max-w-md w-full mx-4 text-center"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-xl font-bold text-[#4A90E2] mb-4">
-              Teste de Frequência
+              Frequência {frequencias[freqIndex]}Hz
             </h2>
             <p className="text-gray-600 mb-4">
-              Frequência atual: <strong>{frequencias[freqIndex]}Hz</strong>
+              Clique abaixo para ouvir e marque se ouviu ou não.
             </p>
             <button
               onClick={tocarSom}
-              className="bg-[#4A90E2] text-white px-5 py-2 rounded-full font-semibold hover:opacity-90 transition mb-4"
+              className="bg-[#4A90E2] text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition mb-4"
             >
-              ▶ Tocar Som
+              ▶️ Ouvir Som
             </button>
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => avancarFreq(true)}
-                className="bg-[#A8E6CF] text-[#4A90E2] px-4 py-2 rounded-full font-semibold hover:opacity-90 transition"
+                className="bg-[#A8E6CF] text-[#4A90E2] px-5 py-2 rounded-full font-semibold hover:opacity-90 transition"
               >
                 Ouvi
               </button>
               <button
                 onClick={() => avancarFreq(false)}
-                className="bg-red-100 text-red-500 px-4 py-2 rounded-full font-semibold hover:opacity-90 transition"
+                className="bg-red-100 text-red-600 px-5 py-2 rounded-full font-semibold hover:opacity-90 transition"
               >
-                Não ouvi
+                Não Ouvi
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Resultado Frequência */}
+      {mostrarResultadoFreq && (
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
+          onClick={() => setMostrarResultadoFreq(false)}
+        >
+          <div
+            className="bg-white rounded-xl p-6 max-w-md w-full mx-4 text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-xl font-bold text-[#213547] mb-4">
+              Resultado do Teste de Frequência
+            </h2>
+            <p className="text-lg text-[#4A90E2] mb-4">
+              Você ouviu {respostasFreq.filter(Boolean).length} de {frequencias.length} frequências.
+            </p>
+
+            <div className="mb-6">
+              {frequencias.map((freq, i) => (
+                <p key={i}>
+                  {freq}Hz –{' '}
+                  {respostasFreq[i] ? (
+                    <span className="text-green-600 font-semibold">Ouvi</span>
+                  ) : (
+                    <span className="text-red-500 font-semibold">Não ouvi</span>
+                  )}
+                </p>
+              ))}
+            </div>
+
+            <button
+              onClick={reiniciarFreq}
+              className="bg-[#4A90E2] text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition"
+            >
+              Refazer Teste
+            </button>
           </div>
         </div>
       )}

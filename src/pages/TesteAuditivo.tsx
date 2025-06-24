@@ -70,6 +70,32 @@ export default function TesteAuditivo() {
     setMostrarResultadoFreq(false)
   }
 
+  // Produtos recomendados
+  const produtos = [
+    {
+      nome: 'Aparelho Auditivo Fonovital Pro+',
+      descricao: 'Aparelho auditivo com excelente qualidade sonora e discreto.',
+      preco: 'R$ 3.490,00',
+      link: '/tipos-de-aparelhos',
+      imagem: '/assets/produto.jpeg'
+    },
+    {
+      nome: 'Aparelho Auditivo Fonovital Mini',
+      descricao: 'Modelo compacto e eficiente, ideal para uso diário.',
+      preco: 'R$ 2.790,00',
+      link: '/tipos-de-aparelhos',
+      imagem: '/assets/produto.jpeg'
+    }
+  ]
+
+  // Novo estado para o alerta/modal do produto
+  const [mostrarProdutoModal, setMostrarProdutoModal] = useState(false)
+
+  // Função para mostrar o modal do produto
+  const mostrarModalProduto = () => {
+    setMostrarProdutoModal(true)
+  }
+
   return (
     <section className="min-h-screen bg-gradient-to-b from-[#F7F9F9] to-[#A8E6CF]/30 pb-20">
       <Navbar />
@@ -157,6 +183,7 @@ export default function TesteAuditivo() {
               onClick={() => {
                 setMostrarTeste(false)
                 setMostrarResultado(true)
+                mostrarModalProduto() // Exibe o modal do produto após o teste
               }}
               className="mt-6 w-full bg-[#A8E6CF] text-[#4A90E2] py-2 rounded-full font-semibold hover:opacity-90 transition"
             >
@@ -180,18 +207,23 @@ export default function TesteAuditivo() {
               Resultado do Teste
             </h2>
             <p className="text-[#4A90E2] text-lg mb-6">{resultado}</p>
+
             <button
+              onClick={() => {
+                setMostrarResultado(false)
+                mostrarModalProduto() // Exibe o modal do produto após o teste
+              }}
               className="w-full bg-[#4A90E2] text-white py-2 rounded-full font-semibold hover:opacity-90 transition"
-              onClick={() => setMostrarResultado(false)}
             >
-              Fechar
+              Ver Aparelhos com Desconto
             </button>
+
             <div className="mt-4">
               <Link
                 to="/tipos-de-aparelhos"
-                className="text-sm text-[#4A90E2] underline hover:text-[#213547]"
+                className="text-sm bg-[#A8E6CF] text-[#4A90E2] px-4 py-2 rounded-full font-semibold hover:opacity-90 transition"
               >
-                Ver quais aparelhos podem te ajudar
+                Escolher Meu Aparelho
               </Link>
             </div>
           </div>
@@ -273,6 +305,41 @@ export default function TesteAuditivo() {
               className="bg-[#4A90E2] text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition"
             >
               Refazer Teste
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Produto */}
+      {mostrarProdutoModal && (
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
+          onClick={() => setMostrarProdutoModal(false)}
+        >
+          <div
+            className="bg-white rounded-xl p-6 max-w-md w-full mx-4 text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-xl font-bold text-[#213547] mb-4">
+              Aproveite a Oferta Especial!
+            </h2>
+            <img
+              src={produtos[0].imagem} // Imagem do produto
+              alt={produtos[0].nome}
+              className="mx-auto mb-4 w-32 h-32 object-cover"
+            />
+            <h3 className="text-lg font-semibold text-[#213547]">{produtos[0].nome}</h3>
+            <p className="text-gray-600 mb-4">{produtos[0].descricao}</p>
+            <p className="text-xl font-bold text-[#4A90E2] mb-4">{produtos[0].preco}</p>
+
+            <button
+              onClick={() => {
+                setMostrarProdutoModal(false)
+                window.location.href = produtos[0].link // Redireciona para o link de compra
+              }}
+              className="w-full bg-[#4A90E2] text-white py-2 rounded-full font-semibold hover:opacity-90 transition"
+            >
+              Compre Agora
             </button>
           </div>
         </div>

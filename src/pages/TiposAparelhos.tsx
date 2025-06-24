@@ -57,7 +57,7 @@ export default function TiposAparelhos() {
   const atual = modalIndex !== null ? aparelhos[modalIndex] : null
 
   return (
-    <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-[#F7F9F9] to-[#A8E6CF]/30">
+    <section className="pt-32 pb-20 px-4 bg-white"> {/* Alterado o fundo para branco */}
       <Navbar />
 
       <div className="max-w-7xl mx-auto">
@@ -81,27 +81,31 @@ export default function TiposAparelhos() {
           {aparelhos.map((aparelho, index) => (
             <div
               key={index}
-              className="relative bg-[#A8E6CF]/20 rounded-2xl shadow-md p-6 pt-8 text-left hover:shadow-lg transition"
+              className="relative bg-white rounded-2xl shadow-2xl p-6 pt-8 text-left hover:shadow-2xl transition-all duration-300"
             >
               <img
                 src={aparelho.galeria[0]}
                 alt={aparelho.sigla}
-                className="w-full h-32 object-contain mb-4 rounded"
+                className="w-full h-48 object-contain mb-4 rounded-lg border-4 border-[#4A90E2]"
               />
               <h3 className="text-xl font-bold text-[#213547] mb-1">{aparelho.sigla}</h3>
               <p className="text-gray-400 text-sm mb-2">{aparelho.nome}</p>
               <p className="text-gray-600 text-sm mb-4">
                 {aparelho.descricao}
               </p>
-              <button
-                onClick={() => {
-                  setModalIndex(index)
-                  setGaleriaIndex(0)
-                }}
-                className="text-[#e7005a] border border-[#e7005a] px-4 py-1 rounded-full text-sm font-medium hover:bg-[#e7005a]/10 transition"
-              >
-                Ver Modelos
-              </button>
+
+              {/* Centralizando o botão e tornando-o mais chamativo */}
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={() => {
+                    setModalIndex(index)
+                    setGaleriaIndex(0)
+                  }}
+                  className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg shadow-lg hover:scale-105 transition-transform duration-300"
+                >
+                  Ver Modelos
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -113,7 +117,7 @@ export default function TiposAparelhos() {
             onClick={() => setModalIndex(null)}
           >
             <div
-              className="bg-[#A8E6CF] max-w-lg w-full rounded-xl p-6 relative mx-4"
+              className="bg-white max-w-lg w-full rounded-xl p-6 relative mx-4 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -127,7 +131,7 @@ export default function TiposAparelhos() {
                 <img
                   src={atual.galeria[galeriaIndex]}
                   alt="Aparelho"
-                  className="w-full h-64 object-contain rounded transition-all duration-300"
+                  className="w-full h-80 object-contain rounded-lg border-4 border-[#4A90E2] transition-all duration-300"
                 />
                 <div
                   className="absolute top-1/2 -translate-y-1/2 left-0 px-4 text-[#4A90E2] text-2xl cursor-pointer"
@@ -156,7 +160,7 @@ export default function TiposAparelhos() {
                     src={img}
                     alt={`Miniatura ${idx}`}
                     onClick={() => setGaleriaIndex(idx)}
-                    className={`w-14 h-14 object-cover rounded cursor-pointer border transition ${
+                    className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition ${
                       galeriaIndex === idx
                         ? 'border-[#4A90E2] scale-105'
                         : 'border-transparent opacity-60'

@@ -49,7 +49,7 @@ export default function ProductPage() {
             whileTap={{ scale: 0.97 }}
             className="bg-[#A8E6CF] text-[#4A90E2] font-semibold px-6 py-3 rounded-lg transition mb-4"
           >
-            Comprar agora
+            <Link to="/checkout">Comprar agora</Link>
           </motion.button>
 
           <Link

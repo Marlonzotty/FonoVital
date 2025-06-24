@@ -1,191 +1,97 @@
-import { useState } from 'react'
-import produto from '../assets/produto.jpeg'
+import { Link } from 'react-router-dom';
+import fone1 from '../assets/fones.jpeg';
+import fone2 from '../assets/fones2.jpeg';
 
-type Product = {
-  brand: string
-  model: string
-  description: string
-  badge?: string
-  badgeColor?: string
-  priceOriginal: number
-  priceDiscount: number
-  image: string
-}
-
-const products: Product[] = [
+const aparelhos = [
   {
-    brand: 'REXTON',
-    model: 'BiCore B-Li Rugged',
-    description: 'Resistente à água, suor e quedas. Compacto e discreto.',
-    badge: 'Prova d’água',
-    badgeColor: 'bg-green-100 text-green-700',
-    priceOriginal: 4990,
-    priceDiscount: 3490,
-    image: produto
+    sigla: 'IIC',
+    nome: 'Microcanal invisível',
+    descricao:
+      'O Microcanal Invisível (IIC) é o menor aparelho auditivo disponível, personalizado e praticamente invisível.',
+    imagem: fone1,
   },
   {
-    brand: 'REXTON',
-    model: 'M-CORE iX',
-    description: 'Modelo quase invisível com encaixe confortável no canal auditivo.',
-    badge: 'Mais procurado',
-    badgeColor: 'bg-blue-100 text-blue-700',
-    priceOriginal: 4790,
-    priceDiscount: 3390,
-    image: produto
+    sigla: 'CIC',
+    nome: 'Completamente dentro do canal',
+    descricao:
+      'Os aparelhos CIC se encaixam completamente dentro do canal auditivo, sendo discretos e eficientes.',
+    imagem: fone2,
   },
   {
-    brand: 'REXTON',
-    model: 'BiCore Custom-Li',
-    description: 'Customizado, recarregável e moderno.',
-    badge: 'Lançamento',
-    badgeColor: 'bg-[#A8E6CF] text-[#00796B]',
-    priceOriginal: 5290,
-    priceDiscount: 3890,
-    image: produto
-  }
-]
+    sigla: 'ITC',
+    nome: 'Intracanal',
+    descricao:
+      'Os aparelhos ITC são colocados dentro do canal auditivo, confortáveis e de fácil manuseio.',
+    imagem: fone1,
+  },
+  {
+    sigla: 'RIC',
+    nome: 'Receptor no Canal',
+    descricao:
+      'Aparelhos com receptor no canal, combinando potência com discrição e qualidade sonora.',
+    imagem: fone2,
+  },
+  {
+    sigla: 'Mini BTE',
+    nome: 'Atrás da Orelha',
+    descricao:
+      'Os modelos Mini BTE ficam atrás da orelha, com tubo fino e design discreto.',
+    imagem: fone1,
+  },
+  {
+    sigla: 'BTE',
+    nome: 'Retroauricular',
+    descricao:
+      'Os modelos BTE ficam atrás da orelha, sendo indicados para perdas auditivas severas.',
+    imagem: fone2,
+  },
+];
 
 export default function ProductGallery() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-
-  const closeModal = () => setSelectedIndex(null)
-  const current = selectedIndex !== null ? products[selectedIndex] : null
-
-  const next = () => {
-    if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex + 1) % products.length)
-    }
-  }
-
-  const prev = () => {
-    if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex - 1 + products.length) % products.length)
-    }
-  }
-
-  const getPromoEndDate = () => {
-    const date = new Date()
-    date.setDate(date.getDate() + 2)
-    return date.toLocaleDateString('pt-BR')
-  }
-
   return (
-    <section className="py-20 px-6 bg-[#E6F0FA] rounded-3xl">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-[#4A90E2] mb-4">
-          Modelos em Destaque
-        </h2>
-        <p className="text-center text-gray-600 mb-14">
-          Tecnologia, conforto e performance em cada modelo
-        </p>
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+      <h2 className="text-3xl sm:text-4xl font-bold text-[#213547] mb-10 text-center">
+        Nossos Aparelhos Auditivos
+      </h2>
 
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {products.map((p, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-6 shadow-lg relative transition hover:shadow-xl flex flex-col justify-between"
-            >
-              {p.badge && (
-                <span
-                  className={`absolute top-4 right-4 text-xs px-3 py-1 font-semibold rounded-full ${p.badgeColor}`}
-                >
-                  {p.badge}
-                </span>
-              )}
-              <div className="h-44 flex items-center justify-center mb-6">
-                <img src={p.image} alt={p.model} className="max-h-full object-contain" />
-              </div>
-              <div className="flex-1 flex flex-col">
-                <h4 className="text-sm text-gray-400 uppercase">{p.brand}</h4>
-                <h3 className="text-xl font-semibold text-[#213547] mt-1 mb-3">{p.model}</h3>
-                <p className="text-sm text-gray-600 mb-6">{p.description}</p>
-              </div>
-              <button
-                onClick={() => setSelectedIndex(i)}
-                className="text-[#4A90E2] border border-[#4A90E2] px-5 py-2 text-sm rounded-full font-semibold hover:bg-[#4A90E2]/10 transition"
-              >
-                Ver Modelo
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {current && (
-        <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50"
-          onClick={closeModal}
-        >
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {aparelhos.slice(0, 4).map((aparelho, index) => (
           <div
-            className="bg-white rounded-2xl p-6 w-full max-w-lg relative mx-4"
-            onClick={(e) => e.stopPropagation()}
+            key={index}
+            className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 transition-all duration-300"
           >
-            {/* Fechar */}
-            <button
-              onClick={closeModal}
-              className="absolute top-3 right-4 text-gray-500 text-xl font-bold hover:text-red-500"
-            >
-              ×
-            </button>
+            <img
+              src={aparelho.imagem}
+              alt={aparelho.sigla}
+              className="w-full h-48 object-contain mb-4 rounded-lg border-4 border-[#4A90E2]"
+            />
+            <h3 className="text-xl font-bold text-[#213547] mb-1">
+              {aparelho.sigla}
+            </h3>
+            <p className="text-gray-400 text-sm mb-2">{aparelho.nome}</p>
+            <p className="text-gray-600 text-sm mb-6">{aparelho.descricao}</p>
 
-            {/* Navegação lateral */}
-            <button
-              onClick={prev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 px-3 py-1 text-2xl text-white hover:text-[#A8E6CF]"
-            >
-              ◀
-            </button>
-            <button
-              onClick={next}
-              className="absolute right-0 top-1/2 -translate-y-1/2 px-3 py-1 text-2xl text-white hover:text-[#A8E6CF]"
-            >
-              ▶
-            </button>
-
-            {/* Conteúdo */}
-            <div className="text-center">
-              <img
-                src={current.image}
-                alt={current.model}
-                className="h-48 mx-auto mb-4 object-contain"
-              />
-
-              <h3 className="text-xl font-bold text-[#4A90E2] mb-2">
-                {current.brand} – {current.model}
-              </h3>
-
-              <p className="text-sm text-gray-600 mb-4">{current.description}</p>
-
-              <div className="mb-4">
-                <span className="text-gray-500 line-through mr-2 text-lg">
-                  R$ {current.priceOriginal.toFixed(2)}
-                </span>
-                <span className="text-2xl text-[#4A90E2] font-bold">
-                  R$ {current.priceDiscount.toFixed(2)}
-                </span>
-              </div>
-
-              <p className="text-sm text-gray-500 mb-6">
-                Promoção válida até: <strong>{getPromoEndDate()}</strong>
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button className="w-full bg-[#4A90E2] text-white font-semibold px-6 py-3 rounded-full hover:opacity-90 transition animate-pulse">
-                    Compre agora
-    </button>
-                <a
-    href="https://wa.me/5532999069763"
-    target="_blank"
-    className="w-full text-center bg-[#A8E6CF] text-[#00796B] font-semibold px-6 py-3 rounded-full hover:opacity-90 transition animate-pulse"
-  >
-    Fale com especialista
-  </a>
-</div>
-
+            <div className="flex justify-center">
+              <Link
+                to="/tipos-de-aparelhos"
+                className="px-6 py-2 rounded-full font-semibold text-[#4A90E2] border border-[#4A90E2] shadow-md hover:shadow-lg hover:scale-105 transition"
+              >
+                Saiba Mais
+              </Link>
             </div>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
+
+      {/* Botão Ver Todos */}
+      <div className="flex justify-center mt-10">
+        <Link
+          to="/tipos-de-aparelhos"
+          className="px-6 py-2 rounded-full font-semibold text-[#4A90E2] border border-[#4A90E2] shadow-md hover:shadow-lg hover:scale-105 transition"
+        >
+          Ver todos os aparelhos
+        </Link>
+      </div>
     </section>
-  )
+  );
 }

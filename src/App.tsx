@@ -1,10 +1,11 @@
 // src/App.tsx
-import './App.css'
-import Navbar from './components/Navbar'
-import ProductPage from './components/ProductPage'
-import ProductGallery from './components/ProductGallery'
-import ProductSpecs from './components/ProductSpecs'
-import Manifesto from './components/Manifesto'
+import './App.css';
+import Navbar from './components/Navbar';
+import ProductPage from './components/ProductPage';
+import ProductGallery from './components/ProductGallery';
+import ProductSpecs from './components/ProductSpecs';
+import Manifesto from './components/Manifesto';
+import Comments from './components/Comments'; // Importe o novo componente de Comentários
 
 export default function App() {
   return (
@@ -16,6 +17,9 @@ export default function App() {
         <ProductSpecs />
       </div>
       <Manifesto />
+
+      {/* Adicionando o componente de comentários */}
+      <Comments />
     </div>
-  )
+  );
 }

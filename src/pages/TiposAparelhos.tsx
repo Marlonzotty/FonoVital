@@ -1,9 +1,11 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import Navbar from '../components/Navbar'
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
-import fone1 from '../assets/fones.jpeg'
-import fone2 from '../assets/fones2.jpeg'
+import fone1 from '../assets/fones.jpeg';
+import fone2 from '../assets/fones2.jpeg';
+import especificacoes1 from '../assets/especificacoes1.jpg';
+import especificacoes2 from '../assets/especificacoes2.jpg';
 
 const aparelhos = [
   {
@@ -11,53 +13,68 @@ const aparelhos = [
     nome: 'Microcanal invisível',
     descricao:
       'O Microcanal Invisível (IIC) é o menor aparelho auditivo disponível, personalizado e praticamente invisível.',
-    galeria: [fone1, fone2]
+    galeria: [fone1, especificacoes1, especificacoes2],
   },
   {
     sigla: 'CIC',
     nome: 'Completamente dentro do canal',
     descricao:
       'Os aparelhos CIC se encaixam completamente dentro do canal auditivo, sendo discretos e eficientes.',
-    galeria: [fone1, fone2]
+    galeria: [fone2, especificacoes1, especificacoes2],
   },
   {
     sigla: 'ITC',
     nome: 'Intracanal',
     descricao:
       'Os aparelhos ITC são colocados dentro do canal auditivo, confortáveis e de fácil manuseio.',
-    galeria: [fone1, fone2]
+    galeria: [fone1, especificacoes1, especificacoes2],
   },
   {
     sigla: 'RIC',
     nome: 'Receptor no Canal',
     descricao:
       'Aparelhos com receptor no canal, combinando potência com discrição e qualidade sonora.',
-    galeria: [fone1, fone2]
+    galeria: [fone2, especificacoes1, especificacoes2],
   },
   {
     sigla: 'Mini BTE',
     nome: 'Atrás da Orelha',
     descricao:
       'Os modelos Mini BTE ficam atrás da orelha, com tubo fino e design discreto.',
-    galeria: [fone1, fone2]
+    galeria: [fone1, especificacoes1, especificacoes2],
   },
   {
     sigla: 'BTE',
     nome: 'Retroauricular',
     descricao:
       'Os modelos BTE ficam atrás da orelha, sendo indicados para perdas auditivas severas.',
-    galeria: [fone1, fone2]
-  }
-]
+    galeria: [fone2, especificacoes1, especificacoes2],
+  },
+];
 
 export default function TiposAparelhos() {
-  const [modalIndex, setModalIndex] = useState<number | null>(null)
-  const [galeriaIndex, setGaleriaIndex] = useState(0)
+  const [modalIndex, setModalIndex] = useState<number | null>(null);
+  const [galeriaIndex, setGaleriaIndex] = useState(0);
+  const [slideshowIndexes, setSlideshowIndexes] = useState<number[]>(
+    aparelhos.map(() => 0)
+  );
 
-  const atual = modalIndex !== null ? aparelhos[modalIndex] : null
+  const atual = modalIndex !== null ? aparelhos[modalIndex] : null;
+
+  // Slideshow automático nos cards
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSlideshowIndexes((prev) =>
+        prev.map((index, i) =>
+          (index + 1) % aparelhos[i].galeria.length
+        )
+      );
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section className="pt-32 pb-20 px-4 bg-white"> {/* Alterado o fundo para branco */}
+    <section className="pt-32 pb-20 px-4 bg-white">
       <Navbar />
 
       <div className="max-w-7xl mx-auto">
@@ -84,22 +101,23 @@ export default function TiposAparelhos() {
               className="relative bg-white rounded-2xl shadow-2xl p-6 pt-8 text-left hover:shadow-2xl transition-all duration-300"
             >
               <img
-                src={aparelho.galeria[0]}
+                src={aparelho.galeria[slideshowIndexes[index]]}
                 alt={aparelho.sigla}
-                className="w-full h-48 object-contain mb-4 rounded-lg border-4 border-[#4A90E2]"
+                className="w-full h-48 object-contain mb-4 rounded-lg border-4 border-[#4A90E2] transition-all duration-500"
               />
-              <h3 className="text-xl font-bold text-[#213547] mb-1">{aparelho.sigla}</h3>
+              <h3 className="text-xl font-bold text-[#213547] mb-1">
+                {aparelho.sigla}
+              </h3>
               <p className="text-gray-400 text-sm mb-2">{aparelho.nome}</p>
               <p className="text-gray-600 text-sm mb-4">
                 {aparelho.descricao}
               </p>
 
-              {/* Centralizando o botão e tornando-o mais chamativo */}
               <div className="flex justify-center mt-4">
                 <button
                   onClick={() => {
-                    setModalIndex(index)
-                    setGaleriaIndex(0)
+                    setModalIndex(index);
+                    setGaleriaIndex(0);
                   }}
                   className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg shadow-lg hover:scale-105 transition-transform duration-300"
                 >
@@ -203,5 +221,5 @@ export default function TiposAparelhos() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -31,31 +31,17 @@ const aparelhos = [
       'Aparelhos com receptor no canal, combinando potência com discrição e qualidade sonora.',
     imagem: fone2,
   },
-  {
-    sigla: 'Mini BTE',
-    nome: 'Atrás da Orelha',
-    descricao:
-      'Os modelos Mini BTE ficam atrás da orelha, com tubo fino e design discreto.',
-    imagem: fone1,
-  },
-  {
-    sigla: 'BTE',
-    nome: 'Retroauricular',
-    descricao:
-      'Os modelos BTE ficam atrás da orelha, sendo indicados para perdas auditivas severas.',
-    imagem: fone2,
-  },
 ];
 
 export default function ProductGallery() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+    <section className="w-full bg-white px-4 lg:px-8 py-12">
       <h2 className="text-3xl sm:text-4xl font-bold text-[#213547] mb-10 text-center">
         Nossos Aparelhos Auditivos
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {aparelhos.slice(0, 4).map((aparelho, index) => (
+        {aparelhos.map((aparelho, index) => (
           <div
             key={index}
             className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 transition-all duration-300"
@@ -83,7 +69,6 @@ export default function ProductGallery() {
         ))}
       </div>
 
-      {/* Botão Ver Todos */}
       <div className="flex justify-center mt-10">
         <Link
           to="/tipos-de-aparelhos"

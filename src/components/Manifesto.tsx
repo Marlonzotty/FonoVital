@@ -1,4 +1,4 @@
-import logo from '../assets/logomaarca.jpeg';
+import logo from '../assets/logomarca.png';
 
 export default function Manifesto() {
   return (

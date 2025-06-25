@@ -1,94 +1,85 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Navbar from '../components/Navbar'
 
-import fone1 from '../assets/fones.jpeg';
-import fone2 from '../assets/fones2.jpeg';
-import especificacoes1 from '../assets/especificacoes1.jpg';
-import especificacoes2 from '../assets/especificacoes2.jpg';
+import fone1 from '../assets/fones.jpeg'
+import fone2 from '../assets/fones2.jpeg'
+import voxton from '../assets/voxton/voxton.png'
 
 const aparelhos = [
   {
-    sigla: 'IIC',
-    nome: 'Microcanal invisível',
+    sigla: 'Voxton | Fonovital',
+    nome: 'Voxton Mini CIC | Fonovital (Par)',
     descricao:
-      'O Microcanal Invisível (IIC) é o menor aparelho auditivo disponível, personalizado e praticamente invisível.',
-    galeria: [fone1, especificacoes1, especificacoes2],
+      'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital\n\nO Voxton é um aparelho auditivo discreto, potente e confortável...',
+    galeria: [voxton],
+    precoOriginal: 799,
+    precoAtual: 599,
+    parcelas: 12,
+    avaliacoes: 34,
+    link: 'https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F'
   },
   {
-    sigla: 'CIC',
-    nome: 'Completamente dentro do canal',
+    sigla: 'Voxton | Unidade',
+    nome: 'Voxton Mini CIC | Fonovital (Unidade)',
+    descricao:
+      'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital\n\nO Voxton é um aparelho auditivo discreto, potente e confortável...',
+    galeria: [voxton],
+    precoOriginal: 499,
+    precoAtual: 399.9,
+    parcelas: 12,
+    avaliacoes: 21,
+    link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
+  },
+  {
+    sigla: 'Voxcharge | Fonovital',
+    nome: 'Voxcharge – Aparelho Auditivo Recarregável Mini CIC | Fonovital',
+    descricao:
+      'O Voxcharge da Fonovital é a combinação perfeita de potência, conforto e discrição...',
+    galeria: [fone1, fone2],
+    precoOriginal: 1799,
+    precoAtual: 1499,
+    parcelas: 12,
+    avaliacoes: 9,
+    link: '#'
+  },
+  {
+    sigla: 'Voxcharge | Unidade',
+    nome: 'Voxcharge – Aparelho Auditivo Recarregável Mini CIC | Fonovital (unidade)',
     descricao:
       'Os aparelhos CIC se encaixam completamente dentro do canal auditivo, sendo discretos e eficientes.',
-    galeria: [fone2, especificacoes1, especificacoes2],
-  },
-  {
-    sigla: 'ITC',
-    nome: 'Intracanal',
-    descricao:
-      'Os aparelhos ITC são colocados dentro do canal auditivo, confortáveis e de fácil manuseio.',
-    galeria: [fone1, especificacoes1, especificacoes2],
-  },
-  {
-    sigla: 'RIC',
-    nome: 'Receptor no Canal',
-    descricao:
-      'Aparelhos com receptor no canal, combinando potência com discrição e qualidade sonora.',
-    galeria: [fone2, especificacoes1, especificacoes2],
-  },
-  {
-    sigla: 'Mini BTE',
-    nome: 'Atrás da Orelha',
-    descricao:
-      'Os modelos Mini BTE ficam atrás da orelha, com tubo fino e design discreto.',
-    galeria: [fone1, especificacoes1, especificacoes2],
-  },
-  {
-    sigla: 'BTE',
-    nome: 'Retroauricular',
-    descricao:
-      'Os modelos BTE ficam atrás da orelha, sendo indicados para perdas auditivas severas.',
-    galeria: [fone2, especificacoes1, especificacoes2],
-  },
-];
+    galeria: [fone1, fone2],
+    precoOriginal: 1399,
+    precoAtual: 999,
+    parcelas: 12,
+    avaliacoes: 12,
+    link: '#'
+  }
+]
 
 export default function TiposAparelhos() {
-  const [modalIndex, setModalIndex] = useState<number | null>(null);
-  const [galeriaIndex, setGaleriaIndex] = useState(0);
-  const [slideshowIndexes, setSlideshowIndexes] = useState<number[]>(
-    aparelhos.map(() => 0)
-  );
+  const [modalIndex, setModalIndex] = useState<number | null>(null)
+  const [galeriaIndex, setGaleriaIndex] = useState(0)
 
-  const atual = modalIndex !== null ? aparelhos[modalIndex] : null;
-
-  // Slideshow automático nos cards
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSlideshowIndexes((prev) =>
-        prev.map((index, i) =>
-          (index + 1) % aparelhos[i].galeria.length
-        )
-      );
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+  const atual = modalIndex !== null ? aparelhos[modalIndex] : null
 
   return (
     <section className="pt-32 pb-20 px-4 bg-white">
       <Navbar />
+     <div className="max-w-7xl mx-auto">
+  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-center sm:text-left mb-10 gap-4">
+    <h1 className="text-4xl font-bold text-[#213547] mx-auto sm:mx-0">
+      Tipos de Aparelhos Auditivos
+    </h1>
+    <Link
+      to="/"
+      className="bg-[#A8E6CF] text-[#4A90E2] font-semibold rounded-full transition hover:opacity-90
+        text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 w-max mx-auto sm:mx-0"
+    >
+      Voltar ao início
+    </Link>
+  </div>
 
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-10">
-          <h1 className="text-4xl font-bold text-[#213547]">
-            Tipos de Aparelhos Auditivos
-          </h1>
-          <Link
-            to="/"
-            className="bg-[#A8E6CF] text-[#4A90E2] px-4 py-2 rounded-full font-semibold hover:opacity-90 transition"
-          >
-            Voltar ao início
-          </Link>
-        </div>
 
         <p className="text-gray-500 text-center mb-12 text-lg">
           Conheça cada modelo disponível
@@ -98,128 +89,105 @@ export default function TiposAparelhos() {
           {aparelhos.map((aparelho, index) => (
             <div
               key={index}
-              className="relative bg-white rounded-2xl shadow-2xl p-6 pt-8 text-left hover:shadow-2xl transition-all duration-300"
+              className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all"
             >
               <img
-                src={aparelho.galeria[slideshowIndexes[index]]}
+                src={aparelho.galeria[0]}
                 alt={aparelho.sigla}
-                className="w-full h-48 object-contain mb-4 rounded-lg border-4 border-[#4A90E2] transition-all duration-500"
+                className="w-full h-48 object-contain mb-4 rounded-lg border-4 border-[#4A90E2]"
               />
-              <h3 className="text-xl font-bold text-[#213547] mb-1">
-                {aparelho.sigla}
-              </h3>
+              <h3 className="text-xl font-bold text-[#213547] mb-1">{aparelho.sigla}</h3>
               <p className="text-gray-400 text-sm mb-2">{aparelho.nome}</p>
               <p className="text-gray-600 text-sm mb-4">
-                {aparelho.descricao}
+                {aparelho.descricao.split('\n')[0]}
               </p>
-
-              <div className="flex justify-center mt-4">
+              <div className="flex justify-center">
                 <button
                   onClick={() => {
-                    setModalIndex(index);
-                    setGaleriaIndex(0);
+                    setModalIndex(index)
+                    setGaleriaIndex(0)
                   }}
-                  className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg shadow-lg hover:scale-105 transition-transform duration-300"
+                  className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg hover:scale-105 transition"
                 >
-                  Ver Modelos
+                  Ver detalhes
                 </button>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Modal */}
         {modalIndex !== null && atual && (
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
             onClick={() => setModalIndex(null)}
           >
             <div
-              className="bg-white max-w-lg w-full rounded-xl p-6 relative mx-4 shadow-2xl"
+              className="bg-white relative rounded-xl w-full max-w-5xl flex flex-col md:flex-row overflow-hidden shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Botão de Fechar */}
               <button
                 onClick={() => setModalIndex(null)}
-                className="absolute top-3 right-4 text-gray-700 text-xl font-bold hover:text-red-600"
+                className="absolute top-3 right-4 text-2xl text-gray-500 hover:text-red-600 font-bold transition"
+                aria-label="Fechar"
               >
                 ×
               </button>
 
-              <div className="relative mb-4">
+              <div className="md:w-1/2 p-6 flex flex-col items-center">
                 <img
                   src={atual.galeria[galeriaIndex]}
-                  alt="Aparelho"
-                  className="w-full h-80 object-contain rounded-lg border-4 border-[#4A90E2] transition-all duration-300"
+                  alt="Produto"
+                  className="w-full h-72 object-contain mb-4 border-4 border-[#4A90E2] rounded-lg"
                 />
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 left-0 px-4 text-[#4A90E2] text-2xl cursor-pointer"
-                  onClick={() =>
-                    setGaleriaIndex(
-                      (galeriaIndex - 1 + atual.galeria.length) % atual.galeria.length
-                    )
-                  }
-                >
-                  ◀
-                </div>
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 right-0 px-4 text-[#4A90E2] text-2xl cursor-pointer"
-                  onClick={() =>
-                    setGaleriaIndex((galeriaIndex + 1) % atual.galeria.length)
-                  }
-                >
-                  ▶
+                <div className="flex gap-2">
+                  {atual.galeria.map((img, idx) => (
+                    <img
+                      key={idx}
+                      src={img}
+                      alt={`Miniatura ${idx}`}
+                      onClick={() => setGaleriaIndex(idx)}
+                      className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition ${
+                        galeriaIndex === idx
+                          ? 'border-[#4A90E2] scale-105'
+                          : 'border-transparent opacity-60'
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
 
-              <div className="flex justify-center gap-2 mb-4">
-                {atual.galeria.map((img, idx) => (
-                  <img
-                    key={idx}
-                    src={img}
-                    alt={`Miniatura ${idx}`}
-                    onClick={() => setGaleriaIndex(idx)}
-                    className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition ${
-                      galeriaIndex === idx
-                        ? 'border-[#4A90E2] scale-105'
-                        : 'border-transparent opacity-60'
-                    }`}
-                  />
-                ))}
+              <div className="md:w-1/2 p-6 text-[#213547]">
+                <h2 className="text-2xl font-bold mb-2">{atual.sigla} - {atual.nome}</h2>
+                <div className="flex items-center mb-3">
+                  <span className="text-yellow-500 text-xl mr-2">★★★★★</span>
+                  <span className="text-sm text-gray-500">({atual.avaliacoes})</span>
+                </div>
+                <p className="line-through text-sm text-gray-400">R$ {atual.precoOriginal.toFixed(2)}</p>
+                <p className="text-3xl font-bold text-[#4A90E2]">R$ {atual.precoAtual.toFixed(2)}</p>
+                <p className="text-sm text-gray-500 mb-4">
+                  ou {atual.parcelas}x de R$ {(atual.precoAtual / atual.parcelas).toFixed(2)} sem juros
+                </p>
+
+                <ul className="text-sm text-gray-700 space-y-1 mb-6">
+                  <li>✔️ Frete grátis para todo o Brasil</li>
+                  <li>✔️ Devolução fácil</li>
+                  <li>✔️ Frete seguro</li>
+                </ul>
+
+                <a
+                  href={atual.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center bg-[#4A90E2] text-white py-3 rounded-full font-semibold hover:opacity-90 transition animate-pulse"
+                >
+                  COMPRAR AGORA
+                </a>
               </div>
-
-              <h3 className="text-lg font-semibold text-[#213547] mb-2">
-                {atual.sigla} – {atual.nome}
-              </h3>
-              <p className="text-sm text-[#333] mb-6">{atual.descricao}</p>
-
-              <button className="w-full bg-[#4A90E2] text-white py-3 rounded-full font-semibold hover:opacity-90 transition animate-pulse">
-                Saiba se este produto é para você
-              </button>
             </div>
           </div>
         )}
-
-        {/* FAQ */}
-        <div className="mt-20">
-          <h2 className="text-3xl font-bold text-center text-[#213547] mb-6">
-            Dúvidas Frequentes
-          </h2>
-          <div className="space-y-6 max-w-3xl mx-auto text-gray-700 text-sm">
-            <div>
-              <strong>Qual tipo de aparelho é mais discreto?</strong>
-              <p>Os modelos IIC e CIC são os menores e mais invisíveis.</p>
-            </div>
-            <div>
-              <strong>Todos os modelos funcionam com Bluetooth?</strong>
-              <p>Não. Apenas os modelos mais modernos possuem conectividade.</p>
-            </div>
-            <div>
-              <strong>Qual aparelho é indicado para perda severa?</strong>
-              <p>Os modelos BTE são os mais potentes para esse tipo de necessidade.</p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
-  );
+  )
 }

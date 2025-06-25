@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FiMenu, FiX } from 'react-icons/fi'
-import logo from '../assets/logomaarca.jpeg'
+import logo from '../assets/logomarca.png'
 import { Link } from 'react-router-dom'
 
 export default function Navbar() {

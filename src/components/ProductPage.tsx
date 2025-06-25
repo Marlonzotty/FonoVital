@@ -1,67 +1,70 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import produto from '../assets/produto.jpeg';
+import voxton from '../assets/voxton/voxton.png';
 
 export default function ProductPage() {
   return (
     <section className="w-full bg-white px-4 lg:px-8 py-12">
       <motion.h1
-        className="text-4xl font-bold mb-8 text-center text-[#4A90E2]"
+        className="text-3xl md:text-4xl font-bold mb-10 text-center text-[#38393a] tracking-tight"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        Aparelho Auditivo Fonovital Pro+
+        Voxton Mini CIC  | Fonovital
       </motion.h1>
 
-      <div className="grid md:grid-cols-2 gap-8 items-center">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-8 max-w-5xl mx-auto px-2">
         {/* Imagem */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="bg-white p-4 rounded-xl shadow-md"
+          className="w-60 sm:w-64 md:w-72 bg-white p-3 rounded-xl shadow-md"
         >
           <img
-            src={produto}
-            alt="Produto Fonovital"
-            className="w-full object-cover rounded"
+            src={voxton}
+            alt="Aparelho Auditivo Voxton"
+            className="w-full object-contain rounded"
           />
         </motion.div>
 
-        {/* Texto e botões */}
+        {/* Apenas nome, preço e botões */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
+          className="w-full sm:w-1/2 text-center sm:text-left space-y-6"
         >
-          <p className="text-lg text-gray-700 mb-4">
-            O Fonovital Pro+ oferece clareza sonora superior, conforto e
-            conectividade com seu smartphone. Ideal para quem busca tecnologia
-            discreta e de alta performance.
-          </p>
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#213547]">
+            Voxton Mini CIC Recarregável
+          </h2>
 
-          <div className="mb-4">
+          <div>
             <span className="text-gray-500 line-through text-lg mr-2">
-              R$ 4.990,00
+              R$ 1.399,00
             </span>
-            <span className="text-2xl text-[#4A90E2] font-bold">
-              R$ 789,90
+            <span className="text-4xl text-[#3ac28b] font-bold">
+              R$ 599,90
             </span>
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              className="w-full sm:w-auto bg-[#A8E6CF] text-[#4A90E2] font-semibold px-6 py-3 rounded-lg transition mb-4 sm:mb-0"
-            >
-              <Link to="/checkout">Comprar agora</Link>
-            </motion.button>
+         <motion.a
+  href="https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F"
+  target="_blank"
+  rel="noopener noreferrer"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.97 }}
+  className="w-full sm:w-auto bg-[#10a5aa] text-[#38393a] font-semibold px-6 py-3 rounded-lg transition mb-4 sm:mb-0 text-center"
+>
+  Comprar agora
+</motion.a>
+
 
             <Link
               to="/teste-auditivo"
-              className="w-full sm:w-auto text-center bg-[#4A90E2] text-white font-semibold px-6 py-3 rounded-lg animate-pulse hover:opacity-90 transition"
+              className="w-full sm:w-auto text-center bg-[#dce0e4] text-black font-semibold px-6 py-3 rounded-lg animate-pulse hover:opacity-90 transition"
             >
               Faça seu teste auditivo grátis agora
             </Link>

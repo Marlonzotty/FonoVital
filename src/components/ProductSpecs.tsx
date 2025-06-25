@@ -54,7 +54,7 @@ export default function ProductSpecs() {
           rel="noopener noreferrer"
           className="animate-pulse bg-[#A8E6CF] text-[#4A90E2] font-semibold px-6 py-3 rounded-full shadow hover:opacity-90 transition"
         >
-          Agendar consulta
+          Compre com um dos nossos consultores
         </a>
       </div>
     </section>

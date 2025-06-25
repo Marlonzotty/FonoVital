@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
-import fone1 from '../assets/fones.jpeg'
-import fone2 from '../assets/fones2.jpeg'
+
 import voxton from '../assets/voxton/voxton.png'
 import voxcharge from '../assets/voxcharge/voxcharge (3).png'
 import voxchargeUnidade from '../assets/voxcharge/voxcharge (8).jpg'

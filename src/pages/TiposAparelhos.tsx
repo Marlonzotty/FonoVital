@@ -5,85 +5,105 @@ import Navbar from '../components/Navbar'
 import fone1 from '../assets/fones.jpeg'
 import fone2 from '../assets/fones2.jpeg'
 import voxton from '../assets/voxton/voxton.png'
+import voxcharge from '../assets/voxcharge/voxcharge (3).png'
+import voxchargeUnidade from '../assets/voxcharge/voxcharge (8).jpg'
 
 const aparelhos = [
   {
-    sigla: 'Voxton | Fonovital',
-    nome: 'Voxton Mini CIC | Fonovital (Par)',
-    descricao:
-      'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital\n\nO Voxton é um aparelho auditivo discreto, potente e confortável...',
-    galeria: [voxton],
-    precoOriginal: 799,
-    precoAtual: 599,
-    parcelas: 12,
-    avaliacoes: 34,
-    link: 'https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F'
-  },
-  {
     sigla: 'Voxton | Unidade',
-    nome: 'Voxton Mini CIC | Fonovital (Unidade)',
+    nome: 'Voxton Mini CIC | Fonovital (unidade)',
     descricao:
       'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital\n\nO Voxton é um aparelho auditivo discreto, potente e confortável...',
     galeria: [voxton],
     precoOriginal: 499,
     precoAtual: 399.9,
     parcelas: 12,
-    avaliacoes: 21,
-    link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
+    avaliacoes: 34,
+    link: 'https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F',
+    lados: {
+      direito: {
+        imagem: voxton,
+        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6'
+      },
+      esquerdo: {
+        imagem: voxton,
+        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
+      }
+    }
   },
   {
-    sigla: 'Voxcharge | Fonovital',
-    nome: 'Voxcharge – Aparelho Auditivo Recarregável Mini CIC | Fonovital',
+    sigla: 'Voxton | Fonovital',
+    nome: 'Voxton Mini CIC | Fonovital (Unidade)',
+    descricao:
+      'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital...',
+    galeria: [voxton],
+    precoOriginal: 1399,
+    precoAtual: 599.9,
+    parcelas: 12,
+    avaliacoes: 21,
+    link: '#'
+  },
+  {
+    sigla: 'Voxcharge CIC  | Fonovital',
+    nome: 'Voxcharge CIC | Recarregável',
     descricao:
       'O Voxcharge da Fonovital é a combinação perfeita de potência, conforto e discrição...',
-    galeria: [fone1, fone2],
-    precoOriginal: 1799,
-    precoAtual: 1499,
+    galeria: [voxcharge],
+    precoOriginal: 1399,
+    precoAtual: 599.9,
     parcelas: 12,
     avaliacoes: 9,
     link: '#'
   },
   {
     sigla: 'Voxcharge | Unidade',
-    nome: 'Voxcharge – Aparelho Auditivo Recarregável Mini CIC | Fonovital (unidade)',
+    nome: 'Voxcharge Mini CIC Recarregável | Fonovital (unidade)',
     descricao:
-      'Os aparelhos CIC se encaixam completamente dentro do canal auditivo, sendo discretos e eficientes.',
-    galeria: [fone1, fone2],
-    precoOriginal: 1399,
-    precoAtual: 999,
+      'O Voxcharge une conforto, potência e discrição em um modelo moderno e invisível para uso diário.',
+    galeria: [voxchargeUnidade],
+    precoOriginal: 499,
+    precoAtual: 399.9,
     parcelas: 12,
-    avaliacoes: 12,
-    link: '#'
-  }
+    avaliacoes: 34,
+    link: 'https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F',
+    lados: {
+      direito: {
+        imagem: voxchargeUnidade,
+        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6'
+      },
+      esquerdo: {
+        imagem: voxchargeUnidade,
+        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
+      }
+    }
+  },
 ]
 
 export default function TiposAparelhos() {
   const [modalIndex, setModalIndex] = useState<number | null>(null)
   const [galeriaIndex, setGaleriaIndex] = useState(0)
+  const [ladoSelecionado, setLadoSelecionado] = useState<'direito' | 'esquerdo'>('direito')
 
   const atual = modalIndex !== null ? aparelhos[modalIndex] : null
 
   return (
     <section className="pt-32 pb-20 px-4 bg-white">
       <Navbar />
-     <div className="max-w-7xl mx-auto">
-  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-center sm:text-left mb-10 gap-4">
-    <h1 className="text-4xl font-bold text-[#213547] mx-auto sm:mx-0">
-      Tipos de Aparelhos Auditivos
-    </h1>
-    <Link
-      to="/"
-      className="bg-[#A8E6CF] text-[#4A90E2] font-semibold rounded-full transition hover:opacity-90
-        text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 w-max mx-auto sm:mx-0"
-    >
-      Voltar ao início
-    </Link>
-  </div>
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-10">
+          <h1 className="text-4xl font-bold text-[#213547] text-center w-full sm:w-auto mb-4 sm:mb-0">
+            Tipos de Aparelhos Auditivos
+          </h1>
+          <Link
+            to="/"
+            className="bg-[#A8E6CF] text-[#4A90E2] font-semibold rounded-full transition hover:opacity-90
+              text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2"
+          >
+            Voltar ao início
+          </Link>
+        </div>
 
-
-        <p className="text-gray-500 text-center mb-12 text-lg">
-          Conheça cada modelo disponível
-        </p>
+        <p className="text-gray-500 text-center mb-12 text-lg">Conheça cada modelo disponível</p>
 
         <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-8">
           {aparelhos.map((aparelho, index) => (
@@ -106,6 +126,7 @@ export default function TiposAparelhos() {
                   onClick={() => {
                     setModalIndex(index)
                     setGaleriaIndex(0)
+                    setLadoSelecionado('direito')
                   }}
                   className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg hover:scale-105 transition"
                 >
@@ -116,22 +137,21 @@ export default function TiposAparelhos() {
           ))}
         </div>
 
+        {/* MODAL */}
         {modalIndex !== null && atual && (
           <div
             className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
             onClick={() => setModalIndex(null)}
           >
             <div
-              className="bg-white relative rounded-xl w-full max-w-5xl flex flex-col md:flex-row overflow-hidden shadow-2xl"
+              className="bg-white rounded-xl w-full max-w-5xl flex flex-col md:flex-row overflow-hidden shadow-2xl relative"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Botão de Fechar */}
               <button
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold"
                 onClick={() => setModalIndex(null)}
-                className="absolute top-3 right-4 text-2xl text-gray-500 hover:text-red-600 font-bold transition"
-                aria-label="Fechar"
               >
-                ×
+                &times;
               </button>
 
               <div className="md:w-1/2 p-6 flex flex-col items-center">
@@ -169,20 +189,56 @@ export default function TiposAparelhos() {
                   ou {atual.parcelas}x de R$ {(atual.precoAtual / atual.parcelas).toFixed(2)} sem juros
                 </p>
 
-                <ul className="text-sm text-gray-700 space-y-1 mb-6">
-                  <li>✔️ Frete grátis para todo o Brasil</li>
-                  <li>✔️ Devolução fácil</li>
-                  <li>✔️ Frete seguro</li>
-                </ul>
+                {atual.lados ? (
+                  <div className="mb-6">
+                    <div className="flex gap-2 mb-3">
+                      <button
+                        className={`px-4 py-1 rounded-full border font-semibold ${
+                          ladoSelecionado === 'direito'
+                            ? 'bg-[#4A90E2] text-white'
+                            : 'bg-gray-100 text-[#213547]'
+                        }`}
+                        onClick={() => setLadoSelecionado('direito')}
+                      >
+                        Lado Direito
+                      </button>
+                      <button
+                        className={`px-4 py-1 rounded-full border font-semibold ${
+                          ladoSelecionado === 'esquerdo'
+                            ? 'bg-[#4A90E2] text-white'
+                            : 'bg-gray-100 text-[#213547]'
+                        }`}
+                        onClick={() => setLadoSelecionado('esquerdo')}
+                      >
+                        Lado Esquerdo
+                      </button>
+                    </div>
 
-                <a
-                  href={atual.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-center bg-[#4A90E2] text-white py-3 rounded-full font-semibold hover:opacity-90 transition animate-pulse"
-                >
-                  COMPRAR AGORA
-                </a>
+                    <img
+                      src={atual.lados[ladoSelecionado].imagem}
+                      alt={`Pré-visualização ${ladoSelecionado}`}
+                      className="w-32 h-32 object-contain mx-auto mb-3 border-2 rounded-lg"
+                    />
+
+                    <a
+                      href={atual.lados[ladoSelecionado].link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center bg-[#4A90E2] text-white py-3 rounded-full font-semibold hover:opacity-90 transition"
+                    >
+                      COMPRAR LADO {ladoSelecionado.toUpperCase()}
+                    </a>
+                  </div>
+                ) : (
+                  <a
+                    href={atual.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full text-center bg-[#4A90E2] text-white py-3 rounded-full font-semibold hover:opacity-90 transition animate-pulse"
+                  >
+                    COMPRAR AGORA
+                  </a>
+                )}
               </div>
             </div>
           </div>

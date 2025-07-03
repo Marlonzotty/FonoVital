@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
-
+import { FaStar } from 'react-icons/fa'
 
 import voxton from '../assets/voxton/voxton.png'
 import voxcharge from '../assets/voxcharge/voxcharge (3).png'
@@ -105,35 +105,71 @@ export default function TiposAparelhos() {
         <p className="text-gray-500 text-center mb-12 text-lg">Conheça cada modelo disponível</p>
 
         <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-8">
-          {aparelhos.map((aparelho, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all"
-            >
-              <img
-                src={aparelho.galeria[0]}
-                alt={aparelho.sigla}
-                className="w-full h-48 object-contain mb-4 rounded-lg border-4 border-[#4A90E2]"
-              />
-              <h3 className="text-xl font-bold text-[#213547] mb-1">{aparelho.sigla}</h3>
-              <p className="text-gray-400 text-sm mb-2">{aparelho.nome}</p>
-              <p className="text-gray-600 text-sm mb-4">
-                {aparelho.descricao.split('\n')[0]}
-              </p>
-              <div className="flex justify-center">
-                <button
-                  onClick={() => {
-                    setModalIndex(index)
-                    setGaleriaIndex(0)
-                    setLadoSelecionado('direito')
-                  }}
-                  className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg hover:scale-105 transition"
-                >
-                  Ver detalhes
-                </button>
+          {aparelhos.map((aparelho, index) => {
+            const desconto = Math.round(
+              ((aparelho.precoOriginal - aparelho.precoAtual) / aparelho.precoOriginal) * 100
+            )
+
+            return (
+              <div
+                key={index}
+                className="relative bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all"
+              >
+                {/* Selo de desconto */}
+                <span className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  -{desconto}%
+                </span>
+
+                {/* Selo de oferta */}
+                <span className="inline-block text-xs text-white bg-[#4A90E2] px-2 py-1 rounded mb-2">
+                  Oferta
+                </span>
+
+                <img
+                  src={aparelho.galeria[0]}
+                  alt={aparelho.sigla}
+                  className="w-full h-48 object-contain mb-4 rounded-lg border-4 border-[#4A90E2]"
+                />
+
+                <h3 className="text-xl font-bold text-[#213547] mb-1">{aparelho.sigla}</h3>
+                <p className="text-gray-400 text-sm mb-2">{aparelho.nome}</p>
+
+                {/* Estrelas */}
+                <div className="flex items-center mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar key={i} className="text-yellow-500 text-base" />
+                  ))}
+                  <span className="text-sm text-gray-500 ml-2">
+                    ({aparelho.avaliacoes})
+                  </span>
+                </div>
+
+                {/* Preços */}
+                <p className="line-through text-gray-400 text-sm mb-1">
+                  R$ {aparelho.precoOriginal.toFixed(2)}
+                </p>
+                <p className="text-2xl font-bold text-[#4A90E2] mb-1">
+                  R$ {aparelho.precoAtual.toFixed(2)}
+                </p>
+                <p className="text-gray-500 text-sm mb-4">
+                  12x de R$ {(aparelho.precoAtual / 12).toFixed(2)} sem juros
+                </p>
+
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => {
+                      setModalIndex(index)
+                      setGaleriaIndex(0)
+                      setLadoSelecionado('direito')
+                    }}
+                    className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg hover:scale-105 transition"
+                  >
+                    Ver detalhes
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* MODAL */}
@@ -177,13 +213,23 @@ export default function TiposAparelhos() {
               </div>
 
               <div className="md:w-1/2 p-6 text-[#213547]">
-                <h2 className="text-2xl font-bold mb-2">{atual.sigla} - {atual.nome}</h2>
+                <h2 className="text-2xl font-bold mb-2">
+                  {atual.sigla} - {atual.nome}
+                </h2>
                 <div className="flex items-center mb-3">
-                  <span className="text-yellow-500 text-xl mr-2">★★★★★</span>
-                  <span className="text-sm text-gray-500">({atual.avaliacoes})</span>
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar key={i} className="text-yellow-500 text-base" />
+                  ))}
+                  <span className="text-sm text-gray-500 ml-2">
+                    ({atual.avaliacoes})
+                  </span>
                 </div>
-                <p className="line-through text-sm text-gray-400">R$ {atual.precoOriginal.toFixed(2)}</p>
-                <p className="text-3xl font-bold text-[#4A90E2]">R$ {atual.precoAtual.toFixed(2)}</p>
+                <p className="line-through text-sm text-gray-400">
+                  R$ {atual.precoOriginal.toFixed(2)}
+                </p>
+                <p className="text-3xl font-bold text-[#4A90E2]">
+                  R$ {atual.precoAtual.toFixed(2)}
+                </p>
                 <p className="text-sm text-gray-500 mb-4">
                   ou {atual.parcelas}x de R$ {(atual.precoAtual / atual.parcelas).toFixed(2)} sem juros
                 </p>

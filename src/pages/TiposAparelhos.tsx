@@ -22,11 +22,11 @@ const aparelhos = [
     lados: {
       direito: {
         imagem: voxton,
-        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6'
+        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
       },
       esquerdo: {
         imagem: voxton,
-        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
+        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6'
       }
     }
   },
@@ -52,7 +52,7 @@ const aparelhos = [
     precoAtual: 599.9,
     parcelas: 12,
     avaliacoes: 9,
-    link: '#'
+    link: 'https://fonovital.pay.yampi.com.br/r/38RYBJ69JM'
   },
   {
     sigla: 'Voxcharge | Unidade',
@@ -68,11 +68,11 @@ const aparelhos = [
     lados: {
       direito: {
         imagem: voxchargeUnidade,
-        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6'
+        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
       },
       esquerdo: {
         imagem: voxchargeUnidade,
-        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
+        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6'
       }
     }
   },

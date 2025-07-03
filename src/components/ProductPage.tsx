@@ -1,75 +1,135 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { ShieldCheck, Star, Truck, Repeat } from 'lucide-react';
+
 import voxton from '../assets/voxton/voxton.png';
+import certificados from '../assets/certificados.png';
+
+/** Declaração global para evitar erro TS */
+declare global {
+  interface Window {
+    Yampi?: {
+      BuyButton?: {
+        reload?: () => void;
+        open?: (productCode: string) => void;
+      };
+    };
+  }
+}
 
 export default function ProductPage() {
+  const [currentImage, setCurrentImage] = useState(voxton);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev === voxton ? certificados : voxton));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      window.Yampi?.BuyButton?.reload?.();
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
-    <section className="w-full bg-white px-4 lg:px-8 py-12">
+    <section className="w-full bg-white px-4 lg:px-8 py-10 shadow-2xl rounded-xl border border-gray-200">
+      {/* Título */}
       <motion.h1
-        className="text-3xl md:text-4xl font-bold mb-10 text-center text-[#38393a] tracking-tight"
+        className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#0d7f83]"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        Voxton Mini CIC  | Fonovital
+        Voxton Mini CIC | Fonovital
       </motion.h1>
 
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-8 max-w-5xl mx-auto px-2">
-        {/* Imagem */}
+      <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-10 max-w-6xl mx-auto">
+        {/* Imagem com troca suave */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="w-60 sm:w-64 md:w-72 bg-white p-3 rounded-xl shadow-md"
+          key={currentImage}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] bg-white p-4 rounded-xl shadow-lg"
         >
           <img
-            src={voxton}
-            alt="Aparelho Auditivo Voxton"
+            src={currentImage}
+            alt="Imagem do produto"
             className="w-full object-contain rounded"
           />
         </motion.div>
 
-        {/* Apenas nome, preço e botões */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="w-full sm:w-1/2 text-center sm:text-left space-y-6"
-        >
-          <h2 className="text-xl sm:text-2xl font-semibold text-[#213547]">
-            Voxton Mini CIC Recarregável
+        {/* Informações do Produto */}
+        <div className="w-full max-w-xl space-y-6 text-center lg:text-left">
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#213547] leading-snug">
+            Aparelho Auditivo Recarregável Voxton Mini CIC
           </h2>
 
           <div>
-            <span className="text-gray-500 line-through text-lg mr-2">
+            <p className="text-gray-500 line-through text-lg md:text-xl">
               R$ 1.399,00
-            </span>
-            <span className="text-4xl text-[#3ac28b] font-bold">
+            </p>
+            <p className="text-4xl md:text-5xl text-[#3ac28b] font-bold">
               R$ 599,90
-            </span>
+            </p>
+            <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+              ou 12x de R$ 59,90 sem juros
+            </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
-         <motion.a
-  href="https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F"
-  target="_blank"
-  rel="noopener noreferrer"
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.97 }}
-  className="w-full sm:w-auto bg-[#10a5aa] text-[#38393a] font-semibold px-6 py-3 rounded-lg transition mb-4 sm:mb-0 text-center"
->
-  Comprar agora
-</motion.a>
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 text-base text-gray-700 leading-relaxed">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              4.9/5 (213 avaliações)
+            </div>
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-green-600" />
+              Compra segura
+            </div>
+            <div className="flex items-center gap-2">
+              <Truck className="w-5 h-5 text-yellow-500" />
+              Frete grátis Brasil
+            </div>
+            <div className="flex items-center gap-2">
+              <Repeat className="w-5 h-5 text-green-600" />
+              Devolução garantida
+            </div>
+          </div>
 
+          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 pt-4">
+            {/* Botão invisível para registrar o produto na Yampi */}
+            <div
+              className="ymp-btn hidden"
+              data-product-code="KQ4WBFEEML"
+            ></div>
+
+            <motion.a
+              href="https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.96 }}
+              className="w-full sm:w-auto bg-[#0d7f83] text-white font-bold px-6 py-3 rounded-lg transition text-center text-base md:text-lg animate-pulse border-2 border-[#0b666a] shadow-lg"
+            >
+              COMPRAR AGORA
+            </motion.a>
 
             <Link
               to="/teste-auditivo"
-              className="w-full sm:w-auto text-center bg-[#dce0e4] text-black font-semibold px-6 py-3 rounded-lg animate-pulse hover:opacity-90 transition"
+              className="w-full sm:w-auto bg-[#f1f1f1] text-black font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition text-center mt-3 sm:mt-0 text-base md:text-lg"
             >
-              Faça seu teste auditivo grátis agora
+              Faça seu teste auditivo grátis
             </Link>
           </div>
-        </motion.div>
+
+          <div className="pt-6 text-base text-gray-600 italic text-center lg:text-left leading-relaxed">
+            Produto exclusivo Fonovital | Qualidade garantida 2025
+          </div>
+        </div>
       </div>
     </section>
   );

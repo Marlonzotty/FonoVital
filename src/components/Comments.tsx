@@ -23,15 +23,12 @@ const commentsData = [
 
 export default function Comments() {
   const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
 
   const next = () => {
-    setDirection(1);
     setIndex((prev) => (prev + 4) % commentsData.length);
   };
 
   const prev = () => {
-    setDirection(-1);
     setIndex((prev) => (prev - 4 + commentsData.length) % commentsData.length);
   };
 
@@ -44,21 +41,6 @@ export default function Comments() {
     ? commentsData.slice(index, index + 4)
     : [...commentsData.slice(index), ...commentsData.slice(0, (index + 4) % commentsData.length)];
 
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 300 : -300,
-      opacity: 0,
-    }),
-  };
-
   return (
     <section className="w-full bg-white px-4 lg:px-8 py-12 mb-20">
       <h2 className="text-3xl font-bold text-[#213547] mb-8 text-center">
@@ -66,23 +48,15 @@ export default function Comments() {
       </h2>
 
       <div className="relative overflow-hidden">
-        <AnimatePresence custom={direction} mode="wait">
-          <motion.div
-            key={index}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 },
-            }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <AnimatePresence>
             {currentComments.map((comment) => (
-              <div
+              <motion.div
                 key={comment.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
                 className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 flex flex-col transition"
               >
                 <div className="mb-4">
@@ -115,10 +89,10 @@ export default function Comments() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </motion.div>
-        </AnimatePresence>
+          </AnimatePresence>
+        </div>
 
         {/* Botões */}
         <div className="absolute -left-6 top-1/2 -translate-y-1/2">

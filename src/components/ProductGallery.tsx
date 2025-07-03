@@ -1,35 +1,32 @@
 import { Link } from 'react-router-dom';
+import { Star } from 'lucide-react';
 import fone1 from '../assets/fones.jpeg';
 import fone2 from '../assets/fones2.jpeg';
 
 const aparelhos = [
   {
-    sigla: 'Voxcharge',
-    nome: 'Aparelho Auditivo Recarregável Mini CIC | Fonovital',
-    descricao:
-      'O Voxcharge da Fonovital é a combinação perfeita de potência, conforto e discrição. Com design Mini CIC invisível e bateria recarregável, é ideal para quem busca uma solução moderna e eficiente para perda auditiva moderada a severa',
-    imagem: fone1,
-  },
-  {
     sigla: 'Voxton',
-    nome: 'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital',
-    descricao:
-      'O Voxton é um aparelho auditivo discreto, potente e confortável, desenvolvido pela Fonovital para quem busca qualidade sonora com total discrição. Seu design Mini CIC (completamente no canal) o torna praticamente invisível durante o uso, ideal para o dia a dia ',
+    descricao: 'Discreto e eficiente',
+    preco: 'R$ 899,90',
+    envio: 'Envio 24h',
     imagem: fone2,
+    recomendado: false,
   },
   {
-    sigla: 'Voxcharge (unidade)',
-    nome: 'Intracanal',
-    descricao:
-      'O Voxcharge da Fonovital é a combinação perfeita de potência, conforto e discrição. Com design Mini CIC invisível e bateria recarregável, é ideal para quem busca uma solução moderna e eficiente para perda auditiva moderada a severa.',
+    sigla: 'Voxcharge',
+    descricao: 'Bateria recarregável',
+    preco: 'R$ 899,90',
+    envio: 'Envio 24h',
     imagem: fone1,
+    recomendado: true,
   },
   {
-    sigla: 'Voxton (unidade)',
-    nome: 'Receptor no Canal',
-    descricao:
-      'O Voxton é um aparelho auditivo discreto, potente e confortável, desenvolvido pela Fonovital para quem busca qualidade sonora com total discrição. Seu design Mini CIC (completamente no canal) o torna praticamente invisível durante o uso, ideal para o dia a dia ',
-    imagem: fone2,
+    sigla: 'Vitalvoice',
+    descricao: 'Excelente custo-benefício',
+    preco: 'R$ 899,90',
+    envio: 'Envio 24h',
+    imagem: fone1,
+    recomendado: false,
   },
 ];
 
@@ -40,42 +37,57 @@ export default function ProductGallery() {
         Nossos Aparelhos Auditivos
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {aparelhos.map((aparelho, index) => (
           <div
             key={index}
-            className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 transition-all duration-300"
+            className={`bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border ${
+              aparelho.recomendado
+                ? 'border-[#4A90E2]'
+                : 'border-transparent'
+            }`}
           >
+            {aparelho.recomendado && (
+              <div className="bg-[#E6F7F8] text-[#007c91] text-sm font-semibold px-2 py-1 rounded-t-2xl text-center flex items-center justify-center">
+                <Star size={16} className="inline-block mr-1 text-[#007c91]" />
+                RECOMENDADO
+              </div>
+            )}
+
             <img
               src={aparelho.imagem}
               alt={aparelho.sigla}
-              className="w-full h-48 object-contain mb-4 rounded-lg border-4 border-[#4A90E2]"
+              className="w-full h-48 object-contain mb-4 rounded-t-2xl"
             />
-            <h3 className="text-xl font-bold text-[#213547] mb-1">
-              {aparelho.sigla}
-            </h3>
-            <p className="text-gray-400 text-sm mb-2">{aparelho.nome}</p>
-            <p className="text-gray-600 text-sm mb-6">{aparelho.descricao}</p>
+            <div className="p-6">
+              <h3 className="text-xl font-bold text-[#213547] mb-1">
+                {aparelho.sigla}
+              </h3>
+              <p className="text-gray-500 text-sm mb-2">
+                {aparelho.descricao}
+              </p>
+              <p className="text-[#007c91] text-lg font-bold mb-2">
+                {aparelho.preco}
+              </p>
+              <p className="text-gray-400 text-sm mb-4">{aparelho.envio}</p>
 
-            <div className="flex justify-center">
+              <select
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 text-gray-700"
+                defaultValue="Par (2 unidades)"
+              >
+                <option>Par (2 unidades)</option>
+                <option>1 unidade</option>
+              </select>
+
               <Link
                 to="/tipos-de-aparelhos"
-                className="px-6 py-2 rounded-full font-semibold text-[#4A90E2] border border-[#4A90E2] shadow-md hover:shadow-lg hover:scale-105 transition"
+                className="block text-center bg-[#007c91] text-white font-semibold py-2 rounded-lg hover:bg-[#005f6e] transition"
               >
-                Saiba Mais
+                Comprar Agora
               </Link>
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="flex justify-center mt-10">
-        <Link
-          to="/tipos-de-aparelhos"
-          className="px-6 py-2 rounded-full font-semibold text-[#4A90E2] border border-[#4A90E2] shadow-md hover:shadow-lg hover:scale-105 transition"
-        >
-          Ver todos os aparelhos
-        </Link>
       </div>
     </section>
   );

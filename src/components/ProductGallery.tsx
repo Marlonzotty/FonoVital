@@ -15,7 +15,7 @@ const aparelhos = [
   {
     sigla: 'Voxcharge',
     descricao: 'Bateria recarregável',
-    preco: 'R$ 899,90',
+    preco: 'R$ 999,90',
     envio: 'Envio 24h',
     imagem: fone1,
     recomendado: true,
@@ -23,7 +23,7 @@ const aparelhos = [
   {
     sigla: 'Vitalvoice',
     descricao: 'Excelente custo-benefício',
-    preco: 'R$ 899,90',
+    preco: 'R$ 1499,90',
     envio: 'Envio 24h',
     imagem: fone1,
     recomendado: false,

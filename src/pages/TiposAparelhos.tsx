@@ -5,7 +5,7 @@ import { FaStar } from 'react-icons/fa'
 
 import voxton from '../assets/voxton/voxton.png'
 import voxcharge from '../assets/voxcharge/voxcharge (3).png'
-import voxchargeUnidade from '../assets/voxcharge/voxcharge (8).jpg'
+import voxchargeUnidade from '../assets/voxcharge/voxcharge (3).png'
 import vitalvoice from '../assets/vitalVoice.jpg'
 
 const aparelhos = [
@@ -19,33 +19,27 @@ const aparelhos = [
     precoAtual: 599.9,
     parcelas: 12,
     avaliacoes: 21,
-    link: 'https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F',
+    link: 'https://fonovital.pay.yampi.com.br/r/3H7FPTZSYX',
     lados: {
       direito: {
         imagem: voxton,
-        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
+        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC',
+        precoOriginal: 499,
+        precoAtual: 399.9
       },
       esquerdo: {
         imagem: voxton,
-        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6'
+        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6',
+        precoOriginal: 499,
+        precoAtual: 399.9
       },
       par: {
         imagem: voxton,
-        link: 'https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F'
+        link: 'https://fonovital.pay.yampi.com.br/r/3H7FPTZSYX',
+        precoOriginal: 1399,
+        precoAtual: 599.9
       }
     }
-  },
-  {
-    sigla: 'Voxcharge CIC  | Fonovital',
-    nome: 'Voxcharge CIC | Recarregável',
-    descricao:
-      'O Voxcharge da Fonovital é a combinação perfeita de potência, conforto e discrição...',
-    galeria: [voxcharge],
-    precoOriginal: 1399,
-    precoAtual: 599.9,
-    parcelas: 12,
-    avaliacoes: 9,
-    link: 'https://fonovital.pay.yampi.com.br/r/38RYBJ69JM'
   },
   {
     sigla: 'Voxcharge | Fonovital',
@@ -57,47 +51,18 @@ const aparelhos = [
     precoAtual: 399.9,
     parcelas: 12,
     avaliacoes: 34,
-    link: 'https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F',
-    lados: {
-      direito: {
-        imagem: voxchargeUnidade,
-        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
-      },
-      esquerdo: {
-        imagem: voxchargeUnidade,
-        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6'
-      },
-      par: {
-        imagem: voxchargeUnidade,
-        link: 'https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F'
-      }
-    }
+    link: 'https://fonovital.pay.yampi.com.br/r/6MAP1B08TF',
   },
   {
     sigla: 'Vitalvoice | Fonovital',
     nome: 'Vitalvoice CIC | Fonovital (par)',
-    descricao:
-      'O Vitalvoice CIC Recarregável da Fonovital une qualidade sonora, discrição e tecnologia avançada, proporcionando uma audição clara em qualquer ambiente.',
+    descricao: 'O Vitalvoice CIC Recarregável da Fonovital...',
     galeria: [vitalvoice],
     precoOriginal: 1990,
     precoAtual: 1399.9,
     parcelas: 12,
     avaliacoes: 12,
-    link: '#',
-    lados: {
-      direito: {
-        imagem: vitalvoice,
-        link: '#'
-      },
-      esquerdo: {
-        imagem: vitalvoice,
-        link: '#'
-      },
-      par: {
-        imagem: vitalvoice,
-        link: '#'
-      }
-    }
+    link: '#'
   }
 ]
 
@@ -114,6 +79,20 @@ export default function TiposAparelhos() {
   const linkCompra =
     atual?.lados?.[opcaoSelecionada]?.link ||
     atual?.link
+
+  // NOVO: Define os preços dinâmicos conforme lado selecionado
+  const precoModalOriginal =
+    atual?.lados?.[opcaoSelecionada]?.precoOriginal ??
+    atual?.precoOriginal
+
+  const precoModalAtual =
+    atual?.lados?.[opcaoSelecionada]?.precoAtual ??
+    atual?.precoAtual
+
+  const precoParcela =
+    precoModalAtual && atual?.parcelas
+      ? precoModalAtual / atual.parcelas
+      : 0
 
   return (
     <section className="pt-32 pb-20 px-4 bg-white">
@@ -239,14 +218,15 @@ export default function TiposAparelhos() {
                     ({atual.avaliacoes})
                   </span>
                 </div>
+
                 <p className="line-through text-sm text-gray-400">
-                  R$ {atual.precoOriginal.toFixed(2)}
+                  R$ {precoModalOriginal?.toFixed(2)}
                 </p>
                 <p className="text-3xl font-bold text-[#4A90E2]">
-                  R$ {atual.precoAtual.toFixed(2)}
+                  R$ {precoModalAtual?.toFixed(2)}
                 </p>
                 <p className="text-sm text-gray-500 mb-4">
-                  ou {atual.parcelas}x de R$ {(atual.precoAtual / atual.parcelas).toFixed(2)} sem juros
+                  ou {atual.parcelas}x de R$ {precoParcela.toFixed(2)} sem juros
                 </p>
 
                 {atual.lados ? (

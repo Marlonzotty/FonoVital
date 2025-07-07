@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShieldCheck, Star, Truck, Repeat } from 'lucide-react';
 
 import voxton from '../assets/voxton/voxton.png';
@@ -20,6 +20,7 @@ declare global {
 
 export default function ProductPage() {
   const [currentImage, setCurrentImage] = useState(voxton);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -107,16 +108,14 @@ export default function ProductPage() {
               data-product-code="KQ4WBFEEML"
             ></div>
 
-            <motion.a
-              href="https://fonovital.pay.yampi.com.br/r/4OOUVR2X4F"
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              onClick={() => navigate('/tipos-aparelhos')}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.96 }}
               className="w-full sm:w-auto bg-[#0d7f83] text-white font-bold px-6 py-3 rounded-lg transition text-center text-base md:text-lg animate-pulse border-2 border-[#0b666a] shadow-lg"
             >
               COMPRAR AGORA
-            </motion.a>
+            </motion.button>
 
             <Link
               to="/teste-auditivo"

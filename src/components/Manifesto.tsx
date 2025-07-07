@@ -118,7 +118,7 @@ export default function Manifesto() {
                   <span className="font-bold">
                     pode trazer perdas de salário
                   </span>{' '}
-                  em comparação aos indivíduos que utilizam aparelhos auditivos. (National Institute of Health)
+                  em comparação aos indivíduos que utilizam aparelhos auditivos.! (National Institute of Health)
                 </p>
               </li>
             </ul>

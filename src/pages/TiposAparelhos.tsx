@@ -116,7 +116,7 @@ export default function TiposAparelhos() {
                   R$ {aparelho.precoAtual.toFixed(2)}
                 </p>
                 <p className="text-gray-500 text-sm mb-4">
-                  12x de R$ {(aparelho.precoAtual / 12).toFixed(2)} sem juros
+                  12x de R$ {(aparelho.precoAtual / 12).toFixed(2)} 
                 </p>
 
                 <div className="flex justify-center">

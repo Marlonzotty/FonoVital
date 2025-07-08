@@ -80,7 +80,7 @@ export default function ProductGallery() {
                 defaultValue="Par (2 unidades)"
               >
                 <option>Par (2 unidades)</option>
-                <option>1 unidade</option>
+                
               </select>
 
               <Link

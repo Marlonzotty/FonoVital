@@ -78,7 +78,7 @@ export default function ProductPage() {
               R$ 599,90
             </p>
             <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-              ou 12x de R$ 59,90 sem juros
+              ou 12x de R$ 59,90 
             </p>
           </div>
 

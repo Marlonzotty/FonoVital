@@ -3,7 +3,7 @@ import { FaStar } from 'react-icons/fa'
 import Navbar from '../components/Navbar'
 
 import voxton from '../assets/voxton/voxton.png'
-import voxcharge from '../assets/voxcharge/voxcharge (3).png'
+
 import voxchargeUnidade from '../assets/voxcharge/voxcharge (3).png'
 import vitalvoice from '../assets/vitalVoice.jpg'
 

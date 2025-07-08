@@ -57,7 +57,7 @@ export default function Voxton() {
         <p className="text-lg text-gray-600 mb-2">{dados.descricao}</p>
         <p className="text-gray-400 line-through">R$ {dados.lados[opcao].precoOriginal.toFixed(2)}</p>
         <p className="text-3xl font-bold text-[#4A90E2]">R$ {preco.toFixed(2)}</p>
-        <p className="text-sm text-gray-500 mb-4">ou 12x de R$ {parcela} sem juros</p>
+        <p className="text-sm text-gray-500 mb-4">ou 12x de R$ {parcela} </p>
 
         {/* Seleção de lado */}
         <div className="grid grid-cols-3 gap-2 mb-4">

@@ -8,7 +8,7 @@ const aparelhos = [
   {
     sigla: 'Voxton',
     descricao: 'Discreto e eficiente',
-    preco: 'R$ 899,90',
+    preco: 'R$ 599,90',
     envio: 'Envio 24h',
     imagem: fone2,
     recomendado: false,
@@ -17,7 +17,7 @@ const aparelhos = [
   {
     sigla: 'Voxcharge',
     descricao: 'Bateria recarregável',
-    preco: 'R$ 999,90',
+    preco: 'R$ 1199,00',
     envio: 'Envio 24h',
     imagem: voxchargeImage,
     recomendado: true,
@@ -26,7 +26,7 @@ const aparelhos = [
   {
     sigla: 'Vitalvoice',
     descricao: 'Excelente custo-benefício',
-    preco: 'R$ 1499,90',
+    preco: 'R$ 1399,00',
     envio: 'Envio 24h',
     imagem: vitalvoiceImage,
     recomendado: false,

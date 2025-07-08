@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
-import fone1 from '../assets/fones.jpeg';
 import fone2 from '../assets/fones2.jpeg';
+import voxchargeImage from '../assets/voxcharge/voxcharge (3).png';
+import vitalvoiceImage from '../assets/vitalVoice.jpg';
 
 const aparelhos = [
   {
@@ -11,22 +12,25 @@ const aparelhos = [
     envio: 'Envio 24h',
     imagem: fone2,
     recomendado: false,
+    rota: '/produto/voxton',
   },
   {
     sigla: 'Voxcharge',
     descricao: 'Bateria recarregável',
     preco: 'R$ 999,90',
     envio: 'Envio 24h',
-    imagem: fone1,
+    imagem: voxchargeImage,
     recomendado: true,
+    rota: '/produto/voxcharge',
   },
   {
     sigla: 'Vitalvoice',
     descricao: 'Excelente custo-benefício',
     preco: 'R$ 1499,90',
     envio: 'Envio 24h',
-    imagem: fone1,
+    imagem: vitalvoiceImage,
     recomendado: false,
+    rota: '/produto/vitalvoice',
   },
 ];
 
@@ -80,7 +84,7 @@ export default function ProductGallery() {
               </select>
 
               <Link
-                to="/tipos-de-aparelhos"
+                to={aparelho.rota}
                 className="block text-center bg-[#007c91] text-white font-semibold py-2 rounded-lg hover:bg-[#005f6e] transition"
               >
                 Comprar Agora

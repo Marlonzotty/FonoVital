@@ -14,11 +14,14 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[#008B91] shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
-        {/* Logo */}
-        <div className="flex items-center space-x-2">
+        {/* Logo Clicável */}
+        <Link
+          to="/"
+          className="flex items-center space-x-2 hover:scale-105 transition-transform duration-200"
+        >
           <img src={logo} alt="Fonovital" className="h-10 w-auto" />
           <span className="text-xl font-bold text-white">FonoVital</span>
-        </div>
+        </Link>
 
         {/* Menu Desktop */}
         <nav className="hidden md:flex items-center space-x-8 text-white font-medium">

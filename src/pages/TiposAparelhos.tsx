@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Navbar from '../components/Navbar'
 import { FaStar } from 'react-icons/fa'
+import Navbar from '../components/Navbar'
 
 import voxton from '../assets/voxton/voxton.png'
 import voxcharge from '../assets/voxcharge/voxcharge (3).png'
@@ -12,46 +11,26 @@ const aparelhos = [
   {
     sigla: 'Voxton | Fonovital',
     nome: 'Voxton Mini CIC | Fonovital (par)',
-    descricao:
-      'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital...',
+    descricao: 'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital...',
     galeria: [voxton],
     precoOriginal: 1399,
     precoAtual: 599.9,
     parcelas: 12,
     avaliacoes: 21,
     link: 'https://fonovital.pay.yampi.com.br/r/3H7FPTZSYX',
-    lados: {
-      direito: {
-        imagem: voxton,
-        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC',
-        precoOriginal: 499,
-        precoAtual: 399.9
-      },
-      esquerdo: {
-        imagem: voxton,
-        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6',
-        precoOriginal: 499,
-        precoAtual: 399.9
-      },
-      par: {
-        imagem: voxton,
-        link: 'https://fonovital.pay.yampi.com.br/r/3H7FPTZSYX',
-        precoOriginal: 1399,
-        precoAtual: 599.9
-      }
-    }
+    rota: '/produto/voxton'
   },
   {
     sigla: 'Voxcharge | Fonovital',
     nome: 'Voxcharge Mini CIC Recarregável | Fonovital (par)',
-    descricao:
-      'O Voxcharge une conforto, potência e discrição em um modelo moderno e invisível para uso diário.',
+    descricao: 'O Voxcharge une conforto, potência e discrição em um modelo moderno e invisível para uso diário.',
     galeria: [voxchargeUnidade],
-    precoOriginal: 499,
-    precoAtual: 399.9,
+    precoOriginal: 1799,
+    precoAtual: 1199.9,
     parcelas: 12,
     avaliacoes: 34,
     link: 'https://fonovital.pay.yampi.com.br/r/6MAP1B08TF',
+    rota: '/produto/voxcharge'
   },
   {
     sigla: 'Vitalvoice | Fonovital',
@@ -62,38 +41,12 @@ const aparelhos = [
     precoAtual: 1399.9,
     parcelas: 12,
     avaliacoes: 12,
-    link: '#'
+    link: '#',
+    rota: '/produto/vitalvoice'
   }
 ]
 
 export default function TiposAparelhos() {
-  const [modalIndex, setModalIndex] = useState<number | null>(null)
-  const [opcaoSelecionada, setOpcaoSelecionada] = useState<'direito' | 'esquerdo' | 'par'>('par')
-
-  const atual = modalIndex !== null ? aparelhos[modalIndex] : null
-
-  const imagemModal =
-    atual?.lados?.[opcaoSelecionada]?.imagem ||
-    atual?.galeria[0]
-
-  const linkCompra =
-    atual?.lados?.[opcaoSelecionada]?.link ||
-    atual?.link
-
-  // NOVO: Define os preços dinâmicos conforme lado selecionado
-  const precoModalOriginal =
-    atual?.lados?.[opcaoSelecionada]?.precoOriginal ??
-    atual?.precoOriginal
-
-  const precoModalAtual =
-    atual?.lados?.[opcaoSelecionada]?.precoAtual ??
-    atual?.precoAtual
-
-  const precoParcela =
-    precoModalAtual && atual?.parcelas
-      ? precoModalAtual / atual.parcelas
-      : 0
-
   return (
     <section className="pt-32 pb-20 px-4 bg-white">
       <Navbar />
@@ -167,126 +120,17 @@ export default function TiposAparelhos() {
                 </p>
 
                 <div className="flex justify-center">
-                  <button
-                    onClick={() => {
-                      setModalIndex(index)
-                      setOpcaoSelecionada('par')
-                    }}
-                    className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg hover:scale-105 transition"
+                  <Link
+                    to={aparelho.rota}
+                    className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg hover:scale-105 transition text-center"
                   >
                     Ver detalhes
-                  </button>
+                  </Link>
                 </div>
               </div>
             )
           })}
         </div>
-
-        {modalIndex !== null && atual && (
-          <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
-            onClick={() => setModalIndex(null)}
-          >
-            <div
-              className="bg-white rounded-xl w-full max-w-5xl flex flex-col md:flex-row overflow-hidden shadow-2xl relative"
-              onClick={e => e.stopPropagation()}
-            >
-              <button
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold"
-                onClick={() => setModalIndex(null)}
-              >
-                &times;
-              </button>
-
-              <div className="md:w-1/2 p-6 flex flex-col items-center">
-                <img
-                  src={imagemModal}
-                  alt={`Imagem ${opcaoSelecionada}`}
-                  className="w-full h-72 object-contain mb-4 border-4 border-[#4A90E2] rounded-lg"
-                />
-              </div>
-
-              <div className="md:w-1/2 p-6 text-[#213547]">
-                <h2 className="text-2xl font-bold mb-2">
-                  {atual.sigla} - {atual.nome}
-                </h2>
-                <div className="flex items-center mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} className="text-yellow-500 text-base" />
-                  ))}
-                  <span className="text-sm text-gray-500 ml-2">
-                    ({atual.avaliacoes})
-                  </span>
-                </div>
-
-                <p className="line-through text-sm text-gray-400">
-                  R$ {precoModalOriginal?.toFixed(2)}
-                </p>
-                <p className="text-3xl font-bold text-[#4A90E2]">
-                  R$ {precoModalAtual?.toFixed(2)}
-                </p>
-                <p className="text-sm text-gray-500 mb-4">
-                  ou {atual.parcelas}x de R$ {precoParcela.toFixed(2)} sem juros
-                </p>
-
-                {atual.lados ? (
-                  <div className="mb-6">
-                    <div className="grid grid-cols-3 gap-2 mb-4">
-                      <button
-                        className={`px-4 py-1 rounded-full border font-semibold text-center ${
-                          opcaoSelecionada === 'esquerdo'
-                            ? 'bg-[#4A90E2] text-white'
-                            : 'bg-gray-100 text-[#213547]'
-                        }`}
-                        onClick={() => setOpcaoSelecionada('esquerdo')}
-                      >
-                        Lado Esquerdo
-                      </button>
-                      <button
-                        className={`px-4 py-1 rounded-full border font-semibold text-center ${
-                          opcaoSelecionada === 'par'
-                            ? 'bg-[#4A90E2] text-white'
-                            : 'bg-gray-100 text-[#213547]'
-                        }`}
-                        onClick={() => setOpcaoSelecionada('par')}
-                      >
-                        PAR
-                      </button>
-                      <button
-                        className={`px-4 py-1 rounded-full border font-semibold text-center ${
-                          opcaoSelecionada === 'direito'
-                            ? 'bg-[#4A90E2] text-white'
-                            : 'bg-gray-100 text-[#213547]'
-                        }`}
-                        onClick={() => setOpcaoSelecionada('direito')}
-                      >
-                        Lado Direito
-                      </button>
-                    </div>
-
-                    <a
-                      href={linkCompra}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-center bg-gradient-to-r from-[#4A90E2] to-[#00979c] text-white py-3 rounded-full font-bold hover:scale-105 hover:brightness-110 transition animate-pulse"
-                    >
-                      COMPRAR {opcaoSelecionada === 'par' ? 'O PAR' : `LADO ${opcaoSelecionada.toUpperCase()}`}
-                    </a>
-                  </div>
-                ) : (
-                  <a
-                    href={linkCompra}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full text-center bg-gradient-to-r from-[#4A90E2] to-[#00979c] text-white py-3 rounded-full font-bold hover:scale-105 hover:brightness-110 transition animate-pulse"
-                  >
-                    COMPRAR AGORA
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   )

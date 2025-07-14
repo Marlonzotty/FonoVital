@@ -2,10 +2,17 @@ import { useState } from 'react'
 import { FaStar, FaCheckCircle } from 'react-icons/fa'
 import Navbar from '../components/Navbar'
 import voxton from '../assets/voxton/voxton.png'
-import imagemPro from '../assets/imagemPro.png' // ✅ nova imagem adicionada
+import imagemPro from '../assets/imagemPro.png'
+import voxtonPacote from '../assets/voxton/VoxtonPacote.jpg'
+import voxtonOque from '../assets/voxton/voxtonOque.jpg'
+import comparacao from '../assets/comparacao.jpg'
+import certificados from '../assets/certificados.png'
+import caixaVoxton from '../assets/voxton/caixaVoxton.jpg'
+import explicando from '../assets/explicando.jpg'
 
 export default function Voxton() {
   const [opcao, setOpcao] = useState<'par' | 'direito' | 'esquerdo'>('par')
+  const [imagemSelecionada, setImagemSelecionada] = useState<string>(voxton)
 
   const dados = {
     sigla: 'Voxton | Fonovital',
@@ -38,16 +45,47 @@ export default function Voxton() {
   const preco = dados.lados[opcao].precoAtual
   const parcela = (preco / dados.parcelas).toFixed(2)
 
+  const miniaturas = [
+    { src: voxton, alt: 'Foto principal do produto' },
+    { src: voxtonPacote, alt: 'Pacote do produto' },
+    { src: voxtonOque, alt: 'Imagem extra do produto' },
+    { src: comparacao, alt: 'Comparação do produto' },
+    { src: certificados, alt: 'Certificados do produto' },
+    { src: caixaVoxton, alt: 'Caixa do Voxton' },
+    { src: explicando, alt: 'Imagem explicativa do produto' }
+  ]
+
   return (
     <section className="pt-32 pb-20 px-4 bg-white">
       <Navbar />
       <div className="max-w-5xl mx-auto">
         <h1 className="text-3xl font-bold text-[#213547] mb-4">{dados.sigla}</h1>
-        <img
-          src={dados.lados[opcao].imagem}
-          alt="Imagem do produto"
-          className="w-full max-h-96 object-contain rounded-lg border-4 border-[#4A90E2] mb-6"
-        />
+        
+        {/* Galeria */}
+        <div className="flex flex-col items-center mb-8">
+          <img
+            src={imagemSelecionada}
+            alt="Imagem selecionada do produto"
+            className="w-full max-w-lg object-contain rounded-lg border-4 border-[#4A90E2] mb-4"
+          />
+          <div className="flex gap-3 flex-wrap justify-center">
+            {miniaturas.map((item, index) => (
+              <img
+                key={index}
+                src={item.src}
+                alt={item.alt}
+                title={item.alt}
+                className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${
+                  imagemSelecionada === item.src
+                    ? 'border-[#4A90E2] scale-105'
+                    : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
+                }`}
+                onClick={() => setImagemSelecionada(item.src)}
+              />
+            ))}
+          </div>
+        </div>
+
         <div className="flex items-center mb-4">
           {[...Array(5)].map((_, i) => (
             <FaStar key={i} className="text-yellow-500" />
@@ -55,16 +93,25 @@ export default function Voxton() {
           <span className="text-sm text-gray-500 ml-2">({dados.avaliacoes})</span>
         </div>
         <p className="text-lg text-gray-600 mb-2">{dados.descricao}</p>
-        <p className="text-gray-400 line-through">R$ {dados.lados[opcao].precoOriginal.toFixed(2)}</p>
-        <p className="text-3xl font-bold text-[#4A90E2]">R$ {preco.toFixed(2)}</p>
-        <p className="text-sm text-gray-500 mb-4">ou 12x de R$ {parcela} </p>
+        <p className="text-gray-400 line-through">
+          R$ {dados.lados[opcao].precoOriginal.toFixed(2)}
+        </p>
+        <p className="text-3xl font-bold text-[#4A90E2]">
+          R$ {preco.toFixed(2)}
+        </p>
+        <p className="text-sm text-gray-500 mb-4">
+          ou 12x de R$ {parcela}
+        </p>
 
         {/* Seleção de lado */}
         <div className="grid grid-cols-3 gap-2 mb-4">
           {(['esquerdo', 'par', 'direito'] as const).map((lado) => (
             <button
               key={lado}
-              onClick={() => setOpcao(lado)}
+              onClick={() => {
+                setOpcao(lado)
+                setImagemSelecionada(dados.lados[lado].imagem)
+              }}
               className={`py-2 rounded-full font-semibold border ${
                 opcao === lado
                   ? 'bg-[#4A90E2] text-white'
@@ -111,7 +158,7 @@ export default function Voxton() {
             </li>
           </ul>
 
-          {/* Imagem adicional */}
+          {/* Imagem adicional (imagemPro) */}
           <img
             src={imagemPro}
             alt="Imagem ilustrativa do Voxton em uso"
@@ -120,8 +167,12 @@ export default function Voxton() {
 
           {/* Garantia */}
           <div className="p-6 bg-[#f0fdf4] border border-green-300 rounded-lg text-center">
-            <p className="text-lg font-semibold text-green-700 mb-2">Garantia de 1 ano de fabrica Fonovital</p>
-            <p className="text-gray-600">Troca imediata em caso de defeito de fabricação. Suporte por WhatsApp com nossa equipe especializada.</p>
+            <p className="text-lg font-semibold text-green-700 mb-2">
+              Garantia de 1 ano de fábrica Fonovital
+            </p>
+            <p className="text-gray-600">
+              Troca imediata em caso de defeito de fabricação. Suporte por WhatsApp com nossa equipe especializada.
+            </p>
           </div>
 
           {/* FAQ */}
@@ -130,11 +181,15 @@ export default function Voxton() {
             <div className="space-y-4">
               <details className="border rounded-md p-4 cursor-pointer">
                 <summary className="font-semibold text-[#4A90E2]">O Voxton é indicado para qualquer idade?</summary>
-                <p className="mt-2 text-gray-600">Sim! Ele é discreto, confortável e fácil de usar, ideal para adultos e idosos.</p>
+                <p className="mt-2 text-gray-600">
+                  Sim! Ele é discreto, confortável e fácil de usar, ideal para adultos e idosos.
+                </p>
               </details>
               <details className="border rounded-md p-4 cursor-pointer">
                 <summary className="font-semibold text-[#4A90E2]">É preciso fazer exames antes de usar?</summary>
-                <p className="mt-2 text-gray-600">Não obrigatoriamente, mas recomendamos realizar nosso teste auditivo gratuito online antes da compra.</p>
+                <p className="mt-2 text-gray-600">
+                  Não obrigatoriamente, mas recomendamos realizar nosso teste auditivo gratuito online antes da compra.
+                </p>
               </details>
               <details className="border rounded-md p-4 cursor-pointer">
                 <summary className="font-semibold text-[#4A90E2]">Quanto tempo dura a bateria descartável?</summary>
@@ -145,7 +200,9 @@ export default function Voxton() {
 
           {/* Chamada final */}
           <div className="mt-16 text-center">
-            <p className="text-2xl font-bold text-[#213547] mb-4">Pronto para ouvir melhor todos os dias?</p>
+            <p className="text-2xl font-bold text-[#213547] mb-4">
+              Pronto para ouvir melhor todos os dias?
+            </p>
             <a
               href={dados.lados[opcao].link}
               target="_blank"

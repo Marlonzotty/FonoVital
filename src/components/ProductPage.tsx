@@ -65,7 +65,7 @@ export default function ProductPage() {
         </motion.div>
 
         {/* Informações do Produto */}
-        <div className="w-full max-w-xl space-y-6 text-center lg:text-left">
+        <div className="w-full max-w-xl space-y-4 text-center lg:text-left">
           <h2 className="text-2xl md:text-3xl font-semibold text-[#213547] leading-snug">
             Aparelho Auditivo Recarregável Voxton Mini CIC
           </h2>
@@ -78,24 +78,30 @@ export default function ProductPage() {
               R$ 599,90
             </p>
             <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-              ou 12x de R$ 59,90 
+              ou 12x de R$ 59,90
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 text-base text-gray-700 leading-relaxed">
-            <div className="flex items-center gap-2">
+          {/* Ícones agrupados e margens ajustadas */}
+          <div className="
+            grid grid-cols-2
+            gap-x-4 gap-y-2
+            items-center
+            text-base text-gray-700 leading-relaxed
+          ">
+            <div className="flex items-center gap-2 justify-center lg:justify-start">
               <Star className="w-5 h-5 text-yellow-500" />
               4.9/5 (213 avaliações)
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 justify-center lg:justify-start">
               <ShieldCheck className="w-5 h-5 text-green-600" />
               Compra segura
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 justify-center lg:justify-start">
               <Truck className="w-5 h-5 text-yellow-500" />
               Frete grátis Brasil
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 justify-center lg:justify-start">
               <Repeat className="w-5 h-5 text-green-600" />
               Devolução garantida
             </div>
@@ -125,7 +131,7 @@ export default function ProductPage() {
             </Link>
           </div>
 
-          <div className="pt-6 text-base text-gray-600 italic text-center lg:text-left leading-relaxed">
+          <div className="pt-4 text-base text-gray-600 italic text-center lg:text-left leading-relaxed">
             Produto exclusivo Fonovital | Qualidade garantida 2025
           </div>
         </div>

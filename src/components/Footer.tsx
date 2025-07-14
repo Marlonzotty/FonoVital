@@ -59,11 +59,11 @@ export default function Footer() {
           <ul className="text-sm space-y-2">
             <li className="flex items-center space-x-2">
               <Phone size={16} className="text-green-400" />
-              <span>(11) 99999-9999</span>
+              <span>(32) 99906-9763 </span>
             </li>
             <li className="flex items-center space-x-2">
               <Mail size={16} className="text-green-400" />
-              <span>contato@fonovital.com.br</span>
+              <span>fonovitaloficial@gmail.com</span>
             </li>
             <li className="flex items-center space-x-2">
               <MapPin size={16} className="text-green-400" />

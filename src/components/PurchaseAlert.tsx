@@ -30,7 +30,11 @@ export default function PurchaseAlert() {
   });
 
   useEffect(() => {
+    let interval: number;
+
     const showAlert = () => {
+      if (visible) return;
+
       const nome = nomes[Math.floor(Math.random() * nomes.length)];
       const cidade = cidades[Math.floor(Math.random() * cidades.length)];
       const produto = produtos[Math.floor(Math.random() * produtos.length)];
@@ -38,29 +42,31 @@ export default function PurchaseAlert() {
       setData({ nome, cidade, produto });
       setVisible(true);
 
-      // Pequeno delay para garantir que Tailwind aplique as classes
       setTimeout(() => {
         setShow(true);
-      }, 50);
+      }, 5000);
 
       setTimeout(() => {
         setShow(false);
         setTimeout(() => {
           setVisible(false);
-        }, 500); // tempo da animação de fade-out
-      }, 5000);
+        }, 500);
+      }, 10000); // <-- AQUI aumentei o tempo para 10 segundos
     };
 
-    showAlert();
-    const interval = setInterval(showAlert, 15000);
+    const firstTimeout = setTimeout(showAlert, 1000);
+    interval = window.setInterval(showAlert, 30000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      clearTimeout(firstTimeout);
+      clearInterval(interval);
+    };
+  }, [visible]);
 
   return visible ? (
     <div
       className={`
-        fixed top-16 left-4 md:left-auto md:right-4 z-50
+        fixed top-24 left-4 md:left-auto md:right-4 z-[9999]
         bg-white rounded-xl border-l-4 border-green-500
         px-4 py-3 shadow-lg flex items-start space-x-3
         transition-all duration-500 ease-out

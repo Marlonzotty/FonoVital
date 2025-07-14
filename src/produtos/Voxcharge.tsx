@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaStar, FaCheckCircle } from 'react-icons/fa'
 import Navbar from '../components/Navbar'
 import voxcharge from '../assets/voxcharge/voxcharge (3).png'
@@ -10,6 +10,10 @@ import comparacao from '../assets/comparacao.jpg'
 import imagemPro from '../assets/imagemPro.png'
 
 export default function Voxcharge() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(voxcharge)
 
   const dados = {

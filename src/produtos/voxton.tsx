@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaStar, FaCheckCircle } from 'react-icons/fa'
 import Navbar from '../components/Navbar'
 import voxton from '../assets/voxton/voxton.png'
@@ -11,6 +11,10 @@ import caixaVoxton from '../assets/voxton/caixaVoxton.jpg'
 import explicando from '../assets/explicando.jpg'
 
 export default function Voxton() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const [opcao, setOpcao] = useState<'par' | 'direito' | 'esquerdo'>('par')
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(voxton)
 

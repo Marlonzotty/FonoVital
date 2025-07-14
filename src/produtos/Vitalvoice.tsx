@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaStar, FaCheckCircle } from 'react-icons/fa'
 import vitalvoice from '../assets/vitalVoice.jpg'
 import comparacao from '../assets/comparacao.jpg'
@@ -10,6 +10,10 @@ import vitalVoiceCaixa from '../assets/vitalVoice/vitalVoiceCaixa.jpg'
 import imagemPro from '../assets/imagemPro.png'
 
 export default function Vitalvoice() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(vitalvoice)
 
   const dados = {

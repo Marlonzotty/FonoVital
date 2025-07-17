@@ -20,7 +20,6 @@ declare global {
 
 export default function ProductPage() {
   const [currentImage, setCurrentImage] = useState(voxton);
-  const [showVideo, setShowVideo] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {

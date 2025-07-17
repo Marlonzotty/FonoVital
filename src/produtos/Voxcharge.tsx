@@ -59,11 +59,10 @@ export default function Voxcharge() {
                 src={item.src}
                 alt={item.alt}
                 title={item.alt}
-                className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${
-                  imagemSelecionada === item.src
+                className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${imagemSelecionada === item.src
                     ? 'border-[#4A90E2] scale-105'
                     : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
-                }`}
+                  }`}
                 onClick={() => setImagemSelecionada(item.src)}
               />
             ))}
@@ -102,29 +101,25 @@ export default function Voxcharge() {
 
         <div className="mt-16">
           <h2 className="text-2xl font-bold text-[#213547] mb-4">
-            Por que escolher o Voxcharge?
-          </h2>
+            Por que escolher o Voxcharge?          </h2>
           <ul className="space-y-3 text-gray-700 text-base">
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Confortável e discreto – ideal para uso prolongado
-            </li>
+              Potente e discreto: Modelo CIC com até 117 dB de ganho para sons claros e
+              naturais.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Recarregável com autonomia superior a 24h
-            </li>
+              Carregamento inteligente: 4 a 6 horas para até 20 horas de uso contínuo.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Amplificação clara e precisa em ambientes ruidosos
-            </li>
+              Leve e invisível: Conforto total com design que desaparece no ouvido.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Pronto para uso imediato
-            </li>
+              Simplicidade com tecnologia: Fácil de usar, sem complicações.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Excelente para quem busca potência com conforto
-            </li>
+              Indicado para perdas auditivas leves a severas (86%): Alta performance em
+              qualquer situação.            </li>
           </ul>
 
           {/* IMAGEM ADICIONAL */}

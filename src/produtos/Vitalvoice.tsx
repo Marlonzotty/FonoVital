@@ -118,29 +118,28 @@ export default function Vitalvoice() {
         {/* ESPECIFICAÇÕES E BENEFÍCIOS */}
         <div className="mt-16">
           <h2 className="text-2xl font-bold text-[#213547] mb-4">
-            Potência, Discrição e Conforto em Um Só Aparelho
-          </h2>
+            Por que escolher o VitalVoice?          </h2>
           <ul className="space-y-3 text-gray-700 text-base">
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Design CIC praticamente invisível: encaixa-se dentro do canal auditivo
-            </li>
+              Digital e inteligente: Ajusta-se automaticamente aos diferentes ambientes
+              sonoros.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Chip de processamento Sound Core: som limpo e natural, mesmo em ambientes ruidosos
-            </li>
+              Carregamento rápido, uso prolongado: Diga adeus às pilhas, com bateria de
+              longa duração.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              16 canais digitais com redução de ruído inteligente
-            </li>
+              Clareza em qualquer situação: Redução de ruídos múltiplos para ouvir apenas o
+              que importa.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Botão único para ligar/desligar e trocar de modo: fácil de usar
-            </li>
+              Mais liberdade, zero preocupações: Ideal para quem quer praticidade e
+              desempenho.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Recarregável via estojo portátil — sem pilhas!
-            </li>
+              Indicado para perdas auditivas leves a severas (86%): Potência confiável para
+              todas as necessidades.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
               Tecnologia acessível com alto desempenho e excelente custo-benefício

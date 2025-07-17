@@ -20,6 +20,7 @@ declare global {
 
 export default function ProductPage() {
   const [currentImage, setCurrentImage] = useState(voxton);
+  const [showVideo, setShowVideo] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -83,12 +84,14 @@ export default function ProductPage() {
           </div>
 
           {/* Ícones agrupados e margens ajustadas */}
-          <div className="
-            grid grid-cols-2
-            gap-x-4 gap-y-2
-            items-center
-            text-base text-gray-700 leading-relaxed
-          ">
+          <div
+            className="
+              grid grid-cols-2
+              gap-x-4 gap-y-2
+              items-center
+              text-base text-gray-700 leading-relaxed
+            "
+          >
             <div className="flex items-center gap-2 justify-center lg:justify-start">
               <Star className="w-5 h-5 text-yellow-500" />
               4.9/5 (213 avaliações)
@@ -136,6 +139,43 @@ export default function ProductPage() {
           </div>
         </div>
       </div>
+
+      {/* Seção do vídeo */}
+      <section className="w-full bg-[#f9fafb] rounded-xl p-6 shadow-lg border border-gray-200 mt-12">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#213547] text-center mb-6">
+          Conheça a FonoVital !
+        </h2>
+
+        <div className="relative w-full aspect-video max-w-3xl mx-auto rounded-lg overflow-hidden">
+          {!showVideo ? (
+            <motion.div
+              className="w-full h-full bg-black flex items-center justify-center cursor-pointer"
+              onClick={() => setShowVideo(true)}
+              whileHover={{ scale: 1.05 }}
+            >
+              {/* Imagem de capa do vídeo (thumbnail) */}
+              <img
+                src="https://img.youtube.com/vi/3cMKdrOKzy8/maxresdefault.jpg"
+                alt="Assista ao vídeo"
+                className="absolute top-0 left-0 w-full h-full object-cover opacity-70"
+              />
+              <div className="z-10 relative text-white text-xl md:text-2xl font-bold flex items-center gap-2">
+                ▶ Clique e assista 
+              </div>
+            </motion.div>
+          ) : (
+            <iframe
+              src="https://www.youtube.com/embed/3cMKdrOKzy8?si=HhoD3h8EmTZkO3I1&autoplay=1&rel=0"
+              title="Voxton Mini CIC"
+              className="w-full h-full"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          )}
+        </div>
+      </section>
     </section>
   );
 }

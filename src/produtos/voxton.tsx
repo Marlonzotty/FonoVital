@@ -64,7 +64,7 @@ export default function Voxton() {
       <Navbar />
       <div className="max-w-5xl mx-auto">
         <h1 className="text-3xl font-bold text-[#213547] mb-4">{dados.sigla}</h1>
-        
+
         {/* Galeria */}
         <div className="flex flex-col items-center mb-8">
           <img
@@ -79,11 +79,10 @@ export default function Voxton() {
                 src={item.src}
                 alt={item.alt}
                 title={item.alt}
-                className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${
-                  imagemSelecionada === item.src
+                className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${imagemSelecionada === item.src
                     ? 'border-[#4A90E2] scale-105'
                     : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
-                }`}
+                  }`}
                 onClick={() => setImagemSelecionada(item.src)}
               />
             ))}
@@ -116,11 +115,10 @@ export default function Voxton() {
                 setOpcao(lado)
                 setImagemSelecionada(dados.lados[lado].imagem)
               }}
-              className={`py-2 rounded-full font-semibold border ${
-                opcao === lado
+              className={`py-2 rounded-full font-semibold border ${opcao === lado
                   ? 'bg-[#4A90E2] text-white'
                   : 'bg-gray-100 text-[#213547]'
-              }`}
+                }`}
             >
               {lado === 'par' ? 'PAR' : `Lado ${lado}`}
             </button>
@@ -138,28 +136,29 @@ export default function Voxton() {
 
         {/* ESPECIFICAÇÕES E BENEFÍCIOS */}
         <div className="mt-16">
-          <h2 className="text-2xl font-bold text-[#213547] mb-4">O que o Voxton oferece:</h2>
+          <h2 className="text-2xl font-bold text-[#213547] mb-4">Por que escolher o Voxton?</h2>
           <ul className="space-y-3 text-gray-700 text-base mb-8">
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Invisível e discreto – encaixe profundo e confortável
+              Discrição total: Design CIC que desaparece no ouvido para quem valoriza
+              estética e liberdade.
             </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Bateria de 60 Horas
+              Conforto que dura o dia todo: Ajuste anatômico e leveza que você esquece que
+              está usando.
             </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Ideal para perdas auditivas leves a moderadas
-            </li>
+              Som natural e claro: Tecnologia avançada para entender conversas sem esforço.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Redução de ruídos ambiente automática
-            </li>
+              Mais confiança, menos ruído: Redução inteligente de sons indesejados para
+              momentos tranquilos.            </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Compatível com consultas de regulagem online
-            </li>
+              Indicado para perdas auditivas leves a severas (86%): Potência ideal para
+              restaurar sua qualidade de vida.            </li>
           </ul>
 
           {/* Imagem adicional (imagemPro) */}

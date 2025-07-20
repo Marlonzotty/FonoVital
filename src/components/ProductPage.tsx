@@ -25,7 +25,7 @@ export default function ProductPage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev === voxton ? certificados : voxton));
-    }, 4000);
+    }, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -93,7 +93,7 @@ export default function ProductPage() {
           >
             <div className="flex items-center gap-2 justify-center lg:justify-start">
               <Star className="w-5 h-5 text-yellow-500" />
-              4.9/5 (213 avaliações)
+              4.2/5 (213 avaliações)
             </div>
             <div className="flex items-center gap-2 justify-center lg:justify-start">
               <ShieldCheck className="w-5 h-5 text-green-600" />

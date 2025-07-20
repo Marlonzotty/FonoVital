@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 import voxcharge from '../assets/voxcharge/voxcharge (3).png'
 import voxchargePacote from '../assets/voxcharge/voxchargePacote.jpg'
 import voxchargeExplica from '../assets/voxcharge/voxchargeExplica.jpg'
-import certificado from '../assets/certificado.jpg'
+import certificado from '../assets/certificados.png'
 import comparacao from '../assets/comparacao.jpg'
 import imagemPro from '../assets/imagemPro.png'
 

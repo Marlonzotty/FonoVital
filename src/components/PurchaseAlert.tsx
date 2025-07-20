@@ -8,12 +8,10 @@ const nomes = [
 ];
 
 const cidades = [
-  'Brasília, DF', 'São Paulo, SP', 'Rio de Janeiro, RJ',
-  'Belo Horizonte, MG', 'Curitiba, PR', 'Salvador, BA',
-  'Porto Alegre, RS', 'Florianópolis, SC', 'Natal, RN',
-  'Fortaleza, CE', 'Manaus, AM', 'Belém, PA',
-  'João Pessoa, PB', 'Maceió, AL', 'Campo Grande, MS',
-  'Cuiabá, MT', 'Vitória, ES', 'Goiânia, GO', 'Palmas, TO', 'Macapá, AP'
+  'São João del-Rei, MG', 'Itabira, MG', 'Jundiaí, SP', 'Araras, SP', 'Bragança Paulista, SP',
+  'Lajeado, RS', 'Caxias do Sul, RS', 'Itabuna, BA', 'Petrolina, PE', 'Caruaru, PE',
+  'Marília, SP', 'Cataguases, MG', 'Criciúma, SC', 'Ijuí, RS', 'Patos de Minas, MG',
+  'Barbacena, MG', 'Linhares, ES', 'Chapecó, SC', 'Pouso Alegre, MG', 'Paranavaí, PR'
 ];
 
 const produtos = [
@@ -44,18 +42,18 @@ export default function PurchaseAlert() {
 
       setTimeout(() => {
         setShow(true);
-      }, 5000);
+      }, 5000); // início da animação
 
       setTimeout(() => {
-        setShow(false);
+        setShow(false); // começa a esconder após 15s de exibição
         setTimeout(() => {
           setVisible(false);
-        }, 500);
-      }, 10000); // <-- AQUI aumentei o tempo para 10 segundos
+        }, 500); // finaliza animação
+      }, 15000);
     };
 
     const firstTimeout = setTimeout(showAlert, 1000);
-    interval = window.setInterval(showAlert, 30000);
+    interval = window.setInterval(showAlert, 60000); // exibe a cada 60s
 
     return () => {
       clearTimeout(firstTimeout);

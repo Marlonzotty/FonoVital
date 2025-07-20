@@ -1,6 +1,7 @@
 import logo from '../assets/logomarca.png';
 import consultorio from '../assets/consultorio.jpeg';
 import imgPorques from '../assets/img-porques-v2.webp';
+import comparaGeral from '../assets/comparaGeral.jpg';
 import { Brain, Frown, DollarSign, Puzzle } from 'lucide-react';
 
 export default function Manifesto() {
@@ -62,7 +63,6 @@ export default function Manifesto() {
       {/* NOVA SEÇÃO - POR QUE TRATAR AGORA */}
       <div className="w-full bg-[#018B92] text-white mt-16 px-4 lg:px-8 py-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          
           {/* IMAGEM */}
           <div className="rounded-lg overflow-hidden">
             <img
@@ -118,20 +118,34 @@ export default function Manifesto() {
                   <span className="font-bold">
                     pode trazer perdas de salário
                   </span>{' '}
-                  em comparação aos indivíduos que utilizam aparelhos auditivos.! (National Institute of Health)
+                  em comparação aos indivíduos que utilizam aparelhos auditivos. (National Institute of Health)
                 </p>
               </li>
             </ul>
 
-            <a
-              href="https://wa.me/5532999069763"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-white text-[#018B92] font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition"
-            >
-              QUERO SABER MAIS
-            </a>
+            <div className="flex justify-center">
+              <a
+                href="https://wa.me/5532999069763"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-[#018B92] font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition animate-pulse"
+              >
+                QUERO SABER MAIS
+              </a>
+            </div>
+
+
+
+            {/* IMAGEM DE COMPARAÇÃO */}
+
           </div>
+
+        </div>
+        <div className="mt-8">
+          <img
+            src={comparaGeral}
+            alt="Comparação de produtos auditivos"
+            className="mx-auto w-full max-w-2xl h-auto rounded-lg shadow-md" />
         </div>
       </div>
     </section>

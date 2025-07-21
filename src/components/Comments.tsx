@@ -4,6 +4,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 
 
+// @ts-ignore
+import 'swiper/css/navigation';
+// @ts-ignore
+import 'swiper/css';
+
 
 import img1 from '../assets/IMG_2365.jpg';
 import img2 from '../assets/IMG_2366.jpg';

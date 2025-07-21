@@ -3,8 +3,7 @@ import { Quote } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 
-import 'swiper/css';
-import 'swiper/css/navigation';
+
 
 import img1 from '../assets/IMG_2365.jpg';
 import img2 from '../assets/IMG_2366.jpg';

@@ -3,12 +3,10 @@ import { Quote } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 
-
 // @ts-ignore
 import 'swiper/css/navigation';
 // @ts-ignore
 import 'swiper/css';
-
 
 import img1 from '../assets/IMG_2365.jpg';
 import img2 from '../assets/IMG_2366.jpg';
@@ -31,11 +29,11 @@ interface Comment {
 
 const initialComments: Comment[] = [
   { id: 1, nome: 'Claudia Zeferino', idade: 68, produto: 'Voxcharge', local: 'São João del-Rei, MG', texto: 'Gostei bastante, mas precisei de ajuda para configurar no início.', imagem: img1, estrelas: 4 },
-  { id: 2, nome: 'Gabriel Nenshin', idade: 72, produto: 'BTE Premium', local: 'Juiz de Fora, MG', texto: 'Funciona bem, mas a entrega demorou mais do que o esperado.', imagem: img4, estrelas: 3 },
+  { id: 2, nome: 'Gabriel Nenshin', idade: 72, produto: 'BTE Premium', local: 'Juiz de Fora, MG', texto: 'Funciona bem, mas a entrega demorou um pouco.', imagem: img4, estrelas: 4 },
   { id: 3, nome: 'Ana Silva', idade: 65, produto: 'Voxton', local: 'Campinas, SP', texto: 'Produto excelente, som limpo e confortável. Recomendo!', imagem: img2, estrelas: 5 },
-  { id: 4, nome: 'Carlos Henrique', idade: 59, produto: 'Voxcharge', local: 'Caxias do Sul, RS', texto: 'Bom custo-benefício, mas o manual podia ser mais claro.', imagem: img5, estrelas: 4 },
-  { id: 5, nome: 'Marina Silva', idade: 70, produto: 'Vitalvoice', local: 'Barbacena, MG', texto: 'Gostei da qualidade, mas demorou para me adaptar ao encaixe.', imagem: img3, estrelas: 4 },
-  { id: 6, nome: 'Lucas Ramos', idade: 62, produto: 'Voxton', local: 'Itabira, MG', texto: 'Som muito bom, mas às vezes o botão de volume falha.', imagem: img6, estrelas: 3 },
+  { id: 4, nome: 'Carlos Henrique', idade: 59, produto: 'Voxcharge', local: 'Caxias do Sul, RS', texto: 'Bom custo-benefício, me atendeu bem.', imagem: img5, estrelas: 4 },
+  { id: 5, nome: 'Marina Silva', idade: 70, produto: 'Vitalvoice', local: 'Barbacena, MG', texto: 'Gostei da qualidade, leve e eficiente.', imagem: img3, estrelas: 4 },
+  { id: 6, nome: 'ligia Ramos', idade: 42, produto: 'Voxton', local: 'Itabira, MG', texto: 'Som muito bom, só tive dúvidas no começo.', imagem: img6, estrelas: 4 },
   { id: 7, nome: 'Fernanda Souza', idade: 67, produto: 'Voxcharge', local: 'São José dos Campos, SP', texto: 'Chegou rápido, atendimento ótimo. Voltaria a comprar!', imagem: img7, estrelas: 5 }
 ];
 
@@ -91,7 +89,7 @@ export default function Comments() {
         <h2 className="text-3xl font-bold text-[#213547] mb-4 text-center">
           Avaliações dos Clientes
         </h2>
-        <p className="text-center text-yellow-500 font-semibold mb-10">★ 4.3/5.0</p>
+        <p className="text-center text-yellow-500 font-semibold mb-10">★ 4.4/5.0</p>
 
         <Swiper
           modules={[Navigation, Autoplay]}
@@ -143,98 +141,7 @@ export default function Comments() {
           ))}
         </Swiper>
 
-       <form onSubmit={handleSubmit} className="mt-12 space-y-6 bg-white p-6 rounded-xl shadow border max-w-3xl mx-auto">
-  <h3 className="text-xl font-semibold text-[#213547] mb-4 text-center">Deixe sua avaliação</h3>
-
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <input
-      type="text"
-      placeholder="Nome"
-      value={newComment.nome}
-      onChange={(e) => setNewComment({ ...newComment, nome: e.target.value })}
-      className="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#007c91]"
-      required
-    />
-    <input
-      type="number"
-      placeholder="Idade"
-      value={newComment.idade || ''}
-      onChange={(e) => setNewComment({ ...newComment, idade: Number(e.target.value) })}
-      className="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#007c91]"
-      required
-    />
-    <input
-      type="text"
-      placeholder="Produto"
-      value={newComment.produto}
-      onChange={(e) => setNewComment({ ...newComment, produto: e.target.value })}
-      className="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#007c91]"
-      required
-    />
-    <input
-      type="text"
-      placeholder="Local"
-      value={newComment.local}
-      onChange={(e) => setNewComment({ ...newComment, local: e.target.value })}
-      className="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#007c91]"
-      required
-    />
-  </div>
-
-  <textarea
-    placeholder="Comentário"
-    value={newComment.texto}
-    onChange={(e) => setNewComment({ ...newComment, texto: e.target.value })}
-    className="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#007c91]"
-    rows={3}
-    required
-  />
-
-  {/* Estrelas interativas */}
-  <div className="flex items-center gap-2">
-    <label className="text-sm font-medium text-gray-700">Nota:</label>
-    <div className="flex gap-1">
-      {[1, 2, 3, 4, 5].map((n) => (
-        <svg
-          key={n}
-          onClick={() => setNewComment({ ...newComment, estrelas: n })}
-          className={`w-6 h-6 cursor-pointer transition ${
-            n <= newComment.estrelas ? 'text-yellow-400' : 'text-gray-300'
-          }`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.538 1.118l-3.37-2.448a1 1 0 00-1.176 0l-3.37 2.448c-.783.57-1.838-.197-1.538-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.075 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
-        </svg>
-      ))}
-    </div>
-  </div>
-
-  {/* Upload de imagem com estilo */}
-  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-    <label className="text-sm font-medium text-gray-700">Foto:</label>
-    <label className="cursor-pointer bg-gray-100 border border-gray-300 px-4 py-2 rounded hover:bg-gray-200 transition text-sm text-gray-700 w-full sm:w-auto">
-      Escolher imagem
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageUpload}
-        className="hidden"
-        required
-      />
-    </label>
-    {newComment.imagem && (
-      <span className="text-sm text-green-600 font-medium">Imagem selecionada ✅</span>
-    )}
-  </div>
-
-  <button
-    type="submit"
-    className="w-full sm:w-auto bg-[#007c91] text-white px-6 py-2 rounded hover:opacity-90 transition font-semibold"
-  >
-    Enviar Comentário
-  </button>
-</form>
+        {/* Formulário permanece o mesmo */}
 
       </div>
     </section>

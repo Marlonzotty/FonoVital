@@ -1,42 +1,45 @@
-import Navbar from '../components/Navbar'
 import { useState, useEffect } from 'react'
 import { FaStar, FaCheckCircle } from 'react-icons/fa'
-import vitalvoice from '../assets/vitalVoice.jpg'
-import comparacao from '../assets/comparacao.jpg'
-import explicando from '../assets/explicando.jpg'
-import vitalVoicePacote from '../assets/vitalVoice/vitalVoicePacote.jpg'
-import vitalvoiceExplica from '../assets/vitalVoice/vitalvoiceExplica.jpg'
-import vitalVoiceCaixa from '../assets/vitalVoice/vitalVoiceCaixa.jpg'
-import imagemPro from '../assets/imagemPro.png'
+import Navbar from '../components/Navbar'
 
-export default function Vitalvoice() {
+// Importações das imagens reais
+import img1 from '../assets/voicepro/voicepro-caixa-produto.jpg'
+import img2 from '../assets/voicepro/voicepro-bateria-autonomia.jpg'
+import img3 from '../assets/voicepro/voicepro-itens-na-caixa.jpg'
+import img4 from '../assets/voicepro/voicepro-modelo-cic.jpg'
+import img5 from '../assets/voicepro/voicepro-som-soundcore.jpg'
+import img6 from '../assets/voicepro/voicepro-comparacao-marcas.jpg'
+import certificados from '../assets/voicepro/certificados.png'
+
+export default function VoicePro() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const [imagemSelecionada, setImagemSelecionada] = useState<string>(vitalvoice)
+  const [imagemSelecionada, setImagemSelecionada] = useState<string>(img1)
 
   const dados = {
-    sigla: 'Vitalvoice | Fonovital',
-    nome: 'Vitalvoice CIC | Fonovital',
+    sigla: 'VoicePro | Fonovital',
+    nome: 'VoicePro Profissional Digital | Fonovital',
     descricao:
-      'Descubra o poder da audição nítida e natural com o VitalVoice CIC Digital Recarregável — um aparelho auditivo que combina tecnologia avançada, design discreto e facilidade de uso em um único dispositivo.',
-    precoOriginal: 1990,
-    precoAtual: 1399.9,
+      'Sofisticação invisível com alto desempenho. O VoicePro reúne conforto, potência e proteção UV em um modelo moderno e profissional.',
+    precoOriginal: 2099,
+    precoAtual: 1350.0,
     parcelas: 12,
-    avaliacoes: 12,
-    link: 'https://fonovital.pay.yampi.com.br/r/I8QUKNPT55'
+    avaliacoes: 47,
+    link: 'https://fonovital.pay.yampi.com.br/r/6GZK7UNNPG'
   }
 
   const parcela = (dados.precoAtual / dados.parcelas).toFixed(2)
 
   const miniaturas = [
-    { src: vitalvoice, alt: 'Imagem principal do Vitalvoice' },
-    { src: vitalVoicePacote, alt: 'Pacote do Vitalvoice' },
-    { src: vitalvoiceExplica, alt: 'Explicação do Vitalvoice' },
-    { src: vitalVoiceCaixa, alt: 'Caixa do Vitalvoice' },
-    { src: comparacao, alt: 'Comparação de modelos' },
-    { src: explicando, alt: 'Explicação geral sobre aparelhos auditivos' }
+    { src: img1, alt: 'Caixa e estojo do VoicePro' },
+    { src: img2, alt: 'Autonomia da bateria VoicePro' },
+    { src: img3, alt: 'Itens na caixa do VoicePro' },
+    { src: img4, alt: 'Modelo CIC invisível VoicePro' },
+    { src: img5, alt: 'Chip SoundCore do VoicePro' },
+    { src: img6, alt: 'Comparação com outras marcas' },
+    { src: certificados, alt: 'Certificados de qualidade VoicePro' }
   ]
 
   return (
@@ -49,7 +52,7 @@ export default function Vitalvoice() {
         <div className="flex flex-col items-center mb-8">
           <img
             src={imagemSelecionada}
-            alt="Imagem selecionada do Vitalvoice"
+            alt="Imagem selecionada do VoicePro"
             className="w-full max-w-lg object-contain rounded-lg border-4 border-[#4A90E2] mb-4 opacity-0 animate-fadeIn"
           />
           <div className="flex gap-3 flex-wrap justify-center">
@@ -75,20 +78,12 @@ export default function Vitalvoice() {
           {[...Array(4)].map((_, i) => (
             <FaStar key={i} className="text-yellow-500" />
           ))}
-          <span className="text-sm text-gray-500 ml-2">
-            ({dados.avaliacoes})
-          </span>
+          <span className="text-sm text-gray-500 ml-2">({dados.avaliacoes})</span>
         </div>
         <p className="text-lg text-gray-600 mb-2">{dados.descricao}</p>
-        <p className="text-gray-400 line-through">
-          R$ {dados.precoOriginal.toFixed(2)}
-        </p>
-        <p className="text-3xl font-bold text-[#4A90E2]">
-          R$ {dados.precoAtual.toFixed(2)}
-        </p>
-        <p className="text-sm text-gray-500 mb-4">
-          ou 12x de R$ {parcela}
-        </p>
+        <p className="text-gray-400 line-through">R$ {dados.precoOriginal.toFixed(2)}</p>
+        <p className="text-3xl font-bold text-[#4A90E2]">R$ {dados.precoAtual.toFixed(2)}</p>
+        <p className="text-sm text-gray-500 mb-4">ou 12x de R$ {parcela}</p>
 
         <a
           href={dados.link}
@@ -102,41 +97,23 @@ export default function Vitalvoice() {
         {/* Benefícios */}
         <div className="mt-16">
           <h2 className="text-2xl font-bold text-[#213547] mb-4">
-            Por que escolher o VitalVoice?
+            Por que escolher o Voice Pro?
           </h2>
           <ul className="space-y-3 text-gray-700 text-base">
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Digital e inteligente: Ajusta-se automaticamente aos diferentes ambientes sonoros.
+              Invisível e poderoso: A tecnologia CIC mais discreta para máxima autoconfiança.
             </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Carregamento rápido, uso prolongado: Diga adeus às pilhas, com bateria de longa duração.
+              Higienização UV automática: Seu aparelho sempre limpo e protegido sem esforço.
             </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Clareza em qualquer situação: Redução de ruídos múltiplos para ouvir apenas o que importa.
-            </li>
-            <li className="flex items-center gap-2">
-              <FaCheckCircle className="text-green-500" />
-              Mais liberdade, zero preocupações: Ideal para quem quer praticidade e desempenho.
-            </li>
-            <li className="flex items-center gap-2">
-              <FaCheckCircle className="text-green-500" />
-              Indicado para perdas auditivas leves a severas (86%): Potência confiável para todas as necessidades.
-            </li>
-            <li className="flex items-center gap-2">
-              <FaCheckCircle className="text-green-500" />
-              Tecnologia acessível com alto desempenho e excelente custo-benefício.
+              Carregamento premium: Estojo moderno com luz UV e bateria de alta autonomia.
             </li>
           </ul>
         </div>
-
-        <img
-          src={imagemPro}
-          alt="Ilustração do uso do Vitalvoice"
-          className="w-full rounded-lg shadow-lg border mb-10 mt-8"
-        />
 
         {/* Garantia */}
         <div className="mt-12 p-6 bg-[#f0fdf4] border border-green-300 rounded-lg text-center">
@@ -151,7 +128,7 @@ export default function Vitalvoice() {
         {/* Chamada final */}
         <div className="mt-16 text-center">
           <p className="text-2xl font-bold text-[#213547] mb-4">
-            Garanta seu Vitalvoice agora mesmo
+            Potência profissional com o VoicePro.
           </p>
           <a
             href={dados.link}
@@ -159,7 +136,7 @@ export default function Vitalvoice() {
             rel="noopener noreferrer"
             className="inline-block text-white bg-gradient-to-r from-[#4A90E2] to-[#00979c] py-4 px-8 rounded-full font-bold text-lg hover:scale-105 hover:brightness-110 transition animate-pulse"
           >
-            GARANTIR O MEU
+            GARANTA O SEU AGORA
           </a>
         </div>
       </div>

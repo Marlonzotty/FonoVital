@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom'
 import { FaStar } from 'react-icons/fa'
 import Navbar from '../components/Navbar'
 
-import voxton from '../assets/voxton/voxton.png'
+import voxton from '../assets/voxton/caixaVoxton.jpg'
+import voxchargeUnidade from '../assets/voxcharge/caixavonxcharge.jpg'
+import vitalvoice from '../assets/vitalVoice/vitalVoiceCaixa.jpg'
+import iavoice from '../assets/iavoice/iavoice-caixa-produto.jpg'
+import vitalair from '../assets/vitalair/produto-completo.jpg'
+import voicepro from '../assets/voicepro/voicepro-caixa-produto.jpg'
 
-import voxchargeUnidade from '../assets/voxcharge/voxcharge (3).png'
-import vitalvoice from '../assets/vitalVoice.jpg'
 
 const aparelhos = [
   {
@@ -43,8 +46,45 @@ const aparelhos = [
     avaliacoes: 12,
     link: '#',
     rota: '/produto/vitalvoice'
+  },
+  {
+    sigla: 'IAvoice | Fonovital',
+    nome: 'IAvoice Inteligência Auditiva | Fonovital (par)',
+    descricao: 'Com inteligência artificial, o IAvoice se adapta ao ambiente para uma audição mais precisa.',
+    galeria: [iavoice],
+    precoOriginal: 1999,
+    precoAtual: 1399.0,
+    parcelas: 12,
+    avaliacoes: 51,
+    link: 'https://fonovital.pay.yampi.com.br/r/EXEMPLOIAVOICE',
+    rota: '/produto/iavoice'
+  },
+  {
+    sigla: 'VitalAir | Fonovital',
+    nome: 'Vital Air Digital Recarregável | Fonovital (par)',
+    descricao: 'Controle total da audição com app e 32 canais para personalização completa.',
+    galeria: [vitalair],
+    precoOriginal: 1899,
+    precoAtual: 1199.0,
+    parcelas: 12,
+    avaliacoes: 42,
+    link: 'https://fonovital.pay.yampi.com.br/r/DLE7SWQNKR',
+    rota: '/produto/vitalair'
+  },
+  {
+    sigla: 'VoicePro | Fonovital',
+    nome: 'VoicePro Profissional Digital | Fonovital (par)',
+    descricao: 'Alta performance para ambientes ruidosos com 48 canais e conectividade total.',
+    galeria: [voicepro],
+    precoOriginal: 2099,
+    precoAtual: 1499.0,
+    parcelas: 12,
+    avaliacoes: 47,
+    link: 'https://fonovital.pay.yampi.com.br/r/EXEMPLOVOICEPRO',
+    rota: '/produto/voicepro'
   }
 ]
+
 
 export default function TiposAparelhos() {
   return (

@@ -9,6 +9,9 @@ import img3 from '../assets/vitalair/32-canais.jpg'
 import img4 from '../assets/vitalair/bateria-autonomia.jpg'
 import img5 from '../assets/vitalair/comparacao-fonovital.jpg'
 import img6 from '../assets/vitalair/VitalAir-oqueinclui.jpg'
+import img7 from '../assets/certificados.png'
+import sound from '../assets/imagemPro.png'
+
 
 export default function VitalAir() {
   useEffect(() => {
@@ -37,7 +40,11 @@ export default function VitalAir() {
     { src: img3, alt: 'Vital Air com 32 canais' },
     { src: img4, alt: 'Autonomia de bateria do Vital Air' },
     { src: img5, alt: 'Comparação com outras marcas' },
-    { src: img6, alt: 'O que inclui na caixa Vital Air' }
+    { src: img6, alt: 'O que inclui na caixa Vital Air' },
+    { src: img7, alt: 'certificado' },
+    { src: sound, alt: 'certificado' }
+
+
   ]
 
   return (

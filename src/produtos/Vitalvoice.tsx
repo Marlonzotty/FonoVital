@@ -9,6 +9,7 @@ import vitalvoiceExplica from '../assets/vitalVoice/vitalvoiceExplica.jpg'
 import vitalVoiceCaixa from '../assets/vitalVoice/vitalVoiceCaixa.jpg'
 import vitalVoiceBanner from '../assets/vitalVoice/VitalVoiceBanner.jpg'
 import vitalVoiceBeneficios from '../assets/vitalVoice/VitalVoiceBeneficios.jpg'
+import certificado from '../assets/certificados.png'
 
 export default function Vitalvoice() {
   useEffect(() => {
@@ -37,7 +38,8 @@ export default function Vitalvoice() {
     { src: vitalvoiceExplica, alt: 'Explicação do Vitalvoice' },
     { src: vitalVoiceCaixa, alt: 'Caixa do Vitalvoice' },
     { src: comparacao, alt: 'Comparação de modelos' },
-    { src: explicando, alt: 'Explicação geral sobre aparelhos auditivos' }
+    { src: explicando, alt: 'Explicação geral sobre aparelhos auditivos' },
+     { src: certificado, alt: 'certificado' }
   ]
 
   return (

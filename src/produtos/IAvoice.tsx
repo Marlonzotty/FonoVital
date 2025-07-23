@@ -12,6 +12,7 @@ import img6 from '../assets/iavoice/iavoice-itens-na-caixa.jpg'
 import certificados from '../assets/iavoice/certificados.png'
 import iaVoiceBanner from '../assets/iavoice/IAvoiceBanner.jpg'
 import iaVoiceBeneficio from '../assets/iavoice/IaVoiceBeneficio.jpg'
+import sound from '../assets/imagemPro.png'
 
 export default function IAvoice() {
   useEffect(() => {
@@ -41,7 +42,8 @@ export default function IAvoice() {
     { src: img4, alt: 'Som SoundCore IAvoice' },
     { src: img5, alt: 'Comparação com outras marcas' },
     { src: img6, alt: 'Itens inclusos na caixa' },
-    { src: certificados, alt: 'Certificados de qualidade IAvoice' }
+    { src: certificados, alt: 'Certificados de qualidade IAvoice' },
+    { src: sound, alt: 'sound '}
   ]
 
   return (

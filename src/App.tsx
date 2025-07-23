@@ -23,7 +23,7 @@ export default function App() {
       <ResponsiveYouTube videoId="Z4-1AfiPFQ0" />
 
       {/* Imagem adaptativa - com fundo e tamanho ajustado */}
-      <div className="w-full px-4 py-8 bg-[#008693]">
+      <div className="w-full px-4 py-0 bg-[#008693]">
         {/* Imagem para desktop */}
         <img
           src={imgDesktop}

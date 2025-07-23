@@ -8,6 +8,9 @@ import certificado from '../assets/certificados.png'
 import comparacao from '../assets/comparacao.jpg'
 import voxchargeBanner from '../assets/voxcharge/VoxchargeBanner.jpg'
 import voxchargeCusto from '../assets/voxcharge/VoxchargeCustoBeneficio-2.jpg'
+import voxchargecaixa from '../assets/voxcharge/caixavonxcharge.jpg'
+import pro from '../assets/imagemPro.png'
+
 
 export default function Voxcharge() {
   useEffect(() => {
@@ -35,7 +38,9 @@ export default function Voxcharge() {
     { src: voxchargePacote, alt: 'Pacote do Voxcharge' },
     { src: voxchargeExplica, alt: 'Explicação do Voxcharge' },
     { src: certificado, alt: 'Certificado do Voxcharge' },
-    { src: comparacao, alt: 'Comparação de modelos' }
+    { src: comparacao, alt: 'Comparação de modelos' },
+    { src: voxchargecaixa, alt: 'caixa' },
+    { src: pro, alt: 'soundcore'}
   ]
 
   return (
@@ -127,7 +132,7 @@ export default function Voxcharge() {
             </li>
             <li className="flex items-center gap-2">
               <FaCheckCircle className="text-green-300" />
-              Indicado para perdas auditivas leves a severas (86%): Alta performance em qualquer situação.
+              Indicado para perdas auditivas leves a severas (85%): Alta performance em qualquer situação.
             </li>
           </ul>
         </div>

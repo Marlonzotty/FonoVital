@@ -28,12 +28,12 @@ interface Comment {
 }
 
 const initialComments: Comment[] = [
-  { id: 1, nome: 'Claudia Zeferino', idade: 68, produto: 'Voxcharge', local: 'São João del-Rei, MG', texto: 'Gostei bastante, mas precisei de ajuda para configurar no início.', imagem: img1, estrelas: 4 },
-  { id: 2, nome: 'Gabriel Nenshin', idade: 72, produto: 'BTE Premium', local: 'Juiz de Fora, MG', texto: 'Funciona bem, mas a entrega demorou um pouco.', imagem: img4, estrelas: 4 },
+  { id: 1, nome: 'Claudia Zeferino', idade: 68, produto: 'Voxcharge', local: 'São João del-Rei, MG', texto: 'Gostei bastante, me impressionei.', imagem: img1, estrelas: 4 },
+  { id: 2, nome: 'Gabriel Nenshin', idade: 72, produto: 'BTE Premium', local: 'Juiz de Fora, MG', texto: 'Funciona bem, achei que demoraria mas foi super rapido .', imagem: img4, estrelas: 4 },
   { id: 3, nome: 'Ana Silva', idade: 65, produto: 'Voxton', local: 'Campinas, SP', texto: 'Produto excelente, som limpo e confortável. Recomendo!', imagem: img2, estrelas: 5 },
   { id: 4, nome: 'Carlos Henrique', idade: 59, produto: 'Voxcharge', local: 'Caxias do Sul, RS', texto: 'Bom custo-benefício, me atendeu bem.', imagem: img5, estrelas: 4 },
   { id: 5, nome: 'Marina Silva', idade: 70, produto: 'Vitalvoice', local: 'Barbacena, MG', texto: 'Gostei da qualidade, leve e eficiente.', imagem: img3, estrelas: 4 },
-  { id: 6, nome: 'ligia Ramos', idade: 42, produto: 'Voxton', local: 'Itabira, MG', texto: 'Som muito bom, só tive dúvidas no começo.', imagem: img6, estrelas: 4 },
+  { id: 6, nome: 'ligia Ramos', idade: 42, produto: 'Voxton', local: 'Itabira, MG', texto: 'Som muito bom, manual super intuitivo', imagem: img6, estrelas: 4 },
   { id: 7, nome: 'Fernanda Souza', idade: 67, produto: 'Voxcharge', local: 'São José dos Campos, SP', texto: 'Chegou rápido, atendimento ótimo. Voltaria a comprar!', imagem: img7, estrelas: 5 }
 ];
 

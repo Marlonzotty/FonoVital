@@ -59,7 +59,7 @@ export default function Footer() {
           <ul className="text-sm space-y-2">
             <li className="flex items-center space-x-2">
               <Phone size={16} className="text-green-400" />
-              <span>(32) 99906-9763 </span>
+              <span>(32) 99906-9763</span>
             </li>
             <li className="flex items-center space-x-2">
               <Mail size={16} className="text-green-400" />
@@ -73,8 +73,10 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mt-8 text-center text-xs text-gray-500">
-        &copy; {new Date().getFullYear()} FonoVital. Site desenvolvido por Zotty Software.
+      {/* Rodapé final com CNPJ */}
+      <div className="mt-8 text-center text-xs text-gray-500 space-y-1">
+        <div>&copy; {new Date().getFullYear()} FonoVital. Site desenvolvido por Zotty Software.</div>
+        <div>CNPJ: 61.894.698/0001-20</div>
       </div>
     </footer>
   );

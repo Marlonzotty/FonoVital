@@ -111,7 +111,6 @@ export default function Navbar() {
             WhatsApp
           </a>
         </div>
-        
       )}
     </header>
   )

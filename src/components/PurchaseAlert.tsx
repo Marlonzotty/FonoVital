@@ -18,7 +18,7 @@ const produtos = [
   'Voxton', 'Voxcharge', 'Vitalvoice'
 ];
 
-export default function PurchaseAlert({ zIndex }: { zIndex: number }) {
+export default function PurchaseAlert() {
   const [visible, setVisible] = useState(false);
   const [show, setShow] = useState(false);
   const [data, setData] = useState({
@@ -64,7 +64,7 @@ export default function PurchaseAlert({ zIndex }: { zIndex: number }) {
   return visible ? (
     <div
       className={`
-        fixed top-24 left-4 md:left-auto md:right-4 z-[${zIndex}]
+        fixed top-24 left-4 md:left-auto md:right-4 ]
         bg-white rounded-xl border-l-4 border-green-500
         px-4 py-3 shadow-lg flex items-start space-x-3
         transition-all duration-500 ease-out

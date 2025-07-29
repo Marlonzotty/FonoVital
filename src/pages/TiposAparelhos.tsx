@@ -114,7 +114,9 @@ export default function TiposAparelhos() {
             )
 
             return (
-              <div
+              
+              <div 
+              
                 key={index}
                 className="relative bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all"
               >
@@ -122,6 +124,7 @@ export default function TiposAparelhos() {
                 <span className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                   -{desconto}%
                 </span>
+                
 
                 {/* Badge esgotado, se aplicável */}
                 {aparelho.esgotado && (
@@ -131,7 +134,7 @@ export default function TiposAparelhos() {
                 )}
 
                 <span className="inline-block text-xs text-white bg-[#4A90E2] px-2 py-1 rounded mb-2">
-                  Oferta
+                  
                 </span>
 
                 <img

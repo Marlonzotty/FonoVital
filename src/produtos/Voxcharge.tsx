@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { FaStar, FaCheckCircle } from 'react-icons/fa'
 import Navbar from '../components/Navbar'
+import Comments from '../components/Comments'
+import Footer from '../components/Footer'
 import voxcharge from '../assets/voxcharge/voxcharge (3).png'
 import voxchargePacote from '../assets/voxcharge/voxchargePacote.jpg'
 import voxchargeExplica from '../assets/voxcharge/voxchargeExplica.jpg'
@@ -40,7 +42,7 @@ export default function Voxcharge() {
     { src: certificado, alt: 'Certificado do Voxcharge' },
     { src: comparacao, alt: 'Comparação de modelos' },
     { src: voxchargecaixa, alt: 'caixa' },
-    { src: pro, alt: 'soundcore'}
+    { src: pro, alt: 'soundcore' }
   ]
 
   return (
@@ -138,21 +140,21 @@ export default function Voxcharge() {
         </div>
       </section>
 
-    {/* SECTION - BANNER E CUSTO BENEFÍCIO */}
-<section className="w-full bg-[#028794] py-10 px-4">
-  <div className="max-w-5xl mx-auto space-y-8">
-    <img
-      src={voxchargeBanner}
-      alt="Banner Voxcharge"
-      className="block object-cover w-full lg:max-w-3xl mx-auto rounded-lg"
-    />
-    <img
-      src={voxchargeCusto}
-      alt="Voxcharge Custo Benefício"
-      className="block object-cover w-full lg:max-w-3xl mx-auto rounded-lg"
-    />
-  </div>
-</section>
+      {/* SECTION - BANNER E CUSTO BENEFÍCIO */}
+      <section className="w-full bg-[#028794] py-10 px-4">
+        <div className="max-w-5xl mx-auto space-y-8">
+          <img
+            src={voxchargeBanner}
+            alt="Banner Voxcharge"
+            className="block object-cover w-full lg:max-w-3xl mx-auto rounded-lg"
+          />
+          <img
+            src={voxchargeCusto}
+            alt="Voxcharge Custo Benefício"
+            className="block object-cover w-full lg:max-w-3xl mx-auto rounded-lg"
+          />
+        </div>
+      </section>
 
 
       {/* SECTION - GARANTIA */}
@@ -215,6 +217,15 @@ export default function Voxcharge() {
         >
           GARANTA O SEU AGORA
         </a>
+        {/* SECTION - COMENTÁRIOS */}
+        <section className="w-full bg-[#f9f9f9] py-12 px-4">
+          <div className="max-w-5xl mx-auto">
+            <Comments />
+          </div>
+        </section>
+
+        {/* FOOTER */}
+        <Footer />
       </section>
     </>
   )

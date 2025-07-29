@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { FaStar, FaCheckCircle } from 'react-icons/fa'
 import Navbar from '../components/Navbar'
+import Comments from '../components/Comments'
+import Footer from '../components/Footer'
+
 import voxton from '../assets/voxton/voxton.png'
 import voxtonPacote from '../assets/voxton/VoxtonPacote.jpg'
 import voxtonOque from '../assets/voxton/voxtonOque.jpg'
@@ -73,7 +76,7 @@ export default function Voxton() {
             <img
               src={imagemSelecionada}
               alt="Imagem selecionada do produto"
-              className="w-full max-w-lg object-contain rounded-lg border-4 border-[#4A90E2] mb-4"
+              className="w-full max-w-lg object-contain rounded-lg border-4 border-[white] mb-4"
             />
             <div className="flex gap-3 flex-wrap justify-center">
               {miniaturas.map((item, index) => (
@@ -82,11 +85,10 @@ export default function Voxton() {
                   src={item.src}
                   alt={item.alt}
                   title={item.alt}
-                  className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${
-                    imagemSelecionada === item.src
+                  className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${imagemSelecionada === item.src
                       ? 'border-[#4A90E2] scale-105'
                       : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
-                  }`}
+                    }`}
                   onClick={() => setImagemSelecionada(item.src)}
                 />
               ))}
@@ -114,11 +116,10 @@ export default function Voxton() {
                   setOpcao(lado)
                   setImagemSelecionada(dados.lados[lado].imagem)
                 }}
-                className={`py-2 rounded-full font-semibold border ${
-                  opcao === lado
+                className={`py-2 rounded-full font-semibold border ${opcao === lado
                     ? 'bg-[#4A90E2] text-white'
                     : 'bg-gray-100 text-[#213547]'
-                }`}
+                  }`}
               >
                 {lado === 'par' ? 'PAR' : `Lado ${lado}`}
               </button>
@@ -204,6 +205,15 @@ export default function Voxton() {
         >
           GARANTA O SEU AGORA
         </a>
+        {/* SECTION - COMENTÁRIOS */}
+        <section className="w-full bg-[#f9f9f9] py-12 px-4">
+          <div className="max-w-5xl mx-auto">
+            <Comments />
+          </div>
+        </section>
+
+        {/* FOOTER */}
+        <Footer />
       </section>
     </>
   )

@@ -1,98 +1,152 @@
 import { Link } from 'react-router-dom';
-import { Star } from 'lucide-react';
-import fone2 from '../assets/fones2.jpeg';
-import voxchargeImage from '../assets/voxcharge/voxcharge (3).png';
-import vitalvoiceImage from '../assets/vitalVoice.jpg';
+import iaVoice from '../assets/iavoice/iavoice-caixa-produto.jpg';
+import vitalAir from '../assets/vitalair/produto-completo.jpg';
+import voxton from '../assets/voxton/caixaVoxton.jpg';
+import voxcharge from '../assets/voxcharge/caixavonxcharge.jpg';
+import vitalvoice from '../assets/vitalVoice/vitalVoiceCaixa.jpg';
+import voicepro from '../assets/voicepro/voicepro-caixa-produto.jpg';
 
-const aparelhos = [
-  {
-    sigla: 'Voxton',
-    descricao: 'Discreto e eficiente',
-    preco: 'R$ 599,90',
-    envio: 'Envio 24h',
-    imagem: fone2,
-    recomendado: false,
-    rota: '/produto/voxton',
-  },
-  {
-    sigla: 'Voxcharge',
-    descricao: 'Bateria recarregável',
-    preco: 'R$ 1199,00',
-    envio: 'Envio 24h',
-    imagem: voxchargeImage,
-    recomendado: true,
-    rota: '/produto/voxcharge',
-  },
-  {
-    sigla: 'Vitalvoice',
-    descricao: 'Excelente custo-benefício',
-    preco: 'R$ 1399,00',
-    envio: 'Envio 24h',
-    imagem: vitalvoiceImage,
-    recomendado: false,
-    rota: '/produto/vitalvoice',
-  },
-];
+const aparelhos = {
+  "Modelos CIC": [
+    {
+      nome: 'Voxton Mini CIC',
+      descricao: 'Discreto e eficiente para o dia a dia.',
+      preco: '12x R$ 58,17',
+      imagem: voxton,
+      recomendado: false,
+      esgotado: false,
+      rota: '/produto/voxton',
+      badge: 'CIC',
+    },
+    {
+      nome: 'Voxcharge Mini CIC',
+      descricao: 'Conforto, potência e recarga rápida.',
+      preco: '12x R$116,75',
+      imagem: voxcharge,
+      recomendado: true,
+      esgotado: true,
+      rota: '/produto/voxcharge',
+      badge: 'CIC',
+    },
+    {
+      nome: 'Vitalvoice CIC',
+      descricao: 'Excelente custo-benefício com qualidade.',
+      preco: '12x R$ 136,16',
+      imagem: vitalvoice,
+      recomendado: false,
+      esgotado: false,
+      rota: '/produto/vitalvoice',
+      badge: 'CIC',
+    },
+    {
+      nome: 'VoicePro Profissional',
+      descricao: 'Alta performance em ambientes ruidosos.',
+      preco: '12x R$145,90',
+      imagem: voicepro,
+      recomendado: true,
+      esgotado: false,
+      rota: '/produto/voicepro',
+      badge: 'CIC',
+    },
+  ],
+  "IA Voice (BTE)": [
+    {
+      nome: 'IAvoice Inteligente',
+      descricao: 'Inteligência auditiva com adaptação ao ambiente.',
+      preco: '12x R$ 136,16',
+      imagem: iaVoice,
+      recomendado: true,
+      esgotado: false,
+      rota: '/produto/iavoice',
+      badge: 'IA',
+    },
+  ],
+  "TWS – Vital Air": [
+    {
+      nome: 'Vital Air',
+      descricao: 'Controle via app e 32 canais de personalização.',
+      preco: '12x R$116,75',
+      imagem: vitalAir,
+      recomendado: false,
+      esgotado: false,
+      rota: '/produto/vitalair',
+      badge: 'TWS',
+    },
+  ],
+};
 
 export default function ProductGallery() {
   return (
     <section className="w-full bg-white px-4 lg:px-8 py-12">
-      <h2 className="text-3xl sm:text-4xl font-bold text-[#213547] mb-10 text-center">
+      <h2 className="text-3xl sm:text-4xl font-bold text-[#213547] mb-12 text-center">
         Nossos Aparelhos Auditivos
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {aparelhos.map((aparelho, index) => (
-          <div
-            key={index}
-            className={`bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border ${
-              aparelho.recomendado
-                ? 'border-[#4A90E2]'
-                : 'border-transparent'
-            }`}
-          >
-            {aparelho.recomendado && (
-              <div className="bg-[#E6F7F8] text-[#007c91] text-sm font-semibold px-2 py-1 rounded-t-2xl text-center flex items-center justify-center">
-                <Star size={16} className="inline-block mr-1 text-[#007c91]" />
-                RECOMENDADO
+      {Object.entries(aparelhos).map(([categoria, lista], catIndex) => (
+        <div key={catIndex} className="mb-20">
+          <h3 className="text-2xl font-semibold text-[#4A90E2] mb-6">{categoria}</h3>
+
+          <div className="flex flex-col md:flex-row md:overflow-x-auto gap-6 md:gap-x-6 md:scroll-smooth pb-2">
+            {lista.map((item, index) => (
+              <div
+                key={index}
+                className={`
+                  shrink-0 w-full md:w-[280px] rounded-2xl transition duration-300
+                  bg-white
+                  ${item.recomendado ? 'border-2 border-[#4A90E2] shadow-lg animate-pulseBorder' : 'border border-gray-200 shadow-md hover:shadow-xl'}
+                  ${item.esgotado ? 'opacity-60' : ''}
+                `}
+              >
+                <figure className="p-4 h-48 flex items-center justify-center relative">
+                  <img
+                    src={item.imagem}
+                    alt={item.nome}
+                    className="h-full object-contain"
+                  />
+                  {item.esgotado && (
+                    <span className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                      ESGOTADO
+                    </span>
+                  )}
+                </figure>
+
+                <div className="px-5 py-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <h2 className="font-semibold text-[#213547] text-base leading-snug">
+                      {item.nome}
+                    </h2>
+                    {item.recomendado && !item.esgotado && (
+                      <div className="badge badge-secondary text-xs">RECOMENDADO</div>
+                    )}
+                  </div>
+
+                  <p className="text-gray-600 text-sm mb-2">{item.descricao}</p>
+                  <p className="text-[#007c91] text-lg font-bold mb-4">{item.preco}</p>
+
+                  <div className="flex justify-between items-center mt-auto">
+                    <div className="badge badge-outline">{item.badge}</div>
+                    {item.esgotado ? (
+                      <button
+                        disabled
+                        className="bg-red-500/80 text-white text-sm px-4 py-2 rounded-lg font-medium cursor-not-allowed"
+                      >
+                        Avise-me
+                      </button>
+                    ) : (
+                      <Link
+                        to={item.rota}
+                        className="bg-[#007c91] hover:bg-[#005f6e] text-white text-sm px-4 py-2 rounded-lg font-medium transition"
+                      >
+                        Compre em até 12x
+                      </Link>
+                    )}
+                  </div>
+                </div>
               </div>
-            )}
-
-            <img
-              src={aparelho.imagem}
-              alt={aparelho.sigla}
-              className="w-full h-48 object-contain mb-4 rounded-t-2xl"
-            />
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-[#213547] mb-1">
-                {aparelho.sigla}
-              </h3>
-              <p className="text-gray-500 text-sm mb-2">
-                {aparelho.descricao}
-              </p>
-              <p className="text-[#007c91] text-lg font-bold mb-2">
-                {aparelho.preco}
-              </p>
-              <p className="text-gray-400 text-sm mb-4">{aparelho.envio}</p>
-
-              <select
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 text-gray-700"
-                defaultValue="Par (2 unidades)"
-              >
-                <option>Par (2 unidades)</option>
-                
-              </select>
-
-              <Link
-                to={aparelho.rota}
-                className="block text-center bg-[#007c91] text-white font-semibold py-2 rounded-lg hover:bg-[#005f6e] transition"
-              >
-                Comprar Agora
-              </Link>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </section>
   );
 }

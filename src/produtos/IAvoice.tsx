@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { FaStar, FaCheckCircle } from 'react-icons/fa'
 import { MdStarHalf } from 'react-icons/md'
 import Navbar from '../components/Navbar'
+import Comments from '../components/Comments'
+import Footer from '../components/Footer'
 
 import img1 from '../assets/iavoice/iavoice-produto-completo.jpg'
 import img2 from '../assets/iavoice/iavoice-bateria-autonomia.jpg'
@@ -43,7 +45,7 @@ export default function IAvoice() {
     { src: img5, alt: 'Comparação com outras marcas' },
     { src: img6, alt: 'Itens inclusos na caixa' },
     { src: certificados, alt: 'Certificados de qualidade IAvoice' },
-    { src: sound, alt: 'sound '}
+    { src: sound, alt: 'sound ' }
   ]
 
   return (
@@ -69,11 +71,10 @@ export default function IAvoice() {
                   src={item.src}
                   alt={item.alt}
                   title={item.alt}
-                  className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${
-                    imagemSelecionada === item.src
+                  className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${imagemSelecionada === item.src
                       ? 'border-[#4A90E2] scale-105'
                       : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
-                  }`}
+                    }`}
                   onClick={() => setImagemSelecionada(item.src)}
                 />
               ))}
@@ -179,6 +180,16 @@ export default function IAvoice() {
           </a>
         </div>
       </section>
+
+      {/* SECTION - COMENTÁRIOS */}
+      <section className="w-full bg-[#f9f9f9] py-12 px-4">
+        <div className="max-w-5xl mx-auto">
+          <Comments />
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <Footer />
     </section>
   )
 }

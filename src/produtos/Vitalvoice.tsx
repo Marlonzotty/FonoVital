@@ -1,4 +1,6 @@
 import Navbar from '../components/Navbar'
+import Comments from '../components/Comments'
+import Footer from '../components/Footer'
 import { useState, useEffect } from 'react'
 import { FaStar, FaCheckCircle } from 'react-icons/fa'
 import vitalvoice from '../assets/vitalVoice.jpg'
@@ -39,7 +41,7 @@ export default function Vitalvoice() {
     { src: vitalVoiceCaixa, alt: 'Caixa do Vitalvoice' },
     { src: comparacao, alt: 'Comparação de modelos' },
     { src: explicando, alt: 'Explicação geral sobre aparelhos auditivos' },
-     { src: certificado, alt: 'certificado' }
+    { src: certificado, alt: 'certificado' }
   ]
 
   return (
@@ -64,11 +66,10 @@ export default function Vitalvoice() {
                   src={item.src}
                   alt={item.alt}
                   title={item.alt}
-                  className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${
-                    imagemSelecionada === item.src
+                  className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${imagemSelecionada === item.src
                       ? 'border-[#4A90E2] scale-105'
                       : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
-                  }`}
+                    }`}
                   onClick={() => setImagemSelecionada(item.src)}
                 />
               ))}
@@ -174,6 +175,16 @@ export default function Vitalvoice() {
         >
           GARANTIR O MEU
         </a>
+
+        {/* SECTION - COMENTÁRIOS */}
+        <section className="w-full bg-[#f9f9f9] py-12 px-4">
+          <div className="max-w-5xl mx-auto">
+            <Comments />
+          </div>
+        </section>
+
+        {/* FOOTER */}
+        <Footer />
       </section>
     </>
   )

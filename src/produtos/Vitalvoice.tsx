@@ -57,7 +57,7 @@ export default function Vitalvoice() {
             <img
               src={imagemSelecionada}
               alt="Imagem selecionada do Vitalvoice"
-              className="w-full max-w-lg object-contain rounded-lg border-4 border-[#4A90E2] mb-4 opacity-0 animate-fadeIn"
+              className="w-full max-w-lg object-contain rounded-lg border- border-[#] mb-4 opacity-0 animate-fadeIn"
             />
             <div className="flex gap-3 flex-wrap justify-center">
               {miniaturas.map((item, index) => (

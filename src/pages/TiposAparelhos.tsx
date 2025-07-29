@@ -96,7 +96,7 @@ export default function TiposAparelhos() {
           </h1>
           <Link
             to="/"
-            className="bg-[#A8E6CF] text-[#4A90E2] font-semibold rounded-full transition hover:opacity-90
+            className="bg-[#A8E6CF] text-[#] font-semibold rounded-full transition hover:opacity-90
               text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2"
           >
             Voltar ao início
@@ -120,10 +120,11 @@ export default function TiposAparelhos() {
                 key={index}
                 className="relative bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all"
               >
-                {/* Badge de desconto */}
-                <span className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                  -{desconto}%
-                </span>
+               {/* Badge de desconto */}
+<span className="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+  -{desconto}%
+</span>
+
                 
 
                 {/* Badge esgotado, se aplicável */}
@@ -171,14 +172,15 @@ export default function TiposAparelhos() {
 
                 <div className="flex justify-center">
                   {aparelho.esgotado ? (
-                    <a
-                      href={aparelho.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white bg-red-500 px-3 py-1 rounded-full font-semibold text-lg hover:bg-red-600 transition text-center"
-                    >
-                      Me avise quando Voxcharge chegar
-                    </a>
+                   <a
+  href={aparelho.link}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-block w-full sm:w-auto text-center text-white bg-red-500 px-4 py-2 rounded-full font-semibold text-sm sm:text-base md:text-lg hover:bg-red-600 transition mx-auto"
+>
+  Me avise quando Voxcharge chegar
+</a>
+
                   ) : (
                     <Link
                       to={aparelho.rota}

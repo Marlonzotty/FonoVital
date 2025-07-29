@@ -92,8 +92,7 @@ export default function ProductGallery() {
                 key={index}
                 className={`
                   shrink-0 w-full md:w-[280px] rounded-2xl transition duration-300
-                  bg-white
-                  ${item.recomendado ? 'border-2 border-[#4A90E2] shadow-lg animate-pulseBorder' : 'border border-gray-200 shadow-md hover:shadow-xl'}
+                  bg-white border border-[#4A90E2] shadow-sm hover:shadow-md
                   ${item.esgotado ? 'opacity-60' : ''}
                 `}
               >

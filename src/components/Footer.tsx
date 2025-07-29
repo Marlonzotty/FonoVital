@@ -50,9 +50,9 @@ export default function Footer() {
             <li>Voxton CIC</li>
             <li>Voxcharge CIC</li>
             <li>Vitalvoice CIC</li>
-            <li>Voxton CIC</li>
-            <li>Voxcharge CIC</li>
-            <li>Vitalvoice CIC</li>
+            <li>VitalAir </li>
+            <li>IAvoice</li>
+            <li>VoicePro</li>
           </ul>
         </div>
 

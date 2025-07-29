@@ -86,7 +86,7 @@ export default function Voxton() {
                   alt={item.alt}
                   title={item.alt}
                   className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${imagemSelecionada === item.src
-                      ? 'border-[#4A90E2] scale-105'
+                      ? 'border-[#] scale-105'
                       : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
                     }`}
                   onClick={() => setImagemSelecionada(item.src)}

@@ -90,7 +90,7 @@ export default function VitalAir() {
           <p className="text-lg text-gray-600 mb-2">{dados.descricao}</p>
           <p className="text-gray-400 line-through">R$ {dados.precoOriginal.toFixed(2)}</p>
           <p className="text-3xl font-bold text-[#4A90E2]">R$ {dados.precoAtual.toFixed(2)}</p>
-          <p className="text-sm text-gray-500 mb-4">12x R$116,75</p>
+          <p className="text-sm text-gray-500 mb-4">12x R$199,75</p>
 
           <a
             href={dados.link}

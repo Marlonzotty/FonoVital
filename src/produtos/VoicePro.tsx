@@ -29,7 +29,7 @@ export default function VoicePro() {
     descricao:
       'Sofisticação invisível com alto desempenho. O VoicePro reúne conforto, potência e proteção UV em um modelo moderno e profissional.',
     precoOriginal: 2099,
-    precoAtual: 1350.0,
+    precoAtual: 1499.0,
     parcelas: 12,
     avaliacoes: 47,
     link: 'https://fonovital.pay.yampi.com.br/r/6GZK7UNNPG'

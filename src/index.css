@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 @import "tailwindcss";
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -12,4 +14,8 @@
 
 .animate-fadeIn {
   animation: fadeIn 1s ease forwards;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
 }

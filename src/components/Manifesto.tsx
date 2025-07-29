@@ -55,7 +55,7 @@ export default function Manifesto() {
             rel="noopener noreferrer"
             className="bg-[#3ac28b] text-white px-6 py-3 rounded-full font-bold hover:bg-[#34b07f] transition animate-bounce"
           >
-            Agende agora, não perca tempo
+            Fale com a gente, não perca tempo
           </a>
         </div>
       </div>

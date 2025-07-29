@@ -13,7 +13,7 @@ export default function Footer() {
   return (
     <footer className="w-full bg-[#213547] text-gray-300 py-10">
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-        
+
         {/* Coluna 1 */}
         <div>
           <h3 className="text-xl font-bold text-white mb-2 flex items-center space-x-2">
@@ -50,6 +50,9 @@ export default function Footer() {
             <li>Voxton CIC</li>
             <li>Voxcharge CIC</li>
             <li>Vitalvoice CIC</li>
+            <li>Voxton CIC</li>
+            <li>Voxcharge CIC</li>
+            <li>Vitalvoice CIC</li>
           </ul>
         </div>
 
@@ -70,14 +73,18 @@ export default function Footer() {
               <span>São João del Rei, MG</span>
             </li>
           </ul>
+          <div className="mt-8 text-center text-xs text-gray-400 space-y-1">
+            <div>
+              &copy; {new Date().getFullYear()} <span className="font-medium text-gray-300">FonoVital</span>. Site desenvolvido por <span className="font-medium text-gray-300">Zotty Software</span>.
+            </div>
+            <div>
+              <span className="font-semibold text-gray-200">CNPJ:</span> 61.894.698/0001-20
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Rodapé final com CNPJ */}
-      <div className="mt-8 text-center text-xs text-gray-500 space-y-1">
-        <div>&copy; {new Date().getFullYear()} FonoVital. Site desenvolvido por Zotty Software.</div>
-        <div>CNPJ: 61.894.698/0001-20</div>
-      </div>
+
     </footer>
   );
 }

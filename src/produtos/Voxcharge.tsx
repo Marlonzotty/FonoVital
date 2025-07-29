@@ -13,7 +13,6 @@ import voxchargeCusto from '../assets/voxcharge/VoxchargeCustoBeneficio-2.jpg'
 import voxchargecaixa from '../assets/voxcharge/caixavonxcharge.jpg'
 import pro from '../assets/imagemPro.png'
 
-
 export default function Voxcharge() {
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -30,7 +29,8 @@ export default function Voxcharge() {
     precoAtual: 1199.9,
     parcelas: 12,
     avaliacoes: 34,
-    link: 'https://fonovital.pay.yampi.com.br/r/6MAP1B08TF'
+    esgotado: true,
+    whatsapp: 'https://wa.me/55329999069763?text=Ol%C3%A1%2C+gostaria+de+ser+avisado+quando+o+Voxcharge+voltar+ao+estoque.'
   }
 
   const parcela = (dados.precoAtual / dados.parcelas).toFixed(2)
@@ -41,8 +41,8 @@ export default function Voxcharge() {
     { src: voxchargeExplica, alt: 'Explicação do Voxcharge' },
     { src: certificado, alt: 'Certificado do Voxcharge' },
     { src: comparacao, alt: 'Comparação de modelos' },
-    { src: voxchargecaixa, alt: 'caixa' },
-    { src: pro, alt: 'soundcore' }
+    { src: voxchargecaixa, alt: 'Caixa do Voxcharge' },
+    { src: pro, alt: 'Chip Soundcore' }
   ]
 
   return (
@@ -87,6 +87,7 @@ export default function Voxcharge() {
               ({dados.avaliacoes})
             </span>
           </div>
+
           <p className="text-lg text-gray-600 mb-2">{dados.descricao}</p>
           <p className="text-gray-400 line-through">
             R$ {dados.precoOriginal.toFixed(2)}
@@ -99,12 +100,12 @@ export default function Voxcharge() {
           </p>
 
           <a
-            href={dados.link}
+            href={dados.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-center bg-gradient-to-r from-[#4A90E2] to-[#00979c] text-white py-3 rounded-full font-bold hover:scale-105 hover:brightness-110 transition animate-pulse"
+            className="block text-center bg-red-500 text-white py-3 rounded-full font-bold hover:bg-red-600 transition animate-bounce"
           >
-            COMPRAR AGORA
+            Me avise quando Voxcharge chegar
           </a>
         </div>
       </section>
@@ -155,7 +156,6 @@ export default function Voxcharge() {
           />
         </div>
       </section>
-
 
       {/* SECTION - GARANTIA */}
       <section className="w-full py-12 px-4 bg-[#f0fdf4]">
@@ -210,23 +210,24 @@ export default function Voxcharge() {
           Ouça melhor com o Voxcharge!
         </p>
         <a
-          href={dados.link}
+          href={dados.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block text-white bg-gradient-to-r from-[#4A90E2] to-[#00979c] py-4 px-8 rounded-full font-bold text-lg hover:scale-105 hover:brightness-110 transition animate-pulse"
+          className="inline-block text-white bg-red-500 py-4 px-8 rounded-full font-bold text-lg hover:bg-red-600 transition animate-bounce"
         >
-          GARANTA O SEU AGORA
+          Me avise quando Voxcharge chegar
         </a>
-        {/* SECTION - COMENTÁRIOS */}
-        <section className="w-full bg-[#f9f9f9] py-12 px-4">
-          <div className="max-w-5xl mx-auto">
-            <Comments />
-          </div>
-        </section>
-
-        {/* FOOTER */}
-        <Footer />
       </section>
+
+      {/* SECTION - COMENTÁRIOS */}
+      <section className="w-full bg-[#f9f9f9] py-12 px-4">
+        <div className="max-w-5xl mx-auto">
+          <Comments />
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <Footer />
     </>
   )
 }

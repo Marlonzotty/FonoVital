@@ -9,7 +9,6 @@ import iavoice from '../assets/iavoice/iavoice-caixa-produto.jpg'
 import vitalair from '../assets/vitalair/produto-completo.jpg'
 import voicepro from '../assets/voicepro/voicepro-caixa-produto.jpg'
 
-
 const aparelhos = [
   {
     sigla: 'Voxton | Fonovital',
@@ -32,7 +31,8 @@ const aparelhos = [
     precoAtual: 1199.9,
     parcelas: 12,
     avaliacoes: 34,
-    link: 'https://fonovital.pay.yampi.com.br/r/6MAP1B08TF',
+    esgotado: true,
+    link: 'https://wa.me/55329999069763?text=Ol%C3%A1%2C+gostaria+de+ser+avisado+quando+o+Voxcharge+voltar+ao+estoque.',
     rota: '/produto/voxcharge'
   },
   {
@@ -85,7 +85,6 @@ const aparelhos = [
   }
 ]
 
-
 export default function TiposAparelhos() {
   return (
     <section className="pt-32 pb-20 px-4 bg-white">
@@ -119,9 +118,17 @@ export default function TiposAparelhos() {
                 key={index}
                 className="relative bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all"
               >
+                {/* Badge de desconto */}
                 <span className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                   -{desconto}%
                 </span>
+
+                {/* Badge esgotado, se aplicável */}
+                {aparelho.esgotado && (
+                  <span className="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                    ESGOTADO
+                  </span>
+                )}
 
                 <span className="inline-block text-xs text-white bg-[#4A90E2] px-2 py-1 rounded mb-2">
                   Oferta
@@ -156,16 +163,27 @@ export default function TiposAparelhos() {
                   R$ {aparelho.precoAtual.toFixed(2)}
                 </p>
                 <p className="text-gray-500 text-sm mb-4">
-                  12x de R$ {(aparelho.precoAtual / 12).toFixed(2)} 
+                  12x de R$ {(aparelho.precoAtual / 12).toFixed(2)}
                 </p>
 
                 <div className="flex justify-center">
-                  <Link
-                    to={aparelho.rota}
-                    className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg hover:scale-105 transition text-center"
-                  >
-                    Ver detalhes
-                  </Link>
+                  {aparelho.esgotado ? (
+                    <a
+                      href={aparelho.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white bg-red-500 px-3 py-1 rounded-full font-semibold text-lg hover:bg-red-600 transition text-center"
+                    >
+                      Me avise quando Voxcharge chegar
+                    </a>
+                  ) : (
+                    <Link
+                      to={aparelho.rota}
+                      className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg hover:scale-105 transition text-center"
+                    >
+                      Ver detalhes
+                    </Link>
+                  )}
                 </div>
               </div>
             )

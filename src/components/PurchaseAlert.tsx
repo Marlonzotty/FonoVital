@@ -63,13 +63,14 @@ export default function PurchaseAlert() {
 
   return visible ? (
     <div
-      className={`
-        fixed top-24 left-4 md:left-auto md:right-4 ]
-        bg-white rounded-xl border-l-4 border-green-500
-        px-4 py-3 shadow-lg flex items-start space-x-3
-        transition-all duration-500 ease-out
-        ${show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}
-      `}
+    className={`
+    fixed top-24 left-4 md:left-auto md:right-4
+    bg-white rounded-xl border-l-4 border-green-500
+    px-4 py-3 shadow-lg flex items-start space-x-3
+    transition-all duration-500 ease-out
+    z-40
+    ${show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}
+  `}
     >
       <div className="h-3 w-3 rounded-full bg-green-500 mt-1"></div>
       <div>

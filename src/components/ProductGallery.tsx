@@ -116,7 +116,7 @@ export default function ProductGallery() {
               return (
                 <div
                   key={index}
-                  className={`shrink-0 w-full md:w-[280px] rounded-2xl transition duration-300 bg-[#F6F8FE] border border-[#4A90E2] shadow-sm hover:shadow-md ${item.esgotado ? 'opacity-60' : ''}`}
+                  className={`shrink-0 w-full md:w-[280px] rounded-2xl transition duration-300 bg-[#] border border-[#4A90E2] shadow-sm hover:shadow-md ${item.esgotado ? 'opacity-60' : ''}`}
                 >
                   {!item.esgotado && (
                     <span className="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
@@ -134,7 +134,7 @@ export default function ProductGallery() {
                     <img
                       src={item.imagem}
                       alt={item.nome}
-                      className="h-full object-contain rounded-xl border border-[#4A90E2]"
+                      className="h-full object-contain rounded-xl  border-[#]"
                     />
                   </figure>
 

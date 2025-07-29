@@ -15,8 +15,9 @@ const aparelhos = [
     nome: 'Voxton Mini CIC | Fonovital (par)',
     descricao: 'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital...',
     galeria: [voxton],
-    precoOriginal: 1399,
-    precoAtual: 599.9,
+    precoOriginal: 1399.00,
+    precoAtual: 599.90,
+    precoParcela: '12x R$ 58,17',
     parcelas: 12,
     avaliacoes: 21,
     link: 'https://fonovital.pay.yampi.com.br/r/3H7FPTZSYX',
@@ -27,8 +28,9 @@ const aparelhos = [
     nome: 'Voxcharge Mini CIC Recarregável | Fonovital (par)',
     descricao: 'O Voxcharge une conforto, potência e discrição em um modelo moderno e invisível para uso diário.',
     galeria: [voxchargeUnidade],
-    precoOriginal: 1799,
-    precoAtual: 1199.9,
+    precoOriginal: 1799.00,
+    precoAtual: 1199.90,
+    precoParcela: '12x R$ 116,75',
     parcelas: 12,
     avaliacoes: 34,
     esgotado: true,
@@ -40,8 +42,9 @@ const aparelhos = [
     nome: 'Vitalvoice CIC | Fonovital (par)',
     descricao: 'O Vitalvoice CIC Recarregável da Fonovital...',
     galeria: [vitalvoice],
-    precoOriginal: 1990,
-    precoAtual: 1399.9,
+    precoOriginal: 1990.00,
+    precoAtual: 1399.90,
+    precoParcela: '12x R$ 136,16',
     parcelas: 12,
     avaliacoes: 12,
     link: '#',
@@ -52,8 +55,9 @@ const aparelhos = [
     nome: 'IAvoice Inteligência Auditiva | Fonovital (par)',
     descricao: 'Com inteligência artificial, o IAvoice se adapta ao ambiente para uma audição mais precisa.',
     galeria: [iavoice],
-    precoOriginal: 1999,
-    precoAtual: 1399.0,
+    precoOriginal: 1999.00,
+    precoAtual: 1399.00,
+    precoParcela: '12x R$ 136,16',
     parcelas: 12,
     avaliacoes: 51,
     link: 'https://fonovital.pay.yampi.com.br/r/EXEMPLOIAVOICE',
@@ -64,8 +68,9 @@ const aparelhos = [
     nome: 'Vital Air Digital Recarregável | Fonovital (par)',
     descricao: 'Controle total da audição com app e 32 canais para personalização completa.',
     galeria: [vitalair],
-    precoOriginal: 1899,
-    precoAtual: 1199.0,
+    precoOriginal: 1899.00,
+    precoAtual: 1199.00,
+    precoParcela: '12x R$ 116,75',
     parcelas: 12,
     avaliacoes: 42,
     link: 'https://fonovital.pay.yampi.com.br/r/DLE7SWQNKR',
@@ -76,8 +81,9 @@ const aparelhos = [
     nome: 'VoicePro Profissional Digital | Fonovital (par)',
     descricao: 'Alta performance para ambientes ruidosos com 48 canais e conectividade total.',
     galeria: [voicepro],
-    precoOriginal: 2099,
-    precoAtual: 1499.0,
+    precoOriginal: 2099.00,
+    precoAtual: 1499.00,
+    precoParcela: '12x R$ 145,90',
     parcelas: 12,
     avaliacoes: 47,
     link: 'https://fonovital.pay.yampi.com.br/r/EXEMPLOVOICEPRO',
@@ -96,7 +102,7 @@ export default function TiposAparelhos() {
           </h1>
           <Link
             to="/"
-            className="bg-[#A8E6CF] text-[#] font-semibold rounded-full transition hover:opacity-90
+            className="bg-[#A8E6CF] font-semibold rounded-full transition hover:opacity-90
               text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2"
           >
             Voltar ao início
@@ -114,29 +120,21 @@ export default function TiposAparelhos() {
             )
 
             return (
-              
               <div 
-              
                 key={index}
                 className="relative bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all"
               >
-               {/* Badge de desconto */}
-<span className="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-  -{desconto}%
-</span>
+                {/* Badge de desconto */}
+                <span className="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  -{desconto}%
+                </span>
 
-                
-
-                {/* Badge esgotado, se aplicável */}
+                {/* Badge esgotado */}
                 {aparelho.esgotado && (
                   <span className="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
                     ESGOTADO
                   </span>
                 )}
-
-                <span className="inline-block text-xs text-white bg-[#4A90E2] px-2 py-1 rounded mb-2">
-                  
-                </span>
 
                 <img
                   src={aparelho.galeria[0]}
@@ -167,20 +165,19 @@ export default function TiposAparelhos() {
                   R$ {aparelho.precoAtual.toFixed(2)}
                 </p>
                 <p className="text-gray-500 text-sm mb-4">
-                  12x de R$ {(aparelho.precoAtual / 12).toFixed(2)}
+                  {aparelho.precoParcela}
                 </p>
 
                 <div className="flex justify-center">
                   {aparelho.esgotado ? (
-                   <a
-  href={aparelho.link}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-block w-full sm:w-auto text-center text-white bg-red-500 px-4 py-2 rounded-full font-semibold text-sm sm:text-base md:text-lg hover:bg-red-600 transition mx-auto"
->
-  Me avise quando Voxcharge chegar
-</a>
-
+                    <a
+                      href={aparelho.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block w-full sm:w-auto text-center text-white bg-red-500 px-4 py-2 rounded-full font-semibold text-sm sm:text-base md:text-lg hover:bg-red-600 transition mx-auto"
+                    >
+                      Me avise quando Voxcharge chegar
+                    </a>
                   ) : (
                     <Link
                       to={aparelho.rota}

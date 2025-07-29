@@ -35,7 +35,6 @@ export default function IAvoice() {
     link: 'https://fonovital.pay.yampi.com.br/r/6HSMEGGHGI'
   }
 
-  const parcela = (dados.precoAtual ).toFixed(2)
 
   const miniaturas = [
     { src: img1, alt: 'Produto completo IAvoice' },

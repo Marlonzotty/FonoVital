@@ -32,7 +32,7 @@ export default function VoicePro() {
     precoAtual: 1499.0,
     parcelas: 12,
     avaliacoes: 47,
-    link: 'https://fonovital.pay.yampi.com.br/r/6GZK7UNNPG'
+    link: 'https://fonovital.pay.yampi.com.br/r/SSDXCJ1N2B'
   }
 
 

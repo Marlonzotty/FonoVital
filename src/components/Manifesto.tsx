@@ -50,7 +50,7 @@ export default function Manifesto() {
         <div className="mt-12 flex flex-col items-center">
           <img src={logo} alt="Logo Fonovital" className="h-20 w-auto mb-6" />
           <a
-            href="https://wa.me/5532999069763"
+            href="https://wa.me/5532998820710?text=Oi%2C%20gostaria%20de%20saber%20mais%20detalhes3"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#3ac28b] text-white px-6 py-3 rounded-full font-bold hover:bg-[#34b07f] transition animate-bounce"

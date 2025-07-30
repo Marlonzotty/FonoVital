@@ -1,197 +1,199 @@
-import { Link } from 'react-router-dom'
-import { FaStar } from 'react-icons/fa'
-import Navbar from '../components/Navbar'
+import { Link } from 'react-router-dom';
+import { FaStar } from 'react-icons/fa';
+import { HiOutlineCreditCard } from 'react-icons/hi2';
 
-import voxton from '../assets/voxton/caixaVoxton.jpg'
-import voxchargeUnidade from '../assets/voxcharge/caixavonxcharge.jpg'
-import vitalvoice from '../assets/vitalVoice/vitalVoiceCaixa.jpg'
-import iavoice from '../assets/iavoice/iavoice-caixa-produto.jpg'
-import vitalair from '../assets/vitalair/produto-completo.jpg'
-import voicepro from '../assets/voicepro/voicepro-caixa-produto.jpg'
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import Comments from '../components/Comments';
+
+import voxton from '../assets/voxton/caixaVoxton.jpg';
+import voxchargeUnidade from '../assets/voxcharge/caixavonxcharge.jpg';
+import vitalvoice from '../assets/vitalVoice/vitalVoiceCaixa.jpg';
+import iavoice from '../assets/iavoice/iavoice-caixa-produto.jpg';
+import vitalair from '../assets/vitalair/produto-completo.jpg';
+import voicepro from '../assets/voicepro/voicepro-caixa-produto.jpg';
 
 const aparelhos = [
   {
-    sigla: 'Voxton | Fonovital',
-    nome: 'Voxton Mini CIC | Fonovital (par)',
+    sigla: 'Voxton Mini CIC',
     descricao: 'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital...',
-    galeria: [voxton],
-    precoOriginal: 1399.00,
-    precoAtual: 599.90,
+    precoOriginal: 1399.0,
+    precoAtual: 599.9,
     precoParcela: '12x R$ 58,17',
-    parcelas: 12,
     avaliacoes: 21,
+    imagem: voxton,
+    esgotado: false,
+    rota: '/produto/voxton',
+    badge: 'CIC',
     link: 'https://fonovital.pay.yampi.com.br/r/3H7FPTZSYX',
-    rota: '/produto/voxton'
   },
   {
-    sigla: 'Voxcharge | Fonovital',
-    nome: 'Voxcharge Mini CIC Recarregável | Fonovital (par)',
-    descricao: 'O Voxcharge une conforto, potência e discrição em um modelo moderno e invisível para uso diário.',
-    galeria: [voxchargeUnidade],
-    precoOriginal: 1799.00,
-    precoAtual: 1199.90,
+    sigla: 'Voxcharge Mini CIC',
+    descricao: 'O Voxcharge une conforto, potência e discrição em um modelo moderno.',
+    precoOriginal: 1799.0,
+    precoAtual: 1199.9,
     precoParcela: '12x R$ 116,75',
-    parcelas: 12,
     avaliacoes: 34,
+    imagem: voxchargeUnidade,
     esgotado: true,
+    rota: '/produto/voxcharge',
+    badge: 'CIC',
     link: 'https://wa.me/55329999069763?text=Ol%C3%A1%2C+gostaria+de+ser+avisado+quando+o+Voxcharge+voltar+ao+estoque.',
-    rota: '/produto/voxcharge'
   },
   {
-    sigla: 'Vitalvoice | Fonovital',
-    nome: 'Vitalvoice CIC | Fonovital (par)',
+    sigla: 'Vitalvoice CIC',
     descricao: 'O Vitalvoice CIC Recarregável da Fonovital...',
-    galeria: [vitalvoice],
-    precoOriginal: 1990.00,
-    precoAtual: 1399.90,
+    precoOriginal: 1990.0,
+    precoAtual: 1399.9,
     precoParcela: '12x R$ 136,16',
-    parcelas: 12,
     avaliacoes: 12,
+    imagem: vitalvoice,
+    esgotado: false,
+    rota: '/produto/vitalvoice',
+    badge: 'CIC',
     link: '#',
-    rota: '/produto/vitalvoice'
   },
   {
-    sigla: 'IAvoice | Fonovital',
-    nome: 'IAvoice Inteligência Auditiva | Fonovital (par)',
-    descricao: 'Com inteligência artificial, o IAvoice se adapta ao ambiente para uma audição mais precisa.',
-    galeria: [iavoice],
-    precoOriginal: 1999.00,
-    precoAtual: 1699.00,
+    sigla: 'IAvoice Inteligente',
+    descricao: 'Com inteligência artificial, o IAvoice se adapta ao ambiente.',
+    precoOriginal: 1999.0,
+    precoAtual: 1699.0,
     precoParcela: '12x R$ 166,16',
-    parcelas: 12,
     avaliacoes: 51,
+    imagem: iavoice,
+    esgotado: false,
+    rota: '/produto/iavoice',
+    badge: 'IA',
     link: 'https://fonovital.pay.yampi.com.br/r/EXEMPLOIAVOICE',
-    rota: '/produto/iavoice'
   },
   {
-    sigla: 'VitalAir | Fonovital',
-    nome: 'Vital Air Digital Recarregável | Fonovital (par)',
-    descricao: 'Controle total da audição com app e 32 canais para personalização completa.',
-    galeria: [vitalair],
-    precoOriginal: 2899.00,
-    precoAtual: 1999.00,
+    sigla: 'Vital Air',
+    descricao: 'Controle total da audição com app e 32 canais de personalização.',
+    precoOriginal: 2899.0,
+    precoAtual: 1999.0,
     precoParcela: '12x R$ 199,75',
-    parcelas: 12,
     avaliacoes: 42,
+    imagem: vitalair,
+    esgotado: false,
+    rota: '/produto/vitalair',
+    badge: 'TWS',
     link: 'https://fonovital.pay.yampi.com.br/r/DLE7SWQNKR',
-    rota: '/produto/vitalair'
   },
   {
-    sigla: 'VoicePro | Fonovital',
-    nome: 'VoicePro Profissional Digital | Fonovital (par)',
-    descricao: 'Alta performance para ambientes ruidosos com 48 canais e conectividade total.',
-    galeria: [voicepro],
-    precoOriginal: 2099.00,
-    precoAtual: 1499.00,
+    sigla: 'VoicePro Profissional',
+    descricao: 'Alta performance para ambientes ruidosos com 48 canais.',
+    precoOriginal: 2099.0,
+    precoAtual: 1499.0,
     precoParcela: '12x R$ 145,90',
-    parcelas: 12,
     avaliacoes: 47,
+    imagem: voicepro,
+    esgotado: false,
+    rota: '/produto/voicepro',
+    badge: 'CIC',
     link: 'https://fonovital.pay.yampi.com.br/r/EXEMPLOVOICEPRO',
-    rota: '/produto/voicepro'
-  }
-]
+  },
+];
 
 export default function TiposAparelhos() {
   return (
-    <section className="pt-32 pb-20 px-4 bg-white">
+    <div className="w-full bg-white font-[Montserrat]">
       <Navbar />
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-10">
-          <h1 className="text-4xl font-bold text-[#213547] text-center w-full sm:w-auto mb-4 sm:mb-0">
-            Tipos de Aparelhos Auditivos
-          </h1>
-          <Link
-            to="/"
-            className="bg-[#A8E6CF] font-semibold rounded-full transition hover:opacity-90
-              text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2"
-          >
-            Voltar ao início
-          </Link>
-        </div>
 
-        <p className="text-gray-500 text-center mb-12 text-lg">
-          Conheça cada modelo disponível
-        </p>
+      <section className="px-4 lg:px-8 py-12">
+        <h2 className="mt-16 text-3xl sm:text-4xl font-bold text-[#213547] mb-12 text-center">
+          Tipos de Aparelhos Auditivos
+        </h2>
 
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-8">
-          {aparelhos.map((aparelho, index) => {
+        <div className="flex flex-wrap justify-center gap-8">
+          {aparelhos.map((item, index) => {
+            const precoOriginal = item.precoOriginal.toFixed(2).replace('.', ',');
+            const precoAtual = item.precoAtual.toFixed(2).replace('.', ',');
             const desconto = Math.round(
-              ((aparelho.precoOriginal - aparelho.precoAtual) / aparelho.precoOriginal) * 100
-            )
+              ((item.precoOriginal - item.precoAtual) / item.precoOriginal) * 100
+            );
 
             return (
-              <div 
+              <div
                 key={index}
-                className="relative bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all"
+                className={`relative w-full sm:w-[300px] lg:w-[280px] bg-white rounded-2xl border border-[#4A90E2] shadow-sm hover:shadow-md transition duration-300 ${
+                  item.esgotado ? 'opacity-60' : ''
+                }`}
               >
-                {/* Badge de desconto */}
-                <span className="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                  -{desconto}%
-                </span>
+                {!item.esgotado && (
+                  <span className="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                    -{desconto}%
+                  </span>
+                )}
 
-                {/* Badge esgotado */}
-                {aparelho.esgotado && (
+                {item.esgotado && (
                   <span className="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
                     ESGOTADO
                   </span>
                 )}
 
-                <img
-                  src={aparelho.galeria[0]}
-                  alt={`Imagem de ${aparelho.nome}`}
-                  className="w-full h-48 object-contain mb-4 rounded-lg border-4 border-[#4A90E2]"
-                />
+                <figure className="p-4 h-48 flex items-center justify-center">
+                  <img
+                    src={item.imagem}
+                    alt={item.sigla}
+                    className="h-full object-contain rounded-xl"
+                  />
+                </figure>
 
-                <h3 className="text-xl font-bold text-[#213547] mb-1">
-                  {aparelho.sigla}
-                </h3>
-                <p className="text-gray-400 text-sm mb-2">
-                  {aparelho.nome}
-                </p>
+                <div className="px-5 py-4">
+                  <h2 className="font-semibold text-[#213547] text-base leading-snug mb-1">
+                    {item.sigla}
+                  </h2>
 
-                <div className="flex items-center mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} className="text-yellow-500 text-base" />
-                  ))}
-                  <span className="text-sm text-gray-500 ml-2">
-                    ({aparelho.avaliacoes})
-                  </span>
-                </div>
+                  <div className="flex items-center gap-1 text-[#213547] text-sm mb-1">
+                    {[...Array(5)].map((_, i) => (
+                      <FaStar key={i} className="text-[#213547]" />
+                    ))}
+                    <span className="ml-1 text-gray-500 text-sm">({item.avaliacoes})</span>
+                  </div>
 
-                <p className="line-through text-gray-400 text-sm mb-1">
-                  R$ {aparelho.precoOriginal.toFixed(2)}
-                </p>
-                <p className="text-2xl font-bold text-[#4A90E2] mb-1">
-                  R$ {aparelho.precoAtual.toFixed(2)}
-                </p>
-                <p className="text-gray-500 text-sm mb-4">
-                  {aparelho.precoParcela}
-                </p>
+                  <p className="line-through text-gray-400 text-sm mb-0">R$ {precoOriginal}</p>
+                  <p className="text-[#213547] text-sm font-semibold mb-1">R$ {precoAtual}</p>
 
-                <div className="flex justify-center">
-                  {aparelho.esgotado ? (
-                    <a
-                      href={aparelho.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block w-full sm:w-auto text-center text-white bg-red-500 px-4 py-2 rounded-full font-semibold text-sm sm:text-base md:text-lg hover:bg-red-600 transition mx-auto"
-                    >
-                      Me avise quando Voxcharge chegar
-                    </a>
-                  ) : (
-                    <Link
-                      to={aparelho.rota}
-                      className="text-white bg-gradient-to-r from-[#00979c] via-[#4A90E2] to-[#018d93] px-6 py-3 rounded-full font-semibold text-lg hover:scale-105 transition text-center"
-                    >
-                      Ver detalhes
-                    </Link>
-                  )}
+                  <p className="flex items-center gap-2 text-[#213547] font-bold text-xl mb-3">
+                    <HiOutlineCreditCard className="text-lg" />
+                    {item.precoParcela}
+                  </p>
+
+                  <div className="flex justify-between items-center">
+                    <div className="badge badge-outline">{item.badge}</div>
+                    {item.esgotado ? (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-red-500/80 text-white text-sm px-4 py-2 rounded-lg font-medium cursor-not-allowed"
+                      >
+                        Avise-me
+                      </a>
+                    ) : (
+                      <Link
+                        to={item.rota}
+                        className="bg-[#007c91] hover:bg-[#005f6e] text-white text-sm px-4 py-2 rounded-lg font-medium transition"
+                      >
+                        Ver detalhes
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
-      </div>
-    </section>
-  )
+      </section>
+
+      <section className="max-w-5xl mx-auto px-4 lg:px-0 py-12">
+        <h3 className="text-2xl font-bold text-[#213547] mb-6 text-center">
+          Comentários de quem já experimentou
+        </h3>
+        <Comments />
+      </section>
+
+      <Footer />
+    </div>
+  );
 }

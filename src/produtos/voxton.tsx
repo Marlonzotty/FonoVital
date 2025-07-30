@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { FaStar, FaCheckCircle } from 'react-icons/fa'
+import { HiOutlineCreditCard } from 'react-icons/hi2'
 import Navbar from '../components/Navbar'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
@@ -25,7 +26,7 @@ export default function Voxton() {
   const dados = {
     sigla: 'Voxton | Fonovital',
     nome: 'Voxton Mini CIC | Fonovital',
-    descricao: 'Voxton Aparelho Auditivo Mini CIC  | Fonovital. Tecnologia discreta e eficiente para o dia a dia.',
+    descricao: 'Voxton Aparelho Auditivo Mini CIC | Fonovital. Tecnologia discreta e eficiente para o dia a dia.',
     lados: {
       par: {
         imagem: voxton,
@@ -50,8 +51,6 @@ export default function Voxton() {
     parcelas: 12
   }
 
-  const preco = dados.lados[opcao].precoAtual
-
   const miniaturas = [
     { src: voxton, alt: 'Foto principal do produto' },
     { src: voxtonPacote, alt: 'Pacote do produto' },
@@ -62,20 +61,21 @@ export default function Voxton() {
     { src: explicando, alt: 'Imagem explicativa do produto' }
   ]
 
-  return (
-    <>
-      {/* SECTION - PRINCIPAL */}
-      <section className="pt-32 pb-20 px-4 bg-white">
-        <Navbar />
-        <div className="max-w-5xl mx-auto">
-          <h1 className="text-3xl font-bold text-[#213547] mb-4">{dados.sigla}</h1>
+  const preco = dados.lados[opcao].precoAtual
 
-          {/* Galeria */}
+  return (
+    <section className="pt-32 bg-white font-[Montserrat] text-[#213547]">
+      <Navbar />
+
+      <section className="w-full px-4 py-12 text-base lg:text-lg">
+        <div className="max-w-5xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-6">{dados.nome}</h1>
+
           <div className="flex flex-col items-center mb-8">
             <img
               src={imagemSelecionada}
-              alt="Imagem selecionada do produto"
-              className="w-full max-w-lg object-contain rounded-lg border-4 border-[white] mb-4"
+              alt="Imagem selecionada do Voxton"
+              className="w-full max-w-lg object-contain rounded-xl  border-[#] mb-4"
             />
             <div className="flex gap-3 flex-wrap justify-center">
               {miniaturas.map((item, index) => (
@@ -85,8 +85,8 @@ export default function Voxton() {
                   alt={item.alt}
                   title={item.alt}
                   className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${imagemSelecionada === item.src
-                      ? 'border-[#] scale-105'
-                      : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
+                    ? 'border-[#4A90E2] scale-105'
+                    : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
                     }`}
                   onClick={() => setImagemSelecionada(item.src)}
                 />
@@ -94,20 +94,27 @@ export default function Voxton() {
             </div>
           </div>
 
-          {/* Informações e Preço */}
-          <div className="flex items-center mb-4">
+          <div className="flex items-center gap-1 text-sm mb-1">
             {[...Array(5)].map((_, i) => (
-              <FaStar key={i} className="text-yellow-500" />
+              <FaStar key={i} className="text-[#213547]" />
             ))}
-            <span className="text-sm text-gray-500 ml-2">({dados.avaliacoes})</span>
+            <span className="ml-1 text-gray-500">({dados.avaliacoes})</span>
           </div>
-          <p className="text-lg text-gray-600 mb-2">{dados.descricao}</p>
-          <p className="text-gray-400 line-through">R$ {dados.lados[opcao].precoOriginal.toFixed(2)}</p>
-          <p className="text-3xl font-bold text-[#4A90E2]">R$ {preco.toFixed(2)}</p>
-          <p className="text-sm text-gray-500 mb-4">R$ 12x R$ 58,17</p>
 
-          {/* Botões de lado */}
-          <div className="grid grid-cols-3 gap-2 mb-4">
+          <p className="text-sm text-gray-600 mb-2">{dados.descricao}</p>
+          <p className="line-through text-sm text-gray-400 mb-0">
+            R$ {dados.lados[opcao].precoOriginal.toFixed(2).replace('.', ',')}
+          </p>
+          <p className="text-[#213547] text-sm font-semibold mb-1">
+            R$ {preco.toFixed(2).replace('.', ',')}
+          </p>
+
+          <p className="flex items-center gap-2 font-bold text-xl mb-6">
+            <HiOutlineCreditCard className="text-lg" />
+            12x R$ 58,17
+          </p>
+
+          <div className="grid grid-cols-3 gap-2 mb-6">
             {(['esquerdo', 'par', 'direito'] as const).map((lado) => (
               <button
                 key={lado}
@@ -115,9 +122,9 @@ export default function Voxton() {
                   setOpcao(lado)
                   setImagemSelecionada(dados.lados[lado].imagem)
                 }}
-                className={`py-2 rounded-full font-semibold border ${opcao === lado
-                    ? 'bg-[#4A90E2] text-white'
-                    : 'bg-gray-100 text-[#213547]'
+                className={`py-2 rounded-full font-semibold border transition ${opcao === lado
+                  ? 'bg-[#4A90E2] text-white'
+                  : 'bg-gray-100 text-[#213547]'
                   }`}
               >
                 {lado === 'par' ? 'PAR' : `Lado ${lado}`}
@@ -129,38 +136,60 @@ export default function Voxton() {
             href={dados.lados[opcao].link}
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-center bg-gradient-to-r from-[#4A90E2] to-[#00979c] text-white py-3 rounded-full font-bold hover:scale-105 hover:brightness-110 transition animate-pulse"
+            className="inline-block bg-gradient-to-r from-[#4A90E2] to-[#00979c] text-white text-sm px-6 py-3 rounded-lg font-medium transition animate-pulse"
           >
             COMPRAR {opcao === 'par' ? 'O PAR' : `LADO ${opcao.toUpperCase()}`}
           </a>
         </div>
       </section>
 
-      {/* SECTION - BENEFÍCIOS */}
-      <section className="w-full bg-[#028794] py-12 px-4">
+      <section className="w-full bg-[#028794] py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Por que escolher o Voxton?</h2>
-          <ul className="space-y-4 text-white text-base">
-            <li className="flex items-center gap-2"><FaCheckCircle className="text-green-300" /> Discrição total: Design CIC que desaparece no ouvido para quem valoriza estética e liberdade.</li>
-            <li className="flex items-center gap-2"><FaCheckCircle className="text-green-300" /> Conforto que dura o dia todo: Ajuste anatômico e leveza que você esquece que está usando.</li>
-            <li className="flex items-center gap-2"><FaCheckCircle className="text-green-300" /> Som natural e claro: Tecnologia avançada para entender conversas sem esforço.</li>
-            <li className="flex items-center gap-2"><FaCheckCircle className="text-green-300" /> Mais confiança, menos ruído: Redução inteligente de sons indesejados para momentos tranquilos.</li>
-            <li className="flex items-center gap-2"><FaCheckCircle className="text-green-300" /> Indicado para perdas auditivas leves a severas (86%): Potência ideal para restaurar sua qualidade de vida.</li>
+          <h2 className="text-2xl font-semibold text-white mb-6">
+            Por que escolher o Voxton?
+          </h2>
+          <ul className="space-y-4 text-white">
+            <li className="flex items-center gap-2">
+              <FaCheckCircle className="text-green-300" />
+              Discrição total: Design CIC que desaparece no ouvido para quem valoriza estética e liberdade.
+            </li>
+            <li className="flex items-center gap-2">
+              <FaCheckCircle className="text-green-300" />
+              Conforto que dura o dia todo: Ajuste anatômico e leveza que você esquece que está usando.
+            </li>
+            <li className="flex items-center gap-2">
+              <FaCheckCircle className="text-green-300" />
+              Som natural e claro: Tecnologia avançada para entender conversas sem esforço.
+            </li>
+            <li className="flex items-center gap-2">
+              <FaCheckCircle className="text-green-300" />
+              Mais confiança, menos ruído: Redução inteligente de sons indesejados para momentos tranquilos.
+            </li>
+            <li className="flex items-center gap-2">
+              <FaCheckCircle className="text-green-300" />
+              Indicado para perdas auditivas leves a severas (86%): Potência ideal para restaurar sua qualidade de vida.
+            </li>
           </ul>
         </div>
       </section>
 
-      {/* SECTION - BANNERS VISUAIS */}
       <section className="w-full bg-[#028794] py-10 px-4">
         <div className="max-w-5xl mx-auto space-y-8">
-          <img src={bannerVoxton} alt="Banner Voxton" className="block object-cover w-full lg:max-w-3xl mx-auto rounded-lg" />
-          <img src={voxtonCustoBeneficio} alt="Voxton Custo Benefício" className="block object-cover w-full lg:max-w-3xl mx-auto rounded-lg" />
+          <img
+            src={bannerVoxton}
+            alt="Banner Voxton"
+            className="block object-cover w-full rounded-2xl lg:max-w-3xl mx-auto"
+          />
+          <img
+            src={voxtonCustoBeneficio}
+            alt="Voxton custo benefício"
+            className="block object-cover w-full rounded-2xl lg:max-w-3xl mx-auto"
+          />
         </div>
       </section>
 
-      {/* SECTION - GARANTIA */}
-      <section className="w-full py-12 px-4 bg-[#f0fdf4]">
-        <div className="max-w-3xl mx-auto border border-green-300 rounded-lg text-center p-6">
+      <section className="w-full bg-[#f0fdf4] py-12 px-4 text-base lg:text-lg">
+        <div className="max-w-3xl mx-auto border border-green-300 rounded-2xl text-center p-6">
           <p className="text-lg font-semibold text-green-700 mb-2">
             Garantia de 1 ano de fábrica Fonovital
           </p>
@@ -170,50 +199,57 @@ export default function Voxton() {
         </div>
       </section>
 
-      {/* SECTION - FAQ */}
-      <section className="w-full py-12 px-4 bg-white">
+      <section className="w-full bg-white py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
-          <h3 className="text-xl font-bold text-[#213547] mb-6">Perguntas Frequentes</h3>
+          <h3 className="text-xl font-bold mb-6">Perguntas Frequentes</h3>
           <div className="space-y-4">
             <details className="border rounded-md p-4 cursor-pointer">
-              <summary className="font-semibold text-[#4A90E2]">O Voxton é indicado para qualquer idade?</summary>
-              <p className="mt-2 text-gray-600">Sim! Ele é discreto, confortável e fácil de usar, ideal para adultos e idosos.</p>
+              <summary className="font-semibold text-[#4A90E2]">
+                O Voxton é indicado para qualquer idade?
+              </summary>
+              <p className="mt-2 text-gray-600">
+                Sim! Ele é discreto, confortável e fácil de usar, ideal para adultos e idosos.
+              </p>
             </details>
             <details className="border rounded-md p-4 cursor-pointer">
-              <summary className="font-semibold text-[#4A90E2]">É preciso fazer exames antes de usar?</summary>
-              <p className="mt-2 text-gray-600">Não obrigatoriamente, mas recomendamos realizar nosso teste auditivo gratuito online antes da compra.</p>
+              <summary className="font-semibold text-[#4A90E2]">
+                É preciso fazer exames antes de usar?
+              </summary>
+              <p className="mt-2 text-gray-600">
+                Não obrigatoriamente, mas recomendamos realizar nosso teste auditivo gratuito online antes da compra.
+              </p>
             </details>
             <details className="border rounded-md p-4 cursor-pointer">
-              <summary className="font-semibold text-[#4A90E2]">Quanto tempo dura a bateria descartável?</summary>
-              <p className="mt-2 text-gray-600">Aproximadamente 60 horas de uso.</p>
+              <summary className="font-semibold text-[#4A90E2]">
+                Quanto tempo dura a bateria descartável?
+              </summary>
+              <p className="mt-2 text-gray-600">
+                Aproximadamente 60 horas de uso.
+              </p>
             </details>
           </div>
         </div>
       </section>
 
-      {/* SECTION - CHAMADA FINAL */}
-      <section className="w-full py-16 px-4 bg-white text-center">
-        <p className="text-2xl font-bold text-[#213547] mb-4">
-          Pronto para ouvir melhor todos os dias?
-        </p>
+      <section className="w-full bg-white py-16 px-4 text-center text-base lg:text-lg">
+        <p className="text-2xl font-bold mb-4">Pronto para ouvir melhor todos os dias?</p>
         <a
           href={dados.lados[opcao].link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block text-white bg-gradient-to-r from-[#4A90E2] to-[#00979c] py-4 px-8 rounded-full font-bold text-lg hover:scale-105 hover:brightness-110 transition animate-pulse"
+          className="inline-block bg-gradient-to-r from-[#4A90E2] to-[#00979c] text-white py-4 px-8 rounded-full font-bold text-lg transition animate-pulse"
         >
-          GARANTA O SEU AGORA
+          GARANTIR O MEU
         </a>
-        {/* SECTION - COMENTÁRIOS */}
-        <section className="w-full bg-[#f9f9f9] py-12 px-4">
-          <div className="max-w-5xl mx-auto">
-            <Comments />
-          </div>
-        </section>
-
-        {/* FOOTER */}
-        <Footer />
       </section>
-    </>
+
+      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+        <div className="max-w-5xl mx-auto">
+          <Comments />
+        </div>
+      </section>
+
+      <Footer />
+    </section>
   )
 }

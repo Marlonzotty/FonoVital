@@ -83,7 +83,7 @@ const aparelhos = {
     {
       nome: 'Vital Air',
       descricao: 'Controle via app e 32 canais de personalização.',
-      precoOriginal: 1899,
+      precoOriginal: 2899,
       precoParcela: '12x R$ 199,75',
       precoAtual: 1999.00,
       imagem: vitalAir,

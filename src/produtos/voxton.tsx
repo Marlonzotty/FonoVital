@@ -94,6 +94,7 @@ export default function Voxton() {
             </div>
           </div>
 
+
           <div className="flex items-center gap-1 text-sm mb-1">
             {[...Array(5)].map((_, i) => (
               <FaStar key={i} className="text-[#213547]" />
@@ -142,6 +143,25 @@ export default function Voxton() {
           </a>
         </div>
       </section>
+      {/* Vídeo demonstrativo do produto */}
+      <div className="w-full my-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-xl font-semibold mb-4 text-center text-[#213547]">Veja o Voxton em ação</h2>
+          <div className="relative w-full pt-[56.25%] rounded-xl overflow-hidden shadow-lg">
+            <iframe
+              src="https://www.youtube.com/embed/HK2MSo0sIjc?si=JGG598yJedx3W2Bg"
+              title="YouTube video player"
+              className="absolute top-0 left-0 w-full h-full"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </div>
+
+
 
       <section className="w-full bg-[#028794] py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">

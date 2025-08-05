@@ -32,19 +32,19 @@ export default function Voxton() {
         imagem: voxton,
         precoOriginal: 1399,
         precoAtual: 599.9,
-        link: 'https://fonovital.pay.yampi.com.br/r/3H7FPTZSYX'
+        link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068276'
       },
       direito: {
         imagem: voxton,
         precoOriginal: 499,
         precoAtual: 399.9,
-        link: 'https://fonovital.pay.yampi.com.br/r/C7HALBCFQC'
+        link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28069624'
       },
       esquerdo: {
         imagem: voxton,
         precoOriginal: 499,
         precoAtual: 399.9,
-        link: 'https://fonovital.pay.yampi.com.br/r/OFL1M0NBM6'
+        link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28069620'
       }
     },
     avaliacoes: 21,

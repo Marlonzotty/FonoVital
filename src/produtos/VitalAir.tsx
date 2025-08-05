@@ -31,7 +31,7 @@ export default function VitalAir() {
     precoAtual: 1999.0,
     parcelas: 12,
     avaliacoes: 42,
-    link: 'https://fonovital.pay.yampi.com.br/r/DLE7SWQNKR'
+    link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068594'
   }
 
   const miniaturas = [

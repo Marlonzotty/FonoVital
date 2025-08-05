@@ -35,7 +35,7 @@ export default function IAvoice() {
     precoAtual: 1699.9,
     parcelas: 12,
     avaliacoes: 51,
-    link: 'https://fonovital.pay.yampi.com.br/r/6HSMEGGHGI'
+    link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068656'
   }
 
   const miniaturas = [

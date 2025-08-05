@@ -31,7 +31,7 @@ export default function Vitalvoice() {
     precoAtual: 1399.9,
     parcelas: 12,
     avaliacoes: 12,
-    link: 'https://fonovital.pay.yampi.com.br/r/I8QUKNPT55'
+    link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068435'
   }
 
   const miniaturas = [

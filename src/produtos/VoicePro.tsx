@@ -31,7 +31,7 @@ export default function VoicePro() {
     precoAtual: 1499.0,
     parcelas: 12,
     avaliacoes: 47,
-    link: 'https://fonovital.pay.yampi.com.br/r/SSDXCJ1N2B'
+    link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068557'
   }
 
   const miniaturas = [

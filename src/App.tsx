@@ -2,7 +2,7 @@ import './App.css'
 import PromoBanner from "./components/PromoBanner";
 import Navbar from './components/Navbar'
 import ProductPage from './components/ProductPage'
-import imgDiaDosPais from "./assets/DiaDosPais.jpg";
+import imgDiaDosPais from "./assets/ia (1).jpg";
 import ResponsiveYouTube from './components/ResponsiveYouTube'
 import ProductGallery from './components/ProductGallery'
 import Manifesto from './components/Manifesto'

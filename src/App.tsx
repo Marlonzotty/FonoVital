@@ -21,6 +21,7 @@ export default function App() {
 
       <Navbar />
       <ResponsiveYouTube videoId="Z4-1AfiPFQ0" />
+      
 
       <PurchaseAlert />
       <ProductPage />
@@ -43,7 +44,9 @@ export default function App() {
       <ProductGallery />
       <Manifesto />
       <Comments />
+      
       <Footer />
+      
     </div>
   )
 }

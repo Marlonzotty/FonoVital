@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Ear,
   CheckCircle,
@@ -7,9 +8,45 @@ import {
   Phone,
   Mail,
   MapPin
-} from 'lucide-react';
+} from "lucide-react";
 
 export default function Footer() {
+  const [raLoaded, setRaLoaded] = useState(false);
+
+  useEffect(() => {
+    const TARGET_ID = "reputation-ra";
+    const SCRIPT_ID = "ra-embed-reputation";
+
+    // se já existe script, só tenta renderizar
+    if (document.getElementById(SCRIPT_ID)) {
+      const RA = (window as any).RA;
+      if (RA && typeof RA.render === "function") {
+        RA.render();
+        setRaLoaded(true);
+      }
+      return;
+    }
+
+    // cria script dinamicamente
+    const s = document.createElement("script");
+    s.src = "https://s3.amazonaws.com/raichu-beta/selos/bundle.js";
+    s.id = SCRIPT_ID;
+    s.type = "text/javascript";
+    s.async = true;
+    s.dataset.id = "UEhEaDkzUU1wU1Z2WU9xeDpmb25vdml0YWwtbHRkYQ=="; // seu ID da Fonovital
+    s.dataset.target = TARGET_ID;
+    s.dataset.model = "2"; // modelo do selo
+    s.onload = () => setRaLoaded(true);
+    document.body.appendChild(s);
+
+    // fallback em 3s
+    const t = setTimeout(() => {
+      if (!raLoaded) setRaLoaded(false);
+    }, 3000);
+
+    return () => clearTimeout(t);
+  }, [raLoaded]);
+
   return (
     <footer className="w-full bg-[#213547] text-gray-300 py-10">
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -75,7 +112,9 @@ export default function Footer() {
           </ul>
           <div className="mt-8 text-center text-xs text-gray-400 space-y-1">
             <div>
-              &copy; {new Date().getFullYear()} <span className="font-medium text-gray-300">FonoVital</span>. Site desenvolvido por <span className="font-medium text-gray-300">Zotty Software</span>.
+              &copy; {new Date().getFullYear()}{" "}
+              <span className="font-medium text-gray-300">FonoVital</span>. Site desenvolvido por{" "}
+              <span className="font-medium text-gray-300">Zotty Software</span>.
             </div>
             <div>
               <span className="font-semibold text-gray-200">CNPJ:</span> 61.894.698/0001-20
@@ -84,7 +123,23 @@ export default function Footer() {
         </div>
       </div>
 
-
+      {/* Selo Reclame Aqui centralizado */}
+      <div className="mt-10 flex flex-col items-center gap-3">
+        <span className="text-sm text-gray-200 font-semibold">
+          Nossa reputação no Reclame Aqui
+        </span>
+        <div id="reputation-ra" />
+        {!raLoaded && (
+          <a
+            href="https://www.reclameaqui.com.br/empresa/fonovital/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-green-400 underline text-sm"
+          >
+            Ver no Reclame Aqui
+          </a>
+        )}
+      </div>
     </footer>
   );
 }

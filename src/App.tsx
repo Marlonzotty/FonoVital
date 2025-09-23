@@ -12,9 +12,12 @@ import PurchaseAlert from './components/PurchaseAlert'
 
 // Imagens para diferentes tamanhos de tela
 
+// ...
+
 
 export default function App() {
   return (
+    
 
     <div className="min-h-screen pt-17">
       <PromoBanner />
@@ -38,8 +41,8 @@ export default function App() {
     alt="Imagem Dia dos Pais versão mobile"
     className="block md:hidden w-full max-w-md mx-auto rounded-lg"
   />
+  
 </div>
-    
 
       <ProductGallery />
       <Manifesto />

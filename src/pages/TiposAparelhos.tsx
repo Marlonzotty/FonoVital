@@ -25,7 +25,7 @@ const aparelhos = [
     esgotado: false,
     rota: '/produto/voxton',
     badge: 'CIC',
-    link: 'https://fonovital.pay.yampi.com.br/r/3H7FPTZSYX',
+    link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068276',
   },
   {
     sigla: 'Voxcharge Mini CIC',
@@ -38,7 +38,7 @@ const aparelhos = [
     esgotado: true,
     rota: '/produto/voxcharge',
     badge: 'CIC',
-    link: 'https://wa.me/55329999069763?text=Ol%C3%A1%2C+gostaria+de+ser+avisado+quando+o+Voxcharge+voltar+ao+estoque.',
+    link: 'https://wa.me/553x?text=Ol%C3%A1%2C+gostaria+de+ser+avisado+quando+o+Voxcharge+voltar+ao+estoque.',
   },
   {
     sigla: 'Vitalvoice CIC',

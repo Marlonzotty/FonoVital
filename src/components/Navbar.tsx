@@ -54,7 +54,7 @@ export default function Navbar() {
         {/* WhatsApp Desktop */}
         <div className="hidden md:block">
           <a
-            href="https://wa.me/5532998820710?text=Gostaria%20de%20saber%20mais%20sobre"
+            href="https://wa.me/55329999069763?text=Gostaria%20de%20saber%20mais%20sobre"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white text-[#008B91] px-4 py-2 rounded font-semibold hover:scale-105 hover:shadow transition-transform duration-200"

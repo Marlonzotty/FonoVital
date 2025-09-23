@@ -1,102 +1,98 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./src/assets/logomarca.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FonoVital</title>
 
+    <!-- Microsoft Clarity -->
     <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "sji0ahcl6o");
-</script>
+      (function (c, l, a, r, i, t, y) {
+        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+        t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "sji0ahcl6o");
+    </script>
+    <!-- /Microsoft Clarity -->
 
-    <!-- Meta Pixel Code -->
-   
-    <!-- End Meta Pixel Code -->
+    <!-- Meta Pixel
+         NOTE: o carregamento real do Pixel é feito no React (fbpixel.ts/useMeta).
+         Não inclua aqui o snippet JS do fbq para evitar PageView duplicado. -->
   </head>
+
   <body>
-    <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1094766585359039');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1094766585359039&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-    <!-- Botão flutuante WhatsApp (responsivo, topo, com ícone) -->
-<style>
-  @media (max-width: 768px) {
-    #whatsapp-float {
-      position: fixed;
-      top: 72px; /* ou ajuste conforme altura da sua navbar */
-      right: 16px;
-      z-index: 9999;
-      background-color: white;
-      color: #008B91;
-      padding: 10px 14px;
-      border-radius: 9999px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      font-weight: 600;
-      font-family: sans-serif;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-  }
-
-  @media (min-width: 769px) {
-    #whatsapp-float {
-      display: none;
-    }
-  }
-</style>
-
-<!-- Ícone do WhatsApp (via SVG) + texto -->
-
-
+    <!-- Meta Pixel (noscript apenas; opcional) -->
     <noscript>
       <img height="1" width="1" style="display:none"
-           src="https://www.facebook.com/tr?id=674022269032618&ev=PageView&noscript=1"/>
+           src="https://www.facebook.com/tr?id=1514873466557510&ev=PageView&noscript=1" />
     </noscript>
-    
+    <!-- /Meta Pixel -->
+
+    <!-- Botão flutuante WhatsApp (visível apenas em mobile) -->
+    <style>
+      @media (max-width: 768px) {
+        #whatsapp-float {
+          position: fixed;
+          top: 72px;
+          right: 16px;
+          z-index: 9999;
+          background-color: #ffffff;
+          color: #008B91;
+          padding: 10px 14px;
+          border-radius: 9999px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          font-weight: 600;
+          font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          text-decoration: none;
+        }
+        #whatsapp-float img {
+          width: 18px;
+          height: 18px;
+          display: inline-block;
+        }
+      }
+      @media (min-width: 769px) {
+        #whatsapp-float { display: none; }
+      }
+    </style>
+
     <div id="root"></div>
-    
+
+    <!-- Exemplo do botão (ajuste o número/mensagem ou remova se já renderiza via React) -->
+    <a id="whatsapp-float"
+       href="https://wa.me/5532999999999?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20os%20aparelhos%20auditivos%20FonoVital"
+       target="_blank" rel="noopener">
+      <img src="https://static.whatsapp.net/rsrc.php/v3/yP/r/rYZqPCBaG70.png" alt="WhatsApp" />
+      Falar no WhatsApp
+    </a>
+
     <!-- Script principal Vite/React -->
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- Start of Tawk.to Script -->
+    <!-- Tawk.to (chat) -->
     <script type="text/javascript">
       var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
       (function () {
         var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
         s1.async = true;
-        s1.src = 'https://embed.tawk.to/685ae6e6cc709d190e34346d/1iuhhbtcu';
-        s1.charset = 'UTF-8';
-        s1.setAttribute('crossorigin', '*');
+        s1.src = "https://embed.tawk.to/685ae6e6cc709d190e34346d/1iuhhbtcu";
+        s1.charset = "UTF-8";
+        s1.setAttribute("crossorigin", "*");
         s0.parentNode.insertBefore(s1, s0);
       })();
     </script>
+    <!-- /Tawk.to -->
 
-    <!-- Yampi Buy Button Script -->
-    <!-- <script
+    <!-- Yampi Buy Button (opcional)
+    <script
       class="ymp-script"
       src="https://api.yampi.io/v2/fonovital/public/buy-button/KQ4WBFEEML/js"
       async
-    ></script> -->
-    
+    ></script>
+    -->
   </body>
 </html>

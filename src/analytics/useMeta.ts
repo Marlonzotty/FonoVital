@@ -1,19 +1,12 @@
-import { useEffect, useCallback } from "react";
-import { loadFacebookPixel, trackEvent, trackPageView } from "./fbpixel";
+import { useCallback } from "react";
+import { trackEvent } from "./fbpixel";
 
-export function useMeta(pixelId: string) {
-  useEffect(() => {
-    if (!pixelId) return;
-    loadFacebookPixel(pixelId);
-    trackPageView(); // dispara ao montar
-  }, [pixelId]);
-
+export function useMeta() {
   const track = useCallback(
     (name: string, params?: Record<string, any>, eventID?: string) => {
       trackEvent(name, params, eventID ? { eventID } : undefined);
     },
     []
   );
-
   return { track };
 }

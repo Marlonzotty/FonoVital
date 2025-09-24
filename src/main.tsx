@@ -16,48 +16,43 @@ import IAvoice from './produtos/IAvoice';
 import VitalAir from './produtos/VitalAir';
 import VoicePro from './produtos/VoicePro';
 
-import { loadFacebookPixel, trackPageView } from './analytics/fbpixel'
+import { loadFacebookPixel, trackPageView } from './analytics/fbpixel';
 
-// ✅ Importa o MetaTest da pasta analytics
-
-const pixelId = import.meta.env.VITE_META_PIXEL_ID
-
+const pixelId = import.meta.env.VITE_META_PIXEL_ID;
 if (pixelId) {
-  loadFacebookPixel(pixelId)
-  // trackPageView() // agora é disparado pelo PageViewTracker para evitar duplicidade
+  loadFacebookPixel(pixelId);
 }
 
-// 🔹 Componente interno que dispara PageView a cada mudança de rota
-function PageViewTracker() {
+function RoutePageView() {
   const location = useLocation();
+  const key = `${location.pathname}|${location.search}|${location.hash}`;
+
   useEffect(() => {
+    const g = window as any;
+    if (g.__LAST_PAGEVIEW_KEY__ === key) return;
+    g.__LAST_PAGEVIEW_KEY__ = key;
+
     trackPageView();
-    // console.log('[Pixel] PageView:', location.pathname, location.search, location.hash);
-  }, [location.pathname, location.search, location.hash]);
+  }, [key]);
+
   return null;
 }
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HashRouter>
-      {/* Dispara PageView no load e em toda navegação */}
-      <PageViewTracker />
-
+      <RoutePageView />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/tipos-de-aparelhos" element={<TiposAparelhos />} />
         <Route path="/teste-auditivo" element={<TesteAuditivo />} />
         <Route path="/cadastro" element={<CadastroModal />} />
-        {/* Produtos */}
         <Route path="/produto/voxton" element={<Voxton />} />
         <Route path="/produto/voxcharge" element={<Voxcharge />} />
         <Route path="/produto/vitalvoice" element={<Vitalvoice />} />
         <Route path="/produto/iavoice" element={<IAvoice />} />
         <Route path="/produto/vitalair" element={<VitalAir />} />
         <Route path="/produto/voicepro" element={<VoicePro />} />
-
-        {/* ✅ Nova rota para testar Meta Pixel / CAPI */}
-       
       </Routes>
     </HashRouter>
   </StrictMode>

@@ -1,15 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { trackPageView } from "./fbpixel";
 
 export default function RoutePageView() {
   const location = useLocation();
+  const lastKeyRef = useRef<string | null>(null);
 
-  // dispara PageView no carregamento e a cada navegação
+  // chave única por rota
+  const key = `${location.pathname}|${location.search}|${location.hash}`;
+
   useEffect(() => {
+    // evita disparo duplicado (StrictMode DEV e re-mounts)
+    if (lastKeyRef.current === key) return;
+    lastKeyRef.current = key;
+
     trackPageView();
-    // se quiser inspeção: console.log("[Pixel] PageView:", location.pathname, location.search, location.hash);
-  }, [location.pathname, location.search, location.hash]);
+    // console.log("[Pixel] PageView:", key);
+  }, [key]);
 
   return null;
 }

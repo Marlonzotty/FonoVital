@@ -63,7 +63,7 @@ export default function Footer() {
           <ul className="text-sm space-y-2">
             <li className="flex items-center space-x-2">
               <CheckCircle size={16} className="text-green-400" />
-              <span>Garantia 3 meses</span>
+              <span>Garantia 1 Ano </span>
             </li>
             <li className="flex items-center space-x-2">
               <Truck size={16} className="text-green-400" />

@@ -123,23 +123,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Selo Reclame Aqui centralizado */}
-      <div className="mt-10 flex flex-col items-center gap-3">
-        <span className="text-sm text-gray-200 font-semibold">
-          Nossa reputação no Reclame Aqui
-        </span>
-        <div id="reputation-ra" />
-        {!raLoaded && (
-          <a
-            href="https://www.reclameaqui.com.br/empresa/fonovital/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-green-400 underline text-sm"
-          >
-            Ver no Reclame Aqui
-          </a>
-        )}
-      </div>
+      
     </footer>
   );
 }

@@ -47,6 +47,28 @@ export default function App() {
       <ProductGallery />
       <Manifesto />
       <Comments />
+
+      <section className="w-full bg-white px-4 py-12">
+        <div className="max-w-5xl mx-auto space-y-6">
+          <div className="overflow-hidden rounded-3xl shadow-lg border border-[#cde7ed]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.122083025319!2d-44.2522057!3d-21.1475393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa1c963c59a1c0f%3A0x53f730cb26c74473!2sFonovital%20LTDA!5e0!3m2!1spt-BR!2sbr!4v1759945084576!5m2!1spt-BR!2sbr"
+              width="100%"
+              height="360"
+              style={{ border: 0 }}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Localização Fonovital"
+            ></iframe>
+          </div>
+          <div className="text-center text-sm text-gray-600">
+            <p className="font-semibold text-[#028794]">Fonovital LTDA</p>
+            <p>CNPJ: 46.681.947/0001-79</p>
+            <p>Rua Padre Sacramento, 332 - Centro, São João del-Rei - MG</p>
+          </div>
+        </div>
+      </section>
       
       <Footer />
       

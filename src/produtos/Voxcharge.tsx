@@ -35,6 +35,10 @@ export default function Voxcharge() {
     whatsapp: 'https://wa.me/55329999069763?text=Ol%C3%A1%2C+gostaria+de+ser+avisado+quando+o+Voxcharge+voltar+ao+estoque.'
   }
 
+  const suporteWhatsapp = `https://wa.me/55329999069763?text=${encodeURIComponent(
+    'Olá, quero falar com um especialista sobre o Voxcharge.'
+  )}`
+
   const parcela = (dados.precoAtual / dados.parcelas).toFixed(2).replace('.', ',')
 
   const miniaturas = [
@@ -150,6 +154,35 @@ export default function Voxcharge() {
             alt="Custo-benefício Voxcharge"
             className="block object-cover w-full rounded-2xl lg:max-w-3xl mx-auto"
           />
+        </div>
+      </section>
+
+      <section className="w-full bg-gradient-to-r from-[#1f2937] via-[#314c68] to-[#0f172a] py-12 px-4 text-white">
+        <div className="max-w-5xl mx-auto flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-3 text-center lg:text-left">
+            <h3 className="text-2xl font-bold">Lista de espera aberta para o Voxcharge</h3>
+            <p className="text-sm sm:text-base text-white/90">
+              Garanta prioridade quando o estoque voltar e tire suas dúvidas sem precisar de audiometria presencial.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a
+              href={dados.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#1f2937] shadow hover:bg-white/90 transition"
+            >
+              Quero ser avisado
+            </a>
+            <a
+              href={suporteWhatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-white px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition"
+            >
+              Falar com especialista
+            </a>
+          </div>
         </div>
       </section>
 

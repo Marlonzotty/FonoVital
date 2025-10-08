@@ -63,20 +63,20 @@ export default function PurchaseAlert() {
 
   return visible ? (
     <div
-    className={`
-    fixed top-24 left-4 md:left-auto md:right-4
-    bg-white rounded-xl border-l-4 border-green-500
-    px-4 py-3 shadow-lg flex items-start space-x-3
-    transition-all duration-500 ease-out
-    z-40
-    ${show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}
-  `}
+      className={`
+        fixed top-20 left-2
+        bg-white/95 backdrop-blur-sm rounded-lg border-l-4 border-green-500
+        px-3 py-2 shadow-md
+        flex items-start gap-2.5 w-[75vw] max-w-[220px]
+        transition-all duration-500 ease-out z-40
+        ${show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}
+      `}
     >
-      <div className="h-3 w-3 rounded-full bg-green-500 mt-1"></div>
-      <div>
-        <p className="font-semibold text-gray-800">{data.nome}</p>
-        <p className="text-gray-500 text-sm">{data.cidade}</p>
-        <p className="text-green-600 text-sm font-medium">
+      <div className="h-2 w-2 rounded-full bg-green-500 mt-1"></div>
+      <div className="space-y-0.5">
+        <p className="font-semibold text-gray-800 text-xs sm:text-sm">{data.nome}</p>
+        <p className="text-gray-500 text-[11px] sm:text-xs">{data.cidade}</p>
+        <p className="text-green-600 text-[11px] sm:text-xs font-medium">
           Comprou {data.produto}
         </p>
       </div>

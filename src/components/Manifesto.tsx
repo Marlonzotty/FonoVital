@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import logo from '../assets/logomarca.png';
 import consultorio from '../assets/consultorio.jpeg';
 import imgPorques from '../assets/img-porques-v2.webp';
 import comparaGeral from '../assets/comparaGeral.jpg';
-import { Brain, Frown, DollarSign, Puzzle } from 'lucide-react';
+import { Brain, Frown, DollarSign, Puzzle, Star, X } from 'lucide-react';
 
 export default function Manifesto() {
   return (
@@ -148,6 +149,138 @@ export default function Manifesto() {
             className="mx-auto w-full max-w-2xl h-auto rounded-lg shadow-md" />
         </div>
       </div>
+
+      <PrincipaisDuvidas />
     </section>
+  );
+}
+
+type FAQModalContent = {
+  titulo: string;
+  conteudo: string[];
+};
+
+const duvidasPrincipais = [
+  'Você não precisa enviar nenhum documento para nós, basta comprar direto no site e receber em casa.',
+  'Todos os modelos são adaptáveis e fáceis de usar, não requerem moldes e acompanham ponteiras antialérgicas em vários tamanhos.',
+  'Os aparelhos possuem ajuste de volume para você selecionar o mais confortável conforme sua necessidade.',
+  'Ajustáveis para até 85% de perda auditiva.',
+  'Após a compra você terá acesso a vídeos e suporte com especialistas sobre como ajustar e usar.',
+  'Não se preocupe: se não se adaptar ou não gostar, você pode devolver o aparelho e ter seu dinheiro de volta sem burocracia.'
+];
+
+const faqExtras: FAQModalContent[] = [
+  {
+    titulo: 'Como é feito o molde / ajuste?',
+    conteudo: [
+      'Estes aparelhos são 100% adaptáveis e não requerem moldes ou ajustes personalizados.',
+      'Acompanham ponteiras de silicone antialérgico (olivas) de vários tamanhos para você escolher a que melhor se adapta ao seu canal auditivo.',
+      'O controle de volume é simples, permitindo que você selecione o nível mais confortável para cada ambiente.'
+    ]
+  },
+  {
+    titulo: 'Como faço pra usar? Terei ajuda?',
+    conteudo: [
+      'Sim! Após a compra você recebe acesso a uma área exclusiva com vídeos, dicas e instruções detalhadas para usar, ajustar e conservar seus aparelhos.',
+      'Também disponibilizamos atendimento online com especialistas via chat para tirar qualquer dúvida sempre que precisar.'
+    ]
+  },
+  {
+    titulo: 'E se eu não gostar ou tiver dificuldades?',
+    conteudo: [
+      'Você conta com nossa política de devolução em até 7 dias: não gostou por qualquer motivo, devolvemos 100% do seu dinheiro.',
+      'Nossa equipe de suporte acompanha toda a jornada para garantir adaptação confortável e segura.'
+    ]
+  }
+];
+
+function PrincipaisDuvidas() {
+  const [faqAberta, setFaqAberta] = useState<FAQModalContent | null>(null);
+
+  return (
+    <div className="w-full bg-[#eef1f9] py-16 px-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#213547] mb-2">
+            Principais dúvidas
+          </h2>
+          <p className="text-gray-600">
+            Veja como é simples adquirir, ajustar e aproveitar o seu aparelho auditivo Fonovital.
+          </p>
+        </div>
+
+        <div className="rounded-3xl bg-white shadow-lg border border-[#d8def0] p-6 sm:p-10">
+          <div className="flex items-start gap-3 mb-6">
+            <div className="h-12 w-1 bg-[#213547] rounded-full" />
+            <h3 className="text-2xl font-semibold text-[#213547]">
+              O que você precisa saber antes de comprar
+            </h3>
+          </div>
+          <ul className="space-y-4 text-[#4a5163] text-sm sm:text-base">
+            {duvidasPrincipais.map(item => (
+              <li key={item} className="flex gap-3">
+                <Star className="text-[#213547] shrink-0 mt-1" size={18} />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {faqExtras.map(item => (
+            <button
+              key={item.titulo}
+              type="button"
+              onClick={() => setFaqAberta(item)}
+              className="group rounded-2xl bg-white p-6 text-left shadow hover:shadow-lg border border-transparent hover:border-[#018B92] transition flex flex-col gap-3"
+            >
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#018B92]/10 text-[#018B92]">
+                <Star size={22} />
+              </div>
+              <h4 className="text-lg font-semibold text-[#213547] group-hover:text-[#018B92]">
+                {item.titulo}
+              </h4>
+              <p className="text-sm text-gray-500">
+                Clique para ver detalhes e instruções completas.
+              </p>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {faqAberta && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6">
+          <div className="relative w-full max-w-2xl rounded-2xl bg-white shadow-2xl">
+            <button
+              type="button"
+              onClick={() => setFaqAberta(null)}
+              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+              aria-label="Fechar modal"
+            >
+              <X size={24} />
+            </button>
+            <div className="p-6 sm:p-10 space-y-4 text-[#213547]">
+              <h3 className="text-2xl font-bold text-[#018B92]">
+                {faqAberta.titulo}
+              </h3>
+              <div className="space-y-3 text-sm sm:text-base text-gray-600 leading-relaxed">
+                {faqAberta.conteudo.map(paragrafo => (
+                  <p key={paragrafo}>{paragrafo}</p>
+                ))}
+              </div>
+              <div className="pt-4">
+                <button
+                  type="button"
+                  onClick={() => setFaqAberta(null)}
+                  className="inline-flex items-center justify-center rounded-lg bg-[#018B92] px-5 py-2 text-sm font-semibold text-white hover:bg-[#026c74] transition"
+                >
+                  Entendi
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

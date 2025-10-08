@@ -1,29 +1,39 @@
 // src/main.tsx
-import { StrictMode, useEffect } from 'react';
-import { createRoot } from 'react-dom/client';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { StrictMode, useEffect } from "react";
+import { createRoot } from "react-dom/client";
+import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 
-import './index.css';
-import App from './App';
-import TiposAparelhos from './pages/TiposAparelhos';
-import TesteAuditivo from './pages/TesteAuditivo';
-import CadastroModal from './components/CadastroModal';
+import "./index.css";
+import App from "./App";
+import TiposAparelhos from "./pages/TiposAparelhos";
+import TesteAuditivo from "./pages/TesteAuditivo";
+import CadastroModal from "./components/CadastroModal";
 
-import Voxton from './produtos/voxton';
-import Voxcharge from './produtos/Voxcharge';
-import Vitalvoice from './produtos/Vitalvoice';
-import IAvoice from './produtos/IAvoice';
-import VitalAir from './produtos/VitalAir';
-import VoicePro from './produtos/VoicePro';
+import Voxton from "./produtos/voxton";
+import Voxcharge from "./produtos/Voxcharge";
+import Vitalvoice from "./produtos/Vitalvoice";
+import IAvoice from "./produtos/IAvoice";
+import VitalAir from "./produtos/VitalAir";
+import VoicePro from "./produtos/VoicePro";
 
-import { loadFacebookPixel, trackPageView } from './analytics/fbpixel';
+import {
+  loadFacebookPixel,
+  trackPageView,
+  refreshFbcFromUrl,
+} from "./analytics/fbpixel";
 
-const pixelId = import.meta.env.VITE_META_PIXEL_ID;
+// ID do Pixel via .env (Vite)
+const pixelId = import.meta.env.VITE_META_PIXEL_ID as string | undefined;
 if (pixelId) {
   loadFacebookPixel(pixelId);
 }
 
-function RoutePageView() {
+/**
+ * Alternativa simples do RoutePageView embutida no main.
+ * Se você já usa o componente `RoutePageView` dedicado,
+ * pode remover este e usar só o componente.
+ */
+function InlineRoutePageView() {
   const location = useLocation();
   const key = `${location.pathname}|${location.search}|${location.hash}`;
 
@@ -32,16 +42,26 @@ function RoutePageView() {
     if (g.__LAST_PAGEVIEW_KEY__ === key) return;
     g.__LAST_PAGEVIEW_KEY__ = key;
 
+    // Garante _fbc atualizado a cada mudança de rota
+    refreshFbcFromUrl();
+
+    // PageView
     trackPageView();
   }, [key]);
 
   return null;
 }
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HashRouter>
-      <RoutePageView />
+      {/* Use só um dos dois:
+          1) Componente dedicado:
+             <RoutePageView />
+          2) Inline (abaixo):
+      */}
+      <InlineRoutePageView />
+
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/tipos-de-aparelhos" element={<TiposAparelhos />} />

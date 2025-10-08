@@ -128,7 +128,7 @@ export default function VitalAir() {
     {
       funcao: 'Digital LED Display',
       descricao:
-        'Display no estojo mostra o nível exato de bateria de cada lado (L/R).' 
+        'Display no estojo mostra o nível exato de bateria de cada lado (L/R).'
     },
     {
       funcao: 'Quick Connect',
@@ -270,7 +270,7 @@ export default function VitalAir() {
                 className="w-full max-w-xl object-contain rounded-2xl border border-[#4A90E2]/60 shadow-lg"
               />
               <div className="grid w-full max-w-xl grid-cols-4 gap-3 sm:grid-cols-6">
-                {miniaturas.map((item, index) => (
+                {miniaturas.map((item) => (
                   <img
                     key={item.alt}
                     src={item.src}

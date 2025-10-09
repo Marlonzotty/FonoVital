@@ -19,7 +19,7 @@ const aparelhos = [
     descricao: 'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital...',
     precoOriginal: 1399.0,
     precoAtual: 599.9,
-    precoParcela: '12x R$ 58,17',
+    precoParcela: '12x R$ 64,94',
     avaliacoes: 21,
     imagem: voxton,
     esgotado: false,
@@ -45,7 +45,7 @@ const aparelhos = [
     descricao: 'O Vitalvoice CIC Recarregável da Fonovital...',
     precoOriginal: 1990.0,
     precoAtual: 1399.9,
-    precoParcela: '12x R$ 136,16',
+    precoParcela: '12x R$ 151,42',
     avaliacoes: 12,
     imagem: vitalvoice,
     esgotado: false,
@@ -58,7 +58,7 @@ const aparelhos = [
     descricao: 'Com inteligência artificial, o IAvoice se adapta ao ambiente.',
     precoOriginal: 1999.0,
     precoAtual: 1699.0,
-    precoParcela: '12x R$ 166,16',
+    precoParcela: '12x R$ 216,36',
     avaliacoes: 51,
     imagem: iavoice,
     esgotado: false,
@@ -71,7 +71,7 @@ const aparelhos = [
     descricao: 'Controle total da audição com app e 32 canais de personalização.',
     precoOriginal: 2899.0,
     precoAtual: 1999.0,
-    precoParcela: '12x R$ 199,75',
+    precoParcela: '12x R$ 216,36',
     avaliacoes: 42,
     imagem: vitalair,
     esgotado: false,
@@ -84,7 +84,7 @@ const aparelhos = [
     descricao: 'Alta performance para ambientes ruidosos com 48 canais.',
     precoOriginal: 2099.0,
     precoAtual: 1499.0,
-    precoParcela: '12x R$ 145,90',
+    precoParcela: '12x R$ 162,24',
     avaliacoes: 47,
     imagem: voicepro,
     esgotado: false,
@@ -175,7 +175,7 @@ export default function TiposAparelhos() {
                         to={item.rota}
                         className="bg-[#007c91] hover:bg-[#005f6e] text-white text-sm px-4 py-2 rounded-lg font-medium transition"
                       >
-                        Ver detalhes
+                        Compre Agora 
                       </Link>
                     )}
                   </div>

@@ -40,19 +40,7 @@ const aparelhos = [
     badge: 'CIC',
     link: 'https://wa.me/553x?text=Ol%C3%A1%2C+gostaria+de+ser+avisado+quando+o+Voxcharge+voltar+ao+estoque.',
   },
-  {
-    sigla: 'Vitalvoice CIC',
-    descricao: 'O Vitalvoice CIC Recarregável da Fonovital...',
-    precoOriginal: 1990.0,
-    precoAtual: 1399.9,
-    precoParcela: '12x R$ 151,42',
-    avaliacoes: 12,
-    imagem: vitalvoice,
-    esgotado: false,
-    rota: '/produto/vitalvoice',
-    badge: 'CIC',
-    link: '#',
-  },
+  
   {
     sigla: 'IAvoice Inteligente',
     descricao: 'Com inteligência artificial, o IAvoice se adapta ao ambiente.',

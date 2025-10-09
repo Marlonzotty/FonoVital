@@ -281,7 +281,7 @@ export default function Voxton() {
 
                 <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#028794] lg:justify-start">
                   <HiOutlineCreditCard className="text-xl" />
-                  12x R$ 59,90
+                  12x R$ 64,94
                 </p>
 
                 <div className="grid gap-3 rounded-2xl border border-[#028794]/10 bg-[#f0f9fb] p-4 sm:grid-cols-3">

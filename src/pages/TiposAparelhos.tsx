@@ -8,7 +8,6 @@ import Comments from '../components/Comments';
 
 import voxton from '../assets/voxton/caixaVoxton.jpg';
 import voxchargeUnidade from '../assets/voxcharge/caixavonxcharge.jpg';
-import vitalvoice from '../assets/vitalVoice/vitalVoiceCaixa.jpg';
 import iavoice from '../assets/iavoice/iavoice-caixa-produto.jpg';
 import vitalair from '../assets/vitalair/produto-completo.jpg';
 import voicepro from '../assets/voicepro/voicepro-caixa-produto.jpg';

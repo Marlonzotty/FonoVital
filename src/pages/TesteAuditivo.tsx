@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
@@ -15,6 +15,10 @@ const perguntas = [
 const frequencias = [250, 500, 1000, 2000, 4000, 8000]
 
 export default function TesteAuditivo() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [])
+
   // Estado para Autoavaliação
   const [respostas, setRespostas] = useState<number[]>(Array(perguntas.length).fill(0))
   const [mostrarTeste, setMostrarTeste] = useState(false)

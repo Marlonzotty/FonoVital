@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FaStar, FaCheckCircle } from 'react-icons/fa'
+import { FaCheckCircle } from 'react-icons/fa'
 import {
   HiOutlineCreditCard,
   HiOutlineCpuChip,
@@ -9,13 +9,18 @@ import {
 import Navbar from '../components/Navbar'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
+import ProductGallery from '../components/ProductGallery'
+import ProductRating from '../components/ProductRating'
 
+import imagemVoxton1 from '../assets/voxton/imagemVoxton1.jpg'
 import voxton from '../assets/voxton/voxton.png'
 import voxtonPacote from '../assets/voxton/VoxtonPacote.jpg'
 import voxtonOque from '../assets/voxton/voxtonOque.jpg'
 import comparacao from '../assets/comparacao.jpg'
 import certificadosImg from '../assets/certificados.png'
 import caixaVoxton from '../assets/voxton/caixaVoxton.jpg'
+import caixinhaVox from '../assets/voxton/caixinhaVox.jpg'
+import voxtoTamanho from '../assets/voxton/VoxtoTamanho.jpg'
 import explicando from '../assets/explicando.jpg'
 import bannerVoxton from '../assets/voxton/BannerVoxton.jpg'
 import voxtonCustoBeneficio from '../assets/voxton/voxtonCustoBeneficio.jpg'
@@ -25,8 +30,19 @@ export default function Voxton() {
     window.scrollTo(0, 0)
   }, [])
 
-  const [opcao, setOpcao] = useState<'par' | 'direito' | 'esquerdo'>('par')
-  const [imagemSelecionada, setImagemSelecionada] = useState<string>(voxton)
+  const imagensGaleria = [
+    { src: imagemVoxton1, alt: 'Foto frontal do Voxton' },
+    { src: voxton, alt: 'Foto principal do Voxton' },
+    { src: caixinhaVox, alt: 'Estojo compacto do Voxton' },
+    { src: voxtonPacote, alt: 'Pacote completo do Voxton' },
+    { src: voxtoTamanho, alt: 'Dimensões e escala do Voxton' },
+    { src: caixaVoxton, alt: 'Caixa e estojo do Voxton' },
+    { src: voxtonOque, alt: 'Detalhes do corpo do Voxton' },
+    { src: comparacao, alt: 'Comparação do Voxton com outros modelos' },
+    { src: voxtonCustoBeneficio, alt: 'Custo-benefício do Voxton' },
+    { src: certificadosImg, alt: 'Certificações de qualidade Voxton' },
+    { src: explicando, alt: 'Explicação geral sobre o Voxton' }
+  ]
 
   const dados = {
     sigla: 'Voxton | Fonovital',
@@ -57,8 +73,12 @@ export default function Voxton() {
       }
     },
     avaliacoes: 21,
-    parcelas: 12
+    parcelas: 12,
+    nota: 4.3
   }
+
+  const [opcao, setOpcao] = useState<'par' | 'direito' | 'esquerdo'>('par')
+  const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)
 
   const ladoAtual = dados.lados[opcao]
   const economia = (ladoAtual.precoOriginal - ladoAtual.precoAtual).toFixed(2).replace('.', ',')
@@ -66,16 +86,6 @@ export default function Voxton() {
   const whatsappLink = `https://wa.me/55329999069763?text=${encodeURIComponent(
     `Olá, quero saber mais sobre o ${ladoAtual.label} do ${dados.nome}`
   )}`
-
-  const miniaturas = [
-    { src: voxton, alt: 'Foto principal do Voxton' },
-    { src: voxtonPacote, alt: 'Pacote completo do Voxton' },
-    { src: voxtonOque, alt: 'Detalhes do corpo do Voxton' },
-    { src: comparacao, alt: 'Comparação do Voxton com outros modelos' },
-    { src: certificadosImg, alt: 'Certificações de qualidade Voxton' },
-    { src: caixaVoxton, alt: 'Caixa e estojo do Voxton' },
-    { src: explicando, alt: 'Explicação geral sobre o Voxton' }
-  ]
 
   const destaquesRapidos = [
     {
@@ -205,47 +215,33 @@ export default function Voxton() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">
             <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">{dados.nome}</h1>
-            <p className="text-gray-600 mb-3 sm:mb-4">{dados.descricao}</p>
             <p className="text-[#028794] font-semibold text-sm sm:text-base">
               Não precisa de audiometria: ajuste o volume no próprio aparelho e conte com suporte Fonovital.
             </p>
           </div>
 
-          <div className="grid gap-8 mt-8 lg:mt-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 items-start">
-            <div className="flex flex-col items-center gap-6 lg:items-start">
-              <img
-                src={imagemSelecionada}
-                alt="Imagem selecionada do Voxton"
-                className="w-full max-w-xl object-contain rounded-2xl border border-[#4A90E2]/60 shadow-lg"
+          <div className="mt-8 flex flex-col gap-10 lg:mt-12 lg:flex-row lg:items-start">
+            <div className="flex flex-col gap-5 lg:flex-1">
+              <ProductGallery
+                images={imagensGaleria}
+                selected={imagemSelecionada}
+                onChange={setImagemSelecionada}
+                className="w-full"
               />
-              <div className="grid w-full max-w-xl grid-cols-4 gap-3 sm:grid-cols-6">
-                {miniaturas.map(item => (
-                  <img
-                    key={item.alt}
-                    src={item.src}
-                    alt={item.alt}
-                    title={item.alt}
-                    className={`h-16 w-full rounded-xl object-cover cursor-pointer border-2 transition duration-200 ease-out sm:h-20 ${
-                      imagemSelecionada === item.src
-                        ? 'border-[#4A90E2] shadow-md scale-105'
-                        : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
-                    }`}
-                    onClick={() => setImagemSelecionada(item.src)}
-                  />
-                ))}
-              </div>
+              <p className="text-gray-600 text-sm sm:text-base leading-relaxed text-center lg:text-left">
+                {dados.descricao}
+              </p>
             </div>
 
-            <div className="w-full bg-white/90 backdrop-blur-sm border border-[#4A90E2]/20 rounded-2xl p-6 sm:p-8 shadow-xl">
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-wrap items-center justify-center gap-2 text-sm sm:text-base lg:justify-start">
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} className="text-[#213547]" />
-                  ))}
-                  <span className="text-gray-500">({dados.avaliacoes})</span>
-                </div>
+            <div className="w-full lg:max-w-md">
+              <div className="flex flex-col gap-5 rounded-2xl border border-[#4A90E2]/20 bg-white/95 p-6 shadow-xl backdrop-blur-sm sm:p-8">
+                <ProductRating
+                  rating={dados.nota}
+                  count={dados.avaliacoes}
+                  className="justify-center lg:justify-start"
+                />
 
-                <div className="inline-flex items-center gap-2 rounded-full bg-[#f0f4ff] px-3 py-1 text-xs font-semibold text-[#4A90E2] self-center lg:self-start">
+                <div className="inline-flex items-center gap-2 self-center rounded-full bg-[#f0f4ff] px-3 py-1 text-xs font-semibold text-[#4A90E2] lg:self-start">
                   <span>Opção selecionada:</span>
                   <span>{ladoAtual.label}</span>
                 </div>

@@ -1,16 +1,31 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { HiOutlineCreditCard } from 'react-icons/hi2';
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Comments from '../components/Comments';
 
-import voxton from '../assets/voxton/caixaVoxton.jpg';
-import voxchargeUnidade from '../assets/voxcharge/caixavonxcharge.jpg';
-import iavoice from '../assets/iavoice/iavoice-caixa-produto.jpg';
-import vitalair from '../assets/vitalair/produto-completo.jpg';
-import voicepro from '../assets/voicepro/voicepro-caixa-produto.jpg';
+import voxtonThumb from '../assets/voxton/imagemVoxton1.jpg';
+import voxchargeThumb from '../assets/voxcharge/voxcharge (5) (1).png';
+import iavoiceThumb from '../assets/iavoice/Iavoicdedo.jpg';
+import vitalairThumb from '../assets/vitalair/VitalAirfundo.jpg';
+import voiceproThumb from '../assets/voicepro/frenteVoicePro.jpg';
+
+const renderStars = (nota: number) => {
+  const estados: Array<'full' | 'half' | 'empty'> = [];
+  for (let i = 1; i <= 5; i += 1) {
+    if (nota >= i) {
+      estados.push('full');
+    } else if (nota >= i - 0.5) {
+      estados.push('half');
+    } else {
+      estados.push('empty');
+    }
+  }
+  return estados;
+};
 
 const aparelhos = [
   {
@@ -20,10 +35,11 @@ const aparelhos = [
     precoAtual: 599.9,
     precoParcela: '12x R$ 64,94',
     avaliacoes: 21,
-    imagem: voxton,
+    imagem: voxtonThumb,
     esgotado: false,
     rota: '/produto/voxton',
     badge: 'CIC',
+    nota: 4.3,
     link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068276',
   },
   {
@@ -33,10 +49,11 @@ const aparelhos = [
     precoAtual: 1199.9,
     precoParcela: '12x R$ 116,75',
     avaliacoes: 34,
-    imagem: voxchargeUnidade,
+    imagem: voxchargeThumb,
     esgotado: true,
     rota: '/produto/voxcharge',
     badge: 'CIC',
+    nota: 4.4,
     link: 'https://wa.me/553x?text=Ol%C3%A1%2C+gostaria+de+ser+avisado+quando+o+Voxcharge+voltar+ao+estoque.',
   },
   
@@ -47,10 +64,11 @@ const aparelhos = [
     precoAtual: 1699.0,
     precoParcela: '12x R$ 216,36',
     avaliacoes: 51,
-    imagem: iavoice,
+    imagem: iavoiceThumb,
     esgotado: false,
     rota: '/produto/iavoice',
     badge: 'IA',
+    nota: 4.6,
     link: 'https://fonovital.pay.yampi.com.br/r/EXEMPLOIAVOICE',
   },
   {
@@ -60,10 +78,11 @@ const aparelhos = [
     precoAtual: 1999.0,
     precoParcela: '12x R$ 216,36',
     avaliacoes: 42,
-    imagem: vitalair,
+    imagem: vitalairThumb,
     esgotado: false,
     rota: '/produto/vitalair',
     badge: 'TWS',
+    nota: 4.8,
     link: 'https://fonovital.pay.yampi.com.br/r/DLE7SWQNKR',
   },
   {
@@ -73,15 +92,20 @@ const aparelhos = [
     precoAtual: 1499.0,
     precoParcela: '12x R$ 162,24',
     avaliacoes: 47,
-    imagem: voicepro,
+    imagem: voiceproThumb,
     esgotado: false,
     rota: '/produto/voicepro',
     badge: 'CIC',
+    nota: 4.5,
     link: 'https://fonovital.pay.yampi.com.br/r/EXEMPLOVOICEPRO',
   },
 ];
 
 export default function TiposAparelhos() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, []);
+
   return (
     <div className="w-full bg-white font-[Montserrat]">
       <Navbar />
@@ -91,7 +115,7 @@ export default function TiposAparelhos() {
           Tipos de Aparelhos Auditivos
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="grid gap-8 max-w-6xl mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {aparelhos.map((item, index) => {
             const precoOriginal = item.precoOriginal.toFixed(2).replace('.', ',');
             const precoAtual = item.precoAtual.toFixed(2).replace('.', ',');
@@ -102,7 +126,7 @@ export default function TiposAparelhos() {
             return (
               <div
                 key={index}
-                className={`relative w-full sm:w-[300px] lg:w-[280px] bg-white rounded-2xl border border-[#4A90E2] shadow-sm hover:shadow-md transition duration-300 ${
+                className={`relative flex flex-col h-full bg-white rounded-2xl border border-[#4A90E2] shadow-sm hover:shadow-md transition duration-300 ${
                   item.esgotado ? 'opacity-60' : ''
                 }`}
               >
@@ -118,24 +142,32 @@ export default function TiposAparelhos() {
                   </span>
                 )}
 
-                <figure className="p-4 h-48 flex items-center justify-center">
+                <figure className="p-4 aspect-square flex items-center justify-center bg-[#f6fbff] rounded-t-2xl">
                   <img
                     src={item.imagem}
                     alt={item.sigla}
-                    className="h-full object-contain rounded-xl"
+                    className="h-full w-full object-contain"
                   />
                 </figure>
 
-                <div className="px-5 py-4">
+                <div className="px-5 py-4 flex flex-col flex-1">
                   <h2 className="font-semibold text-[#213547] text-base leading-snug mb-1">
                     {item.sigla}
                   </h2>
 
-                  <div className="flex items-center gap-1 text-[#213547] text-sm mb-1">
-                    {[...Array(5)].map((_, i) => (
-                      <FaStar key={i} className="text-[#213547]" />
-                    ))}
-                    <span className="ml-1 text-gray-500 text-sm">({item.avaliacoes})</span>
+                  <div className="flex items-center gap-1 text-sm mb-1">
+                    {renderStars(item.nota).map((estado, i) => {
+                      if (estado === 'full') {
+                        return <FaStar key={i} className="text-[#F5B50A]" />;
+                      }
+                      if (estado === 'half') {
+                        return <FaStarHalfAlt key={i} className="text-[#F5B50A]" />;
+                      }
+                      return <FaRegStar key={i} className="text-[#F5B50A]" />;
+                    })}
+                    <span className="ml-2 text-gray-500 text-sm">
+                      {item.nota.toFixed(1)} · {item.avaliacoes}
+                    </span>
                   </div>
 
                   <p className="line-through text-gray-400 text-sm mb-0">R$ {precoOriginal}</p>
@@ -146,7 +178,7 @@ export default function TiposAparelhos() {
                     {item.precoParcela}
                   </p>
 
-                  <div className="flex justify-between items-center">
+                  <div className="mt-auto flex justify-between items-center pt-2">
                     <div className="badge badge-outline">{item.badge}</div>
                     {item.esgotado ? (
                       <a

@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react'
-import { FaStar, FaCheckCircle } from 'react-icons/fa'
+import { FaCheckCircle } from 'react-icons/fa'
 import { HiOutlineCreditCard } from 'react-icons/hi2'
 import Navbar from '../components/Navbar'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
+import ProductGallery from '../components/ProductGallery'
+import ProductRating from '../components/ProductRating'
 
 import voxcharge from '../assets/voxcharge/voxcharge (3).png'
+import voxchargeClean from '../assets/voxcharge/voxcharge (5) (1).png'
+import voxchargeClose from '../assets/voxcharge/voxcharge (8).jpg'
 import voxchargePacote from '../assets/voxcharge/voxchargePacote.jpg'
 import voxchargeExplica from '../assets/voxcharge/voxchargeExplica.jpg'
 import certificado from '../assets/certificados.png'
@@ -20,7 +24,21 @@ export default function Voxcharge() {
     window.scrollTo(0, 0)
   }, [])
 
-  const [imagemSelecionada, setImagemSelecionada] = useState<string>(voxcharge)
+  const suporteWhatsapp = `https://wa.me/55329999069763?text=${encodeURIComponent(
+    'Olá, quero falar com um especialista sobre o Voxcharge.'
+  )}`
+
+  const imagensGaleria = [
+    { src: voxchargeClean, alt: 'Imagem principal do Voxcharge' },
+    { src: voxchargeClose, alt: 'Close do Voxcharge com estojo' },
+    { src: voxcharge, alt: 'Voxcharge em detalhe lateral' },
+    { src: voxchargePacote, alt: 'Pacote completo do Voxcharge' },
+    { src: voxchargeExplica, alt: 'Explicação do Voxcharge' },
+    { src: voxchargecaixa, alt: 'Caixa do Voxcharge' },
+    { src: pro, alt: 'Chip Soundcore' },
+    { src: comparacao, alt: 'Comparação de modelos' },
+    { src: certificado, alt: 'Certificado do Voxcharge' }
+  ]
 
   const dados = {
     sigla: 'Voxcharge | Fonovital',
@@ -31,25 +49,14 @@ export default function Voxcharge() {
     precoAtual: 1199.9,
     parcelas: 12,
     avaliacoes: 34,
+    nota: 4.4,
     esgotado: true,
     whatsapp: 'https://wa.me/55329999069763?text=Ol%C3%A1%2C+gostaria+de+ser+avisado+quando+o+Voxcharge+voltar+ao+estoque.'
   }
 
-  const suporteWhatsapp = `https://wa.me/55329999069763?text=${encodeURIComponent(
-    'Olá, quero falar com um especialista sobre o Voxcharge.'
-  )}`
-
+  const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)
   const parcela = (dados.precoAtual / dados.parcelas).toFixed(2).replace('.', ',')
-
-  const miniaturas = [
-    { src: voxcharge, alt: 'Imagem principal do Voxcharge' },
-    { src: voxchargePacote, alt: 'Pacote do Voxcharge' },
-    { src: voxchargeExplica, alt: 'Explicação do Voxcharge' },
-    { src: certificado, alt: 'Certificado do Voxcharge' },
-    { src: comparacao, alt: 'Comparação de modelos' },
-    { src: voxchargecaixa, alt: 'Caixa do Voxcharge' },
-    { src: pro, alt: 'Chip Soundcore' }
-  ]
+  const notaMedia = dados.nota
 
   return (
     <section className="pt-32 bg-white font-[Montserrat] text-[#213547]">
@@ -57,58 +64,54 @@ export default function Voxcharge() {
 
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-6">{dados.nome}</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center lg:text-left">{dados.nome}</h1>
 
-          <div className="flex flex-col items-center mb-8">
-            <img
-              src={imagemSelecionada}
-              alt="Imagem selecionada do Voxcharge"
-              className="w-full max-w-lg object-contain rounded-xl border border-[#4A90E2] mb-4"
-            />
-            <div className="flex gap-3 flex-wrap justify-center">
-              {miniaturas.map((item, index) => (
-                <img
-                  key={index}
-                  src={item.src}
-                  alt={item.alt}
-                  title={item.alt}
-                  className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 ${imagemSelecionada === item.src
-                    ? 'border-[#4A90E2] scale-105'
-                    : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
-                    }`}
-                  onClick={() => setImagemSelecionada(item.src)}
+          <div className="mt-8 flex flex-col gap-10 lg:flex-row lg:items-start">
+            <div className="flex flex-col gap-5 lg:flex-1">
+              <ProductGallery
+                images={imagensGaleria}
+                selected={imagemSelecionada}
+                onChange={setImagemSelecionada}
+                className="w-full"
+              />
+              <p className="text-gray-600 text-sm sm:text-base leading-relaxed text-center lg:text-left">
+                {dados.descricao}
+              </p>
+            </div>
+
+            <div className="w-full lg:max-w-md">
+              <div className="flex flex-col gap-5 rounded-2xl border border-[#4A90E2]/20 bg-white/95 p-6 shadow-xl backdrop-blur-sm sm:p-8">
+                <ProductRating
+                  rating={notaMedia}
+                  count={dados.avaliacoes}
+                  className="justify-center lg:justify-start"
                 />
-              ))}
+
+                <div className="space-y-1 text-center lg:text-left">
+                  <p className="line-through text-xs sm:text-sm text-gray-400">
+                    R$ {dados.precoOriginal.toFixed(2).replace('.', ',')}
+                  </p>
+                  <p className="text-[#213547] text-2xl sm:text-3xl font-bold">
+                    R$ {dados.precoAtual.toFixed(2).replace('.', ',')}
+                  </p>
+                </div>
+
+                <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#028794] lg:justify-start">
+                  <HiOutlineCreditCard className="text-xl" />
+                  12x R$ {parcela}
+                </p>
+
+                <a
+                  href={dados.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-red-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-red-600 sm:w-auto sm:self-start"
+                >
+                  Me avise quando Voxcharge chegar
+                </a>
+              </div>
             </div>
           </div>
-
-          <div className="flex items-center gap-1 text-sm mb-1">
-            {[...Array(5)].map((_, i) => (
-              <FaStar key={i} className="text-[#213547]" />
-            ))}
-            <span className="ml-1 text-gray-500">({dados.avaliacoes})</span>
-          </div>
-
-          <p className="line-through text-sm text-gray-400 mb-0">
-            R$ {dados.precoOriginal.toFixed(2).replace('.', ',')}
-          </p>
-          <p className="text-[#213547] text-sm font-semibold mb-1">
-            R$ {dados.precoAtual.toFixed(2).replace('.', ',')}
-          </p>
-
-          <p className="flex items-center gap-2 font-bold text-xl mb-6">
-            <HiOutlineCreditCard className="text-lg" />
-            12x R$ {parcela}
-          </p>
-
-          <a
-            href={dados.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-red-500 hover:bg-red-600 text-white text-sm px-6 py-3 rounded-lg font-medium transition animate-bounce"
-          >
-            Me avise quando Voxcharge chegar
-          </a>
         </div>
       </section>
 

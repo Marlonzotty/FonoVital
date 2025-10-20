@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FaStar, FaCheckCircle } from 'react-icons/fa'
+import { FaCheckCircle } from 'react-icons/fa'
 import {
   HiOutlineCreditCard,
   HiOutlineClipboardDocumentCheck,
@@ -9,6 +9,8 @@ import {
 import Navbar from '../components/Navbar'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
+import ProductGallery from '../components/ProductGallery'
+import ProductRating from '../components/ProductRating'
 
 import vitalvoice from '../assets/vitalVoice.jpg'
 import comparacao from '../assets/comparacao.jpg'
@@ -26,7 +28,15 @@ export default function Vitalvoice() {
     window.scrollTo(0, 0)
   }, [])
 
-  const [imagemSelecionada, setImagemSelecionada] = useState<string>(vitalvoice)
+  const imagensGaleria = [
+    { src: vitalvoice, alt: 'Imagem principal do Vitalvoice' },
+    { src: vitalVoiceCaixa, alt: 'Caixa do Vitalvoice' },
+    { src: vitalVoicePacote, alt: 'Pacote completo do Vitalvoice' },
+    { src: vitalvoiceExplica, alt: 'Detalhes técnicos do Vitalvoice' },
+    { src: comparacao, alt: 'Comparação de modelos' },
+    { src: explicando, alt: 'Explicação geral sobre aparelhos auditivos' },
+    { src: certificado, alt: 'Certificado' }
+  ]
 
   const dados = {
     sigla: 'Vitalvoice | Fonovital',
@@ -37,22 +47,15 @@ export default function Vitalvoice() {
     precoAtual: 1399.9,
     parcelas: 12,
     avaliacoes: 12,
+    nota: 4.4,
     link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068435'
   }
+
+  const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)
 
   const whatsappLink = `https://wa.me/55329999069763?text=${encodeURIComponent(
     `Olá, quero saber mais sobre o ${dados.nome}`
   )}`
-
-  const miniaturas = [
-    { src: vitalvoice, alt: 'Imagem principal do Vitalvoice' },
-    { src: vitalVoicePacote, alt: 'Pacote do Vitalvoice' },
-    { src: vitalvoiceExplica, alt: 'Explicação do Vitalvoice' },
-    { src: vitalVoiceCaixa, alt: 'Caixa do Vitalvoice' },
-    { src: comparacao, alt: 'Comparação de modelos' },
-    { src: explicando, alt: 'Explicação geral sobre aparelhos auditivos' },
-    { src: certificado, alt: 'Certificado' }
-  ]
 
   const motivosTabela = [
     {
@@ -178,45 +181,31 @@ export default function Vitalvoice() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">
             <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">{dados.nome}</h1>
-            <p className="text-gray-600 mb-3 sm:mb-4">{dados.descricao}</p>
             <p className="text-[#028794] font-semibold text-sm sm:text-base">
               Com 16 canais de DSP, algoritmo exclusivo, supressão de feedback e redução de ruído do vento.
             </p>
           </div>
 
-          <div className="grid gap-8 mt-8 lg:mt-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 items-start">
-            <div className="flex flex-col items-center gap-6 lg:items-start">
-              <img
-                src={imagemSelecionada}
-                alt="Imagem selecionada do Vitalvoice"
-                className="w-full max-w-xl object-contain rounded-2xl border border-[#4A90E2]/60 shadow-lg"
+          <div className="mt-8 flex flex-col gap-10 lg:mt-12 lg:flex-row lg:items-start">
+            <div className="flex flex-col gap-5 lg:flex-1">
+              <ProductGallery
+                images={imagensGaleria}
+                selected={imagemSelecionada}
+                onChange={setImagemSelecionada}
+                className="w-full"
               />
-              <div className="grid w-full max-w-xl grid-cols-4 gap-3 sm:grid-cols-6">
-                {miniaturas.map((item, index) => (
-                  <img
-                    key={index}
-                    src={item.src}
-                    alt={item.alt}
-                    title={item.alt}
-                    className={`h-16 w-full rounded-xl object-cover cursor-pointer border-2 transition duration-200 ease-out sm:h-20 ${
-                      imagemSelecionada === item.src
-                        ? 'border-[#4A90E2] shadow-md scale-105'
-                        : 'border-gray-300 hover:border-[#4A90E2] hover:scale-105'
-                    }`}
-                    onClick={() => setImagemSelecionada(item.src)}
-                  />
-                ))}
-              </div>
+              <p className="text-gray-600 text-sm sm:text-base leading-relaxed text-center lg:text-left">
+                {dados.descricao}
+              </p>
             </div>
 
-            <div className="w-full bg-white/90 backdrop-blur-sm border border-[#4A90E2]/20 rounded-2xl p-6 sm:p-8 shadow-xl">
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-wrap items-center justify-center gap-2 text-sm sm:text-base lg:justify-start">
-                  {[...Array(4)].map((_, i) => (
-                    <FaStar key={i} className="text-[#213547]" />
-                  ))}
-                  <span className="text-gray-500">({dados.avaliacoes})</span>
-                </div>
+            <div className="w-full lg:max-w-md">
+              <div className="flex flex-col gap-5 rounded-2xl border border-[#4A90E2]/20 bg-white/95 p-6 shadow-xl backdrop-blur-sm sm:p-8">
+                <ProductRating
+                  rating={dados.nota}
+                  count={dados.avaliacoes}
+                  className="justify-center lg:justify-start"
+                />
 
                 <div className="space-y-1 text-center lg:text-left">
                   <p className="line-through text-xs sm:text-sm text-gray-400">
@@ -226,8 +215,7 @@ export default function Vitalvoice() {
                     R$ {dados.precoAtual.toFixed(2).replace('.', ',')}
                   </p>
                   <p className="text-sm text-gray-500">
-                    Economize{' '}
-                    {`R$ ${(dados.precoOriginal - dados.precoAtual).toFixed(2).replace('.', ',')}`}
+                    Economize R$ {(dados.precoOriginal - dados.precoAtual).toFixed(2).replace('.', ',')}
                   </p>
                 </div>
 

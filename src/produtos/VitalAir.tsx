@@ -12,7 +12,7 @@ import Footer from '../components/Footer'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
 
-import vitalAirfundo from '../assets/vitalair/vitalairfundo.jpg'
+import vitalAirfundo from '../assets/vitalair/VitalAirfundo.jpg'
 import vitalAirBanner from '../assets/vitalair/VitalAirBanner.jpg'
 import vitalAirBeneficios from '../assets/vitalair/VitalAirBeneficios.jpg'
 import vitalAirFono from '../assets/vitalair/VitalAirFono.jpg'

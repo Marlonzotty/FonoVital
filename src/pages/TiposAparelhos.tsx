@@ -7,11 +7,11 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Comments from '../components/Comments';
 
-import voxtonThumb from '../assets/voxton/imagemVoxton1.jpg';
-import voxchargeThumb from '../assets/voxcharge/voxcharge (5) (1).png';
-import iavoiceThumb from '../assets/iavoice/Iavoicdedo.jpg';
-import vitalairThumb from '../assets/vitalair/VitalAirfundo.jpg';
-import voiceproThumb from '../assets/voicepro/frenteVoicePro.jpg';
+import { voxtonHeroImage } from '../produtos/voxton';
+import { voxchargeHeroImage } from '../produtos/Voxcharge';
+import { iaVoiceHeroImage } from '../produtos/IAvoice';
+import { vitalAirHeroImage } from '../produtos/VitalAir';
+import { voiceProHeroImage } from '../produtos/VoicePro';
 
 const renderStars = (nota: number) => {
   const estados: Array<'full' | 'half' | 'empty'> = [];
@@ -35,7 +35,7 @@ const aparelhos = [
     precoAtual: 599.9,
     precoParcela: '12x R$ 64,94',
     avaliacoes: 21,
-    imagem: voxtonThumb,
+    imagem: voxtonHeroImage,
     esgotado: false,
     rota: '/produto/voxton',
     badge: 'CIC',
@@ -49,7 +49,7 @@ const aparelhos = [
     precoAtual: 1199.9,
     precoParcela: '12x R$ 116,75',
     avaliacoes: 34,
-    imagem: voxchargeThumb,
+    imagem: voxchargeHeroImage,
     esgotado: true,
     rota: '/produto/voxcharge',
     badge: 'CIC',
@@ -64,7 +64,7 @@ const aparelhos = [
     precoAtual: 1699.0,
     precoParcela: '12x R$ 216,36',
     avaliacoes: 51,
-    imagem: iavoiceThumb,
+    imagem: iaVoiceHeroImage,
     esgotado: false,
     rota: '/produto/iavoice',
     badge: 'IA',
@@ -78,7 +78,7 @@ const aparelhos = [
     precoAtual: 1999.0,
     precoParcela: '12x R$ 216,36',
     avaliacoes: 42,
-    imagem: vitalairThumb,
+    imagem: vitalAirHeroImage,
     esgotado: false,
     rota: '/produto/vitalair',
     badge: 'TWS',
@@ -92,7 +92,7 @@ const aparelhos = [
     precoAtual: 1499.0,
     precoParcela: '12x R$ 162,24',
     avaliacoes: 47,
-    imagem: voiceproThumb,
+    imagem: voiceProHeroImage,
     esgotado: false,
     rota: '/produto/voicepro',
     badge: 'CIC',
@@ -131,23 +131,25 @@ export default function TiposAparelhos() {
                 }`}
               >
                 {!item.esgotado && (
-                  <span className="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  <span className="absolute top-4 right-4 z-10 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                     -{desconto}%
                   </span>
                 )}
 
                 {item.esgotado && (
-                  <span className="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  <span className="absolute top-4 left-4 z-10 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
                     ESGOTADO
                   </span>
                 )}
 
-                <figure className="p-4 aspect-square flex items-center justify-center bg-[#f6fbff] rounded-t-2xl">
-                  <img
-                    src={item.imagem}
-                    alt={item.sigla}
-                    className="h-full w-full object-contain"
-                  />
+                <figure className="p-4 flex items-center justify-center bg-[#f6fbff] rounded-t-2xl">
+                  <div className="relative w-full h-40 sm:h-48 md:h-56 xl:h-64">
+                    <img
+                      src={item.imagem.src}
+                      alt={item.imagem.alt ?? item.sigla}
+                      className="absolute inset-0 h-full w-full object-contain"
+                    />
+                  </div>
                 </figure>
 
                 <div className="px-5 py-4 flex flex-col flex-1">

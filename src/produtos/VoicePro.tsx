@@ -25,22 +25,26 @@ import voiceProBeneficios from '../assets/voicepro/VoiceProBenficios.jpg'
 import certificadosImg from '../assets/voicepro/certificados.png'
 import garantiaImg from '../assets/garantia.png'
 
+export const voiceProGallery = [
+  { src: voiceProEsterilizacao, alt: 'VoicePro em estojo com esterilização UV' },
+  { src: frenteVoicePro, alt: 'Vista frontal do VoicePro' },
+  { src: img1, alt: 'Caixa e estojo do VoicePro' },
+  { src: img3, alt: 'Itens na caixa do VoicePro' },
+  { src: img4, alt: 'Modelo CIC invisível VoicePro' },
+  { src: img2, alt: 'Autonomia da bateria VoicePro' },
+  { src: img5, alt: 'Chip SoundCore do VoicePro' },
+  { src: img6, alt: 'Comparação com outras marcas' },
+  { src: certificadosImg, alt: 'Certificados de qualidade do VoicePro' }
+]
+
+export const voiceProHeroImage = voiceProGallery[0]
+
 export default function VoicePro() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const imagensGaleria = [
-    { src: frenteVoicePro, alt: 'Vista frontal do VoicePro' },
-    { src: voiceProEsterilizacao, alt: 'VoicePro em estojo com esterilização UV' },
-    { src: img4, alt: 'Modelo CIC invisível VoicePro' },
-    { src: img1, alt: 'Caixa e estojo do VoicePro' },
-    { src: img2, alt: 'Autonomia da bateria VoicePro' },
-    { src: img3, alt: 'Itens na caixa do VoicePro' },
-    { src: img5, alt: 'Chip SoundCore do VoicePro' },
-    { src: img6, alt: 'Comparação com outras marcas' },
-    { src: certificadosImg, alt: 'Certificados de qualidade do VoicePro' }
-  ]
+  const imagensGaleria = voiceProGallery
 
   const dados = {
     sigla: 'VoicePro | Fonovital',

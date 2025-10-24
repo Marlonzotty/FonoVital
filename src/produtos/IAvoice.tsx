@@ -26,24 +26,28 @@ import iaVoiceBanner from '../assets/iavoice/IAvoiceBanner.jpg'
 import iaVoiceBeneficio from '../assets/iavoice/IaVoiceBeneficio.jpg'
 import iaVoiceLed from '../assets/iavoice/IavoiceLed.png'
 
+export const iaVoiceGallery = [
+  { src: iaVoiceAparelho, alt: 'Close do IAvoice com acabamento clean' },
+  { src: iaVoiceNaMao, alt: 'IAvoice em destaque na mão' },
+  { src: img1, alt: 'Produto completo IAvoice' },
+  { src: img6, alt: 'Itens inclusos na caixa' },
+  { src: iaVoiceCase, alt: 'Case inteligente do IAvoice' },
+  { src: iaVoiceLed, alt: 'Display LED no estojo IAvoice' },
+  { src: img2, alt: 'Bateria e autonomia IAvoice' },
+  { src: img3, alt: 'Chip inteligente IAvoice' },
+  { src: img4, alt: 'Som SoundCore IAvoice' },
+  { src: img5, alt: 'Comparação com outras marcas' },
+  { src: certificadosImg, alt: 'Certificados IAvoice' }
+]
+
+export const iaVoiceHeroImage = iaVoiceGallery[0]
+
 export default function IAvoice() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const imagensGaleria = [
-    { src: iaVoiceNaMao, alt: 'IAvoice em destaque na mão' },
-    { src: iaVoiceAparelho, alt: 'Close do IAvoice com acabamento clean' },
-    { src: img1, alt: 'Produto completo IAvoice' },
-    { src: iaVoiceCase, alt: 'Case inteligente do IAvoice' },
-    { src: iaVoiceLed, alt: 'Display LED no estojo IAvoice' },
-    { src: img2, alt: 'Bateria e autonomia IAvoice' },
-    { src: img3, alt: 'Chip inteligente IAvoice' },
-    { src: img4, alt: 'Som SoundCore IAvoice' },
-    { src: img6, alt: 'Itens inclusos na caixa' },
-    { src: img5, alt: 'Comparação com outras marcas' },
-    { src: certificadosImg, alt: 'Certificados IAvoice' }
-  ]
+  const imagensGaleria = iaVoiceGallery
 
   const dados = {
     sigla: 'IAvoice | Fonovital',

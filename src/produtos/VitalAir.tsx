@@ -26,23 +26,27 @@ import vitalAirCel from '../assets/vitalair/vitalairCel.jpg'
 import vitalAirIdoso from '../assets/vitalair/vitalairidoso.jpg'
 import certificadosImg from '../assets/certificados.png'
 
+export const vitalAirGallery = [
+  { src: vitalAirCel, alt: 'Vital Air com destaque clean' },
+  { src: vitalAirfundo, alt: 'Vital Air em destaque' },
+  { src: vitalAirIdoso, alt: 'Uso real do Vital Air' },
+  { src: img6, alt: 'Itens inclusos no Vital Air' },
+  { src: img1, alt: 'Imagem principal do Vital Air' },
+  { src: img2, alt: 'Fones Bluetooth Vital Air' },
+  { src: img3, alt: 'Processamento multi-canal Vital Air' },
+  { src: img4, alt: 'Autonomia de bateria Vital Air' },
+  { src: img5, alt: 'Comparação do Vital Air com outros modelos' },
+  { src: certificadosImg, alt: 'Certificados do Vital Air' }
+]
+
+export const vitalAirHeroImage = vitalAirGallery[0]
+
 export default function VitalAir() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const imagensGaleria = [
-    { src: vitalAirfundo, alt: 'Vital Air em destaque' },
-    { src: vitalAirCel, alt: 'Vital Air com destaque clean' },
-    { src: vitalAirIdoso, alt: 'Uso real do Vital Air' },
-    { src: img1, alt: 'Imagem principal do Vital Air' },
-    { src: img2, alt: 'Fones Bluetooth Vital Air' },
-    { src: img3, alt: 'Processamento multi-canal Vital Air' },
-    { src: img4, alt: 'Autonomia de bateria Vital Air' },
-    { src: img6, alt: 'Itens inclusos no Vital Air' },
-    { src: img5, alt: 'Comparação do Vital Air com outros modelos' },
-    { src: certificadosImg, alt: 'Certificados do Vital Air' }
-  ]
+  const imagensGaleria = vitalAirGallery
 
   const dados = {
     sigla: 'Vital Air | Fonovital',

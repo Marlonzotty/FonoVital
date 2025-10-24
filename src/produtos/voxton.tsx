@@ -25,24 +25,28 @@ import explicando from '../assets/explicando.jpg'
 import bannerVoxton from '../assets/voxton/BannerVoxton.jpg'
 import voxtonCustoBeneficio from '../assets/voxton/voxtonCustoBeneficio.jpg'
 
+export const voxtonGallery = [
+  { src: voxtoTamanho, alt: 'Dimensões e escala do Voxton' },
+  { src: imagemVoxton1, alt: 'Foto frontal do Voxton' },
+  { src: voxton, alt: 'Foto principal do Voxton' },
+  { src: caixinhaVox, alt: 'Estojo compacto do Voxton' },
+  { src: voxtonPacote, alt: 'Pacote completo do Voxton' },
+  { src: caixaVoxton, alt: 'Caixa e estojo do Voxton' },
+  { src: voxtonOque, alt: 'Detalhes do corpo do Voxton' },
+  { src: comparacao, alt: 'Comparação do Voxton com outros modelos' },
+  { src: voxtonCustoBeneficio, alt: 'Custo-benefício do Voxton' },
+  { src: certificadosImg, alt: 'Certificações de qualidade Voxton' },
+  { src: explicando, alt: 'Explicação geral sobre o Voxton' }
+]
+
+export const voxtonHeroImage = voxtonGallery[0]
+
 export default function Voxton() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const imagensGaleria = [
-    { src: imagemVoxton1, alt: 'Foto frontal do Voxton' },
-    { src: voxton, alt: 'Foto principal do Voxton' },
-    { src: caixinhaVox, alt: 'Estojo compacto do Voxton' },
-    { src: voxtonPacote, alt: 'Pacote completo do Voxton' },
-    { src: voxtoTamanho, alt: 'Dimensões e escala do Voxton' },
-    { src: caixaVoxton, alt: 'Caixa e estojo do Voxton' },
-    { src: voxtonOque, alt: 'Detalhes do corpo do Voxton' },
-    { src: comparacao, alt: 'Comparação do Voxton com outros modelos' },
-    { src: voxtonCustoBeneficio, alt: 'Custo-benefício do Voxton' },
-    { src: certificadosImg, alt: 'Certificações de qualidade Voxton' },
-    { src: explicando, alt: 'Explicação geral sobre o Voxton' }
-  ]
+  const imagensGaleria = voxtonGallery
 
   const dados = {
     sigla: 'Voxton | Fonovital',

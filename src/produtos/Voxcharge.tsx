@@ -19,6 +19,20 @@ import voxchargeCusto from '../assets/voxcharge/VoxchargeCustoBeneficio-2.jpg'
 import voxchargecaixa from '../assets/voxcharge/caixavonxcharge.jpg'
 import pro from '../assets/imagemPro.png'
 
+export const voxchargeGallery = [
+  { src: voxchargeClean, alt: 'Imagem principal do Voxcharge' },
+  { src: voxchargeClose, alt: 'Close do Voxcharge com estojo' },
+  { src: voxcharge, alt: 'Voxcharge em detalhe lateral' },
+  { src: voxchargePacote, alt: 'Pacote completo do Voxcharge' },
+  { src: voxchargeExplica, alt: 'Explicação do Voxcharge' },
+  { src: voxchargecaixa, alt: 'Caixa do Voxcharge' },
+  { src: pro, alt: 'Chip Soundcore' },
+  { src: comparacao, alt: 'Comparação de modelos' },
+  { src: certificado, alt: 'Certificado do Voxcharge' }
+]
+
+export const voxchargeHeroImage = voxchargeGallery[0]
+
 export default function Voxcharge() {
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -28,17 +42,7 @@ export default function Voxcharge() {
     'Olá, quero falar com um especialista sobre o Voxcharge.'
   )}`
 
-  const imagensGaleria = [
-    { src: voxchargeClean, alt: 'Imagem principal do Voxcharge' },
-    { src: voxchargeClose, alt: 'Close do Voxcharge com estojo' },
-    { src: voxcharge, alt: 'Voxcharge em detalhe lateral' },
-    { src: voxchargePacote, alt: 'Pacote completo do Voxcharge' },
-    { src: voxchargeExplica, alt: 'Explicação do Voxcharge' },
-    { src: voxchargecaixa, alt: 'Caixa do Voxcharge' },
-    { src: pro, alt: 'Chip Soundcore' },
-    { src: comparacao, alt: 'Comparação de modelos' },
-    { src: certificado, alt: 'Certificado do Voxcharge' }
-  ]
+  const imagensGaleria = voxchargeGallery
 
   const dados = {
     sigla: 'Voxcharge | Fonovital',

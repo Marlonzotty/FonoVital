@@ -111,7 +111,7 @@ export default function Comments() {
                   <img
                     src={comment.imagem}
                     alt={comment.nome}
-                    className="w-16 h-16 rounded-full object-cover border-2 border-[#007c91]"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-[#4A90E2]"
                   />
                   <div>
                     <h3 className="text-[#213547] font-semibold text-lg">

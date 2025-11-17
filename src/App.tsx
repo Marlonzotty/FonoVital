@@ -63,7 +63,7 @@ export default function App() {
           <div className="text-center text-sm text-gray-600">
             <p className="font-semibold text-[#028794]">Fonovital LTDA</p>
             <p>CNPJ:  61.894.698/0001-20</p>
-            <p>Rua Geraldo Pinto Lima, 609 - Bonfim, São João del-Rei - MG</p>
+            <p>Avenida Eduardo Magalhaes, 202 - Centro, São João del-Rei - MG</p>
           </div>
         </div>
       </section>

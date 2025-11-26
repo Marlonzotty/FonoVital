@@ -1,13 +1,15 @@
 // src/main.tsx
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
+import { HashRouter, Routes, Route, useLocation, Outlet } from "react-router-dom";
 
 import "./index.css";
 import App from "./App";
 import TiposAparelhos from "./pages/TiposAparelhos";
 import TesteAuditivo from "./pages/TesteAuditivo";
 import CadastroModal from "./components/CadastroModal";
+import PromoBanner from "./components/PromoBanner";
+import Navbar from "./components/Navbar";
 
 import Voxton from "./produtos/voxton";
 import Voxcharge from "./produtos/Voxcharge";
@@ -52,6 +54,18 @@ function InlineRoutePageView() {
   return null;
 }
 
+function BaseLayout() {
+  return (
+    <>
+      <Navbar />
+      <div className="pt-16">
+        <PromoBanner />
+        <Outlet />
+      </div>
+    </>
+  );
+}
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HashRouter>
@@ -63,16 +77,18 @@ createRoot(document.getElementById("root")!).render(
       <InlineRoutePageView />
 
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/tipos-de-aparelhos" element={<TiposAparelhos />} />
-        <Route path="/teste-auditivo" element={<TesteAuditivo />} />
-        <Route path="/cadastro" element={<CadastroModal />} />
-        <Route path="/produto/voxton" element={<Voxton />} />
-        <Route path="/produto/voxcharge" element={<Voxcharge />} />
-        <Route path="/produto/vitalvoice" element={<Vitalvoice />} />
-        <Route path="/produto/iavoice" element={<IAvoice />} />
-        <Route path="/produto/vitalair" element={<VitalAir />} />
-        <Route path="/produto/voicepro" element={<VoicePro />} />
+        <Route element={<BaseLayout />}>
+          <Route path="/" element={<App />} />
+          <Route path="/tipos-de-aparelhos" element={<TiposAparelhos />} />
+          <Route path="/teste-auditivo" element={<TesteAuditivo />} />
+          <Route path="/cadastro" element={<CadastroModal />} />
+          <Route path="/produto/voxton" element={<Voxton />} />
+          <Route path="/produto/voxcharge" element={<Voxcharge />} />
+          <Route path="/produto/vitalvoice" element={<Vitalvoice />} />
+          <Route path="/produto/iavoice" element={<IAvoice />} />
+          <Route path="/produto/vitalair" element={<VitalAir />} />
+          <Route path="/produto/voicepro" element={<VoicePro />} />
+        </Route>
       </Routes>
     </HashRouter>
   </StrictMode>

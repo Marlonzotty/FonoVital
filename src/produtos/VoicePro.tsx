@@ -6,7 +6,6 @@ import {
   HiOutlineUserGroup,
   HiOutlineArrowPath
 } from 'react-icons/hi2'
-import Navbar from '../components/Navbar'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
 import ProductGallery from '../components/ProductGallery'
@@ -208,8 +207,6 @@ export default function VoicePro() {
 
   return (
     <section className="pt-32 bg-white font-[Montserrat] text-[#213547]">
-      <Navbar />
-
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">

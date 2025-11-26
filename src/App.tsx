@@ -1,8 +1,7 @@
 import './App.css'
-import PromoBanner from "./components/PromoBanner";
-import Navbar from './components/Navbar'
 import ProductPage from './components/ProductPage'
-import imgDiaDosPais from "./assets/ia (1).jpg";
+import imgDiaDosPaisDesktop from "./assets/ia (1).jpeg";
+import imgDiaDosPaisMobile from "./assets/ia (3).jpeg";
 import ResponsiveYouTube from './components/ResponsiveYouTube'
 import Manifesto from './components/Manifesto'
 import Comments from './components/Comments'
@@ -16,29 +15,24 @@ import PurchaseAlert from './components/PurchaseAlert'
 
 export default function App() {
   return (
-    
-
-    <div className="min-h-screen pt-17">
-      <PromoBanner />
-
-      <Navbar />
+    <div className="min-h-screen">
       <ResponsiveYouTube videoId="Z4-1AfiPFQ0" />
       
 
       <PurchaseAlert />
       <ProductPage />
-    <div className="w-full px-4 py-0 bg-[#008693]">
+    <div className="w-full bg-[#008693]">
   {/* Imagem para desktop */}
   <img
-    src={imgDiaDosPais}
+    src={imgDiaDosPaisDesktop}
     alt="Imagem Dia dos Pais versão desktop"
-    className="hidden md:block w-full max-w-4xl mx-auto rounded-lg"
+    className="hidden md:block w-full h-full object-cover"
   />
   {/* Imagem para mobile */}
   <img
-    src={imgDiaDosPais}
+    src={imgDiaDosPaisMobile}
     alt="Imagem Dia dos Pais versão mobile"
-    className="block md:hidden w-full max-w-md mx-auto rounded-lg"
+    className="block md:hidden w-full h-full object-cover"
   />
   
 </div>

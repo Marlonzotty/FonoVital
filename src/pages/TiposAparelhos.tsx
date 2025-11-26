@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { HiOutlineCreditCard } from 'react-icons/hi2';
 
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Comments from '../components/Comments';
 
@@ -108,8 +107,6 @@ export default function TiposAparelhos() {
 
   return (
     <div className="w-full bg-white font-[Montserrat]">
-      <Navbar />
-
       <section className="px-4 lg:px-8 py-12">
         <h2 className="mt-16 text-3xl sm:text-4xl font-bold text-[#213547] mb-12 text-center">
           Tipos de Aparelhos Auditivos

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { FaCheckCircle } from 'react-icons/fa'
 import { HiOutlineCreditCard } from 'react-icons/hi2'
-import Navbar from '../components/Navbar'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
 import ProductGallery from '../components/ProductGallery'
@@ -64,8 +63,6 @@ export default function Voxcharge() {
 
   return (
     <section className="pt-32 bg-white font-[Montserrat] text-[#213547]">
-      <Navbar />
-
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center lg:text-left">{dados.nome}</h1>

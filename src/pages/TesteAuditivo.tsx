@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Navbar from '../components/Navbar'
 
 const perguntas = [
   'Você sente dificuldade para entender conversas em locais com ruído?',
@@ -102,8 +101,6 @@ export default function TesteAuditivo() {
 
   return (
     <section className="min-h-screen bg-gradient-to-b from-[#F7F9F9] to-[#A8E6CF]/30 pb-20">
-      <Navbar />
-
       <div className="max-w-4xl mx-auto pt-32 px-4">
         <h1 className="text-4xl font-bold text-[#213547] mb-4 text-center">
           🎧 Teste Auditivo Online

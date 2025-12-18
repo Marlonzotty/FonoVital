@@ -10,6 +10,7 @@ import TesteAuditivo from "./pages/TesteAuditivo";
 import CadastroModal from "./components/CadastroModal";
 import PromoBanner from "./components/PromoBanner";
 import Navbar from "./components/Navbar";
+import Rastreio from "./pages/Rastreio";
 
 import Voxton from "./produtos/voxton";
 import Voxcharge from "./produtos/Voxcharge";
@@ -81,6 +82,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<App />} />
           <Route path="/tipos-de-aparelhos" element={<TiposAparelhos />} />
           <Route path="/teste-auditivo" element={<TesteAuditivo />} />
+          <Route path="/rastreio" element={<Rastreio />} />
           <Route path="/cadastro" element={<CadastroModal />} />
           <Route path="/produto/voxton" element={<Voxton />} />
           <Route path="/produto/voxcharge" element={<Voxcharge />} />

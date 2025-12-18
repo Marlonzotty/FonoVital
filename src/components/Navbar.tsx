@@ -43,6 +43,12 @@ export default function Navbar() {
           >
             Teste Auditivo
           </Link>
+          <Link
+            to="/rastreio"
+            className="hover:scale-105 transition-transform duration-200"
+          >
+            Rastreio
+          </Link>
           <button
             onClick={handleUnidadesClick}
             className="hover:scale-105 transition-transform duration-200"
@@ -98,6 +104,13 @@ export default function Navbar() {
             className="block"
           >
             Teste Auditivo
+          </Link>
+          <Link
+            to="/rastreio"
+            onClick={() => setMenuOpen(false)}
+            className="block"
+          >
+            Rastreio
           </Link>
           <button onClick={handleUnidadesClick} className="block">
             Unidades

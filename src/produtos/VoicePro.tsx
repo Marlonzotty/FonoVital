@@ -55,7 +55,7 @@ export default function VoicePro() {
     parcelas: 12,
     avaliacoes: 47,
     nota: 4.5,
-    link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068557'
+    link: 'https://fonovitalltda.pay.yampi.com.br/r/OYG2SSJH1K'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)
@@ -249,7 +249,7 @@ export default function VoicePro() {
 
                 <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#028794] lg:justify-start">
                   <HiOutlineCreditCard className="text-xl" />
-                  12x R$ 162,24
+                  12x R$ 152,63
                 </p>
 
                 <div className="grid gap-3 rounded-2xl border border-[#028794]/10 bg-[#f5fbfc] p-4 sm:grid-cols-3">

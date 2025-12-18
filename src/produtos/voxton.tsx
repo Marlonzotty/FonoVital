@@ -58,7 +58,7 @@ export default function Voxton() {
         imagem: voxton,
         precoOriginal: 1399,
         precoAtual: 599.9,
-        link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068276'
+        link: 'https://fonovitalltda.pay.yampi.com.br/r/VYHUUSPWP8'
       },
       direito: {
         label: 'LADO DIREITO',
@@ -278,7 +278,7 @@ export default function Voxton() {
 
                 <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#028794] lg:justify-start">
                   <HiOutlineCreditCard className="text-xl" />
-                  12x R$ 64,94
+                  12x R$ 61,04
                 </p>
 
                 <div className="grid gap-3 rounded-2xl border border-[#028794]/10 bg-[#f0f9fb] p-4 sm:grid-cols-3">

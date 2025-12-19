@@ -58,7 +58,7 @@ export default function IAvoice() {
     parcelas: 12,
     avaliacoes: 51,
     nota: 4.6,
-    link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068656'
+    link: 'https://fonovitalltda.pay.yampi.com.br/r/ECWQAEC09P'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)

@@ -65,14 +65,14 @@ export default function Voxton() {
         imagem: voxton,
         precoOriginal: 499,
         precoAtual: 399.9,
-        link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28069624'
+        link: 'https://fonovitalltda.pay.yampi.com.br/r/3KZ6HFML6R'
       },
       esquerdo: {
         label: 'LADO ESQUERDO',
         imagem: voxton,
         precoOriginal: 499,
         precoAtual: 399.9,
-        link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28069620'
+        link: 'https://fonovitalltda.pay.yampi.com.br/r/3PRHSVWLTX'
       }
     },
     avaliacoes: 21,

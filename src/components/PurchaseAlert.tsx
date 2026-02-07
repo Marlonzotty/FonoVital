@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 
 const nomes = [
   'Pedro S.', 'Ana P.', 'João M.', 'Mariana R.', 'Carlos L.',
@@ -83,3 +83,5 @@ export default function PurchaseAlert() {
     </div>
   ) : null;
 }
+
+

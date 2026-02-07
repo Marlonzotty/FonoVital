@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import {
   Ear,
   CheckCircle,
@@ -17,7 +17,7 @@ export default function Footer() {
     const TARGET_ID = "reputation-ra";
     const SCRIPT_ID = "ra-embed-reputation";
 
-    // se já existe script, só tenta renderizar
+    // se j existe script, s tenta renderizar
     if (document.getElementById(SCRIPT_ID)) {
       const RA = (window as any).RA;
       if (RA && typeof RA.render === "function") {
@@ -58,7 +58,7 @@ export default function Footer() {
             <span>Fonovital</span>
           </h3>
           <p className="text-sm mb-4">
-            Devolvendo a qualidade de vida através da audição.
+            Devolvendo a qualidade de vida atravs da audio.
           </p>
           <ul className="text-sm space-y-2">
             <li className="flex items-center space-x-2">
@@ -99,7 +99,7 @@ export default function Footer() {
           <ul className="text-sm space-y-2">
             <li className="flex items-center space-x-2">
               <Phone size={16} className="text-green-400" />
-              <span>(32) 999906-9763</span>
+              <span>(32) 99906-9763</span>
             </li>
             <li className="flex items-center space-x-2">
               <Mail size={16} className="text-green-400" />
@@ -107,7 +107,7 @@ export default function Footer() {
             </li>
             <li className="flex items-center space-x-2">
               <MapPin size={16} className="text-green-400" />
-              <span>São João del Rei, MG</span>
+              <span>So Joo del Rei, MG</span>
             </li>
           </ul>
           <div className="mt-8 text-center text-xs text-gray-400 space-y-1">
@@ -127,3 +127,6 @@ export default function Footer() {
     </footer>
   );
 }
+
+
+

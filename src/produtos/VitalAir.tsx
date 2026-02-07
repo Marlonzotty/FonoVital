@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { FaCheckCircle } from 'react-icons/fa'
 import {
   HiOutlineCreditCard,
@@ -34,7 +34,7 @@ export const vitalAirGallery = [
   { src: img2, alt: 'Fones Bluetooth Vital Air' },
   { src: img3, alt: 'Processamento multi-canal Vital Air' },
   { src: img4, alt: 'Autonomia de bateria Vital Air' },
-  { src: img5, alt: 'Comparação do Vital Air com outros modelos' },
+  { src: img5, alt: 'Comparao do Vital Air com outros modelos' },
   { src: certificadosImg, alt: 'Certificados do Vital Air' }
 ]
 
@@ -51,7 +51,7 @@ export default function VitalAir() {
     sigla: 'Vital Air | Fonovital',
     nome: 'Vital Air Bluetooth Inteligente | Fonovital',
     descricao:
-      'Aparelho auditivo inteligente com conectividade Bluetooth, design moderno e leve, controle total via aplicativo e desempenho otimizado para chamadas, música e amplificação sonora. Desenvolvido para proporcionar clareza cristalina e praticidade para usuários de todas as idades — especialmente idosos.',
+      'Aparelho auditivo inteligente com conectividade Bluetooth, design moderno e leve, controle total via aplicativo e desempenho otimizado para chamadas, msica e amplificao sonora. Desenvolvido para proporcionar clareza cristalina e praticidade para usurios de todas as idades  especialmente idosos.',
     precoOriginal: 2899,
     precoAtual: 1999.0,
     parcelas: 12,
@@ -61,28 +61,26 @@ export default function VitalAir() {
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)
-
-  const whatsappLink = `https://wa.me/55329999069763?text=${encodeURIComponent(
-    `Olá, quero saber mais sobre o ${dados.nome}`
-  )}`
-
   const economia = (dados.precoOriginal - dados.precoAtual).toFixed(2).replace('.', ',')
+
+  const whatsappLink =
+    'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
 
   const destaquesRapidos = [
     {
       icon: HiOutlineDevicePhoneMobile,
       titulo: 'Controle via app',
-      descricao: 'Ajustes completos de volume, modos e equalização direto no smartphone.'
+      descricao: 'Ajustes completos de volume, modos e equalizao direto no smartphone.'
     },
     {
       icon: HiOutlineSignal,
-      titulo: 'Bluetooth estável',
-      descricao: 'Chamadas, músicas e vídeos sem interrupções com reconexão automática.'
+      titulo: 'Bluetooth estvel',
+      descricao: 'Chamadas, msicas e vdeos sem interrupes com reconexo automtica.'
     },
     {
       icon: HiOutlineSparkles,
       titulo: 'Conforto ultra leve',
-      descricao: 'Design TWS discreto, anatômico e sem distinção de lado.'
+      descricao: 'Design TWS discreto, anatmico e sem distino de lado.'
     }
   ]
 
@@ -90,62 +88,62 @@ export default function VitalAir() {
     {
       funcao: 'Som Cristalino e Leveza',
       descricao:
-        'Ultra leve e ergonômico, com som de alta definição e mínima distorção, ideal para uso prolongado sem desconforto.'
+        'Ultra leve e ergonmico, com som de alta definio e mnima distoro, ideal para uso prolongado sem desconforto.'
     },
     {
       funcao: 'Bluetooth Connection',
       descricao:
-        'Conexão Bluetooth estável para chamadas, vídeos e controle direto via aplicativo dedicado.'
+        'Conexo Bluetooth estvel para chamadas, vdeos e controle direto via aplicativo dedicado.'
     },
     {
       funcao: 'App com Monitoramento em Tempo Real',
       descricao:
-        'Ajuste volume, modos de audição e acompanhe status de bateria e performance em tempo real.'
+        'Ajuste volume, modos de audio e acompanhe status de bateria e performance em tempo real.'
     },
     {
       funcao: 'Intelligent Noise Reduction',
       descricao:
-        'Redução de ruído de alta precisão, filtrando sons de fundo e realçando vozes importantes.'
+        'Reduo de rudo de alta preciso, filtrando sons de fundo e realando vozes importantes.'
     },
     {
       funcao: 'Multi-Channel DSP',
       descricao:
-        'Processamento digital em múltiplos canais, com amplificação independente e balanceada em cada faixa de frequência.'
+        'Processamento digital em mltiplos canais, com amplificao independente e balanceada em cada faixa de frequncia.'
     },
     {
       funcao: 'Long Battery Life',
       descricao:
-        'Até 12 horas de uso contínuo por carga com recarga rápida no estojo portátil.'
+        'At 12 horas de uso contnuo por carga com recarga rpida no estojo porttil.'
     },
     {
       funcao: 'Auto Reconnect & Memory Pairing',
       descricao:
-        'Reconexão automática com o último dispositivo pareado assim que sai do estojo.'
+        'Reconexo automtica com o ltimo dispositivo pareado assim que sai do estojo.'
     },
     {
       funcao: 'Not Distinguishing Left and Right',
       descricao:
-        'Ambos os fones funcionam bilateralmente, garantindo encaixe adaptável sem diferenciação L/R.'
+        'Ambos os fones funcionam bilateralmente, garantindo encaixe adaptvel sem diferenciao L/R.'
     },
     {
       funcao: 'Long Wearing Comfort',
       descricao:
-        'Encaixe ergonômico sem pressão, pensado para uso prolongado sem fadiga.'
+        'Encaixe ergonmico sem presso, pensado para uso prolongado sem fadiga.'
     },
     {
       funcao: 'Multi-Mode Operation',
       descricao:
-        'Alternância de modos com um toque: Geral, Reunião e Externo para adaptar-se a qualquer ambiente.'
+        'Alternncia de modos com um toque: Geral, Reunio e Externo para adaptar-se a qualquer ambiente.'
     },
     {
       funcao: 'Digital LED Display',
       descricao:
-        'Display no estojo mostra o nível exato de bateria de cada lado (L/R).'
+        'Display no estojo mostra o nvel exato de bateria de cada lado (L/R).'
     },
     {
       funcao: 'Quick Connect',
       descricao:
-        'Emparelhamento instantâneo com smartphones Android e iOS.'
+        'Emparelhamento instantneo com smartphones Android e iOS.'
     },
     {
       funcao: 'Stylish Minimalist Design',
@@ -155,66 +153,66 @@ export default function VitalAir() {
   ]
 
   const bateriaCarregamento = [
-    { titulo: 'Tempo de uso por carga', descricao: 'Até 12 horas de funcionamento contínuo.' },
+    { titulo: 'Tempo de uso por carga', descricao: 'At 12 horas de funcionamento contnuo.' },
     { titulo: 'Tempo de carregamento', descricao: 'Aproximadamente 70 minutos para carga completa.' },
-    { titulo: 'Tipo de recarga', descricao: 'Estojo magnético portátil com display LED.' },
+    { titulo: 'Tipo de recarga', descricao: 'Estojo magntico porttil com display LED.' },
     {
       titulo: 'Tipo de bateria',
-      descricao: 'Íon-lítio de alta densidade com proteção contra sobrecarga.'
+      descricao: 'on-ltio de alta densidade com proteo contra sobrecarga.'
     },
-    { titulo: 'Autonomia total', descricao: 'Até 3–4 ciclos completos de recarga com o estojo.' }
+    { titulo: 'Autonomia total', descricao: 'At 34 ciclos completos de recarga com o estojo.' }
   ]
 
   const conectividadeApp = [
     {
-      titulo: 'Conexão Bluetooth',
-      descricao: 'Versão 5.0 ou superior, estável para chamadas e streaming.'
+      titulo: 'Conexo Bluetooth',
+      descricao: 'Verso 5.0 ou superior, estvel para chamadas e streaming.'
     },
     {
       titulo: 'Compatibilidade',
-      descricao: 'Funciona com Android e iOS sem necessidade de acessórios extras.'
+      descricao: 'Funciona com Android e iOS sem necessidade de acessrios extras.'
     },
     {
-      titulo: 'Emparelhamento automático',
-      descricao: 'Reconecta ao último dispositivo assim que sai do estojo.'
+      titulo: 'Emparelhamento automtico',
+      descricao: 'Reconecta ao ltimo dispositivo assim que sai do estojo.'
     }
   ]
 
   const funcoesApp = [
-    'Ajuste de volume, equalização e modos (Geral, Reunião, Externo).',
+    'Ajuste de volume, equalizao e modos (Geral, Reunio, Externo).',
     'Monitoramento de bateria em tempo real para fones e estojo.',
-    'Teste auditivo personalizado para calibrar o som com precisão.'
+    'Teste auditivo personalizado para calibrar o som com preciso.'
   ]
 
   const modosAudicao = [
     {
       modo: 'General Mode',
-      finalidade: 'Uso diário',
-      descricao: 'Equalização balanceada e natural para conversas e entretenimento.'
+      finalidade: 'Uso dirio',
+      descricao: 'Equalizao balanceada e natural para conversas e entretenimento.'
     },
     {
       modo: 'Meeting Mode',
       finalidade: 'Ambientes internos',
-      descricao: 'Realce de vozes e cancelamento de ruído intenso em reuniões e eventos.'
+      descricao: 'Realce de vozes e cancelamento de rudo intenso em reunies e eventos.'
     },
     {
       modo: 'Outdoor Mode',
       finalidade: 'Ambientes externos',
-      descricao: 'Supressão de vento e ruídos de tráfego mantendo a clareza vocal.'
+      descricao: 'Supresso de vento e rudos de trfego mantendo a clareza vocal.'
     }
   ]
 
   const processamentoAudio = [
-    'Tecnologia Multi-Channel DSP que processa graves, médios e agudos de forma independente.',
-    'Redução de ruído dinâmica que ajusta automaticamente de acordo com o ambiente.',
-    'Resposta de frequência ampla para preservar timbres naturais de voz e música.'
+    'Tecnologia Multi-Channel DSP que processa graves, mdios e agudos de forma independente.',
+    'Reduo de rudo dinmica que ajusta automaticamente de acordo com o ambiente.',
+    'Resposta de frequncia ampla para preservar timbres naturais de voz e msica.'
   ]
 
   const designErgonomia = [
-    'Formato inspirado em fones TWS intra-auriculares com encaixe anatômico.',
+    'Formato inspirado em fones TWS intra-auriculares com encaixe anatmico.',
     'Peso inferior a 5g por unidade para uso ultraleve.',
     'Cor preto brilhante com estojo digital de acabamento premium.',
-    'Material em polímero ABS e silicone médico hipoalergênico.'
+    'Material em polmero ABS e silicone mdico hipoalergnico.'
   ]
 
   const conteudoEmbalagem = [
@@ -222,52 +220,52 @@ export default function VitalAir() {
     '1 estojo de carregamento com display LED.',
     '1 cabo USB de carregamento.',
     '3 pares de ponteiras de silicone (P, M, G).',
-    'Manual do usuário multilíngue.'
+    'Manual do usurio multilngue.'
   ]
 
   const certificacoes = [
-    'CE – Conformidade Europeia.',
-    'FCC – Federal Communications Commission (EUA).',
-    'RoHS – Restrição de Substâncias Perigosas.',
-    'FDA – Registro de dispositivo médico de uso pessoal.'
+    'CE  Conformidade Europeia.',
+    'FCC  Federal Communications Commission (EUA).',
+    'RoHS  Restrio de Substncias Perigosas.',
+    'FDA  Registro de dispositivo mdico de uso pessoal.'
   ]
 
   const beneficiosResumo = [
-    '✅ Som cristalino com tecnologia DSP multi-canal.',
-    '✅ Controle total via aplicativo e Bluetooth.',
-    '✅ Redução de ruído inteligente para qualquer ambiente.',
-    '✅ Modos automáticos: Geral, Reunião e Externo.',
-    '✅ Design moderno, confortável e sem diferenciação de lados.',
-    '✅ Longa duração de bateria com recarga rápida no estojo.'
+    '? Som cristalino com tecnologia DSP multi-canal.',
+    '? Controle total via aplicativo e Bluetooth.',
+    '? Reduo de rudo inteligente para qualquer ambiente.',
+    '? Modos automticos: Geral, Reunio e Externo.',
+    '? Design moderno, confortvel e sem diferenciao de lados.',
+    '? Longa durao de bateria com recarga rpida no estojo.'
   ]
 
   const videos = [
     {
       id: 'vitalair-empresa',
-      titulo: 'Conheça a Fonovital',
+      titulo: 'Conhea a Fonovital',
       descricao:
-        'Veja como desenvolvemos soluções auditivas inteligentes e os bastidores da Fonovital.',
+        'Veja como desenvolvemos solues auditivas inteligentes e os bastidores da Fonovital.',
       src: 'https://www.youtube.com/embed/Z4-1AfiPFQ0?si=whNYxJH7XTz78_Et',
-      title: 'Conheça a Fonovital'
+      title: 'Conhea a Fonovital'
     },
     {
       id: 'vitalair-relatos',
       titulo: 'Relatos reais de clientes',
       descricao:
-        'Depoimentos de usuários que transformaram a audição com nossos aparelhos.',
+        'Depoimentos de usurios que transformaram a audio com nossos aparelhos.',
       src: 'https://www.youtube.com/embed/nVyYJ0NnZP8?si=xKLGXPbA3zey0YW2',
       title: 'Relatos de clientes Fonovital'
     }
   ]
 
   return (
-    <section className="pt-32 bg-white font-[Montserrat] text-[#213547]">
+    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-[Inter] text-white">
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">
             <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">{dados.nome}</h1>
-            <p className="text-[#028794] font-semibold text-sm sm:text-base">
-              Bluetooth de última geração, app exclusivo e som cristalino com DSP multi-canal.
+            <p className="text-[#7de8ff] font-semibold text-sm sm:text-base">
+              Bluetooth de ltima gerao, app exclusivo e som cristalino com DSP multi-canal.
             </p>
           </div>
 
@@ -279,13 +277,13 @@ export default function VitalAir() {
                 onChange={setImagemSelecionada}
                 className="w-full"
               />
-              <p className="text-gray-600 text-sm sm:text-base leading-relaxed text-center lg:text-left">
+              <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-center lg:text-left">
                 {dados.descricao}
               </p>
             </div>
 
             <div className="w-full lg:max-w-md">
-              <div className="flex flex-col gap-5 rounded-2xl border border-[#4A90E2]/20 bg-white/95 p-6 shadow-xl backdrop-blur-sm sm:p-8">
+              <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
                 <ProductRating
                   rating={dados.nota}
                   count={dados.avaliacoes}
@@ -296,23 +294,23 @@ export default function VitalAir() {
                   <p className="line-through text-xs sm:text-sm text-gray-400">
                     R$ {dados.precoOriginal.toFixed(2).replace('.', ',')}
                   </p>
-                  <p className="text-[#213547] text-2xl sm:text-3xl font-bold">
+                  <p className="text-white text-2xl sm:text-3xl font-bold">
                     R$ {dados.precoAtual.toFixed(2).replace('.', ',')}
                   </p>
-                  <p className="text-sm text-gray-500">Economize R$ {economia}</p>
+                  <p className="text-sm text-gray-300">Economize R$ {economia}</p>
                 </div>
 
-                <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#028794] lg:justify-start">
+                <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#7de8ff] lg:justify-start">
                   <HiOutlineCreditCard className="text-xl" />
                   12x R$ 216,36
                 </p>
 
-                <div className="grid gap-3 rounded-2xl border border-[#028794]/10 bg-[#f0f9fb] p-4 sm:grid-cols-3">
+                <div className="grid gap-3 rounded-2xl border border-[#028794]/10 bg-white/5 p-4 sm:grid-cols-3">
                   {destaquesRapidos.map(item => (
                     <div key={item.titulo} className="flex flex-col items-center text-center sm:items-start sm:text-left">
-                      <item.icon className="text-[#028794] text-2xl mb-2" />
-                      <p className="font-semibold text-sm text-[#213547]">{item.titulo}</p>
-                      <p className="text-xs text-gray-500">{item.descricao}</p>
+                      <item.icon className="text-[#7de8ff] text-2xl mb-2" />
+                      <p className="font-semibold text-sm text-white">{item.titulo}</p>
+                      <p className="text-xs text-gray-300">{item.descricao}</p>
                     </div>
                   ))}
                 </div>
@@ -321,7 +319,7 @@ export default function VitalAir() {
                   href={dados.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center rounded-xl bg-[#007c91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-[#008B91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
                 >
                   COMPRAR AGORA
                 </a>
@@ -331,7 +329,7 @@ export default function VitalAir() {
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4">
+      <section className="w-full bg-white/5 py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <img
             src={vitalAirFono}
@@ -341,22 +339,22 @@ export default function VitalAir() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6">⚙️ Características Principais</h2>
+          <h2 className="text-2xl font-semibold mb-6">?? Caractersticas Principais</h2>
           <div className="overflow-x-auto">
-            <table className="w-full border border-gray-200 rounded-xl overflow-hidden">
-              <thead className="bg-[#028794] text-white text-left">
+            <table className="w-full border border-white/15 rounded-xl overflow-hidden">
+              <thead className="section-gradient text-white text-left">
                 <tr>
-                  <th className="px-4 py-3 text-sm sm:text-base">Função</th>
-                  <th className="px-4 py-3 text-sm sm:text-base">Descrição detalhada</th>
+                  <th className="px-4 py-3 text-sm sm:text-base">Funo</th>
+                  <th className="px-4 py-3 text-sm sm:text-base">Descrio detalhada</th>
                 </tr>
               </thead>
-              <tbody className="bg-white">
+              <tbody className="bg-white/5">
                 {caracteristicasPrincipais.map((item, index) => (
-                  <tr key={item.funcao} className={index % 2 === 0 ? 'bg-white' : 'bg-[#f3f9fb]'}>
+                  <tr key={item.funcao} className={index % 2 === 0 ? 'bg-white/5' : 'bg-white/5'}>
                     <td className="px-4 py-3 font-semibold text-sm sm:text-base">{item.funcao}</td>
-                    <td className="px-4 py-3 text-gray-600 text-sm sm:text-base">{item.descricao}</td>
+                    <td className="px-4 py-3 text-gray-300 text-sm sm:text-base">{item.descricao}</td>
                   </tr>
                 ))}
               </tbody>
@@ -365,13 +363,13 @@ export default function VitalAir() {
         </div>
       </section>
 
-      <section className="w-full bg-[#028794] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-gradient py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-semibold text-white mb-6">Por que escolher o Vital Air?</h2>
           <ul className="grid gap-3 text-white md:grid-cols-2">
             <li className="flex items-start gap-3 rounded-2xl border border-white/20 bg-white/10 p-4">
               <FaCheckCircle className="text-green-300 mt-1 shrink-0" />
-              <span>Bluetooth 5.0 para chamadas, músicas e vídeos com clareza cristalina.</span>
+              <span>Bluetooth 5.0 para chamadas, msicas e vdeos com clareza cristalina.</span>
             </li>
             <li className="flex items-start gap-3 rounded-2xl border border-white/20 bg-white/10 p-4">
               <FaCheckCircle className="text-green-300 mt-1 shrink-0" />
@@ -379,48 +377,48 @@ export default function VitalAir() {
             </li>
             <li className="flex items-start gap-3 rounded-2xl border border-white/20 bg-white/10 p-4">
               <FaCheckCircle className="text-green-300 mt-1 shrink-0" />
-              <span>Design leve, discreto e sem diferenciação entre os lados: adaptável para qualquer ouvido.</span>
+              <span>Design leve, discreto e sem diferenciao entre os lados: adaptvel para qualquer ouvido.</span>
             </li>
             <li className="flex items-start gap-3 rounded-2xl border border-white/20 bg-white/10 p-4">
               <FaCheckCircle className="text-green-300 mt-1 shrink-0" />
-              <span>Modos automáticos para ambientes diferentes, com redução inteligente de ruídos.</span>
+              <span>Modos automticos para ambientes diferentes, com reduo inteligente de rudos.</span>
             </li>
           </ul>
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
-          <div className="bg-[#ecfdf5] border border-green-200 rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#047857]">🔋 Bateria e Carregamento</h3>
-            <ul className="space-y-3 text-gray-600">
+          <div className="bg-white/5 border border-white/15 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold mb-4 text-[#047857]">?? Bateria e Carregamento</h3>
+            <ul className="space-y-3 text-gray-300">
               {bateriaCarregamento.map(item => (
                 <li key={item.titulo} className="flex gap-2">
                   <FaCheckCircle className="text-[#047857] mt-1 shrink-0" />
                   <div>
-                    <p className="font-semibold text-[#213547]">{item.titulo}</p>
+                    <p className="font-semibold text-white">{item.titulo}</p>
                     <p className="text-sm">{item.descricao}</p>
                   </div>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="bg-[#f5f7ff] border border-[#c7d2fe] rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#4338ca]">📱 Conectividade e App</h3>
-            <ul className="space-y-3 text-gray-600">
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold mb-4 text-[#4338ca]">?? Conectividade e App</h3>
+            <ul className="space-y-3 text-gray-300">
               {conectividadeApp.map(item => (
                 <li key={item.titulo} className="flex gap-2">
                   <FaCheckCircle className="text-[#4338ca] mt-1 shrink-0" />
                   <div>
-                    <p className="font-semibold text-[#213547]">{item.titulo}</p>
+                    <p className="font-semibold text-white">{item.titulo}</p>
                     <p className="text-sm">{item.descricao}</p>
                   </div>
                 </li>
               ))}
             </ul>
-            <div className="mt-4 rounded-xl bg-white/70 border border-[#c7d2fe] p-4">
-              <p className="font-semibold text-[#4338ca] mb-2">Funções do aplicativo:</p>
-              <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+            <div className="mt-4 rounded-xl bg-white/10 border border-white/10 p-4">
+              <p className="font-semibold text-[#4338ca] mb-2">Funes do aplicativo:</p>
+              <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
                 {funcoesApp.map(funcao => (
                   <li key={funcao}>{funcao}</li>
                 ))}
@@ -430,24 +428,24 @@ export default function VitalAir() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center">🎚️ Modos de Audição Inteligentes</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">??? Modos de Audio Inteligentes</h2>
           <div className="overflow-x-auto">
-            <table className="w-full border border-gray-200 rounded-xl overflow-hidden">
-              <thead className="bg-[#028794] text-white text-left">
+            <table className="w-full border border-white/15 rounded-xl overflow-hidden">
+              <thead className="section-gradient text-white text-left">
                 <tr>
                   <th className="px-4 py-3 text-sm sm:text-base">Modo</th>
                   <th className="px-4 py-3 text-sm sm:text-base">Finalidade</th>
-                  <th className="px-4 py-3 text-sm sm:text-base">Descrição</th>
+                  <th className="px-4 py-3 text-sm sm:text-base">Descrio</th>
                 </tr>
               </thead>
-              <tbody className="bg-white">
+              <tbody className="bg-white/5">
                 {modosAudicao.map((item, index) => (
-                  <tr key={item.modo} className={index % 2 === 0 ? 'bg-white' : 'bg-[#f3f9fb]'}>
+                  <tr key={item.modo} className={index % 2 === 0 ? 'bg-white/5' : 'bg-white/5'}>
                     <td className="px-4 py-3 font-semibold text-sm sm:text-base">{item.modo}</td>
-                    <td className="px-4 py-3 text-sm sm:text-base text-gray-700">{item.finalidade}</td>
-                    <td className="px-4 py-3 text-gray-600 text-sm sm:text-base">{item.descricao}</td>
+                    <td className="px-4 py-3 text-sm sm:text-base text-gray-200">{item.finalidade}</td>
+                    <td className="px-4 py-3 text-gray-300 text-sm sm:text-base">{item.descricao}</td>
                   </tr>
                 ))}
               </tbody>
@@ -456,25 +454,25 @@ export default function VitalAir() {
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
-          <div className="rounded-2xl border border-[#028794]/20 bg-[#f0f9fb] p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#028794]">🎵 Processamento de Áudio</h3>
-            <ul className="space-y-3 text-gray-600">
+          <div className="rounded-2xl border border-[#028794]/20 bg-white/5 p-6">
+            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">?? Processamento de udio</h3>
+            <ul className="space-y-3 text-gray-300">
               {processamentoAudio.map(item => (
                 <li key={item} className="flex gap-2">
-                  <FaCheckCircle className="text-[#028794] mt-1 shrink-0" />
+                  <FaCheckCircle className="text-[#7de8ff] mt-1 shrink-0" />
                   <span className="text-sm">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border border-[#028794]/20 bg-[#f0f9fb] p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#028794]">🧩 Design e Ergonomia</h3>
-            <ul className="space-y-3 text-gray-600">
+          <div className="rounded-2xl border border-[#028794]/20 bg-white/5 p-6">
+            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">?? Design e Ergonomia</h3>
+            <ul className="space-y-3 text-gray-300">
               {designErgonomia.map(item => (
                 <li key={item} className="flex gap-2">
-                  <FaCheckCircle className="text-[#028794] mt-1 shrink-0" />
+                  <FaCheckCircle className="text-[#7de8ff] mt-1 shrink-0" />
                   <span className="text-sm">{item}</span>
                 </li>
               ))}
@@ -483,14 +481,14 @@ export default function VitalAir() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center">📦 Conteúdo da Embalagem</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">?? Contedo da Embalagem</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {conteudoEmbalagem.map(item => (
               <div
                 key={item}
-                className="rounded-2xl border border-[#028794]/20 bg-[#f0f9fb] px-5 py-4 text-[#213547]"
+                className="rounded-2xl border border-[#028794]/20 bg-white/5 px-5 py-4 text-white"
               >
                 {item}
               </div>
@@ -499,17 +497,17 @@ export default function VitalAir() {
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-[1fr_0.9fr] items-center">
           <div className="space-y-4">
-            <h3 className="text-2xl font-semibold text-[#028794]">🧾 Certificações de Segurança e Qualidade</h3>
-            <p className="text-gray-600">
-              O Vital Air segue padrões internacionais para oferecer segurança, eficiência e biocompatibilidade.
+            <h3 className="text-2xl font-semibold text-[#7de8ff]">?? Certificaes de Segurana e Qualidade</h3>
+            <p className="text-gray-300">
+              O Vital Air segue padres internacionais para oferecer segurana, eficincia e biocompatibilidade.
             </p>
-            <ul className="space-y-2 text-gray-700">
+            <ul className="space-y-2 text-gray-200">
               {certificacoes.map(item => (
                 <li key={item} className="flex gap-2">
-                  <FaCheckCircle className="text-[#028794] mt-1 shrink-0" />
+                  <FaCheckCircle className="text-[#7de8ff] mt-1 shrink-0" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -518,20 +516,20 @@ export default function VitalAir() {
           <div className="flex justify-center">
             <img
               src={certificadosImg}
-              alt="Certificações do Vital Air"
+              alt="Certificaes do Vital Air"
               className="w-full max-w-md object-contain"
             />
           </div>
         </div>
       </section>
 
-      <section className="w-full bg-[#ecfeff] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-gradient py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center text-[#028794]">🖤 Resumo de Benefícios</h2>
-          <ul className="space-y-3 text-gray-700">
+          <h2 className="text-2xl font-semibold mb-6 text-center text-[#7de8ff]">?? Resumo de Benefcios</h2>
+          <ul className="space-y-3 text-gray-200">
             {beneficiosResumo.map(item => (
               <li key={item} className="flex gap-2">
-                <FaCheckCircle className="text-[#028794] mt-1 shrink-0" />
+                <FaCheckCircle className="text-[#7de8ff] mt-1 shrink-0" />
                 <span>{item}</span>
               </li>
             ))}
@@ -539,7 +537,7 @@ export default function VitalAir() {
         </div>
       </section>
 
-      <section className="w-full bg-[#028794] py-10 px-4">
+      <section className="w-full section-gradient py-10 px-4">
         <div className="max-w-5xl mx-auto space-y-8">
           <img
             src={vitalAirBanner}
@@ -548,19 +546,19 @@ export default function VitalAir() {
           />
           <img
             src={vitalAirBeneficios}
-            alt="Benefícios do Vital Air"
+            alt="Benefcios do Vital Air"
             className="block object-cover w-full rounded-2xl lg:max-w-3xl mx-auto"
           />
         </div>
       </section>
 
-      <section className="w-full bg-[#ecfeff] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-gradient py-12 px-4 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-semibold text-center text-[#028794] mb-4">
-            Veja o Vital Air na prática
+          <h2 className="text-2xl font-semibold text-center text-[#7de8ff] mb-4">
+            Veja o Vital Air na prtica
           </h2>
-          <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
-            Assista aos vídeos para conhecer nossa estrutura e ouvir relatos reais de quem já transformou a audição com a Fonovital.
+          <p className="text-center text-gray-300 mb-8 max-w-3xl mx-auto">
+            Assista aos vdeos para conhecer nossa estrutura e ouvir relatos reais de quem j transformou a audio com a Fonovital.
           </p>
 
           <div className="grid gap-8 lg:grid-cols-2">
@@ -579,8 +577,8 @@ export default function VitalAir() {
                   ></iframe>
                 </div>
                 <div className="space-y-1 text-center lg:text-left">
-                  <h3 className="text-xl font-semibold text-[#028794]">{video.titulo}</h3>
-                  <p className="text-sm text-gray-600">{video.descricao}</p>
+                  <h3 className="text-xl font-semibold text-[#7de8ff]">{video.titulo}</h3>
+                  <p className="text-sm text-gray-300">{video.descricao}</p>
                 </div>
               </article>
             ))}
@@ -591,9 +589,9 @@ export default function VitalAir() {
       <section className="w-full bg-gradient-to-r from-[#028794] to-[#006d7e] py-12 px-4 text-white">
         <div className="max-w-5xl mx-auto flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-3 text-center lg:text-left">
-            <h3 className="text-2xl font-bold">Transforme sua audição com o Vital Air</h3>
+            <h3 className="text-2xl font-bold">Transforme sua audio com o Vital Air</h3>
             <p className="text-sm sm:text-base text-white/90">
-              Não precisa de audiometria presencial. Controle via app e suporte especializado pelo WhatsApp.
+              No precisa de audiometria presencial. Controle via app e suporte especializado pelo WhatsApp.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -601,7 +599,7 @@ export default function VitalAir() {
               href={dados.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#028794] shadow hover:bg-white/90 transition"
+              className="inline-flex items-center justify-center rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-[#7de8ff] shadow hover:bg-white/10 transition"
             >
               Comprar agora
             </a>
@@ -617,64 +615,64 @@ export default function VitalAir() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f0fdf4] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-3xl mx-auto border border-green-300 rounded-2xl text-center p-6">
           <p className="text-lg font-semibold text-green-700 mb-2">
-            Garantia de 1 ano de fábrica Fonovital
+            Garantia de 1 ano de fbrica Fonovital
           </p>
-          <p className="text-gray-600">
-            Troca imediata em caso de defeito de fabricação. Suporte por WhatsApp com nossa equipe especializada.
+          <p className="text-gray-300">
+            Troca imediata em caso de defeito de fabricao. Suporte por WhatsApp com nossa equipe especializada.
           </p>
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <h3 className="text-xl font-bold mb-6">Perguntas Frequentes</h3>
           <div className="space-y-4">
             <details className="border rounded-md p-4 cursor-pointer">
-              <summary className="font-semibold text-[#4A90E2]">
+              <summary className="font-semibold text-[#7de8ff]">
                 Precisa de exames para usar o Vital Air?
               </summary>
-              <p className="mt-2 text-gray-600">
-                Não. Ele é pronto para uso, e nossas dicas no app ajudam a personalizar o ajuste ideal.
+              <p className="mt-2 text-gray-300">
+                No. Ele  pronto para uso, e nossas dicas no app ajudam a personalizar o ajuste ideal.
               </p>
             </details>
             <details className="border rounded-md p-4 cursor-pointer">
-              <summary className="font-semibold text-[#4A90E2]">
+              <summary className="font-semibold text-[#7de8ff]">
                 Posso controlar tudo pelo celular?
               </summary>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-gray-300">
                 Sim! O Vital Air possui app intuitivo com todos os ajustes em tempo real.
               </p>
             </details>
             <details className="border rounded-md p-4 cursor-pointer">
-              <summary className="font-semibold text-[#4A90E2]">
+              <summary className="font-semibold text-[#7de8ff]">
                 Serve para idosos?
               </summary>
-              <p className="mt-2 text-gray-600">
-                Totalmente. O design leve e o app guiado tornam a adaptação simples para qualquer idade.
+              <p className="mt-2 text-gray-300">
+                Totalmente. O design leve e o app guiado tornam a adaptao simples para qualquer idade.
               </p>
             </details>
           </div>
         </div>
       </section>
 
-      <section className="w-full bg-white py-16 px-4 text-center text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-16 px-4 text-center text-base lg:text-lg">
         <p className="text-2xl font-bold mb-4">
-          Controle sua audição com o Vital Air.
+          Controle sua audio com o Vital Air.
         </p>
         <a
           href={dados.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-[#007c91] hover:bg-[#005f6e] text-white py-4 px-8 rounded-full font-bold text-lg transition"
+          className="inline-block bg-[#008B91] hover:bg-[#005f6e] text-white py-4 px-8 rounded-full font-bold text-lg transition"
         >
           GARANTA O SEU AGORA
         </a>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <Comments />
         </div>
@@ -684,3 +682,21 @@ export default function VitalAir() {
     </section>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 
 const ORDERTRACKER_SCRIPT_ID = "ordertracker-sdk";
 
@@ -57,7 +57,7 @@ export default function Rastreio() {
             Rastreie sua compra
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Use o código que enviamos por e-mail ou WhatsApp para acompanhar o
+            Use o cdigo que enviamos por e-mail ou WhatsApp para acompanhar o
             envio do seu produto em tempo real.
           </p>
         </div>
@@ -65,14 +65,14 @@ export default function Rastreio() {
         <div className="bg-white rounded-3xl shadow-lg border border-[#d7eef1] p-6 md:p-10">
           <div id="ordertracker-widget" className="min-h-[320px]" />
           <div className="text-sm text-gray-500 text-center mt-6">
-            Em caso de dúvidas, fale com nosso time pelo WhatsApp{" "}
+            Em caso de dvidas, fale com nosso time pelo WhatsApp{" "}
             <a
-              href="https://wa.me/55329999069763"
+              href="https://wa.me/5532999069763"
               target="_blank"
               rel="noreferrer"
               className="text-[#008b91] font-semibold hover:underline"
             >
-              (32) 99990-69763
+              (32) 99906-9763
             </a>
             .
           </div>
@@ -81,3 +81,7 @@ export default function Rastreio() {
     </main>
   );
 }
+
+
+
+

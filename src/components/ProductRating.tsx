@@ -1,4 +1,4 @@
-import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa'
+﻿import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa'
 
 type ProductRatingProps = {
   rating: number
@@ -54,3 +54,5 @@ export default function ProductRating({
     </div>
   )
 }
+
+

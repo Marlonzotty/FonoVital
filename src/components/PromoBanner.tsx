@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 const PromoBanner: React.FC = () => {
   return (
@@ -16,3 +16,5 @@ const PromoBanner: React.FC = () => {
 };
 
 export default PromoBanner;
+
+

@@ -1,4 +1,4 @@
-// src/analytics/fbpixel.ts
+﻿// src/analytics/fbpixel.ts
 
 /* -------------------------------------------------------------------------- */
 /* Tipos                                                                      */
@@ -204,3 +204,5 @@ export async function trackPurchaseAndSendToCapi({
     }),
   });
 }
+
+

@@ -1,4 +1,4 @@
-// src/analytics/RoutePageView.tsx
+﻿// src/analytics/RoutePageView.tsx
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { trackPageView, refreshFbcFromUrl } from "./fbpixel";
@@ -28,3 +28,5 @@ export default function RoutePageView() {
 
   return null;
 }
+
+

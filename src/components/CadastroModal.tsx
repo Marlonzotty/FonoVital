@@ -1,4 +1,4 @@
-// src/components/CadastroModal.tsx
+﻿// src/components/CadastroModal.tsx
 import { useState } from 'react';
 
 const CadastroModal = () => {
@@ -79,3 +79,5 @@ const CadastroModal = () => {
 };
 
 export default CadastroModal;
+
+

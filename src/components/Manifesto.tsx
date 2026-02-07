@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import logo from '../assets/logomarca.png';
 import consultorio from '../assets/consultorio.jpeg';
 import imgPorques from '../assets/img-porques-v2.webp';
@@ -51,7 +51,7 @@ export default function Manifesto() {
         <div className="mt-12 flex flex-col items-center">
           <img src={logo} alt="Logo Fonovital" className="h-20 w-auto mb-6" />
           <a
-            href="https://wa.me/55329999069763?text=Gostaria%20de%20saber%20mais%20sobre"
+            href="https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#3ac28b] text-white px-6 py-3 rounded-full font-bold hover:bg-[#34b07f] transition animate-bounce"
@@ -284,3 +284,6 @@ function PrincipaisDuvidas() {
     </div>
   );
 }
+
+
+

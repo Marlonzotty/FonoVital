@@ -1,4 +1,4 @@
-import { memo } from 'react'
+﻿import { memo } from 'react'
 
 type ProductGalleryImage = {
   src: string
@@ -68,3 +68,5 @@ const ProductGallery = memo(ProductGalleryComponent)
 ProductGallery.displayName = 'ProductGallery'
 
 export default ProductGallery
+
+

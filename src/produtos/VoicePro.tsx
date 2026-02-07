@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { FaCheckCircle } from 'react-icons/fa'
 import {
   HiOutlineCreditCard,
@@ -22,7 +22,7 @@ import voiceProEsterilizacao from '../assets/voicepro/VoiceProgermes.jpg'
 import voiceProBanner from '../assets/voicepro/VoiceProBanner.jpg'
 import voiceProBeneficios from '../assets/voicepro/VoiceProBenficios.jpg'
 import certificadosImg from '../assets/voicepro/certificados.png'
-import garantiaImg from '../assets/garantia.png'
+import garantiaImg from '../assets/2anos.png'
 
 export const voiceProGallery = [
   { src: voiceProEsterilizacao, alt: 'VoicePro em estojo com esterilização UV' },
@@ -59,12 +59,10 @@ export default function VoicePro() {
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)
-
-  const whatsappLink = `https://wa.me/55329999069763?text=${encodeURIComponent(
-    `Olá, quero saber mais sobre o ${dados.nome}`
-  )}`
-
   const economia = (dados.precoOriginal - dados.precoAtual).toFixed(2).replace('.', ',')
+
+  const whatsappLink =
+    'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
 
   const destaquesRapidos = [
     {
@@ -133,7 +131,7 @@ export default function VoicePro() {
   ]
 
   const bateriaCarregamento = [
-    { titulo: 'Tipo de carregamento', descricao: 'Magnético via estojo portátil.' },
+    { titulo: 'Tipo de carregamento', descricao: 'magnético via estojo portátil.' },
     {
       titulo: 'Indicação digital',
       descricao: 'LED de alta definição mostra a carga individual de cada fone (L/R) e do estojo.'
@@ -160,14 +158,14 @@ export default function VoicePro() {
 
   const higieneSeguranca = [
     'Desinfecção UV automática a cada ciclo de carga, eliminando germes e bactérias.',
-    'Estojo fechado mantém os aparelhos protegidos de poeira e umidade enquanto recarregam.'
+    'Estojo fechado Mantém os aparelhos protegidos de poeira e umidade enquanto recarregam.'
   ]
 
   const certificacoes = [
     'CE (Conformité Européenne)',
     'RoHS (Restriction of Hazardous Substances)',
-    'FCC (Federal Communications Commission – EUA)',
-    'FDA (Food and Drug Administration – EUA)',
+    'FCC (Federal Communications Commission (EUA))',
+    'FDA (Food and Drug Administration (EUA))',
     'UKCA (United Kingdom Conformity Assessed)',
     'ISO / Licença de Produção de Dispositivos Médicos (China)'
   ]
@@ -182,7 +180,7 @@ export default function VoicePro() {
     '2 aparelhos auditivos (L/R)',
     '1 estojo de carregamento magnético com display LED',
     '1 cabo de carregamento USB',
-    '1 manual do usuário (multilíngue)',
+    '1 manual do Usuário (multilíngue)',
     '3 pares de pontas de silicone em diferentes tamanhos'
   ]
 
@@ -206,12 +204,12 @@ export default function VoicePro() {
   ]
 
   return (
-    <section className="pt-32 bg-white font-[Montserrat] text-[#213547]">
+    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-[Inter] text-white">
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">
             <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">{dados.nome}</h1>
-            <p className="text-[#028794] font-semibold text-sm sm:text-base">
+            <p className="text-[#7de8ff] font-semibold text-sm sm:text-base">
               Inteligência sonora com supressão de feedback, redução de ruído de vento e recarga magnética UV.
             </p>
           </div>
@@ -224,13 +222,13 @@ export default function VoicePro() {
                 onChange={setImagemSelecionada}
                 className="w-full"
               />
-              <p className="text-gray-600 text-sm sm:text-base leading-relaxed text-center lg:text-left">
+              <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-center lg:text-left">
                 {dados.descricao}
               </p>
             </div>
 
             <div className="w-full lg:max-w-md">
-              <div className="flex flex-col gap-5 rounded-2xl border border-[#4A90E2]/20 bg-white/95 p-6 shadow-xl backdrop-blur-sm sm:p-8">
+              <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
                 <ProductRating
                   rating={dados.nota}
                   count={dados.avaliacoes}
@@ -241,23 +239,23 @@ export default function VoicePro() {
                   <p className="line-through text-xs sm:text-sm text-gray-400">
                     R$ {dados.precoOriginal.toFixed(2).replace('.', ',')}
                   </p>
-                  <p className="text-[#213547] text-2xl sm:text-3xl font-bold">
+                  <p className="text-white text-2xl sm:text-3xl font-bold">
                     R$ {dados.precoAtual.toFixed(2).replace('.', ',')}
                   </p>
-                  <p className="text-sm text-gray-500">Economize R$ {economia}</p>
+                  <p className="text-sm text-gray-300">Economize R$ {economia}</p>
                 </div>
 
-                <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#028794] lg:justify-start">
+                <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#7de8ff] lg:justify-start">
                   <HiOutlineCreditCard className="text-xl" />
                   12x R$ 152,63
                 </p>
 
-                <div className="grid gap-3 rounded-2xl border border-[#028794]/10 bg-[#f5fbfc] p-4 sm:grid-cols-3">
+                <div className="grid gap-3 rounded-2xl border border-[#028794]/10 bg-white/5 p-4 sm:grid-cols-3">
                   {destaquesRapidos.map(item => (
                     <div key={item.titulo} className="flex flex-col items-center text-center sm:items-start sm:text-left">
-                      <item.icon className="text-[#028794] text-2xl mb-2" />
-                      <p className="font-semibold text-sm text-[#213547]">{item.titulo}</p>
-                      <p className="text-xs text-gray-500">{item.descricao}</p>
+                      <item.icon className="text-[#7de8ff] text-2xl mb-2" />
+                      <p className="font-semibold text-sm text-white">{item.titulo}</p>
+                      <p className="text-xs text-gray-300">{item.descricao}</p>
                     </div>
                   ))}
                 </div>
@@ -266,7 +264,7 @@ export default function VoicePro() {
                   href={dados.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center rounded-xl bg-[#007c91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-[#008B91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
                 >
                   COMPRAR AGORA
                 </a>
@@ -276,22 +274,38 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-12 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6">⚙️ Características Principais</h2>
+          <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 shadow-lg">
+            <div className="relative pb-[56.25%]">
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/NARbCngvVD0?rel=0&modestbranding=1&playsinline=1"
+                title="VoicePro em uso"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-semibold mb-6">?? Características Principais</h2>
           <div className="overflow-x-auto">
-            <table className="w-full border border-gray-200 rounded-xl overflow-hidden">
-              <thead className="bg-[#028794] text-white text-left">
+            <table className="w-full border border-white/15 rounded-xl overflow-hidden">
+              <thead className="section-gradient text-white text-left">
                 <tr>
                   <th className="px-4 py-3 text-sm sm:text-base">Função</th>
                   <th className="px-4 py-3 text-sm sm:text-base">Descrição detalhada</th>
                 </tr>
               </thead>
-              <tbody className="bg-white">
+              <tbody className="bg-white/5">
                 {caracteristicasPrincipais.map((item, index) => (
-                  <tr key={item.funcao} className={index % 2 === 0 ? 'bg-white' : 'bg-[#f3f9fb]'}>
+                  <tr key={item.funcao} className={index % 2 === 0 ? 'bg-white/5' : 'bg-white/5'}>
                     <td className="px-4 py-3 font-semibold text-sm sm:text-base">{item.funcao}</td>
-                    <td className="px-4 py-3 text-gray-600 text-sm sm:text-base">{item.descricao}</td>
+                    <td className="px-4 py-3 text-gray-300 text-sm sm:text-base">{item.descricao}</td>
                   </tr>
                 ))}
               </tbody>
@@ -300,7 +314,7 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-[#028794] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-gradient py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-semibold text-white mb-6">Por que escolher o VoicePro?</h2>
           <ul className="grid gap-3 text-white md:grid-cols-2">
@@ -324,7 +338,7 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4">
+      <section className="w-full bg-white/5 py-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <img
             src={garantiaImg}
@@ -334,25 +348,25 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
-          <div className="bg-[#f9fafb] border border-gray-200 rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#028794]">🔈 Controle de Som</h3>
-            <ul className="space-y-3 text-gray-600">
+          <div className="bg-[#f9fafb] border border-white/15 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">?? Controle de Som</h3>
+            <ul className="space-y-3 text-gray-300">
               {controleSom.map(item => (
                 <li key={item.titulo} className="flex gap-2">
-                  <FaCheckCircle className="text-[#028794] mt-1 shrink-0" />
+                  <FaCheckCircle className="text-[#7de8ff] mt-1 shrink-0" />
                   <div>
-                    <p className="font-semibold text-[#213547]">{item.titulo}</p>
+                    <p className="font-semibold text-white">{item.titulo}</p>
                     <p className="text-sm">{item.descricao}</p>
                   </div>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="bg-[#ecfdf5] border border-green-200 rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#047857]">🧼 Higiene e Segurança</h3>
-            <ul className="space-y-3 text-gray-600">
+          <div className="bg-white/5 border border-white/15 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold mb-4 text-[#047857]">?? Higiene e segurança</h3>
+            <ul className="space-y-3 text-gray-300">
               {higieneSeguranca.map(item => (
                 <li key={item} className="flex gap-2">
                   <FaCheckCircle className="text-[#047857] mt-1 shrink-0" />
@@ -364,18 +378,18 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 text-center">
-            🔋 Bateria e Carregamento
+            ?? Bateria e Carregamento
           </h2>
           <div className="overflow-x-auto">
-            <table className="w-full border border-gray-200 rounded-xl overflow-hidden">
-              <tbody className="bg-white">
+            <table className="w-full border border-white/15 rounded-xl overflow-hidden">
+              <tbody className="bg-white/5">
                 {bateriaCarregamento.map((item, index) => (
-                  <tr key={item.titulo} className={index % 2 === 0 ? 'bg-white' : 'bg-[#f3f9fb]'}>
+                  <tr key={item.titulo} className={index % 2 === 0 ? 'bg-white/5' : 'bg-white/5'}>
                     <td className="px-4 py-3 font-semibold text-sm sm:text-base">{item.titulo}</td>
-                    <td className="px-4 py-3 text-gray-600 text-sm sm:text-base">{item.descricao}</td>
+                    <td className="px-4 py-3 text-gray-300 text-sm sm:text-base">{item.descricao}</td>
                   </tr>
                 ))}
               </tbody>
@@ -384,19 +398,19 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
           <div className="space-y-4">
-            <h3 className="text-2xl font-semibold text-[#028794] flex items-center gap-2">
-              📑 Certificações de Qualidade
+            <h3 className="text-2xl font-semibold text-[#7de8ff] flex items-center gap-2">
+              ?? Certificações de Qualidade
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-300">
               Estes certificados asseguram que o VoicePro cumpre normas internacionais de segurança, eficiência e biocompatibilidade.
             </p>
-            <ul className="space-y-2 text-gray-700">
+            <ul className="space-y-2 text-gray-200">
               {certificacoes.map(item => (
                 <li key={item} className="flex gap-2">
-                  <FaCheckCircle className="text-[#028794] mt-1 shrink-0" />
+                  <FaCheckCircle className="text-[#7de8ff] mt-1 shrink-0" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -412,13 +426,13 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-4 text-center">🌍 Design e Colaborações</h2>
-          <ul className="space-y-3 text-gray-600">
+          <h2 className="text-2xl font-semibold mb-4 text-center">?? Design e Colaborações</h2>
+          <ul className="space-y-3 text-gray-300">
             {designColaboracoes.map(item => (
               <li key={item} className="flex items-start gap-2">
-                <FaCheckCircle className="text-[#028794] mt-1 shrink-0" />
+                <FaCheckCircle className="text-[#7de8ff] mt-1 shrink-0" />
                 <span>{item}</span>
               </li>
             ))}
@@ -426,14 +440,14 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center">📦 Conteúdo da Embalagem</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">?? Conteúdo da Embalagem</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {conteudoEmbalagem.map(item => (
               <div
                 key={item}
-                className="rounded-2xl border border-[#028794]/20 bg-[#f0f9fb] px-5 py-4 text-[#213547]"
+                className="rounded-2xl border border-[#028794]/20 bg-white/5 px-5 py-4 text-white"
               >
                 {item}
               </div>
@@ -442,7 +456,7 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-[#028794] py-10 px-4">
+      <section className="w-full section-gradient py-10 px-4">
         <div className="max-w-5xl mx-auto space-y-8">
           <img
             src={voiceProBanner}
@@ -457,12 +471,12 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-[#ecfeff] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-gradient py-12 px-4 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-semibold text-center text-[#028794] mb-4">
+          <h2 className="text-2xl font-semibold text-center text-[#7de8ff] mb-4">
             Conheça o VoicePro em ação
           </h2>
-          <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-center text-gray-300 mb-8 max-w-3xl mx-auto">
             Assista aos vídeos e descubra como o VoicePro transforma rotinas com confiança, conforto e tecnologia avançada.
           </p>
 
@@ -482,8 +496,8 @@ export default function VoicePro() {
                   ></iframe>
                 </div>
                 <div className="space-y-1 text-center lg:text-left">
-                  <h3 className="text-xl font-semibold text-[#028794]">{video.titulo}</h3>
-                  <p className="text-sm text-gray-600">{video.descricao}</p>
+                  <h3 className="text-xl font-semibold text-[#7de8ff]">{video.titulo}</h3>
+                  <p className="text-sm text-gray-300">{video.descricao}</p>
                 </div>
               </article>
             ))}
@@ -504,7 +518,7 @@ export default function VoicePro() {
               href={dados.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#028794] shadow hover:bg-white/90 transition"
+              className="inline-flex items-center justify-center rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-[#7de8ff] shadow hover:bg-white/10 transition"
             >
               Comprar agora
             </a>
@@ -520,18 +534,18 @@ export default function VoicePro() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f0fdf4] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-3xl mx-auto border border-green-300 rounded-2xl text-center p-6">
           <p className="text-lg font-semibold text-green-700 mb-2">
             Garantia de 1 ano de fábrica Fonovital
           </p>
-          <p className="text-gray-600">
+          <p className="text-gray-300">
             Troca imediata em caso de defeito de fabricação. Atendimento dedicado via WhatsApp com especialistas audiológicos.
           </p>
         </div>
       </section>
 
-      <section className="w-full bg-white py-16 px-4 text-center text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-16 px-4 text-center text-base lg:text-lg">
         <p className="text-2xl font-bold mb-4">
           Clareza profissional para todas as conversas.
         </p>
@@ -539,13 +553,13 @@ export default function VoicePro() {
           href={dados.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-[#007c91] hover:bg-[#005f6e] text-white py-4 px-8 rounded-full font-bold text-lg transition"
+          className="inline-block bg-[#008B91] hover:bg-[#005f6e] text-white py-4 px-8 rounded-full font-bold text-lg transition"
         >
           GARANTA O SEU AGORA
         </a>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <Comments />
         </div>
@@ -555,3 +569,24 @@ export default function VoicePro() {
     </section>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

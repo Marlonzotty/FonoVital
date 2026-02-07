@@ -1,4 +1,4 @@
-// src/main.tsx
+﻿// src/main.tsx
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter, Routes, Route, useLocation, Outlet } from "react-router-dom";
@@ -11,6 +11,7 @@ import CadastroModal from "./components/CadastroModal";
 import PromoBanner from "./components/PromoBanner";
 import Navbar from "./components/Navbar";
 import Rastreio from "./pages/Rastreio";
+import Garantia from "./pages/Garantia";
 
 import Voxton from "./produtos/voxton";
 import Voxcharge from "./produtos/Voxcharge";
@@ -18,6 +19,8 @@ import Vitalvoice from "./produtos/Vitalvoice";
 import IAvoice from "./produtos/IAvoice";
 import VitalAir from "./produtos/VitalAir";
 import VoicePro from "./produtos/VoicePro";
+import SmartVoice from "./produtos/SmartVoice";
+import SoftVoice from "./produtos/SoftVoice";
 
 import {
   loadFacebookPixel,
@@ -82,6 +85,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<App />} />
           <Route path="/tipos-de-aparelhos" element={<TiposAparelhos />} />
           <Route path="/teste-auditivo" element={<TesteAuditivo />} />
+          <Route path="/garantia" element={<Garantia />} />
           <Route path="/rastreio" element={<Rastreio />} />
           <Route path="/cadastro" element={<CadastroModal />} />
           <Route path="/produto/voxton" element={<Voxton />} />
@@ -90,8 +94,12 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/produto/iavoice" element={<IAvoice />} />
           <Route path="/produto/vitalair" element={<VitalAir />} />
           <Route path="/produto/voicepro" element={<VoicePro />} />
+          <Route path="/produto/smartvoice" element={<SmartVoice />} />
+          <Route path="/produto/softvoice" element={<SoftVoice />} />
         </Route>
       </Routes>
     </HashRouter>
   </StrictMode>
 );
+
+

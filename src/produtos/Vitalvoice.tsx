@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { FaCheckCircle } from 'react-icons/fa'
 import {
   HiOutlineCreditCard,
@@ -52,50 +52,9 @@ export default function Vitalvoice() {
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)
 
-  const whatsappLink = `https://wa.me/55329999069763?text=${encodeURIComponent(
-    `Olá, quero saber mais sobre o ${dados.nome}`
-  )}`
+  const whatsappLink =
+    'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
 
-  const motivosTabela = [
-    {
-      recurso: '16 canais DSP',
-      descricao:
-        'Proporciona processamento digital de som de alta precisão, melhorando a clareza e naturalidade da audição.'
-    },
-    {
-      recurso: 'Redução inteligente de ruído',
-      descricao:
-        'Ajusta automaticamente para minimizar sons indesejados do ambiente, como vento e ruído de fundo.'
-    },
-    {
-      recurso: 'Pequeno e invisível',
-      descricao: 'Design intra-auricular (CIC), quase imperceptível ao uso.'
-    },
-    {
-      recurso: 'Tela digital HD',
-      descricao: 'Exibe informações de carga e funcionamento com clareza.'
-    },
-    {
-      recurso: 'Design moderno',
-      descricao: 'Aparência elegante e ergonômica.'
-    },
-    {
-      recurso: 'Som de alta qualidade',
-      descricao: 'Transmissão sonora nítida e natural, sem distorções.'
-    },
-    {
-      recurso: 'Confortável para uso prolongado',
-      descricao: 'Leve e anatômico, evita desconforto mesmo após horas de uso.'
-    },
-    {
-      recurso: 'Fácil de operar',
-      descricao: 'Simples de ligar, ajustar e carregar.'
-    },
-    {
-      recurso: 'Alta durabilidade',
-      descricao: 'Bateria de longa duração e case recarregável de alta capacidade.'
-    }
-  ]
 
   const comparativoTecnologia = {
     tradicionais: [
@@ -153,6 +112,30 @@ export default function Vitalvoice() {
     }
   ]
 
+  const destaquesRapidos = [
+    {
+      icon: HiOutlineClipboardDocumentCheck,
+      titulo: '16 canais DSP',
+      descricao: 'Processamento digital de alta precisão para fala clara.'
+    },
+    {
+      icon: HiOutlineUserGroup,
+      titulo: 'Ajuste simples',
+      descricao: 'Use o botão para volume e modos sem palhetas.'
+    },
+    {
+      icon: HiOutlineArrowPath,
+      titulo: '7 dias de devolução',
+      descricao: 'Teste sem risco com suporte Fonovital.'
+    }
+  ]
+
+  const motivosTabela = [
+    { titulo: 'Clareza de som', descricao: 'Chip digital evita chiados e realça vozes.' },
+    { titulo: 'Conforto', descricao: 'CIC leve, quase invisível e estável no canal.' },
+    { titulo: 'Autonomia', descricao: 'Case recarrega 3-5 vezes para uso prolongado.' }
+  ]
+
   const videos = [
     {
       id: 'fonovital-empresa',
@@ -173,12 +156,12 @@ export default function Vitalvoice() {
   ]
 
   return (
-    <section className="pt-32 bg-white font-[Montserrat] text-[#213547]">
+    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-[Inter] text-white">
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">
             <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">{dados.nome}</h1>
-            <p className="text-[#028794] font-semibold text-sm sm:text-base">
+            <p className="text-[#7de8ff] font-semibold text-sm sm:text-base">
               Com 16 canais de DSP, algoritmo exclusivo, supressão de feedback e redução de ruído do vento.
             </p>
           </div>
@@ -191,13 +174,13 @@ export default function Vitalvoice() {
                 onChange={setImagemSelecionada}
                 className="w-full"
               />
-              <p className="text-gray-600 text-sm sm:text-base leading-relaxed text-center lg:text-left">
+              <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-center lg:text-left">
                 {dados.descricao}
               </p>
             </div>
 
             <div className="w-full lg:max-w-md">
-              <div className="flex flex-col gap-5 rounded-2xl border border-[#4A90E2]/20 bg-white/95 p-6 shadow-xl backdrop-blur-sm sm:p-8">
+              <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
                 <ProductRating
                   rating={dados.nota}
                   count={dados.avaliacoes}
@@ -208,25 +191,25 @@ export default function Vitalvoice() {
                   <p className="line-through text-xs sm:text-sm text-gray-400">
                     R$ {dados.precoOriginal.toFixed(2).replace('.', ',')}
                   </p>
-                  <p className="text-[#213547] text-2xl sm:text-3xl font-bold">
+                  <p className="text-white text-2xl sm:text-3xl font-bold">
                     R$ {dados.precoAtual.toFixed(2).replace('.', ',')}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-300">
                     Economize R$ {(dados.precoOriginal - dados.precoAtual).toFixed(2).replace('.', ',')}
                   </p>
                 </div>
 
-                <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#028794] lg:justify-start">
+                <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#7de8ff] lg:justify-start">
                   <HiOutlineCreditCard className="text-xl" />
                   12x R$ 151,42
                 </p>
 
-                <div className="grid gap-3 rounded-2xl border border-[#028794]/10 bg-[#f5fbfc] p-4 sm:grid-cols-3">
+                <div className="grid gap-3 rounded-2xl border border-[#028794]/10 bg-white/5 p-4 sm:grid-cols-3">
                   {destaquesRapidos.map(item => (
                     <div key={item.titulo} className="flex flex-col items-center text-center sm:items-start sm:text-left">
-                      <item.icon className="text-[#028794] text-2xl mb-2" />
-                      <p className="font-semibold text-sm text-[#213547]">{item.titulo}</p>
-                      <p className="text-xs text-gray-500">{item.descricao}</p>
+                      <item.icon className="text-[#7de8ff] text-2xl mb-2" />
+                      <p className="font-semibold text-sm text-white">{item.titulo}</p>
+                      <p className="text-xs text-gray-300">{item.descricao}</p>
                     </div>
                   ))}
                 </div>
@@ -235,7 +218,7 @@ export default function Vitalvoice() {
                   href={dados.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center rounded-xl bg-[#007c91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-[#008B91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
                 >
                   COMPRAR AGORA
                 </a>
@@ -245,24 +228,24 @@ export default function Vitalvoice() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6">
             Motivos para Escolher Este Aparelho Auditivo
           </h2>
           <div className="overflow-x-auto">
-            <table className="w-full border border-gray-200 rounded-xl overflow-hidden">
-              <thead className="bg-[#028794] text-white text-left">
+            <table className="w-full border border-white/15 rounded-xl overflow-hidden">
+              <thead className="section-gradient text-white text-left">
                 <tr>
                   <th className="px-4 py-3 text-sm sm:text-base">Recurso</th>
                   <th className="px-4 py-3 text-sm sm:text-base">Descrição</th>
                 </tr>
               </thead>
-              <tbody className="bg-white">
+              <tbody className="bg-white/5">
                 {motivosTabela.map((item, index) => (
-                  <tr key={item.recurso} className={index % 2 === 0 ? 'bg-white' : 'bg-[#f3f9fb]'}>
-                    <td className="px-4 py-3 font-semibold text-sm sm:text-base">{item.recurso}</td>
-                    <td className="px-4 py-3 text-gray-600 text-sm sm:text-base">{item.descricao}</td>
+                  <tr key={item.titulo} className={index % 2 === 0 ? 'bg-white/5' : 'bg-white/5'}>
+                    <td className="px-4 py-3 font-semibold text-sm sm:text-base">{item.titulo}</td>
+                    <td className="px-4 py-3 text-gray-300 text-sm sm:text-base">{item.descricao}</td>
                   </tr>
                 ))}
               </tbody>
@@ -271,7 +254,7 @@ export default function Vitalvoice() {
         </div>
       </section>
 
-      <section className="w-full bg-[#028794] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-gradient py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-semibold text-white mb-6">
             Por que escolher o Vitalvoice?
@@ -305,7 +288,7 @@ export default function Vitalvoice() {
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4">
+      <section className="w-full bg-white/5 py-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <img
             src={garantiaImg}
@@ -315,13 +298,13 @@ export default function Vitalvoice() {
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
-          <div className="bg-[#f9fafb] border border-gray-200 rounded-2xl p-6">
+          <div className="bg-[#f9fafb] border border-white/15 rounded-2xl p-6">
             <h3 className="text-xl font-semibold mb-4 text-[#d97706]">
               🔸 Aparelhos Auditivos Tradicionais
             </h3>
-            <ul className="space-y-3 text-gray-600">
+            <ul className="space-y-3 text-gray-300">
               {comparativoTecnologia.tradicionais.map(item => (
                 <li key={item} className="flex gap-2">
                   <span className="font-bold text-[#d97706]">•</span>
@@ -330,14 +313,14 @@ export default function Vitalvoice() {
               ))}
             </ul>
           </div>
-          <div className="bg-[#ecfeff] border border-[#028794] rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#028794]">
+          <div className="section-gradient border border-[#028794] rounded-2xl p-6">
+            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">
               🔹 Novo Aparelho Auditivo Digital (CIC)
             </h3>
-            <ul className="space-y-3 text-gray-700">
+            <ul className="space-y-3 text-gray-200">
               {comparativoTecnologia.digital.map(item => (
                 <li key={item} className="flex gap-2">
-                  <FaCheckCircle className="text-[#028794] mt-1" />
+                  <FaCheckCircle className="text-[#7de8ff] mt-1" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -346,7 +329,7 @@ export default function Vitalvoice() {
         </div>
       </section>
 
-      <section className="w-full bg-[#028794] py-10 px-4">
+      <section className="w-full section-gradient py-10 px-4">
         <div className="max-w-5xl mx-auto space-y-8">
           <img
             src={vitalVoiceBanner}
@@ -361,18 +344,18 @@ export default function Vitalvoice() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 text-center">
             🔋 Estojo de Carregamento Premium e Bateria de Longa Duração
           </h2>
           <div className="overflow-x-auto">
-            <table className="w-full border border-gray-200 rounded-xl overflow-hidden">
-              <tbody className="bg-white">
+            <table className="w-full border border-white/15 rounded-xl overflow-hidden">
+              <tbody className="bg-white/5">
                 {especificacoesCarregamento.map((item, index) => (
-                  <tr key={item.titulo} className={index % 2 === 0 ? 'bg-white' : 'bg-[#f3f9fb]'}>
+                  <tr key={item.titulo} className={index % 2 === 0 ? 'bg-white/5' : 'bg-white/5'}>
                     <td className="px-4 py-3 font-semibold text-sm sm:text-base">{item.titulo}</td>
-                    <td className="px-4 py-3 text-gray-600 text-sm sm:text-base">{item.descricao}</td>
+                    <td className="px-4 py-3 text-gray-300 text-sm sm:text-base">{item.descricao}</td>
                   </tr>
                 ))}
               </tbody>
@@ -381,29 +364,29 @@ export default function Vitalvoice() {
         </div>
       </section>
 
-      <section className="w-full bg-white py-12 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 text-center">🌍 Modos de Uso Inteligentes</h2>
           <div className="grid gap-6 sm:grid-cols-3">
             {modosInteligentes.map(modo => (
               <div
                 key={modo.nome}
-                className="border border-[#028794] rounded-2xl p-5 bg-[#f0f9fb] text-center"
+                className="border border-[#028794] rounded-2xl p-5 bg-white/5 text-center"
               >
-                <h3 className="text-lg font-semibold text-[#028794] mb-2">{modo.nome}</h3>
-                <p className="text-sm text-gray-600">{modo.descricao}</p>
+                <h3 className="text-lg font-semibold text-[#7de8ff] mb-2">{modo.nome}</h3>
+                <p className="text-sm text-gray-300">{modo.descricao}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="w-full bg-[#ecfeff] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-gradient py-12 px-4 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-semibold text-center text-[#028794] mb-4">
+          <h2 className="text-2xl font-semibold text-center text-[#7de8ff] mb-4">
             Conheça a Fonovital em ação
           </h2>
-          <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-center text-gray-300 mb-8 max-w-3xl mx-auto">
             Veja de perto a nossa estrutura e ouça relatos reais de quem já recuperou a confiança para aproveitar cada conversa.
           </p>
 
@@ -423,8 +406,8 @@ export default function Vitalvoice() {
                   ></iframe>
                 </div>
                 <div className="space-y-1 text-center lg:text-left">
-                  <h3 className="text-xl font-semibold text-[#028794]">{video.titulo}</h3>
-                  <p className="text-sm text-gray-600">{video.descricao}</p>
+                  <h3 className="text-xl font-semibold text-[#7de8ff]">{video.titulo}</h3>
+                  <p className="text-sm text-gray-300">{video.descricao}</p>
                 </div>
               </article>
             ))}
@@ -432,24 +415,24 @@ export default function Vitalvoice() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 text-center">👂 Conforto e Discrição</h2>
           <div className="overflow-x-auto">
-            <table className="w-full border border-gray-200 rounded-xl overflow-hidden">
-              <thead className="bg-[#028794] text-white text-left">
+            <table className="w-full border border-white/15 rounded-xl overflow-hidden">
+              <thead className="section-gradient text-white text-left">
                 <tr>
                   <th className="px-4 py-3 text-sm sm:text-base">Característica</th>
                   <th className="px-4 py-3 text-sm sm:text-base">Aparelho CIC (este modelo)</th>
                   <th className="px-4 py-3 text-sm sm:text-base">Outros aparelhos de ouvido</th>
                 </tr>
               </thead>
-              <tbody className="bg-white">
+              <tbody className="bg-white/5">
                 {comparativoConforto.map((linha, index) => (
-                  <tr key={linha.caracteristica} className={index % 2 === 0 ? 'bg-white' : 'bg-[#f3f9fb]'}>
+                  <tr key={linha.caracteristica} className={index % 2 === 0 ? 'bg-white/5' : 'bg-white/5'}>
                     <td className="px-4 py-3 font-semibold text-sm sm:text-base">{linha.caracteristica}</td>
-                    <td className="px-4 py-3 text-gray-700 text-sm sm:text-base">{linha.cic}</td>
-                    <td className="px-4 py-3 text-gray-600 text-sm sm:text-base">{linha.outros}</td>
+                    <td className="px-4 py-3 text-gray-200 text-sm sm:text-base">{linha.cic}</td>
+                    <td className="px-4 py-3 text-gray-300 text-sm sm:text-base">{linha.outros}</td>
                   </tr>
                 ))}
               </tbody>
@@ -471,7 +454,7 @@ export default function Vitalvoice() {
               href={dados.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#028794] shadow hover:bg-white/90 transition"
+              className="inline-flex items-center justify-center rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-[#7de8ff] shadow hover:bg-white/10 transition"
             >
               Comprar agora
             </a>
@@ -487,18 +470,18 @@ export default function Vitalvoice() {
         </div>
       </section>
 
-      <section className="w-full bg-[#f0fdf4] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-3xl mx-auto border border-green-300 rounded-2xl text-center p-6">
           <p className="text-lg font-semibold text-green-700 mb-2">
             Garantia de 1 ano de fábrica Fonovital
           </p>
-          <p className="text-gray-600">
+          <p className="text-gray-300">
             Troca imediata em caso de defeito de fabricação. Suporte por WhatsApp com nossa equipe especializada.
           </p>
         </div>
       </section>
 
-      <section className="w-full bg-white py-16 px-4 text-center text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-16 px-4 text-center text-base lg:text-lg">
         <p className="text-2xl font-bold mb-4">
           Garanta seu Vitalvoice agora mesmo
         </p>
@@ -506,21 +489,21 @@ export default function Vitalvoice() {
           href={dados.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-[#007c91] hover:bg-[#005f6e] text-white py-4 px-8 rounded-full font-bold text-lg transition"
+          className="inline-block bg-[#008B91] hover:bg-[#005f6e] text-white py-4 px-8 rounded-full font-bold text-lg transition"
         >
           GARANTIR O MEU
         </a>
       </section>
 
-      <section className="w-full bg-white py-10 px-4 text-base lg:text-lg">
+      <section className="w-full bg-white/5 py-10 px-4 text-base lg:text-lg">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xl font-semibold text-[#028794]">
+          <p className="text-xl font-semibold text-[#7de8ff]">
             “Não deixe aparelhos auditivos inferiores agravarem a perda auditiva.”
           </p>
         </div>
       </section>
 
-      <section className="w-full bg-[#f9f9f9] py-12 px-4 text-base lg:text-lg">
+      <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <Comments />
         </div>
@@ -530,20 +513,14 @@ export default function Vitalvoice() {
     </section>
   )
 }
-  const destaquesRapidos = [
-    {
-      icon: HiOutlineClipboardDocumentCheck,
-      titulo: 'Não precisa de audiometria',
-      descricao: 'Pronto para usar: ajuste guiado com nossos especialistas.'
-    },
-    {
-      icon: HiOutlineUserGroup,
-      titulo: '5 mil clientes satisfeitos',
-      descricao: 'Comunidade crescente em todo o Brasil recomendando a Fonovital.'
-    },
-    {
-      icon: HiOutlineArrowPath,
-      titulo: 'Devolvemos seu dinheiro em 7 dias',
-      descricao: 'Sem burocracia: não gostou, estornamos 100% do valor.'
-    }
-  ]
+
+
+
+
+
+
+
+
+
+
+

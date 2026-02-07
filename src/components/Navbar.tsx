@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { FiMenu, FiX } from 'react-icons/fi'
 import logo from '../assets/logomarca.png'
 import { Link } from 'react-router-dom'
@@ -32,16 +32,10 @@ export default function Navbar() {
             Home
           </Link>
           <Link
-            to="/tipos-de-aparelhos"
+            to="/garantia"
             className="hover:scale-105 transition-transform duration-200"
           >
-            Tipos de Aparelhos
-          </Link>
-          <Link
-            to="/teste-auditivo"
-            className="hover:scale-105 transition-transform duration-200"
-          >
-            Teste Auditivo
+            Garantia & Prazos
           </Link>
           <Link
             to="/rastreio"
@@ -60,7 +54,7 @@ export default function Navbar() {
         {/* WhatsApp Desktop */}
         <div className="hidden md:block">
           <a
-            href="https://wa.me/5532999069763?text=Gostaria%20de%20saber%20mais%20sobre"
+            href="https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white text-[#008B91] px-4 py-2 rounded font-semibold hover:scale-105 hover:shadow transition-transform duration-200"
@@ -92,18 +86,11 @@ export default function Navbar() {
             Home
           </Link>
           <Link
-            to="/tipos-de-aparelhos"
+            to="/garantia"
             onClick={() => setMenuOpen(false)}
             className="block"
           >
-            Tipos de Aparelhos
-          </Link>
-          <Link
-            to="/teste-auditivo"
-            onClick={() => setMenuOpen(false)}
-            className="block"
-          >
-            Teste Auditivo
+            Garantia & Prazos
           </Link>
           <Link
             to="/rastreio"
@@ -129,3 +116,6 @@ export default function Navbar() {
     </header>
   )
 }
+
+
+

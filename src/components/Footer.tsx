@@ -48,33 +48,33 @@ export default function Footer() {
   }, [raLoaded]);
 
   return (
-    <footer className="w-full bg-[#213547] text-gray-300 py-10">
-      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="w-full bg-[#f6f8fb] text-slate-700 py-12">
+      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10">
 
         {/* Coluna 1 */}
         <div>
-          <h3 className="text-xl font-bold text-white mb-2 flex items-center space-x-2">
-            <Ear size={20} className="text-green-400" />
+          <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center space-x-2">
+            <Ear size={20} className="text-teal-600" />
             <span>Fonovital</span>
           </h3>
           <p className="text-sm mb-4">
-            Devolvendo a qualidade de vida atravs da audio.
+            Devolvendo a qualidade de vida através da audição.
           </p>
           <ul className="text-sm space-y-2">
             <li className="flex items-center space-x-2">
-              <CheckCircle size={16} className="text-green-400" />
+              <CheckCircle size={16} className="text-teal-600" />
               <span>Garantia 1 Ano </span>
             </li>
             <li className="flex items-center space-x-2">
-              <Truck size={16} className="text-green-400" />
+              <Truck size={16} className="text-teal-600" />
               <span>Envio em 24h</span>
             </li>
             <li className="flex items-center space-x-2">
-              <Store size={16} className="text-green-400" />
+              <Store size={16} className="text-teal-600" />
               <span>Mercado Livre</span>
             </li>
             <li className="flex items-center space-x-2">
-              <Lock size={16} className="text-green-400" />
+              <Lock size={16} className="text-teal-600" />
               <span>Site Seguro SSL</span>
             </li>
           </ul>
@@ -82,7 +82,7 @@ export default function Footer() {
 
         {/* Coluna 2 */}
         <div>
-          <h3 className="text-xl font-bold text-white mb-2">Produtos</h3>
+          <h3 className="text-xl font-bold text-slate-900 mb-2">Produtos</h3>
           <ul className="text-sm space-y-1">
             <li>Voxton CIC</li>
             <li>Voxcharge CIC</li>
@@ -95,29 +95,29 @@ export default function Footer() {
 
         {/* Coluna 3 */}
         <div>
-          <h3 className="text-xl font-bold text-white mb-2">Contato</h3>
+          <h3 className="text-xl font-bold text-slate-900 mb-2">Contato</h3>
           <ul className="text-sm space-y-2">
             <li className="flex items-center space-x-2">
-              <Phone size={16} className="text-green-400" />
+              <Phone size={16} className="text-teal-600" />
               <span>(32) 99906-9763</span>
             </li>
             <li className="flex items-center space-x-2">
-              <Mail size={16} className="text-green-400" />
+              <Mail size={16} className="text-teal-600" />
               <span>fonovitaloficial@gmail.com</span>
             </li>
             <li className="flex items-center space-x-2">
-              <MapPin size={16} className="text-green-400" />
-              <span>So Joo del Rei, MG</span>
+              <MapPin size={16} className="text-teal-600" />
+              <span>São João del Rei, MG</span>
             </li>
           </ul>
-          <div className="mt-8 text-center text-xs text-gray-400 space-y-1">
+          <div className="mt-8 text-center text-xs text-slate-600 space-y-1">
             <div>
               &copy; {new Date().getFullYear()}{" "}
-              <span className="font-medium text-gray-300">FonoVital</span>. Site desenvolvido por{" "}
-              <span className="font-medium text-gray-300">Zotty Software</span>.
+              <span className="font-medium text-slate-800">FonoVital</span>. Site desenvolvido por{" "}
+              <span className="font-medium text-slate-800">Zotty Software</span>.
             </div>
             <div>
-              <span className="font-semibold text-gray-200">CNPJ:</span> 61.894.698/0001-20
+              <span className="font-semibold text-slate-800">CNPJ:</span> 61.894.698/0001-20
             </div>
           </div>
         </div>

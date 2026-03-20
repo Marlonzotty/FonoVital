@@ -39,7 +39,7 @@ export default function Garantia() {
                 <p className="text-sm text-[#7de8ff] font-semibold">Garantia de fábrica</p>
                 <h3 className="text-xl font-bold text-white">1 ano de cobertura</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  Prote��o contra defeitos de fabricação com troca ou reparo sem custo dentro do prazo de 12 meses.
+                  Proteção contra defeitos de fabricação com troca ou reparo sem custo dentro do prazo de 12 meses.
                 </p>
               </div>
             </div>
@@ -52,7 +52,7 @@ export default function Garantia() {
                 <p className="text-sm text-[#7de8ff] font-semibold">Pagamento seguro</p>
                 <h3 className="text-xl font-bold text-white">Processado pelo Mercado Pago</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  A maior plataforma de pagamentos da Am�rica Latina, com criptografia ponta a ponta e monitoramento
+                  A maior plataforma de pagamentos da América Latina, com criptografia ponta a ponta e monitoramento
                   antifraude em tempo real.
                 </p>
               </div>

@@ -108,7 +108,7 @@ export default function SoftVoice() {
     'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
 
   return (
-    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-[Inter] text-white">
+    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-body text-white">
       <section className="w-full px-4 py-10 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left space-y-2">

@@ -1,9 +1,10 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@500;600;700;800&family=Raleway:wght@500;600;700;800&family=Roboto:wght@400;500;700&family=Source+Sans+Pro:wght@400;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
   --teal-primary: #008B91;
   --teal-dark: #006d73;
+  --teal-contrast: #0f6f7a;
   --accent-green: #2ea45f;
   --dark: #0f172a;
   --bg-base: #f7fafc;
@@ -11,13 +12,48 @@
   --border-soft: #e2e8f0;
   --text-base: #0f172a;
   --text-muted: #475569;
+  --text-muted-strong: #334155;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   background-color: var(--bg-base);
   color: var(--text-base);
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-pair-montserrat-open-sans {
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+}
+
+.font-pair-playfair-lato {
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
+}
+
+.font-pair-raleway-roboto {
+  --font-heading: 'Raleway', sans-serif;
+  --font-body: 'Roboto', sans-serif;
+}
+
+.font-pair-poppins-source-sans-pro {
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Source Sans Pro', sans-serif;
 }
 
 /* ===== 3D PERSPECTIVE ===== */
@@ -104,7 +140,8 @@ body {
   height: 200%;
   background: radial-gradient(circle at 30% 30%, rgba(0, 139, 145, 0.12) 0%, transparent 45%),
               radial-gradient(circle at 70% 70%, rgba(46, 164, 95, 0.10) 0%, transparent 45%);
-  animation: rotate-slow 30s linear infinite;
+  animation: none;
+  pointer-events: none;
 }
 
 /* ===== GRID BACKGROUND ===== */
@@ -227,7 +264,7 @@ body {
   height: 4px;
   background: rgba(0, 139, 145, 0.6);
   border-radius: 50%;
-  animation: particle-float 8s ease-in-out infinite;
+  animation: none;
 }
 
 .particle:nth-child(2) { animation-delay: 1s; left: 20%; }
@@ -271,13 +308,62 @@ body {
 .section-dark .text-gray-300,
 .section-gradient .text-gray-300,
 .hero-bg .text-gray-300 {
-  color: var(--text-muted) !important;
+  color: var(--text-muted-strong) !important;
 }
 
 .section-dark .text-gray-200,
 .section-gradient .text-gray-200,
 .hero-bg .text-gray-200 {
-  color: #4b5563 !important;
+  color: var(--text-muted-strong) !important;
+}
+
+.section-dark .text-gray-400,
+.section-gradient .text-gray-400,
+.hero-bg .text-gray-400,
+.section-dark .text-slate-400,
+.section-gradient .text-slate-400,
+.hero-bg .text-slate-400 {
+  color: var(--text-muted) !important;
+}
+
+.section-dark [class*="text-[#7de8ff]"],
+.section-gradient [class*="text-[#7de8ff]"],
+.hero-bg [class*="text-[#7de8ff]"] {
+  color: var(--teal-contrast) !important;
+}
+
+.section-dark .text-white\/90,
+.section-gradient .text-white\/90,
+.hero-bg .text-white\/90,
+.section-dark .text-white\/85,
+.section-gradient .text-white\/85,
+.hero-bg .text-white\/85,
+.section-dark .text-white\/70,
+.section-gradient .text-white\/70,
+.hero-bg .text-white\/70 {
+  color: var(--text-muted-strong) !important;
+}
+
+/* Mantém contraste correto em superfícies escuras (banners e botões). */
+[class*="bg-gradient-to-r"] .text-white,
+[class*="bg-gradient-to-r"].text-white,
+[class*="bg-gradient-to-r"] .text-white\/90,
+[class*="bg-gradient-to-r"].text-white\/90,
+[class*="bg-gradient-to-r"] .text-white\/85,
+[class*="bg-gradient-to-r"].text-white\/85,
+[class*="bg-gradient-to-r"] .text-white\/70,
+[class*="bg-gradient-to-r"].text-white\/70,
+[class*="bg-[#008B91]"] .text-white,
+[class*="bg-[#008B91]"].text-white,
+[class*="bg-[#007c91]"] .text-white,
+[class*="bg-[#007c91]"].text-white,
+[class*="bg-[#4A90E2]"] .text-white,
+[class*="bg-[#4A90E2]"].text-white,
+[class*="bg-[#018B92]"] .text-white,
+[class*="bg-[#018B92]"].text-white,
+[class*="bg-teal-600"] .text-white,
+[class*="bg-teal-600"].text-white {
+  color: #ffffff !important;
 }
 
 /* ===== DISCOUNT BADGE ===== */
@@ -325,6 +411,6 @@ body {
   position: absolute;
   border: 1px solid rgba(0, 139, 145, 0.2);
   border-radius: 50%;
-  animation: rotate-slow 20s linear infinite;
+  animation: none;
+  pointer-events: none;
 }
-

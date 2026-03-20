@@ -1,4 +1,5 @@
 ﻿import './App.css';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import {
@@ -10,7 +11,8 @@ import {
   Ear,
   ChevronRight,
   Zap,
-  Volume2
+  Volume2,
+  Trophy
 } from 'lucide-react';
 
 import Comments from './components/Comments';
@@ -22,6 +24,7 @@ import { voxtonHeroImage } from './produtos/voxton';
 import { voxchargeHeroImage } from './produtos/Voxcharge';
 import { iaVoiceHeroImage } from './produtos/IAvoice';
 import { vitalAirHeroImage } from './produtos/VitalAir';
+import bannerPc from './assets/banner pc.png';
 
 import { voiceProHeroImage } from './produtos/VoicePro';
 import { smartVoiceHeroImage } from './produtos/SmartVoice';
@@ -96,7 +99,7 @@ const aparelhos = [
     rota: '/produto/voicepro',
     badge: 'PRO',
     nota: 4.5,
-    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital',
+    link: 'https://fonovitalltda.pay.yampi.com.br/r/OYG2SSJH1K',
     destaque: true,
   },
   {
@@ -150,18 +153,63 @@ const aparelhos = [
 
 const trustBadges = [
   { icon: Truck, label: 'Frete Grátis', desc: 'Envio 24h' },
-  { icon: ShieldCheck, label: 'Garantia 1 Ano', desc: 'Contra defeitos' },
+  { icon: ShieldCheck, label: 'Garantia 2 Anos', desc: 'Contra defeitos' },
   { icon: RefreshCcw, label: '7 Dias', desc: 'Para devolução' },
   { icon: CreditCard, label: '12x no Cartão ', desc: 'No Cartão' },
 ];
 
-const featuredProduct = aparelhos.find(p => p.destaque) || aparelhos[0];
+const faqItems = [
+  {
+    pergunta: 'O aparelho realmente vai funcionar para o meu caso?',
+    resposta:
+      'Sim. Nossos aparelhos ajudam em diferentes quadros, como perda auditiva, zumbido, chiado e dificuldade para entender conversas ou TV. Nossa equipe orienta o ajuste ideal para a sua necessidade.'
+  },
+  {
+    pergunta: 'Qual modelo é o ideal para mim: Voxton, VoicePro ou IA Voice?',
+    resposta:
+      'Depende do seu nível de perda auditiva, rotina e preferência de recursos. O Voxton é prático e discreto, o VoicePro entrega mais desempenho e o IA Voice traz tecnologia inteligente de ajuste. Nós indicamos o melhor custo-benefício para o seu perfil.'
+  },
+  {
+    pergunta: 'É seguro comprar com a Fonovital?',
+    resposta:
+      'Sim. Trabalhamos com CNPJ ativo, emissão de nota fiscal, meios de pagamento seguros e política de garantia. Você também acompanha entrega e tem suporte direto no WhatsApp durante todo o processo.'
+  },
+  {
+    pergunta: 'Como funciona sem consulta ou sem receita médica?',
+    resposta:
+      'Os aparelhos permitem adaptação com ajustes guiados, sem obrigatoriedade de consulta prévia para uso inicial. Nosso atendimento acompanha cada etapa para você configurar de forma segura e personalizada.'
+  },
+  {
+    pergunta: 'Qual é o valor e como funciona o pagamento?',
+    resposta:
+      'Temos parcelamento no cartão e opção com desconto à vista. Nossa equipe explica as condições atualizadas e te ajuda a comparar o custo-benefício com opções mais baratas do mercado.'
+  }
+];
+
+const championProduct = aparelhos.find(p => p.sigla === 'VoicePro');
+const featuredProduct = championProduct || aparelhos.find(p => p.destaque) || aparelhos[0];
 const heroVideoId = 'Z4-1AfiPFQ0';
 
 export default function App() {
+  const [openFaq, setOpenFaq] = useState(0);
+  const featuredDiscount = Math.round(
+    ((featuredProduct.precoOriginal - featuredProduct.precoAtual) / featuredProduct.precoOriginal) * 100
+  );
+
   return (
     <div className="min-h-screen hero-bg grid-bg">
       <PurchaseAlert />
+
+      <section className="relative z-10 px-4 lg:px-8 pt-4">
+        <div className="max-w-7xl mx-auto overflow-hidden rounded-2xl border border-[#008B91]/20 shadow-[0_10px_30px_rgba(15,23,42,0.12)]">
+          <img
+            src={bannerPc}
+            alt="Banner promocional Fonovital"
+            className="w-full h-auto object-cover"
+            loading="lazy"
+          />
+        </div>
+      </section>
 
       {/* Floating Particles */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -182,6 +230,11 @@ export default function App() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Content */}
             <div className="text-center lg:text-left z-10 flex flex-col gap-6">
+              <div className="order-0 hidden lg:inline-flex items-center gap-2 w-fit rounded-full bg-amber-100 border border-amber-300 px-4 py-2 text-amber-900 font-semibold">
+                <Trophy size={18} />
+                Campeão de Vendas Fonovital: {featuredProduct.sigla}
+              </div>
+
               {/* Hero Video (top on mobile) */}
               <div className="order-1 lg:order-7 max-w-xl w-full mx-auto lg:mx-0">
                 <div className="flex items-center gap-2 text-sm text-[#7de8ff] font-semibold mb-3 justify-center lg:justify-start">
@@ -208,7 +261,7 @@ export default function App() {
 
               <div className="order-2 inline-flex items-center gap-2 bg-[#008B91]/20 border border-[#008B91]/30 px-4 py-2 rounded-full">
                 <span className="w-2 h-2 bg-[#3ac28b] rounded-full animate-pulse" />
-                <span className="text-sm text-gray-300">+1.000 clientes satisfeitos</span>
+                <span className="text-sm text-gray-300">+10.000 clientes satisfeitos</span>
               </div>
 
               <h1 className="order-3 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
@@ -217,31 +270,58 @@ export default function App() {
               </h1>
 
               <p className="order-4 text-lg text-gray-400 max-w-lg mx-auto lg:mx-0">
-                Tecnologia de ponta em aparelhos auditivos. Garantia de 1 ano e 7 dias para devolução.
+                Tecnologia de ponta em aparelhos auditivos. VoicePro é o nosso campeão de vendas, com 2 Anos de garantia e 7 dias para devolução.
               </p>
 
-              {/* Featured Product Card */}
-              <div className="order-5 card-3d p-6 max-w-md mx-auto lg:mx-0">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="badge-type">{featuredProduct.badge}</span>
-                  <span className="badge-discount">
-                    -{Math.round(((featuredProduct.precoOriginal - featuredProduct.precoAtual) / featuredProduct.precoOriginal) * 100)}%
-                  </span>
+              {/* Product Image (mobile) */}
+              <div className="order-5 lg:hidden relative perspective">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-[#008B91]/20 rounded-full blur-3xl scale-75" />
+                  <img
+                    src={featuredProduct.imagem.src}
+                    alt={featuredProduct.nome}
+                    className="relative w-full max-w-[420px] mx-auto drop-shadow-2xl"
+                  />
+
+                  <div className="absolute top-4 right-4 card-3d p-3">
+                    <div className="flex items-center gap-2">
+                      <ShieldCheck size={18} className="text-[#3ac28b]" />
+                      <span className="text-sm font-semibold">2 Anos Garantia</span>
+                    </div>
+                  </div>
+
+                  <div className="absolute bottom-8 left-4 card-3d p-3">
+                    <div className="flex items-center gap-2">
+                      <Volume2 size={18} className="text-[#008B91]" />
+                      <span className="text-sm font-semibold">Até 85% perda</span>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-400 mb-1">A partir de</p>
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="text-3xl font-bold text-white">
+              </div>
+
+              <div className="order-6 lg:hidden max-w-[420px] w-full mx-auto">
+                <div className="card-3d relative overflow-hidden p-5 border border-[#008B91]/35 bg-gradient-to-br from-white via-[#f3fcfd] to-[#eaf8fb] shadow-[0_18px_40px_rgba(0,139,145,0.2)]">
+                  <div className="absolute -top-14 -right-10 w-36 h-36 rounded-full bg-[#00c2c7]/15 blur-2xl" />
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-[#006d73] font-bold text-center">
+                    Oferta VoicePro
+                  </p>
+                  <p className="mt-2 text-5xl font-black text-[#062532] leading-none text-center">
                     R$ {featuredProduct.precoAtual.toFixed(2).replace('.', ',')}
-                  </span>
-                  <span className="text-sm text-gray-500 line-through">
-                    R$ {featuredProduct.precoOriginal.toFixed(2).replace('.', ',')}
-                  </span>
+                  </p>
+                  <div className="mt-3 flex items-center justify-center gap-2">
+                    <span className="text-base text-gray-500 line-through">
+                      R$ {featuredProduct.precoOriginal.toFixed(2).replace('.', ',')}
+                    </span>
+                    <span className="badge-discount">-{featuredDiscount}%</span>
+                  </div>
+                  <div className="mt-3 flex items-center justify-center rounded-xl bg-[#008B91]/10 border border-[#008B91]/20 py-2">
+                    <p className="text-base font-bold text-[#005f6e]">{featuredProduct.precoParcela}</p>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-400">{featuredProduct.precoParcela}</p>
               </div>
 
               {/* CTAs */}
-              <div className="order-6 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="order-7 flex flex-col sm:flex-row gap-4 justify-center lg:hidden">
                 <a
                   href={featuredProduct.link}
                   target="_blank"
@@ -262,8 +342,13 @@ export default function App() {
             </div>
 
             {/* Product Image */}
-            <div className="relative perspective">
+            <div className="hidden lg:block relative perspective">
               <div className="relative animate-float">
+                <div className="hidden lg:flex absolute -top-6 right-10 z-20 items-center gap-2 rounded-full bg-[#0f172a] text-white px-4 py-2 shadow-lg border border-[#008B91]/30">
+                  <Trophy size={16} className="text-amber-300" />
+                  <span className="text-sm font-semibold">VoicePro: Mais Vendido</span>
+                </div>
+
                 {/* Glow behind */}
                 <div className="absolute inset-0 bg-[#008B91]/20 rounded-full blur-3xl scale-75" />
 
@@ -278,7 +363,7 @@ export default function App() {
                 <div className="absolute top-4 right-4 card-3d p-3 animate-float-slow" style={{ animationDelay: '0.5s' }}>
                   <div className="flex items-center gap-2">
                     <ShieldCheck size={18} className="text-[#3ac28b]" />
-                    <span className="text-sm font-semibold">1 Ano Garantia</span>
+                    <span className="text-sm font-semibold">2 Anos Garantia</span>
                   </div>
                 </div>
 
@@ -288,6 +373,46 @@ export default function App() {
                     <span className="text-sm font-semibold">Até 85% perda</span>
                   </div>
                 </div>
+              </div>
+
+              <div className="mt-6 max-w-md mx-auto">
+                <div className="card-3d relative overflow-hidden p-6 border border-[#008B91]/35 bg-gradient-to-br from-white via-[#f3fcfd] to-[#eaf8fb] shadow-[0_20px_45px_rgba(0,139,145,0.22)]">
+                  <div className="absolute -top-16 -right-12 w-40 h-40 rounded-full bg-[#00c2c7]/15 blur-2xl" />
+                  <p className="text-xs uppercase tracking-[0.2em] text-[#006d73] font-bold text-center">
+                    Oferta VoicePro
+                  </p>
+                  <p className="mt-2 text-6xl font-black text-[#062532] leading-none text-center">
+                    R$ {featuredProduct.precoAtual.toFixed(2).replace('.', ',')}
+                  </p>
+                  <div className="flex items-baseline justify-center gap-2 mt-3">
+                    <span className="text-base text-gray-500 line-through">
+                      R$ {featuredProduct.precoOriginal.toFixed(2).replace('.', ',')}
+                    </span>
+                    <span className="badge-discount">-{featuredDiscount}%</span>
+                  </div>
+                  <div className="mt-4 flex items-center justify-center rounded-xl bg-[#008B91]/10 border border-[#008B91]/20 py-2.5">
+                    <p className="text-lg font-bold text-[#005f6e]">{featuredProduct.precoParcela}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 flex flex-row gap-4 justify-center">
+                <a
+                  href={featuredProduct.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-3d flex items-center justify-center gap-2 text-lg"
+                >
+                  <Zap size={20} />
+                  COMPRAR AGORA
+                </a>
+                <Link
+                  to="/garantia"
+                  className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-[#008B91]/50 text-[#008B91] font-semibold hover:bg-[#008B91]/10 transition"
+                >
+                  <ShieldCheck size={18} />
+                  Garantia e Prazos
+                </Link>
               </div>
             </div>
           </div>
@@ -379,10 +504,13 @@ export default function App() {
                       <p className="text-xs text-gray-500 line-through">
                         R$ {item.precoOriginal.toFixed(2).replace('.', ',')}
                       </p>
-                      <p className="text-xl font-bold text-[#008B91]">
-                        R$ {item.precoAtual.toFixed(2).replace('.', ',')}
+                      <p className="text-[1.1rem] font-extrabold text-[#005f6e] leading-tight">
+                        {item.precoParcela}
                       </p>
-                      <p className="text-sm font-semibold text-[#006d7e]">{item.precoParcela}</p>
+                      <p className="text-xs text-gray-500 mb-1">no cartão</p>
+                      <p className="text-sm font-semibold text-[#008B91]">
+                        À vista R$ {item.precoAtual.toFixed(2).replace('.', ',')}
+                      </p>
                     </div>
 
                     {/* CTA */}
@@ -478,7 +606,7 @@ export default function App() {
             {/* Stats */}
             <div className="grid grid-cols-2 gap-4">
               {[
-                { value: '50K+', label: 'Clientes Satisfeitos' },
+                { value: '10K+', label: 'Clientes Satisfeitos' },
                 { value: '1 Ano', label: 'Garantia' },
                 { value: '7 Dias', label: 'devolução' },
                 { value: '24h', label: 'Envio' },
@@ -536,6 +664,70 @@ export default function App() {
             <p>CNPJ: 61.894.698/0001-20</p>
             <p>Avenida Eduardo Magalhães, 202 - Centro, São João del-Rei - MG</p>
           </div>
+        </div>
+      </section>
+
+      {/* ===== FAQ ===== */}
+      <section className="relative z-20 py-10 px-4 lg:px-8 section-gradient sm:py-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl font-bold leading-tight text-[#0f172a] sm:text-4xl lg:text-5xl">
+              Dúvidas Frequentes
+            </h2>
+            <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600">
+              Reunimos as perguntas mais comuns dos nossos clientes para te ajudar a decidir com segurança.
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto mt-8 space-y-4 md:mt-12">
+            {faqItems.map((item, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div
+                  key={item.pergunta}
+                  className={`transition-all duration-200 bg-white border border-gray-200 rounded-xl ${
+                    isOpen ? 'shadow-lg' : 'shadow-sm hover:bg-gray-50'
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? -1 : index)}
+                    className="flex items-center justify-between w-full px-4 py-5 sm:p-6 text-left"
+                  >
+                    <span className="text-lg font-semibold text-black">{item.pergunta}</span>
+                    <span
+                      className={`ml-4 text-gray-400 text-xl leading-none transition-transform duration-200 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                      aria-hidden="true"
+                    >
+                      ⌄
+                    </span>
+                  </button>
+
+                  <div
+                    className={`px-4 sm:px-6 transition-all duration-200 overflow-hidden ${
+                      isOpen ? 'max-h-48 pb-5 sm:pb-6 opacity-100' : 'max-h-0 pb-0 opacity-0'
+                    }`}
+                  >
+                    <p className="text-gray-700">{item.resposta}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <p className="text-center text-gray-600 text-base mt-9">
+            Ainda com dúvida?{' '}
+            <a
+              href="https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20d%C3%BAvidas%20sobre%20os%20aparelhos%20auditivos%20da%20Fonovital"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-[#007c91] transition-all duration-200 hover:text-[#005f6e] hover:underline"
+            >
+              Fale com nosso suporte
+            </a>
+          </p>
         </div>
       </section>
 

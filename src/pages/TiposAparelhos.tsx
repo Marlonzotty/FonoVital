@@ -29,7 +29,7 @@ const renderStars = (nota: number) => {
 const aparelhos = [
   {
     sigla: 'Voxton Mini CIC',
-    descricao: 'Voxton Aparelho Auditivo Mini CIC RecarregÃ¡vel | Fonovital...',
+    descricao: 'Voxton Aparelho Auditivo Mini CIC Recarregável | Fonovital...',
     precoOriginal: 1399.0,
     precoAtual: 599.9,
     precoParcela: '12x R$ 64,94',
@@ -43,7 +43,7 @@ const aparelhos = [
   },
   {
     sigla: 'Voxcharge Mini CIC',
-    descricao: 'O Voxcharge une conforto, potÃªncia e discriÃ§Ã£o em um modelo moderno.',
+    descricao: 'O Voxcharge une conforto, potência e discrição em um modelo moderno.',
     precoOriginal: 1799.0,
     precoAtual: 1199.9,
     precoParcela: '12x R$ 116,75',
@@ -58,7 +58,7 @@ const aparelhos = [
   
   {
     sigla: 'IAvoice Inteligente',
-    descricao: 'Com inteligÃªncia artificial, o IAvoice se adapta ao ambiente.',
+    descricao: 'Com inteligência artificial, o IAvoice se adapta ao ambiente.',
     precoOriginal: 1999.0,
     precoAtual: 1699.0,
     precoParcela: '12x R$ 216,36',
@@ -72,7 +72,7 @@ const aparelhos = [
   },
   {
     sigla: 'Vital Air',
-    descricao: 'Controle total da audiÃ§Ã£o com app e 32 canais de personalizaÃ§Ã£o.',
+    descricao: 'Controle total da audição com app e 32 canais de personalização.',
     precoOriginal: 2899.0,
     precoAtual: 1999.0,
     precoParcela: '12x R$ 216,36',
@@ -106,7 +106,7 @@ export default function TiposAparelhos() {
   }, []);
 
   return (
-    <div className="w-full bg-white font-[Inter]">
+    <div className="w-full bg-white font-body">
       <section className="px-4 lg:px-8 py-12">
         <h2 className="mt-16 text-3xl sm:text-4xl font-bold text-[#213547] mb-12 text-center">
           Tipos de Aparelhos Auditivos
@@ -165,7 +165,7 @@ export default function TiposAparelhos() {
                       return <FaRegStar key={i} className="text-[#F5B50A]" />;
                     })}
                     <span className="ml-2 text-gray-500 text-sm">
-                      {item.nota.toFixed(1)} Â· {item.avaliacoes}
+                      {item.nota.toFixed(1)} · {item.avaliacoes}
                     </span>
                   </div>
 
@@ -206,7 +206,7 @@ export default function TiposAparelhos() {
 
       <section className="max-w-5xl mx-auto px-4 lg:px-0 py-12">
         <h3 className="text-2xl font-bold text-[#213547] mb-6 text-center">
-          ComentÃ¡rios de quem jÃ¡ experimentou
+          Comentários de quem já experimentou
         </h3>
         <Comments />
       </section>

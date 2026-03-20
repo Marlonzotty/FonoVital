@@ -56,7 +56,7 @@ export default function Voxcharge() {
     'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
 
   return (
-    <section className="pt-16 md:pt-20 min-h-screen hero-bg grid-bg font-[Inter] text-slate-900">
+    <section className="pt-16 md:pt-20 min-h-screen hero-bg grid-bg font-body text-slate-900">
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center lg:text-left text-slate-900">{dados.nome}</h1>

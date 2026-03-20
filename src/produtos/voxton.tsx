@@ -210,7 +210,7 @@ export default function Voxton() {
   ]
 
   return (
-    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-[Inter] text-white">
+    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-body text-white">
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">

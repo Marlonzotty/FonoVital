@@ -226,7 +226,7 @@ export default function IAvoice() {
   ]
 
   return (
-    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-[Inter] text-white">
+    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-body text-white">
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">
@@ -324,7 +324,7 @@ export default function IAvoice() {
 
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6">?? Características Principais</h2>
+          <h2 className="text-2xl font-semibold mb-6">Características Principais</h2>
           <div className="overflow-x-auto">
             <table className="w-full border border-white/15 rounded-xl overflow-hidden">
               <thead className="section-gradient text-white text-left">
@@ -349,7 +349,7 @@ export default function IAvoice() {
       <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
           <div className="bg-white/5 border border-white/15 rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#047857]">?? Bateria e Carregamento</h3>
+            <h3 className="text-xl font-semibold mb-4 text-[#047857]">Bateria e Carregamento</h3>
             <ul className="space-y-3 text-gray-300">
               {bateriaCarregamento.map(item => (
                 <li key={item.titulo} className="flex gap-2">
@@ -363,7 +363,7 @@ export default function IAvoice() {
             </ul>
           </div>
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#4338ca]">?? Tecnologia Central</h3>
+            <h3 className="text-xl font-semibold mb-4 text-[#4338ca]">Tecnologia Central</h3>
             <ul className="space-y-3 text-gray-300">
               {tecnologiaCentral.map(item => (
                 <li key={item} className="flex gap-2">
@@ -378,12 +378,12 @@ export default function IAvoice() {
 
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center">??? Parâmetros Tcnicos do Produto</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">Parâmetros Técnicos do Produto</h2>
           <div className="overflow-x-auto">
             <table className="w-full border border-white/15 rounded-xl overflow-hidden">
               <thead className="section-gradient text-white text-left">
                 <tr>
-                  <th className="px-4 py-3 text-sm sm:text-base">Parmetro</th>
+                  <th className="px-4 py-3 text-sm sm:text-base">Parâmetro</th>
                   <th className="px-4 py-3 text-sm sm:text-base">Valor</th>
                 </tr>
               </thead>
@@ -403,7 +403,7 @@ export default function IAvoice() {
       <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
           <div className="rounded-2xl border border-[#028794]/20 bg-white/5 p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">?? Design e Conforto</h3>
+            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">Design e Conforto</h3>
             <ul className="space-y-3 text-gray-300">
               {designConforto.map(item => (
                 <li key={item} className="flex gap-2">
@@ -414,7 +414,7 @@ export default function IAvoice() {
             </ul>
           </div>
           <div className="rounded-2xl border border-[#028794]/20 bg-white/5 p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">?? Conteúdo da Embalagem</h3>
+            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">Conteúdo da Embalagem</h3>
             <ul className="space-y-3 text-gray-300">
               {conteudoEmbalagem.map(item => (
                 <li key={item} className="flex gap-2">
@@ -430,9 +430,9 @@ export default function IAvoice() {
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-[1fr_0.9fr] items-center">
           <div className="space-y-4">
-            <h3 className="text-2xl font-semibold text-[#7de8ff]">?? Certificaes e Segurança</h3>
+            <h3 className="text-2xl font-semibold text-[#7de8ff]">Certificações e Segurança</h3>
             <p className="text-gray-300">
-              O IAvoice segue normas internacionais para garantir segurana, eficincia e qualidade auditiva.
+              O IAvoice segue normas internacionais para garantir segurança, eficiência e qualidade auditiva.
             </p>
             <ul className="space-y-2 text-gray-200">
               {certificacoes.map(item => (
@@ -446,7 +446,7 @@ export default function IAvoice() {
           <div className="flex justify-center">
             <img
               src={certificadosImg}
-              alt="Certificaes IAvoice"
+              alt="Certificações IAvoice"
               className="w-full max-w-md object-contain"
             />
           </div>
@@ -455,7 +455,7 @@ export default function IAvoice() {
 
       <section className="w-full section-gradient py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center text-[#7de8ff]">?? Resumo de Benefícios</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center text-[#7de8ff]">Resumo de Benefícios</h2>
           <ul className="space-y-3 text-gray-200">
             {beneficiosResumo.map(item => (
               <li key={item} className="flex gap-2">

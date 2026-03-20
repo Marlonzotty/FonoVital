@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "check:ui-text": "node scripts/check-ui-text.mjs",
+    "build": "npm run check:ui-text && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

@@ -204,7 +204,7 @@ export default function VoicePro() {
   ]
 
   return (
-    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-[Inter] text-white">
+    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-body text-white">
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">
@@ -292,7 +292,7 @@ export default function VoicePro() {
 
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6">?? Características Principais</h2>
+          <h2 className="text-2xl font-semibold mb-6">Características Principais</h2>
           <div className="overflow-x-auto">
             <table className="w-full border border-white/15 rounded-xl overflow-hidden">
               <thead className="section-gradient text-white text-left">
@@ -351,7 +351,7 @@ export default function VoicePro() {
       <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
           <div className="bg-[#f9fafb] border border-white/15 rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">?? Controle de Som</h3>
+            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">Controle de Som</h3>
             <ul className="space-y-3 text-gray-300">
               {controleSom.map(item => (
                 <li key={item.titulo} className="flex gap-2">
@@ -365,7 +365,7 @@ export default function VoicePro() {
             </ul>
           </div>
           <div className="bg-white/5 border border-white/15 rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#047857]">?? Higiene e segurança</h3>
+            <h3 className="text-xl font-semibold mb-4 text-[#047857]">Higiene e segurança</h3>
             <ul className="space-y-3 text-gray-300">
               {higieneSeguranca.map(item => (
                 <li key={item} className="flex gap-2">
@@ -381,7 +381,7 @@ export default function VoicePro() {
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 text-center">
-            ?? Bateria e Carregamento
+            Bateria e Carregamento
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full border border-white/15 rounded-xl overflow-hidden">
@@ -402,7 +402,7 @@ export default function VoicePro() {
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
           <div className="space-y-4">
             <h3 className="text-2xl font-semibold text-[#7de8ff] flex items-center gap-2">
-              ?? Certificações de Qualidade
+              Certificações de Qualidade
             </h3>
             <p className="text-gray-300">
               Estes certificados asseguram que o VoicePro cumpre normas internacionais de segurança, eficiência e biocompatibilidade.
@@ -428,7 +428,7 @@ export default function VoicePro() {
 
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-4 text-center">?? Design e Colaborações</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-center">Design e Colaborações</h2>
           <ul className="space-y-3 text-gray-300">
             {designColaboracoes.map(item => (
               <li key={item} className="flex items-start gap-2">
@@ -442,7 +442,7 @@ export default function VoicePro() {
 
       <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center">?? Conteúdo da Embalagem</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">Conteúdo da Embalagem</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {conteudoEmbalagem.map(item => (
               <div

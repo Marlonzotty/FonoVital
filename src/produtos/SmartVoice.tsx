@@ -114,7 +114,7 @@ export default function SmartVoice() {
   )}`
 
   return (
-    <section className="pt-32 min-h-screen hero-bg grid-bg font-[Inter] text-white">
+    <section className="pt-32 min-h-screen hero-bg grid-bg font-body text-white">
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">

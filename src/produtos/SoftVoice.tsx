@@ -28,6 +28,8 @@ export const softVoiceGallery = [
 
 export const softVoiceHeroImage = softVoiceGallery[0]
 
+const compraLink = 'https://fonovitalltda.pay.yampi.com.br/r/9773IRJKLZ'
+
 export default function SoftVoice() {
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -43,7 +45,7 @@ export default function SoftVoice() {
     parcelas: 12,
     avaliacoes: 15,
     nota: 4.4,
-    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
+    link: compraLink
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(softVoiceGallery[0].src)
@@ -175,7 +177,7 @@ export default function SoftVoice() {
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
-                    href={whatsappLink}
+                    href={compraLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex w-full items-center justify-center rounded-full bg-[#008B91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#006d7e] shadow-lg"

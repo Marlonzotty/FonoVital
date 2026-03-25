@@ -1,5 +1,5 @@
 ﻿import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import {
@@ -12,7 +12,9 @@ import {
   ChevronRight,
   Zap,
   Volume2,
-  Trophy
+  Trophy,
+  ZoomIn,
+  X
 } from 'lucide-react';
 
 import Comments from './components/Comments';
@@ -192,9 +194,28 @@ const heroVideoId = 'Z4-1AfiPFQ0';
 
 export default function App() {
   const [openFaq, setOpenFaq] = useState(0);
+  const [isMainBannerZoomOpen, setMainBannerZoomOpen] = useState(false);
   const featuredDiscount = Math.round(
     ((featuredProduct.precoOriginal - featuredProduct.precoAtual) / featuredProduct.precoOriginal) * 100
   );
+
+  useEffect(() => {
+    if (!isMainBannerZoomOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMainBannerZoomOpen(false);
+    };
+
+    window.addEventListener('keydown', handleEsc);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [isMainBannerZoomOpen]);
 
   return (
     <div className="min-h-screen hero-bg grid-bg">
@@ -202,12 +223,19 @@ export default function App() {
 
       <section className="relative z-10 px-4 lg:px-8 pt-4">
         <div className="max-w-7xl mx-auto overflow-hidden rounded-2xl border border-[#008B91]/20 shadow-[0_10px_30px_rgba(15,23,42,0.12)]">
-          <img
-            src={bannerPc}
-            alt="Banner promocional Fonovital"
-            className="w-full h-auto object-cover"
-            loading="lazy"
-          />
+          <button
+            type="button"
+            onClick={() => setMainBannerZoomOpen(true)}
+            className="group relative block w-full text-left cursor-zoom-in"
+            aria-label="Ampliar banner promocional"
+          >
+            <img
+              src={bannerPc}
+              alt="Banner promocional Fonovital"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+            />
+          </button>
         </div>
       </section>
 
@@ -733,6 +761,40 @@ export default function App() {
 
       {/* ===== FOOTER ===== */}
       <Footer />
+
+      {isMainBannerZoomOpen && (
+        <div
+          className="fixed inset-0 z-[120] bg-[#0b1720]/85 backdrop-blur-sm px-4 py-6 sm:p-8 flex items-center justify-center"
+          onClick={() => setMainBannerZoomOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-6xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setMainBannerZoomOpen(false)}
+              className="absolute -top-3 -right-3 z-10 h-11 w-11 rounded-full bg-white text-[#0f172a] shadow-lg border border-slate-200 flex items-center justify-center"
+              aria-label="Fechar modal do banner"
+            >
+              <X size={20} />
+            </button>
+
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#0f172a] text-white px-4 py-2 text-sm font-semibold border border-[#00c2c7]/40 shadow-lg">
+              <ZoomIn size={16} />
+              Use zoom para ver detalhes
+            </div>
+
+            <div className="rounded-2xl overflow-auto max-h-[88vh] border border-white/20 bg-[#0f172a]/50">
+              <img
+                src={bannerPc}
+                alt="Banner promocional Fonovital ampliado"
+                className="w-full h-auto object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -11,7 +11,6 @@ import {
   Ear,
   ChevronRight,
   Zap,
-  Volume2,
   Trophy,
   ZoomIn,
   X
@@ -26,7 +25,7 @@ import { voxtonHeroImage } from './produtos/voxton';
 import { voxchargeHeroImage } from './produtos/Voxcharge';
 import { iaVoiceHeroImage } from './produtos/IAvoice';
 import { vitalAirHeroImage } from './produtos/VitalAir';
-import bannerPc from './assets/banner pc.png';
+import bannerJunho from './assets/bannerjunho.png';
 
 import { voiceProHeroImage } from './produtos/VoicePro';
 import { smartVoiceHeroImage } from './produtos/SmartVoice';
@@ -101,7 +100,7 @@ const aparelhos = [
     rota: '/produto/voicepro',
     badge: 'PRO',
     nota: 4.5,
-    link: 'https://fonovitalltda.pay.yampi.com.br/r/OYG2SSJH1K',
+    link: 'https://clkdmg.site/pay/voicepro-digital',
     destaque: true,
   },
   {
@@ -218,7 +217,7 @@ export default function App() {
   }, [isMainBannerZoomOpen]);
 
   return (
-    <div className="min-h-screen hero-bg grid-bg">
+    <div className="min-h-screen hero-bg">
       <PurchaseAlert />
 
       <section className="relative z-10 px-4 lg:px-8 pt-4">
@@ -230,7 +229,7 @@ export default function App() {
             aria-label="Ampliar banner promocional"
           >
             <img
-              src={bannerPc}
+              src={bannerJunho}
               alt="Banner promocional Fonovital"
               className="w-full h-auto object-cover"
               loading="lazy"
@@ -239,208 +238,158 @@ export default function App() {
         </div>
       </section>
 
-      {/* Floating Particles */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="particle" style={{ top: '10%', left: '10%' }} />
-        <div className="particle" style={{ top: '20%', left: '80%' }} />
-        <div className="particle" style={{ top: '60%', left: '15%' }} />
-        <div className="particle" style={{ top: '70%', left: '75%' }} />
-        <div className="particle" style={{ top: '40%', left: '50%' }} />
-      </div>
-
-      {/* Ring Decorations */}
-      <div className="ring-decoration w-96 h-96 -top-48 -right-48 opacity-20" />
-      <div className="ring-decoration w-[600px] h-[600px] -bottom-72 -left-72 opacity-10" style={{ animationDirection: 'reverse' }} />
-
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-screen flex items-center py-20 px-4 lg:px-8">
+      <section className="relative px-4 py-14 lg:px-8 lg:py-20">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Content */}
-            <div className="text-center lg:text-left z-10 flex flex-col gap-6">
-              <div className="order-0 hidden lg:inline-flex items-center gap-2 w-fit rounded-full bg-amber-100 border border-amber-300 px-4 py-2 text-amber-900 font-semibold">
-                <Trophy size={18} />
-                Campeão de Vendas Fonovital: {featuredProduct.sigla}
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14">
+            <div className="flex flex-col gap-7 pt-4 lg:pt-8">
+              <div className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700">
+                <ShieldCheck size={16} className="text-[#008B91]" />
+                Atendimento especializado, garantia real e compra segura
               </div>
 
-              {/* Hero Video (top on mobile) */}
-              <div className="order-1 lg:order-7 max-w-xl w-full mx-auto lg:mx-0">
-                <div className="flex items-center gap-2 text-sm text-[#7de8ff] font-semibold mb-3 justify-center lg:justify-start">
-                </div>
-
-                <div className="relative group">
-                  <div className="absolute -inset-[6px] bg-gradient-to-r from-[#00c2c7]/70 via-[#3ac28b]/60 to-[#007c91]/60 opacity-60 blur-lg group-hover:opacity-100 transition" />
-                  <div className="relative aspect-video overflow-hidden rounded-2xl bg-[#0d1829] border border-white/10 shadow-[0_25px_70px_-40px_#00c2c7]">
-                    <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50" />
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-white/[0.02] pointer-events-none" />
-                    <iframe
-                      src={`https://www.youtube.com/embed/${heroVideoId}?rel=0&modestbranding=1&color=white`}
-                      title="Conheça a Fonovital"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      allowFullScreen
-                      className="w-full h-full border-0 saturate-125 contrast-110"
-                    />
-                    <div className="absolute -left-6 top-1/2 h-24 w-24 bg-[#00c2c7]/30 blur-3xl rotate-12" />
-                    <div className="absolute -right-10 bottom-0 h-24 w-24 bg-[#3ac28b]/30 blur-3xl" />
-                  </div>
-                </div>
+              <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[#f3f8f8] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#006d73]">
+                <Trophy size={14} />
+                VoicePro | Mais vendido da linha
               </div>
 
-              <div className="order-2 inline-flex items-center gap-2 bg-[#008B91]/20 border border-[#008B91]/30 px-4 py-2 rounded-full">
-                <span className="w-2 h-2 bg-[#3ac28b] rounded-full animate-pulse" />
-                <span className="text-sm text-gray-300">+10.000 clientes satisfeitos</span>
-              </div>
-
-              <h1 className="order-3 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
-                Ouça a vida com{' '}
-                <span className="text-gradient">clareza total</span>
+              <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-slate-900 md:text-5xl lg:text-[4.2rem]">
+                Aparelhos auditivos com desempenho confiável e suporte humano de verdade.
               </h1>
 
-              <p className="order-4 text-lg text-gray-400 max-w-lg mx-auto lg:mx-0">
-                Tecnologia de ponta em aparelhos auditivos. VoicePro é o nosso campeão de vendas, com 2 Anos de garantia e 7 dias para devolução.
+              <p className="max-w-2xl text-lg leading-8 text-slate-600 md:text-xl">
+                A Fonovital combina tecnologia auditiva, orientação especializada e uma experiência de compra clara. O VoicePro reúne conforto, discrição e recursos avançados para a rotina de quem quer ouvir melhor com segurança.
               </p>
 
-              {/* Product Image (mobile) */}
-              <div className="order-5 lg:hidden relative perspective">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-[#008B91]/20 rounded-full blur-3xl scale-75" />
-                  <img
-                    src={featuredProduct.imagem.src}
-                    alt={featuredProduct.nome}
-                    className="relative w-full max-w-[420px] mx-auto drop-shadow-2xl"
-                  />
-
-                  <div className="absolute top-4 right-4 card-3d p-3">
-                    <div className="flex items-center gap-2">
-                      <ShieldCheck size={18} className="text-[#3ac28b]" />
-                      <span className="text-sm font-semibold">2 Anos Garantia</span>
-                    </div>
-                  </div>
-
-                  <div className="absolute bottom-8 left-4 card-3d p-3">
-                    <div className="flex items-center gap-2">
-                      <Volume2 size={18} className="text-[#008B91]" />
-                      <span className="text-sm font-semibold">Até 85% perda</span>
-                    </div>
-                  </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                  <p className="text-2xl font-semibold text-slate-900">+10 mil</p>
+                  <p className="mt-1 text-sm leading-6 text-slate-600">clientes atendidos com suporte no pré e pós-venda</p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                  <p className="text-2xl font-semibold text-slate-900">2 anos</p>
+                  <p className="mt-1 text-sm leading-6 text-slate-600">de garantia contra defeitos de fabricação</p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                  <p className="text-2xl font-semibold text-slate-900">7 dias</p>
+                  <p className="mt-1 text-sm leading-6 text-slate-600">para devolução com processo simples e assistido</p>
                 </div>
               </div>
 
-              <div className="order-6 lg:hidden max-w-[420px] w-full mx-auto">
-                <div className="card-3d relative overflow-hidden p-5 border border-[#008B91]/35 bg-gradient-to-br from-white via-[#f3fcfd] to-[#eaf8fb] shadow-[0_18px_40px_rgba(0,139,145,0.2)]">
-                  <div className="absolute -top-14 -right-10 w-36 h-36 rounded-full bg-[#00c2c7]/15 blur-2xl" />
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-[#006d73] font-bold text-center">
-                    Oferta VoicePro
-                  </p>
-                  <p className="mt-2 text-5xl font-black text-[#062532] leading-none text-center">
-                    R$ {featuredProduct.precoAtual.toFixed(2).replace('.', ',')}
-                  </p>
-                  <div className="mt-3 flex items-center justify-center gap-2">
-                    <span className="text-base text-gray-500 line-through">
-                      R$ {featuredProduct.precoOriginal.toFixed(2).replace('.', ',')}
-                    </span>
-                    <span className="badge-discount">-{featuredDiscount}%</span>
-                  </div>
-                  <div className="mt-3 flex items-center justify-center rounded-xl bg-[#008B91]/10 border border-[#008B91]/20 py-2">
-                    <p className="text-base font-bold text-[#005f6e]">{featuredProduct.precoParcela}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* CTAs */}
-              <div className="order-7 flex flex-col sm:flex-row gap-4 justify-center lg:hidden">
+              <div className="flex flex-col gap-4 sm:flex-row">
                 <a
                   href={featuredProduct.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-3d flex items-center justify-center gap-2 text-lg"
+                  className="btn-3d inline-flex items-center justify-center gap-2 text-base"
                 >
                   <Zap size={20} />
-                  COMPRAR AGORA
+                  Comprar VoicePro
                 </a>
                 <Link
                   to="/garantia"
-                  className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-[#008B91]/50 text-[#008B91] font-semibold hover:bg-[#008B91]/10 transition"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-6 py-3 text-base font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-white"
                 >
                   <ShieldCheck size={18} />
                   Garantia e Prazos
                 </Link>
+              </div>
+
+              <div className="grid gap-3 text-sm text-slate-600 sm:grid-cols-3">
+                <div className="flex items-center gap-2">
+                  <Truck size={16} className="text-[#008B91]" />
+                  Frete grátis com envio rápido
+                </div>
+                <div className="flex items-center gap-2">
+                  <RefreshCcw size={16} className="text-[#008B91]" />
+                  Compra com devolução em 7 dias
+                </div>
+                <div className="flex items-center gap-2">
+                  <CreditCard size={16} className="text-[#008B91]" />
+                  Parcelamento em até 12x
+                </div>
               </div>
             </div>
 
-            {/* Product Image */}
-            <div className="hidden lg:block relative perspective">
-              <div className="relative animate-float">
-                <div className="hidden lg:flex absolute -top-6 right-10 z-20 items-center gap-2 rounded-full bg-[#0f172a] text-white px-4 py-2 shadow-lg border border-[#008B91]/30">
-                  <Trophy size={16} className="text-amber-300" />
-                  <span className="text-sm font-semibold">VoicePro: Mais Vendido</span>
-                </div>
-
-                {/* Glow behind */}
-                <div className="absolute inset-0 bg-[#008B91]/20 rounded-full blur-3xl scale-75" />
-
-                {/* Product */}
-                <img
-                  src={featuredProduct.imagem.src}
-                  alt={featuredProduct.nome}
-                  className="relative w-full max-w-[450px] mx-auto drop-shadow-2xl"
-                />
-
-                {/* Floating badges */}
-                <div className="absolute top-4 right-4 card-3d p-3 animate-float-slow" style={{ animationDelay: '0.5s' }}>
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck size={18} className="text-[#3ac28b]" />
-                    <span className="text-sm font-semibold">2 Anos Garantia</span>
+            <div className="grid gap-5 lg:gap-6">
+              <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_18px_45px_rgba(15,23,42,0.08)] lg:hidden lg:p-7">
+                <div className="grid gap-6 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] md:items-center">
+                  <div className="rounded-[1.5rem] bg-[#f5f9fa] p-4">
+                    <img
+                      src={featuredProduct.imagem.src}
+                      alt={featuredProduct.nome}
+                      className="mx-auto w-full max-w-[360px]"
+                    />
                   </div>
-                </div>
 
-                <div className="absolute bottom-8 left-4 card-3d p-3 animate-float-slow" style={{ animationDelay: '1s' }}>
-                  <div className="flex items-center gap-2">
-                    <Volume2 size={18} className="text-[#008B91]" />
-                    <span className="text-sm font-semibold">Até 85% perda</span>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-[#006d73]">
+                      <Headphones size={16} />
+                      Produto em destaque
+                    </div>
+
+                    <div>
+                      <h2 className="text-3xl font-semibold tracking-[-0.02em] text-slate-900">
+                        {featuredProduct.nome}
+                      </h2>
+                      <p className="mt-2 text-base leading-7 text-slate-600">
+                        {featuredProduct.descricao}. Indicado para quem busca adaptação confortável, rotina prática e melhor compreensão da fala.
+                      </p>
+                    </div>
+
+                    <div className="grid gap-3 text-sm text-slate-600 sm:grid-cols-2">
+                      <div className="rounded-2xl bg-slate-50 px-4 py-3">
+                        <p className="font-semibold text-slate-900">Até 85% de perda auditiva</p>
+                        <p className="mt-1">Ajuste pensado para uso diário com segurança.</p>
+                      </div>
+                      <div className="rounded-2xl bg-slate-50 px-4 py-3">
+                        <p className="font-semibold text-slate-900">Suporte guiado no WhatsApp</p>
+                        <p className="mt-1">Orientação desde a compra até a adaptação.</p>
+                      </div>
+                    </div>
+
+                    <div className="border-t border-slate-200 pt-4">
+                      <p className="text-sm font-medium uppercase tracking-[0.16em] text-slate-500">Condição de lançamento</p>
+                      <div className="mt-2 flex flex-wrap items-end gap-x-3 gap-y-2">
+                        <p className="text-5xl font-semibold leading-none tracking-[-0.04em] text-slate-900">
+                          R$ {featuredProduct.precoAtual.toFixed(2).replace('.', ',')}
+                        </p>
+                        <span className="rounded-full bg-red-50 px-3 py-1 text-sm font-semibold text-red-600">
+                          {featuredDiscount}% off
+                        </span>
+                      </div>
+                      <div className="mt-2 flex flex-wrap items-center gap-3">
+                        <p className="text-base text-slate-500 line-through">
+                          R$ {featuredProduct.precoOriginal.toFixed(2).replace('.', ',')}
+                        </p>
+                        <p className="text-base font-semibold text-[#006d73]">{featuredProduct.precoParcela}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 max-w-md mx-auto">
-                <div className="card-3d relative overflow-hidden p-6 border border-[#008B91]/35 bg-gradient-to-br from-white via-[#f3fcfd] to-[#eaf8fb] shadow-[0_20px_45px_rgba(0,139,145,0.22)]">
-                  <div className="absolute -top-16 -right-12 w-40 h-40 rounded-full bg-[#00c2c7]/15 blur-2xl" />
-                  <p className="text-xs uppercase tracking-[0.2em] text-[#006d73] font-bold text-center">
-                    Oferta VoicePro
-                  </p>
-                  <p className="mt-2 text-6xl font-black text-[#062532] leading-none text-center">
-                    R$ {featuredProduct.precoAtual.toFixed(2).replace('.', ',')}
-                  </p>
-                  <div className="flex items-baseline justify-center gap-2 mt-3">
-                    <span className="text-base text-gray-500 line-through">
-                      R$ {featuredProduct.precoOriginal.toFixed(2).replace('.', ',')}
-                    </span>
-                    <span className="badge-discount">-{featuredDiscount}%</span>
+              <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_14px_34px_rgba(15,23,42,0.06)] lg:p-5">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">Conheça a Fonovital</p>
+                    <p className="mt-1 text-lg font-semibold text-slate-900">Veja como funciona nosso atendimento e adaptação</p>
                   </div>
-                  <div className="mt-4 flex items-center justify-center rounded-xl bg-[#008B91]/10 border border-[#008B91]/20 py-2.5">
-                    <p className="text-lg font-bold text-[#005f6e]">{featuredProduct.precoParcela}</p>
+                  <div className="hidden rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-600 md:block">
+                    Vídeo institucional
                   </div>
                 </div>
-              </div>
 
-              <div className="mt-4 flex flex-row gap-4 justify-center">
-                <a
-                  href={featuredProduct.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-3d flex items-center justify-center gap-2 text-lg"
-                >
-                  <Zap size={20} />
-                  COMPRAR AGORA
-                </a>
-                <Link
-                  to="/garantia"
-                  className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-[#008B91]/50 text-[#008B91] font-semibold hover:bg-[#008B91]/10 transition"
-                >
-                  <ShieldCheck size={18} />
-                  Garantia e Prazos
-                </Link>
+                <div className="aspect-video overflow-hidden rounded-[1.5rem] bg-slate-950">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${heroVideoId}?rel=0&modestbranding=1&color=white`}
+                    title="Conheça a Fonovital"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    className="h-full w-full border-0"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -448,15 +397,15 @@ export default function App() {
       </section>
 
       {/* ===== TRUST BADGES ===== */}
-      <section className="py-8 px-4 border-y border-white/5">
+      <section className="px-4 py-8 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap justify-center gap-4 md:gap-8">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {trustBadges.map((badge) => (
               <div key={badge.label} className="trust-badge-3d flex items-center gap-3">
                 <badge.icon size={24} className="text-[#008B91]" />
                 <div>
-                  <p className="font-semibold text-white text-sm">{badge.label}</p>
-                  <p className="text-xs text-gray-400">{badge.desc}</p>
+                  <p className="text-sm font-semibold text-slate-900">{badge.label}</p>
+                  <p className="text-xs text-slate-500">{badge.desc}</p>
                 </div>
               </div>
             ))}
@@ -787,7 +736,7 @@ export default function App() {
 
             <div className="rounded-2xl overflow-auto max-h-[88vh] border border-white/20 bg-[#0f172a]/50">
               <img
-                src={bannerPc}
+                src={bannerJunho}
                 alt="Banner promocional Fonovital ampliado"
                 className="w-full h-auto object-contain"
               />

@@ -3,8 +3,10 @@ import { HiOutlineCreditCard } from 'react-icons/hi2'
 import { FaCheckCircle } from 'react-icons/fa'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
+import ProductActionStrip from '../components/ProductActionStrip'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
+import SocialProofVideos from '../components/SocialProofVideos'
 
 import voxcharge from '../assets/voxcharge/voxcharge (3).png'
 import voxchargeClean from '../assets/voxcharge/voxcharge (5) (1).png'
@@ -61,8 +63,8 @@ export default function Voxcharge() {
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center lg:text-left text-slate-900">{dados.nome}</h1>
 
-          <div className="mt-8 flex flex-col gap-10 lg:flex-row lg:items-start">
-            <div className="flex flex-col gap-5 lg:flex-1">
+          <div className="mt-8 flex flex-col gap-10">
+            <div className="mx-auto flex w-full max-w-4xl flex-col gap-5">
               <ProductGallery
                 images={voxchargeGallery}
                 selected={imagemSelecionada}
@@ -72,10 +74,8 @@ export default function Voxcharge() {
               <p className="text-slate-700 text-sm sm:text-base leading-relaxed text-center lg:text-left">
                 {dados.descricao}
               </p>
-            </div>
-
-            <div className="w-full lg:max-w-md">
-              <div className="flex flex-col gap-5 card-3d bg-white p-6 sm:p-8 rounded-2xl shadow-xl">
+              <div className="w-full max-w-md self-center">
+                <div className="flex flex-col gap-5 card-3d bg-white p-6 sm:p-8 rounded-2xl shadow-xl">
                 <ProductRating
                   rating={dados.nota}
                   count={dados.avaliacoes}
@@ -106,6 +106,13 @@ export default function Voxcharge() {
                   Me avise quando chegar
                 </a>
               </div>
+              </div>
+              <SocialProofVideos />
+              <ProductActionStrip
+                buyHref={dados.whatsapp}
+                whatsappHref={suporteWhatsapp}
+                soldOut
+              />
             </div>
           </div>
         </div>

@@ -8,8 +8,10 @@ import {
 } from 'react-icons/hi2'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
+import ProductActionStrip from '../components/ProductActionStrip'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
+import SocialProofVideos from '../components/SocialProofVideos'
 
 import vitalAirfundo from '../assets/vitalair/VitalAirfundo.jpg'
 import vitalAirBanner from '../assets/vitalair/VitalAirBanner.jpg'
@@ -269,8 +271,8 @@ export default function VitalAir() {
             </p>
           </div>
 
-          <div className="mt-8 flex flex-col gap-10 lg:mt-12 lg:flex-row lg:items-start">
-            <div className="flex flex-col gap-5 lg:flex-1">
+          <div className="mt-8 flex flex-col gap-10 lg:mt-12">
+            <div className="mx-auto flex w-full max-w-4xl flex-col gap-5">
               <ProductGallery
                 images={imagensGaleria}
                 selected={imagemSelecionada}
@@ -280,10 +282,8 @@ export default function VitalAir() {
               <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-center lg:text-left">
                 {dados.descricao}
               </p>
-            </div>
-
-            <div className="w-full lg:max-w-md">
-              <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
+              <div className="w-full max-w-md self-center">
+                <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
                 <ProductRating
                   rating={dados.nota}
                   count={dados.avaliacoes}
@@ -324,6 +324,9 @@ export default function VitalAir() {
                   COMPRAR AGORA
                 </a>
               </div>
+              </div>
+              <SocialProofVideos />
+              <ProductActionStrip buyHref={dados.link} whatsappHref={whatsappLink} />
             </div>
           </div>
         </div>

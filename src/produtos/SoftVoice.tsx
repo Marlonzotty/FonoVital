@@ -8,8 +8,10 @@ import {
 } from 'react-icons/hi2'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
+import ProductActionStrip from '../components/ProductActionStrip'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
+import SocialProofVideos from '../components/SocialProofVideos'
 
 import img1 from '../assets/SoftVoice/33932420-4eab-44c9-92dd-9f25b46f2e86.jpg'
 import img2 from '../assets/SoftVoice/989f7eb1-01ac-4e83-90b8-b4acc51f0a26.jpg'
@@ -28,7 +30,7 @@ export const softVoiceGallery = [
 
 export const softVoiceHeroImage = softVoiceGallery[0]
 
-const compraLink = 'https://fonovitalltda.pay.yampi.com.br/r/9773IRJKLZ'
+const compraLink = 'https://clkdmg.site/pay/softvoice'
 
 export default function SoftVoice() {
   useEffect(() => {
@@ -119,13 +121,13 @@ export default function SoftVoice() {
             <p className="text-white/85 text-sm sm:text-base">
               Aparelho auditivo intra canal ultradiscreto, recarregável e projetado para conforto total no uso prolongado.
             </p>
-            <p className="text-white/70 text-xs sm:text-sm">
+            <p className="text-slate-600 text-xs sm:text-sm">
               Não precisa de audiometria: ajuste o volume no próprio aparelho e conte com suporte Fonovital.
             </p>
           </div>
 
-          <div className="mt-8 flex flex-col gap-10 lg:mt-12 lg:flex-row lg:items-start">
-            <div className="flex flex-col gap-5 lg:flex-[1.3]">
+          <div className="mt-8 flex flex-col gap-10 lg:mt-12">
+            <div className="mx-auto flex w-full max-w-4xl flex-col gap-5">
               <ProductGallery
                 images={softVoiceGallery}
                 selected={imagemSelecionada}
@@ -135,10 +137,8 @@ export default function SoftVoice() {
               <p className="text-gray-200 text-sm sm:text-base leading-relaxed text-center lg:text-left">
                 {dados.descricao}
               </p>
-            </div>
-
-            <div className="w-full lg:max-w-md">
-              <div className="flex flex-col gap-5 rounded-3xl bg-white border border-[#dbe5ec] p-6 sm:p-8 shadow-xl">
+              <div className="w-full max-w-md self-center">
+                <div className="flex flex-col gap-5 rounded-3xl bg-white border border-[#dbe5ec] p-6 sm:p-8 shadow-xl">
                 <div className="flex items-center justify-start">
                   <ProductRating
                     rating={dados.nota}
@@ -194,6 +194,9 @@ export default function SoftVoice() {
                   </a>
                 </div>
               </div>
+              </div>
+              <SocialProofVideos />
+              <ProductActionStrip buyHref={compraLink} whatsappHref={whatsappLink} />
             </div>
           </div>
         </div>

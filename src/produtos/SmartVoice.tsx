@@ -8,8 +8,10 @@ import {
 } from 'react-icons/hi2'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
+import ProductActionStrip from '../components/ProductActionStrip'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
+import SocialProofVideos from '../components/SocialProofVideos'
 
 import img2 from '../assets/SmartVoice/43546b41-aa51-46c9-909d-4151c5edd32d.jpg'
 import img1 from '../assets/SmartVoice/60c0c290-5641-42d2-8e68-59b360b8db11.jpg'
@@ -42,7 +44,7 @@ export default function SmartVoice() {
     parcelas: 12,
     avaliacoes: 18,
     nota: 4.5,
-    link: 'https://wa.me/55329999069763?text=Ol%C3%A1%2C%20quero%20comprar%20o%20SmartVoice'
+    link: 'https://clkdmg.site/pay/smartvoice'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(smartVoiceGallery[0].src)
@@ -124,8 +126,8 @@ export default function SmartVoice() {
             </p>
           </div>
 
-          <div className="mt-8 flex flex-col gap-10 lg:mt-12 lg:flex-row lg:items-start">
-            <div className="flex flex-col gap-5 lg:flex-1">
+          <div className="mt-8 flex flex-col gap-10 lg:mt-12">
+            <div className="mx-auto flex w-full max-w-4xl flex-col gap-5">
               <ProductGallery
                 images={smartVoiceGallery}
                 selected={imagemSelecionada}
@@ -135,10 +137,8 @@ export default function SmartVoice() {
               <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-center lg:text-left">
                 {dados.descricao}
               </p>
-            </div>
-
-            <div className="w-full lg:max-w-md">
-              <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
+              <div className="w-full max-w-md self-center">
+                <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
                 <ProductRating
                   rating={dados.nota}
                   count={dados.avaliacoes}
@@ -179,6 +179,9 @@ export default function SmartVoice() {
                   COMPRAR AGORA
                 </a>
               </div>
+              </div>
+              <SocialProofVideos />
+              <ProductActionStrip buyHref={dados.link} whatsappHref={whatsappLink} />
             </div>
           </div>
         </div>

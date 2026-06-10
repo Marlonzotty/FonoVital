@@ -8,8 +8,10 @@ import {
 } from 'react-icons/hi2'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
+import ProductActionStrip from '../components/ProductActionStrip'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
+import SocialProofVideos from '../components/SocialProofVideos'
 
 import frenteVoicePro from '../assets/voicepro/frenteVoicePro.jpg'
 import img1 from '../assets/voicepro/voicepro-caixa-produto.jpg'
@@ -55,7 +57,7 @@ export default function VoicePro() {
     parcelas: 12,
     avaliacoes: 47,
     nota: 4.5,
-    link: 'https://fonovitalltda.pay.yampi.com.br/r/OYG2SSJH1K'
+    link: 'https://clkdmg.site/pay/voicepro-digital'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)
@@ -204,31 +206,31 @@ export default function VoicePro() {
   ]
 
   return (
-    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-body text-white">
+    <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-body text-slate-900">
       <section className="w-full px-4 py-12 text-base lg:text-lg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center lg:text-left">
-            <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">{dados.nome}</h1>
-            <p className="text-[#7de8ff] font-semibold text-sm sm:text-base">
+            <h1 className="mb-4 text-3xl font-bold text-slate-900 sm:mb-6 sm:text-4xl">
+              {dados.nome}
+            </h1>
+            <p className="text-sm font-semibold text-slate-600 sm:text-base">
               Inteligência sonora com supressão de feedback, redução de ruído de vento e recarga magnética UV.
             </p>
           </div>
 
-          <div className="mt-8 flex flex-col gap-10 lg:mt-12 lg:flex-row lg:items-start">
-            <div className="flex flex-col gap-5 lg:flex-1">
+          <div className="mt-8 flex flex-col gap-10 lg:mt-12">
+            <div className="mx-auto flex w-full max-w-4xl min-w-0 flex-col gap-5">
               <ProductGallery
                 images={imagensGaleria}
                 selected={imagemSelecionada}
                 onChange={setImagemSelecionada}
                 className="w-full"
               />
-              <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-center lg:text-left">
+              <p className="text-center text-sm leading-relaxed text-slate-600 sm:text-base lg:text-left">
                 {dados.descricao}
               </p>
-            </div>
-
-            <div className="w-full lg:max-w-md">
-              <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
+              <div className="w-full max-w-md self-center">
+                <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
                 <ProductRating
                   rating={dados.nota}
                   count={dados.avaliacoes}
@@ -236,16 +238,16 @@ export default function VoicePro() {
                 />
 
                 <div className="space-y-1 text-center lg:text-left">
-                  <p className="line-through text-xs sm:text-sm text-gray-400">
+                  <p className="text-xs text-slate-400 sm:text-sm">
                     R$ {dados.precoOriginal.toFixed(2).replace('.', ',')}
                   </p>
-                  <p className="text-white text-2xl sm:text-3xl font-bold">
+                  <p className="text-2xl font-bold text-slate-900 sm:text-3xl">
                     R$ {dados.precoAtual.toFixed(2).replace('.', ',')}
                   </p>
-                  <p className="text-sm text-gray-300">Economize R$ {economia}</p>
+                  <p className="text-sm text-slate-600">Economize R$ {economia}</p>
                 </div>
 
-                <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 font-semibold text-base text-[#7de8ff] lg:justify-start">
+                <p className="flex items-center justify-center gap-2 rounded-xl bg-[#028794]/10 py-3 text-base font-semibold text-[#0f6f7a] lg:justify-start">
                   <HiOutlineCreditCard className="text-xl" />
                   12x R$ 152,63
                 </p>
@@ -253,9 +255,9 @@ export default function VoicePro() {
                 <div className="grid gap-3 rounded-2xl border border-[#028794]/10 bg-white/5 p-4 sm:grid-cols-3">
                   {destaquesRapidos.map(item => (
                     <div key={item.titulo} className="flex flex-col items-center text-center sm:items-start sm:text-left">
-                      <item.icon className="text-[#7de8ff] text-2xl mb-2" />
-                      <p className="font-semibold text-sm text-white">{item.titulo}</p>
-                      <p className="text-xs text-gray-300">{item.descricao}</p>
+                      <item.icon className="mb-2 text-2xl text-[#0f6f7a]" />
+                      <p className="text-sm font-semibold text-slate-900">{item.titulo}</p>
+                      <p className="text-xs text-slate-600">{item.descricao}</p>
                     </div>
                   ))}
                 </div>
@@ -269,6 +271,9 @@ export default function VoicePro() {
                   COMPRAR AGORA
                 </a>
               </div>
+              </div>
+              <SocialProofVideos />
+              <ProductActionStrip buyHref={dados.link} whatsappHref={whatsappLink} />
             </div>
           </div>
         </div>
@@ -480,10 +485,10 @@ export default function VoicePro() {
             Assista aos vídeos e descubra como o VoicePro transforma rotinas com confiança, conforto e tecnologia avançada.
           </p>
 
-          <div className="grid gap-8 lg:grid-cols-2">
+          <div className="grid gap-10 xl:grid-cols-2">
             {videos.map(video => (
-              <article key={video.id} className="space-y-4">
-                <div className="relative w-full overflow-hidden rounded-3xl border border-[#028794]/20 pb-[56.25%] shadow-lg">
+              <article key={video.id} className="space-y-5">
+                <div className="relative w-full overflow-hidden rounded-3xl border border-[#028794]/20 pb-[56.25%] shadow-[0_28px_80px_rgba(2,135,148,0.18)] ring-1 ring-[#028794]/10">
                   <iframe
                     src={video.src}
                     title={video.title}
@@ -495,9 +500,9 @@ export default function VoicePro() {
                     loading="lazy"
                   ></iframe>
                 </div>
-                <div className="space-y-1 text-center lg:text-left">
-                  <h3 className="text-xl font-semibold text-[#7de8ff]">{video.titulo}</h3>
-                  <p className="text-sm text-gray-300">{video.descricao}</p>
+                <div className="space-y-2 text-center xl:text-left">
+                  <h3 className="text-2xl font-semibold text-[#0f6f7a]">{video.titulo}</h3>
+                  <p className="mx-auto max-w-2xl text-base text-gray-300 xl:mx-0">{video.descricao}</p>
                 </div>
               </article>
             ))}

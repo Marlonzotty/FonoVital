@@ -39,7 +39,7 @@ const aparelhos = [
     rota: '/produto/voxton',
     badge: 'CIC',
     nota: 4.3,
-    link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068276',
+    link: 'https://clkdmg.site/pay/voxton-par',
   },
   {
     sigla: 'Voxcharge Mini CIC',
@@ -96,7 +96,7 @@ const aparelhos = [
     rota: '/produto/voicepro',
     badge: 'CIC',
     nota: 4.5,
-    link: 'https://fonovital.pay.yampi.com.br/r/EXEMPLOVOICEPRO',
+    link: 'https://clkdmg.site/pay/voicepro-digital',
   },
 ];
 

@@ -8,8 +8,10 @@ import {
 } from 'react-icons/hi2'
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
+import ProductActionStrip from '../components/ProductActionStrip'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
+import SocialProofVideos from '../components/SocialProofVideos'
 
 import imagemVoxton1 from '../assets/voxton/imagemVoxton1.jpg'
 import voxton from '../assets/voxton/voxton.png'
@@ -58,7 +60,7 @@ export default function Voxton() {
         imagem: voxton,
         precoOriginal: 1399,
         precoAtual: 599.9,
-        link: 'https://fonovitalltda.pay.yampi.com.br/r/VYHUUSPWP8'
+        link: 'https://clkdmg.site/pay/voxton-par'
       },
       direito: {
         label: 'LADO DIREITO',
@@ -220,8 +222,8 @@ export default function Voxton() {
             </p>
           </div>
 
-          <div className="mt-8 flex flex-col gap-10 lg:mt-12 lg:flex-row lg:items-start">
-            <div className="flex flex-col gap-5 lg:flex-1">
+          <div className="mt-8 flex flex-col gap-10 lg:mt-12">
+            <div className="mx-auto flex w-full max-w-4xl flex-col gap-5">
               <ProductGallery
                 images={imagensGaleria}
                 selected={imagemSelecionada}
@@ -231,10 +233,8 @@ export default function Voxton() {
               <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-center lg:text-left">
                 {dados.descricao}
               </p>
-            </div>
-
-            <div className="w-full lg:max-w-md">
-              <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
+              <div className="w-full max-w-md self-center">
+                <div className="flex flex-col gap-5 card-3d p-6 sm:p-8">
                 <ProductRating
                   rating={dados.nota}
                   count={dados.avaliacoes}
@@ -299,6 +299,13 @@ export default function Voxton() {
                   Comprar {opcao === 'par' ? 'o par' : `lado ${opcao}`}
                 </a>
               </div>
+              </div>
+              <SocialProofVideos />
+              <ProductActionStrip
+                buyHref={ladoAtual.link}
+                whatsappHref={whatsappLink}
+                buyLabel={`Comprar ${ladoAtual.label.toLowerCase()}`}
+              />
             </div>
           </div>
         </div>

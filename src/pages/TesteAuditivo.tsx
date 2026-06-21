@@ -45,6 +45,16 @@ const STORAGE_KEY = 'fonovital-teste-auditivo'
 const WHATSAPP_NUMBER = '5532999069763'
 
 const frequencias = [125, 250, 500, 1000, 2000, 3000, 4000, 8000]
+const audioPorFrequencia: Record<number, string> = {
+  125: '/audio/teste-auditivo/125hz.wav',
+  250: '/audio/teste-auditivo/250hz.wav',
+  500: '/audio/teste-auditivo/500hz.wav',
+  1000: '/audio/teste-auditivo/1000hz.wav',
+  2000: '/audio/teste-auditivo/2000hz.wav',
+  3000: '/audio/teste-auditivo/3000hz.wav',
+  4000: '/audio/teste-auditivo/4000hz.wav',
+  8000: '/audio/teste-auditivo/8000hz.wav'
+}
 
 const perguntasQuiz = [
   {
@@ -494,7 +504,7 @@ export default function TesteAuditivo() {
   const [respostasQuiz, setRespostasQuiz] = useState<RespostasQuiz>({})
   const [freqIndex, setFreqIndex] = useState(0)
   const [respostasFreq, setRespostasFreq] = useState<boolean[]>([])
-  const audioContextRef = useRef<AudioContext | null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
@@ -677,42 +687,36 @@ export default function TesteAuditivo() {
   }
 
   const tocarSom = async () => {
-    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext
-
-    if (!AudioContextClass) {
+    const src = audioPorFrequencia[frequencias[freqIndex]]
+    if (!src) {
       return
     }
 
-    const context = audioContextRef.current ?? new AudioContextClass()
-    audioContextRef.current = context
+    const audio = audioRef.current ?? new Audio()
+    audioRef.current = audio
+    audio.src = src
+    audio.preload = 'auto'
+    audio.loop = false
+    audio.volume = 1
+    audio.currentTime = 0
 
-    if (context.state === 'suspended') {
-      await context.resume()
-    }
-
-    const oscillator = context.createOscillator()
-    const gainNode = context.createGain()
-
-    oscillator.type = 'sine'
-    oscillator.frequency.value = frequencias[freqIndex]
-    gainNode.gain.value = 0.1
-
-    oscillator.connect(gainNode)
-    gainNode.connect(context.destination)
-
-    oscillator.start()
-    oscillator.stop(context.currentTime + 1)
-
-    oscillator.onended = () => {
-      oscillator.disconnect()
-      gainNode.disconnect()
+    try {
+      audio.pause()
+      audio.load()
+      await audio.play()
+    } catch (error) {
+      console.error('Falha ao tocar o audio do teste:', error)
     }
   }
 
   useEffect(() => {
     return () => {
-      audioContextRef.current?.close().catch(() => {})
-      audioContextRef.current = null
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current.src = ''
+        audioRef.current.load()
+        audioRef.current = null
+      }
     }
   }, [])
 

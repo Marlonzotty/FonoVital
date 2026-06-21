@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
@@ -44,7 +44,7 @@ type DadosSalvos = {
 const STORAGE_KEY = 'fonovital-teste-auditivo'
 const WHATSAPP_NUMBER = '5532999069763'
 
-const frequencias = [250, 500, 1000, 2000, 3000, 4000, 6000, 8000]
+const frequencias = [125, 250, 500, 1000, 2000, 3000, 4000, 8000]
 
 const perguntasQuiz = [
   {
@@ -494,6 +494,7 @@ export default function TesteAuditivo() {
   const [respostasQuiz, setRespostasQuiz] = useState<RespostasQuiz>({})
   const [freqIndex, setFreqIndex] = useState(0)
   const [respostasFreq, setRespostasFreq] = useState<boolean[]>([])
+  const audioContextRef = useRef<AudioContext | null>(null)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
@@ -675,9 +676,20 @@ export default function TesteAuditivo() {
     setModalEtapa('cadastro')
   }
 
-  const tocarSom = () => {
+  const tocarSom = async () => {
     const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext
-    const context = new AudioContextClass()
+
+    if (!AudioContextClass) {
+      return
+    }
+
+    const context = audioContextRef.current ?? new AudioContextClass()
+    audioContextRef.current = context
+
+    if (context.state === 'suspended') {
+      await context.resume()
+    }
+
     const oscillator = context.createOscillator()
     const gainNode = context.createGain()
 
@@ -690,7 +702,19 @@ export default function TesteAuditivo() {
 
     oscillator.start()
     oscillator.stop(context.currentTime + 1)
+
+    oscillator.onended = () => {
+      oscillator.disconnect()
+      gainNode.disconnect()
+    }
   }
+
+  useEffect(() => {
+    return () => {
+      audioContextRef.current?.close().catch(() => {})
+      audioContextRef.current = null
+    }
+  }, [])
 
   const avancarFrequencia = (ouviu: boolean) => {
     const novasRespostas = [...respostasFreq]
@@ -969,7 +993,7 @@ export default function TesteAuditivo() {
               {frequencias[freqIndex]}Hz
             </h2>
             <p className="text-gray-600 mb-4">
-              Clique abaixo para ouvir e marque se ouviu ou nao.
+              Clique abaixo para ouvir tons graves, medios e agudos e marque se ouviu ou nao.
             </p>
             <button
               onClick={tocarSom}

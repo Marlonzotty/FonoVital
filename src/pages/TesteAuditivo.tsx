@@ -145,25 +145,6 @@ const produtosPerfis: ProdutoPerfil[] = [
     indicadoSenior: 2
   },
   {
-    id: 'vitalvoice',
-    nome: 'Vitalvoice CIC Digital Recarregavel',
-    rota: '/produto/vitalvoice',
-    descricao: 'CIC digital recarregavel, facil de adaptar e indicado para perdas leves a severas.',
-    formato: 'CIC',
-    disponibilidade: 'disponivel',
-    nota: 4.4,
-    discricao: 3,
-    facilidade: 3,
-    potencia: 3,
-    falaRuido: 2,
-    automatico: 3,
-    custoBeneficio: 3,
-    recarregavel: true,
-    app: 0,
-    bluetooth: 0,
-    indicadoSenior: 3
-  },
-  {
     id: 'voicepro',
     nome: 'VoicePro Profissional Digital',
     rota: '/produto/voicepro',
@@ -504,7 +485,10 @@ export default function TesteAuditivo() {
   const [respostasQuiz, setRespostasQuiz] = useState<RespostasQuiz>({})
   const [freqIndex, setFreqIndex] = useState(0)
   const [respostasFreq, setRespostasFreq] = useState<boolean[]>([])
+  const [resultadoCountdown, setResultadoCountdown] = useState(5)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const resultadoTimeoutRef = useRef<ReturnType<typeof window.setTimeout> | null>(null)
+  const resultadoIntervalRef = useRef<ReturnType<typeof window.setInterval> | null>(null)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
@@ -581,6 +565,46 @@ export default function TesteAuditivo() {
   ].join('\n')
 
   const whatsappResultadoHref = getWhatsappLink(mensagemResultado)
+
+  const limparAutoRedirectResultado = () => {
+    if (resultadoTimeoutRef.current !== null) {
+      window.clearTimeout(resultadoTimeoutRef.current)
+      resultadoTimeoutRef.current = null
+    }
+
+    if (resultadoIntervalRef.current !== null) {
+      window.clearInterval(resultadoIntervalRef.current)
+      resultadoIntervalRef.current = null
+    }
+  }
+
+  useEffect(() => {
+    if (modalEtapa !== 'resultado') {
+      limparAutoRedirectResultado()
+      setResultadoCountdown(5)
+      return
+    }
+
+    setResultadoCountdown(5)
+    limparAutoRedirectResultado()
+
+    resultadoIntervalRef.current = window.setInterval(() => {
+      setResultadoCountdown((valorAtual) => {
+        if (valorAtual <= 1) {
+          return 0
+        }
+
+        return valorAtual - 1
+      })
+    }, 1000)
+
+    resultadoTimeoutRef.current = window.setTimeout(() => {
+      limparAutoRedirectResultado()
+      window.location.href = whatsappResultadoHref
+    }, 5000)
+
+    return limparAutoRedirectResultado
+  }, [modalEtapa, whatsappResultadoHref])
 
   const abrirFluxoTeste = () => {
     if (!nome.trim() || !idade.trim()) {
@@ -735,12 +759,14 @@ export default function TesteAuditivo() {
   }
 
   const refazerTeste = () => {
+    limparAutoRedirectResultado()
     setRespostasFreq([])
     setFreqIndex(0)
     setModalEtapa('frequencia')
   }
 
   const limparJornada = () => {
+    limparAutoRedirectResultado()
     setModalEtapa(null)
     setNome('')
     setIdade('')
@@ -1041,6 +1067,9 @@ export default function TesteAuditivo() {
             <p className="text-sm text-gray-600 mb-6">
               Suas respostas do quiz e do teste por audio ja estao prontas para envio ao especialista.
             </p>
+            <p className="mb-6 rounded-full bg-[#25D366]/10 px-4 py-2 text-sm font-semibold text-[#128C7E]">
+              Em {resultadoCountdown}s vamos abrir o WhatsApp automaticamente se voce nao escolher uma acao.
+            </p>
 
             <div className="mb-6 text-left rounded-xl border border-[#4A90E2]/20 bg-[#EAF4FF] p-4">
               <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#4A90E2] mb-2">
@@ -1055,6 +1084,7 @@ export default function TesteAuditivo() {
               </p>
               <Link
                 to={recomendacaoProduto.produto.rota}
+                onClick={limparAutoRedirectResultado}
                 className="inline-flex rounded-full bg-[#4A90E2] px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition"
               >
                 Ver modelo indicado
@@ -1107,15 +1137,13 @@ export default function TesteAuditivo() {
                 href={whatsappResultadoHref}
                 target="_blank"
                 rel="noreferrer"
+                onClick={limparAutoRedirectResultado}
                 className="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 rounded-full font-semibold hover:opacity-90 transition"
               >
                 <FaWhatsapp className="text-lg" />
                 Enviar tudo para o especialista
               </a>
-              <button
-                onClick={limparJornada}
-                className="text-[#213547]/70 font-semibold hover:text-[#213547] transition"
-              >
+              <button onClick={limparJornada} className="text-[#213547]/70 font-semibold hover:text-[#213547] transition">
                 Limpar dados e recomecar
               </button>
             </div>

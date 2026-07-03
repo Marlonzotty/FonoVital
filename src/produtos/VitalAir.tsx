@@ -59,7 +59,7 @@ export default function VitalAir() {
     parcelas: 12,
     avaliacoes: 42,
     nota: 4.8,
-    link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068594'
+    link: 'https://fonovitalltda.mycartpanda.com/checkout/211374784:1'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)

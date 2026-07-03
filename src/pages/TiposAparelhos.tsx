@@ -82,7 +82,7 @@ const aparelhos = [
     rota: '/produto/vitalair',
     badge: 'TWS',
     nota: 4.8,
-    link: 'https://fonovital.pay.yampi.com.br/r/DLE7SWQNKR',
+    link: 'https://fonovitalltda.mycartpanda.com/checkout/211374784:1',
   },
   {
     sigla: 'VoicePro Profissional',

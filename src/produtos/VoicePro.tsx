@@ -40,6 +40,8 @@ export const voiceProGallery = [
 
 export const voiceProHeroImage = voiceProGallery[0]
 
+export const voiceProCheckoutLink = 'https://fonovitalltda.mycartpanda.com/checkout/210649397:1'
+
 export default function VoicePro() {
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -57,7 +59,7 @@ export default function VoicePro() {
     parcelas: 12,
     avaliacoes: 47,
     nota: 4.5,
-    link: 'https://clkdmg.site/pay/voicepro-digital'
+    link: voiceProCheckoutLink
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)

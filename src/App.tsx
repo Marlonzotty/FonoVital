@@ -27,7 +27,7 @@ import { iaVoiceHeroImage } from './produtos/IAvoice';
 import { vitalAirHeroImage } from './produtos/VitalAir';
 import bannerJunho from './assets/bannerjunho.png';
 
-import { voiceProHeroImage } from './produtos/VoicePro';
+import { voiceProCheckoutLink, voiceProHeroImage } from './produtos/VoicePro';
 import { smartVoiceHeroImage } from './produtos/SmartVoice';
 import { softVoiceHeroImage } from './produtos/SoftVoice';
 
@@ -100,7 +100,7 @@ const aparelhos = [
     rota: '/produto/voicepro',
     badge: 'PRO',
     nota: 4.5,
-    link: 'https://clkdmg.site/pay/voicepro-digital',
+    link: voiceProCheckoutLink,
     destaque: true,
   },
   {
@@ -500,6 +500,16 @@ export default function App() {
                           className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-gray-700/50 text-gray-300 font-medium text-sm"
                         >
                           Avise-me
+                        </a>
+                      ) : item.sigla === 'VoicePro' ? (
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg btn-3d text-sm"
+                        >
+                          Comprar Agora
+                          <ChevronRight size={16} />
                         </a>
                       ) : (
                         <Link

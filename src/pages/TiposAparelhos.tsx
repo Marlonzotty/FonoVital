@@ -10,7 +10,7 @@ import { voxtonHeroImage } from '../produtos/voxton';
 import { voxchargeHeroImage } from '../produtos/Voxcharge';
 import { iaVoiceHeroImage } from '../produtos/IAvoice';
 import { vitalAirHeroImage } from '../produtos/VitalAir';
-import { voiceProHeroImage } from '../produtos/VoicePro';
+import { voiceProCheckoutLink, voiceProHeroImage } from '../produtos/VoicePro';
 
 const renderStars = (nota: number) => {
   const estados: Array<'full' | 'half' | 'empty'> = [];
@@ -96,7 +96,7 @@ const aparelhos = [
     rota: '/produto/voicepro',
     badge: 'CIC',
     nota: 4.5,
-    link: 'https://clkdmg.site/pay/voicepro-digital',
+    link: voiceProCheckoutLink,
   },
 ];
 
@@ -187,6 +187,15 @@ export default function TiposAparelhos() {
                         className="bg-red-500/80 text-white text-sm px-4 py-2 rounded-lg font-medium cursor-not-allowed"
                       >
                         Avise-me
+                      </a>
+                    ) : item.sigla.includes('VoicePro') ? (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-[#007c91] hover:bg-[#005f6e] text-white text-sm px-4 py-2 rounded-lg font-medium transition"
+                      >
+                        Compre Agora
                       </a>
                     ) : (
                       <Link

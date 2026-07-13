@@ -39,7 +39,7 @@ const aparelhos = [
     rota: '/produto/voxton',
     badge: 'CIC',
     nota: 4.3,
-    link: 'https://clkdmg.site/pay/voxton-par',
+    link: 'https://fonovitalltda.mycartpanda.com/checkout/211383663:1',
   },
   {
     sigla: 'Voxcharge Mini CIC',

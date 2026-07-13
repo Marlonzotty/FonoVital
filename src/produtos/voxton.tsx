@@ -60,21 +60,21 @@ export default function Voxton() {
         imagem: voxton,
         precoOriginal: 1399,
         precoAtual: 599.9,
-        link: 'https://clkdmg.site/pay/voxton-par'
+        link: 'https://fonovitalltda.mycartpanda.com/checkout/211383663:1'
       },
       direito: {
         label: 'LADO DIREITO',
         imagem: voxton,
         precoOriginal: 499,
         precoAtual: 399.9,
-        link: 'https://fonovitalltda.pay.yampi.com.br/r/3KZ6HFML6R'
+        link: 'https://fonovitalltda.mycartpanda.com/checkout/211499273:1'
       },
       esquerdo: {
         label: 'LADO ESQUERDO',
         imagem: voxton,
         precoOriginal: 499,
         precoAtual: 399.9,
-        link: 'https://fonovitalltda.pay.yampi.com.br/r/3PRHSVWLTX'
+        link: 'https://fonovitalltda.mycartpanda.com/checkout/211499276:1'
       }
     },
     avaliacoes: 21,

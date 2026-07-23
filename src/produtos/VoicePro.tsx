@@ -40,7 +40,8 @@ export const voiceProGallery = [
 
 export const voiceProHeroImage = voiceProGallery[0]
 
-export const voiceProCheckoutLink = 'https://fonovitalltda.mycartpanda.com/checkout/210649397:1'
+// O backend cria uma preferência Mercado Pago por compra.
+export const voiceProCheckoutLink = '/api/checkout/voicepro'
 
 export default function VoicePro() {
   useEffect(() => {

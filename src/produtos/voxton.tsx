@@ -60,21 +60,21 @@ export default function Voxton() {
         imagem: voxton,
         precoOriginal: 1399,
         precoAtual: 599.9,
-        link: 'https://fonovitalltda.mycartpanda.com/checkout/211383663:1'
+        link: '/api/checkout/voxton'
       },
       direito: {
         label: 'LADO DIREITO',
         imagem: voxton,
         precoOriginal: 499,
         precoAtual: 399.9,
-        link: 'https://fonovitalltda.mycartpanda.com/checkout/211499273:1'
+        link: '/api/checkout/voxton-direito'
       },
       esquerdo: {
         label: 'LADO ESQUERDO',
         imagem: voxton,
         precoOriginal: 499,
         precoAtual: 399.9,
-        link: 'https://fonovitalltda.mycartpanda.com/checkout/211499276:1'
+        link: '/api/checkout/voxton-esquerdo'
       }
     },
     avaliacoes: 21,

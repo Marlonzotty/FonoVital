@@ -39,7 +39,7 @@ const aparelhos = [
     rota: '/produto/voxton',
     badge: 'CIC',
     nota: 4.3,
-    link: 'https://fonovitalltda.mycartpanda.com/checkout/211383663:1',
+    link: '/api/checkout/voxton',
   },
   {
     sigla: 'Voxcharge Mini CIC',
@@ -68,7 +68,7 @@ const aparelhos = [
     rota: '/produto/iavoice',
     badge: 'IA',
     nota: 4.6,
-    link: 'https://fonovital.pay.yampi.com.br/r/EXEMPLOIAVOICE',
+    link: '/api/checkout/iavoice',
   },
   {
     sigla: 'Vital Air',
@@ -82,7 +82,7 @@ const aparelhos = [
     rota: '/produto/vitalair',
     badge: 'TWS',
     nota: 4.8,
-    link: 'https://fonovitalltda.mycartpanda.com/checkout/211374784:1',
+    link: '/api/checkout/vitalair',
   },
   {
     sigla: 'VoicePro Profissional',

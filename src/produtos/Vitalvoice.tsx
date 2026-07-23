@@ -49,7 +49,7 @@ export default function Vitalvoice() {
     parcelas: 12,
     avaliacoes: 12,
     nota: 4.4,
-    link: 'https://fonovitaloficial.carrinho.app/one-checkout/ocmtb/28068435'
+    link: '/api/checkout/vitalvoice'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)

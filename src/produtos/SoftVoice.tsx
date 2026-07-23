@@ -30,7 +30,7 @@ export const softVoiceGallery = [
 
 export const softVoiceHeroImage = softVoiceGallery[0]
 
-const compraLink = 'https://clkdmg.site/pay/softvoice'
+const compraLink = '/api/checkout/softvoice'
 
 export default function SoftVoice() {
   useEffect(() => {

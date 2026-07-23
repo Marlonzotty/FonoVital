@@ -44,7 +44,7 @@ export default function SmartVoice() {
     parcelas: 12,
     avaliacoes: 18,
     nota: 4.5,
-    link: 'https://clkdmg.site/pay/smartvoice'
+    link: '/api/checkout/smartvoice'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(smartVoiceGallery[0].src)

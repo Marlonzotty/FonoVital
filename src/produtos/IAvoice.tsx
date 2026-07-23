@@ -60,7 +60,7 @@ export default function IAvoice() {
     parcelas: 12,
     avaliacoes: 51,
     nota: 4.6,
-    link: 'https://fonovitalltda.pay.yampi.com.br/r/ECWQAEC09P'
+    link: '/api/checkout/iavoice'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)

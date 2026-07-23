@@ -28,12 +28,14 @@ import {
   trackPageView,
   refreshFbcFromUrl,
 } from "./analytics/fbpixel";
+import { initGoogleAds } from "./analytics/googleAds";
 
 // ID do Pixel via .env (Vite)
 const pixelId = import.meta.env.VITE_META_PIXEL_ID as string | undefined;
 if (pixelId) {
   loadFacebookPixel(pixelId);
 }
+initGoogleAds();
 
 /**
  * Alternativa simples do RoutePageView embutida no main.

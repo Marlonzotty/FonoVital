@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { trackGoogleAdsConversion } from '../analytics/googleAds'
 
 type ModalEtapa = 'cadastro' | 'quiz' | 'frequencia' | 'resultado' | null
 
@@ -607,6 +608,7 @@ export default function TesteAuditivo() {
   }, [modalEtapa, whatsappResultadoHref])
 
   const abrirFluxoTeste = () => {
+    trackGoogleAdsConversion('teste_auditivo_inicio')
     if (!nome.trim() || !idade.trim()) {
       setErroCadastro('')
       setModalEtapa('cadastro')

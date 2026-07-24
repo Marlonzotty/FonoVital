@@ -9,6 +9,7 @@ declare global {
 
 const googleAdsId = 'AW-17575630630'
 const conversionLabel = 'x5ZACJGfxNUcEKau27xB'
+const purchaseConversionLabel = 'xyUICK7kztUcEKau27xB'
 
 export function initGoogleAds() {
   if (!googleAdsId || document.querySelector('script[data-google-ads]')) return
@@ -30,5 +31,15 @@ export function trackGoogleAdsConversion(eventName: string, value = 1) {
     value,
     currency: 'BRL',
     event_name: eventName
+  })
+}
+
+export function trackPurchaseConversion(transactionId = '') {
+  if (!googleAdsId || !window.gtag) return
+  window.gtag('event', 'conversion', {
+    send_to: `${googleAdsId}/${purchaseConversionLabel}`,
+    value: 1.0,
+    currency: 'BRL',
+    transaction_id: transactionId,
   })
 }

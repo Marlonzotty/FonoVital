@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
+import { trackPurchaseConversion } from '../analytics/googleAds';
 
 const products: Record<string, string> = {
   'galinha-pintadinha': 'Galinha Pintadinha',
@@ -23,6 +24,7 @@ export default function FinalizarCompra() {
       try { data = JSON.parse(raw); } catch { throw new Error(`Erro do servidor (${response.status})`); }
       if (!response.ok) throw new Error(data.error || 'Confira os dados informados');
       if (!data.checkoutUrl) throw new Error('O servidor não retornou o link de pagamento');
+      trackPurchaseConversion();
       window.location.href = data.checkoutUrl;
     } catch (err) { setError(err instanceof Error ? err.message : 'Erro ao continuar'); setLoading(false); }
   }

@@ -31,6 +31,8 @@ const db = process.env.DATABASE_URL ? new pg.Pool({ connectionString: process.en
 async function initDatabase() {
   if (!db) return;
   await db.query('CREATE TABLE IF NOT EXISTS orders (id BIGSERIAL PRIMARY KEY, external_reference TEXT UNIQUE, product TEXT NOT NULL, customer JSONB NOT NULL, amount NUMERIC NOT NULL, status TEXT NOT NULL DEFAULT \'created\', payment_id TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())');
+  await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS status_detail TEXT');
+  await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS webhook_received_at TIMESTAMPTZ');
 }
 
 // PreÃ§os e produtos ficam no servidor para impedir que o navegador altere o valor cobrado.
@@ -161,9 +163,54 @@ app.post('/api/checkout/:product', async (req, res) => {
   }
 });
 
-app.post('/api/mercadopago/webhook', (req, res) => {
-  // A confirmaÃ§Ã£o definitiva deve ser consultada na API do Mercado Pago.
-  console.log('[Mercado Pago] webhook recebido:', req.body?.type || req.body?.action);
+app.post('/api/mercadopago/webhook', async (req, res) => {
+  const payload = req.body || {};
+  const eventType = payload.type || payload.topic || payload.action;
+  const paymentId = payload.data?.id || payload['data.id'] || (payload.type === 'payment' ? payload.id : null);
+
+  console.log('[Mercado Pago] webhook recebido:', JSON.stringify({ eventType, paymentId }));
+
+  // O Mercado Pago pode enviar outros eventos. Eles devem receber 200 para
+  // evitar retentativas desnecessárias; apenas eventos de pagamento seguem adiante.
+  if (eventType !== 'payment' || !paymentId) return res.sendStatus(200);
+  if (!MP_ACCESS_TOKEN) return res.sendStatus(200);
+
+  try {
+    const response = await fetch(`https://api.mercadopago.com/v1/payments/${encodeURIComponent(paymentId)}`, {
+      headers: { Authorization: `Bearer ${MP_ACCESS_TOKEN}` },
+    });
+    const payment = await response.json();
+    if (!response.ok) {
+      console.error('[Mercado Pago] não foi possível consultar pagamento:', payment);
+      return res.sendStatus(200);
+    }
+
+    const externalReference = payment.external_reference;
+    if (!db || !externalReference) {
+      console.warn('[Mercado Pago] pagamento sem external_reference:', paymentId);
+      return res.sendStatus(200);
+    }
+
+    const result = await db.query(
+      `UPDATE orders
+       SET status = $1, status_detail = $2, payment_id = $3,
+           webhook_received_at = NOW(), updated_at = NOW()
+       WHERE external_reference = $4
+       RETURNING id, external_reference, status`,
+      [payment.status || 'unknown', payment.status_detail || null, String(payment.id), externalReference],
+    );
+
+    if (result.rowCount === 0) {
+      console.warn('[Mercado Pago] pedido não encontrado:', externalReference);
+    } else {
+      console.log('[Mercado Pago] pedido atualizado:', result.rows[0]);
+    }
+  } catch (error) {
+    console.error('[Mercado Pago] erro ao processar webhook:', error);
+  }
+
+  // A notificação foi recebida. O processamento é idempotente e pode ser
+  // repetido caso o Mercado Pago envie a mesma notificação novamente.
   res.sendStatus(200);
 });
 

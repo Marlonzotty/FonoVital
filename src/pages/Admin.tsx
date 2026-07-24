@@ -1,5 +1,16 @@
 import { useEffect, useState } from 'react';
 
+const statusLabels: Record<string, string> = {
+  created: 'Aguardando pagamento',
+  pending: 'Pagamento pendente',
+  approved: 'Pago',
+  authorized: 'Autorizado',
+  in_process: 'Em análise',
+  rejected: 'Pagamento recusado',
+  cancelled: 'Cancelado',
+  refunded: 'Reembolsado',
+};
+
 export default function Admin() {
   const [key, setKey] = useState('');
   const [authorized, setAuthorized] = useState(false);
@@ -17,7 +28,7 @@ export default function Admin() {
             <button className="mt-4 rounded-xl bg-[#008B91] px-5 py-3 font-bold text-white">Entrar</button>
           </form>
         ) : (
-          <div className="mt-8 overflow-x-auto"><table className="w-full text-left text-sm"><thead><tr className="border-b"><th className="p-3">Produto</th><th className="p-3">Cliente</th><th className="p-3">Valor</th><th className="p-3">Status</th></tr></thead><tbody>{orders.map((order) => <tr key={order.id} className="border-b"><td className="p-3">{order.product}</td><td className="p-3">{order.customer?.name}<br />{order.customer?.email}</td><td className="p-3">R$ {Number(order.amount).toFixed(2).replace('.', ',')}</td><td className="p-3">{order.status}</td></tr>)}</tbody></table>{orders.length === 0 && <p className="mt-5 text-slate-600">Nenhum pedido registrado ainda.</p>}</div>
+          <div className="mt-8 overflow-x-auto"><table className="w-full text-left text-sm"><thead><tr className="border-b"><th className="p-3">Produto</th><th className="p-3">Cliente</th><th className="p-3">Valor</th><th className="p-3">Status</th><th className="p-3">Dados</th></tr></thead><tbody>{orders.map((order) => <tr key={order.id} className="border-b align-top"><td className="p-3">{order.product}</td><td className="p-3">{order.customer?.name}<br />{order.customer?.email}</td><td className="p-3">R$ {Number(order.amount).toFixed(2).replace('.', ',')}</td><td className="p-3"><span className="font-semibold">{statusLabels[order.status] || order.status}</span>{order.status_detail && <><br /><small className="text-slate-500">{order.status_detail}</small></>}</td><td className="p-3"><details><summary className="cursor-pointer font-semibold text-[#008B91]">Abrir cliente</summary><div className="mt-3 min-w-64 space-y-1 text-xs text-slate-700"><p><b>CPF:</b> {order.customer?.cpf || '—'}</p><p><b>Telefone:</b> {order.customer?.phone || '—'}</p><p><b>CEP:</b> {order.customer?.zipCode || '—'}</p><p><b>Endereço:</b> {order.customer?.street || '—'}, {order.customer?.number || 's/n'}</p><p><b>Complemento:</b> {order.customer?.complement || '—'}</p><p><b>Bairro:</b> {order.customer?.neighborhood || '—'}</p><p><b>Cidade/UF:</b> {order.customer?.city || '—'} / {order.customer?.state || '—'}</p><hr className="my-2" /><p><b>Referência externa:</b> {order.external_reference}</p><p><b>ID pagamento:</b> {order.payment_id || 'Ainda não disponível'}</p></div></details></td></tr>)}</tbody></table>{orders.length === 0 && <p className="mt-5 text-slate-600">Nenhum pedido registrado ainda.</p>}</div>
         )}
       </section>
     </main>

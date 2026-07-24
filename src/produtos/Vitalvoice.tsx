@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { FaCheckCircle } from 'react-icons/fa'
 import {
   HiOutlineCreditCard,
@@ -305,7 +305,7 @@ export default function Vitalvoice() {
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
           <div className="bg-[#f9fafb] border border-white/15 rounded-2xl p-6">
             <h3 className="text-xl font-semibold mb-4 text-[#d97706]">
-              ?? Aparelhos Auditivos Tradicionais
+              Aparelhos Auditivos Tradicionais
             </h3>
             <ul className="space-y-3 text-gray-300">
               {comparativoTecnologia.tradicionais.map(item => (
@@ -318,7 +318,7 @@ export default function Vitalvoice() {
           </div>
           <div className="section-gradient border border-[#028794] rounded-2xl p-6">
             <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">
-              ?? Novo Aparelho Auditivo Digital (CIC)
+              Novo Aparelho Auditivo Digital (CIC)
             </h3>
             <ul className="space-y-3 text-gray-200">
               {comparativoTecnologia.digital.map(item => (
@@ -350,7 +350,7 @@ export default function Vitalvoice() {
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 text-center">
-            ?? Estojo de Carregamento Premium e Bateria de Longa Duração
+            Estojo de Carregamento Premium e Bateria de Longa Duração
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full border border-white/15 rounded-xl overflow-hidden">
@@ -369,7 +369,7 @@ export default function Vitalvoice() {
 
       <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center">?? Modos de Uso Inteligentes</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">Modos de Uso Inteligentes</h2>
           <div className="grid gap-6 sm:grid-cols-3">
             {modosInteligentes.map(modo => (
               <div
@@ -420,7 +420,7 @@ export default function Vitalvoice() {
 
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center">?? Conforto e Discrição</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">Conforto e Discrição</h2>
           <div className="overflow-x-auto">
             <table className="w-full border border-white/15 rounded-xl overflow-hidden">
               <thead className="section-gradient text-white text-left">

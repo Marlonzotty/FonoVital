@@ -36,7 +36,7 @@ export default function ProductRating({
   return (
     <div
       className={`flex flex-wrap items-center gap-1 text-xs sm:text-sm text-[#213547] ${className}`}
-      aria-label={`Avaliação média ${normalizedRating.toFixed(1)} de 5 com ${count} avaliações`}
+      aria-label={`AvaliaÃ§Ã£o mÃ©dia ${normalizedRating.toFixed(1)} de 5 com ${count} avaliaÃ§Ãµes`}
     >
       {starStates.map((state, index) => {
         if (state === 'full') {
@@ -49,7 +49,7 @@ export default function ProductRating({
       })}
 
       <span className="ml-2 text-gray-500">
-        {normalizedRating.toFixed(1)} · {count}
+        {normalizedRating.toFixed(1)} Â· {count}
       </span>
     </div>
   )

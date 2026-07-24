@@ -1,4 +1,5 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
 
 const products: Record<string, string> = {
@@ -20,6 +21,7 @@ export default function FinalizarCompra() {
       let data: { checkoutUrl?: string; error?: string } = {};
       try { data = JSON.parse(raw); } catch { throw new Error(`Erro do servidor (${response.status})`); }
       if (!response.ok) throw new Error(data.error || 'Confira os dados informados');
+      if (!data.checkoutUrl) throw new Error('O servidor não retornou o link de pagamento');
       window.location.href = data.checkoutUrl;
     } catch (err) { setError(err instanceof Error ? err.message : 'Erro ao continuar'); setLoading(false); }
   }

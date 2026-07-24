@@ -46,6 +46,7 @@ const checkoutProducts = {
   softvoice: { title: 'SoftVoice RecarregÃ¡vel 16 Canais | Fonovital', price: 2699.9, sku: 'softvoice' },
   vitalair: { title: 'Vital Air Bluetooth Inteligente | Fonovital', price: 1999.0, sku: 'vitalair' },
   vitalvoice: { title: 'VitalVoice | Fonovital', price: 1399.9, sku: 'vitalvoice' },
+  'galinha-pintadinha': { title: 'Galinha Pintadinha | Fonovital', price: 1.0, sku: 'galinha-pintadinha' },
 };
 
 /* ----------------------- Middleware: setar cookie _fbc --------------------- */
@@ -121,6 +122,12 @@ app.get('/api/checkout/:product', async (req, res) => {
     if (!response.ok || !checkoutUrl) {
       console.error('[Mercado Pago] erro ao criar preferÃªncia:', data);
       return res.status(502).json({ error: 'NÃ£o foi possÃ­vel criar o checkout' });
+    }
+    if (db && product.sku === 'galinha-pintadinha') {
+      await db.query(
+        'INSERT INTO orders (external_reference, product, customer, amount) VALUES ($1,$2,$3,$4) ON CONFLICT (external_reference) DO NOTHING',
+        [data.external_reference, product.sku, JSON.stringify({ name: 'Teste Webhook', email: 'teste@fonovital.com.br', cpf: '', phone: '', zipCode: '', street: '', number: '', complement: '', neighborhood: '', city: '', state: '' }), product.price],
+      );
     }
     return res.redirect(303, checkoutUrl);
   } catch (error) {
@@ -219,6 +226,22 @@ app.get('/api/admin/orders', async (req, res) => {
   if (!db) return res.status(503).json({ error: 'DATABASE_URL nÃ£o configurada' });
   const result = await db.query('SELECT * FROM orders ORDER BY created_at DESC LIMIT 200');
   res.json(result.rows);
+});
+
+app.post('/api/admin/test-order', async (req, res) => {
+  if (!ADMIN_KEY || req.get('x-admin-key') !== ADMIN_KEY) return res.status(401).json({ error: 'Não autorizado' });
+  if (!MP_ACCESS_TOKEN || !db) return res.status(503).json({ error: 'Mercado Pago ou banco não configurado' });
+  const product = checkoutProducts['teste-webhook'];
+  const externalReference = `${product.sku}-${Date.now()}`;
+  const customer = { name: 'Teste Webhook', email: 'teste@fonovital.com.br', cpf: '', phone: '', zipCode: '', street: '', number: '', complement: '', neighborhood: '', city: '', state: '' };
+  try {
+    const response = await fetch('https://api.mercadopago.com/checkout/preferences', { method: 'POST', headers: { Authorization: `Bearer ${MP_ACCESS_TOKEN}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ items: [{ id: product.sku, title: product.title, quantity: 1, currency_id: 'BRL', unit_price: product.price }], back_urls: { success: `${FRONTEND_URL}/#/pagamento/sucesso`, pending: `${FRONTEND_URL}/#/pagamento/pendente`, failure: `${FRONTEND_URL}/#/pagamento/falha` }, external_reference: externalReference, notification_url: `${BACKEND_PUBLIC_URL}/api/mercadopago/webhook` }) });
+    const data = await response.json();
+    const checkoutUrl = MP_ACCESS_TOKEN.startsWith('TEST-') ? data.sandbox_init_point : data.init_point;
+    if (!response.ok || !checkoutUrl) return res.status(502).json({ error: 'Não foi possível criar o produto de teste' });
+    await db.query('INSERT INTO orders (external_reference, product, customer, amount) VALUES ($1,$2,$3,$4)', [externalReference, product.sku, JSON.stringify(customer), product.price]);
+    res.json({ checkoutUrl });
+  } catch (error) { console.error('[Admin] erro ao criar teste:', error); res.status(500).json({ error: 'Erro ao criar pedido de teste' }); }
 });
 
 /* ----------------------- Helpers: normalizaÃ§Ã£o/hash ------------------------ */

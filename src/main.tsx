@@ -102,7 +102,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/produto/voicepro" element={<VoicePro />} />
           <Route path="/produto/smartvoice" element={<SmartVoice />} />
           <Route path="/produto/softvoice" element={<SoftVoice />} />
-          <Route path="/finalizar/:product" element={<FinalizarCompra />} />
+        <Route path="/finalizar/:product" element={<FinalizarCompra />} />
           <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>

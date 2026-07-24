@@ -60,7 +60,7 @@ export default function IAvoice() {
     parcelas: 12,
     avaliacoes: 51,
     nota: 4.6,
-    link: '/api/checkout/iavoice'
+    link: '/#/finalizar/iavoice'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)

@@ -59,7 +59,7 @@ export default function VitalAir() {
     parcelas: 12,
     avaliacoes: 42,
     nota: 4.8,
-    link: '/api/checkout/vitalair'
+    link: '/#/finalizar/vitalair'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)

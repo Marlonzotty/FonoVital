@@ -30,7 +30,7 @@ export const softVoiceGallery = [
 
 export const softVoiceHeroImage = softVoiceGallery[0]
 
-const compraLink = '/api/checkout/softvoice'
+const compraLink = '/#/finalizar/softvoice'
 
 export default function SoftVoice() {
   useEffect(() => {
@@ -220,7 +220,7 @@ export default function SoftVoice() {
 
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6">⚙️ Características Principais</h2>
+          <h2 className="text-2xl font-semibold mb-6">?? Características Principais</h2>
           <div className="overflow-x-auto">
             <table className="w-full border border-white/15 rounded-xl overflow-hidden">
               <thead className="section-gradient text-white text-left">
@@ -269,7 +269,7 @@ export default function SoftVoice() {
       <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
           <div className="bg-[#f9fafb]/10 border border-white/15 rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">🔊 Controle de Som</h3>
+            <h3 className="text-xl font-semibold mb-4 text-[#7de8ff]">?? Controle de Som</h3>
             <ul className="space-y-3 text-gray-200">
               {controleSom.map(item => (
                 <li key={item.titulo} className="flex gap-2">
@@ -283,7 +283,7 @@ export default function SoftVoice() {
             </ul>
           </div>
           <div className="bg-white/5 border border-white/15 rounded-2xl p-6">
-            <h3 className="text-xl font-semibold mb-4 text-[#047857]">🧼 Higiene e Segurança</h3>
+            <h3 className="text-xl font-semibold mb-4 text-[#047857]">?? Higiene e Segurança</h3>
             <ul className="space-y-3 text-gray-200">
               {higieneSeguranca.map(item => (
                 <li key={item} className="flex gap-2">
@@ -298,7 +298,7 @@ export default function SoftVoice() {
 
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center">🔋 Bateria e Carregamento</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">?? Bateria e Carregamento</h2>
           <div className="overflow-x-auto">
             <table className="w-full border border-white/15 rounded-xl overflow-hidden">
               <tbody className="bg-white/5">
@@ -316,7 +316,7 @@ export default function SoftVoice() {
 
       <section className="w-full bg-white/5 py-12 px-4 text-base lg:text-lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-center text-white">📦 Conteúdo da Embalagem</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center text-white">?? Conteúdo da Embalagem</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {conteudoEmbalagem.map(item => (
               <div key={item} className="rounded-2xl border border-[#028794]/20 bg-white/5 px-5 py-4 text-white">

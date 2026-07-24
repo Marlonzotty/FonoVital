@@ -39,7 +39,7 @@ const aparelhos = [
     rota: '/produto/voxton',
     badge: 'CIC',
     nota: 4.3,
-    link: '/api/checkout/voxton',
+    link: '/#/finalizar/voxton',
   },
   {
     sigla: 'Voxcharge Mini CIC',
@@ -68,7 +68,7 @@ const aparelhos = [
     rota: '/produto/iavoice',
     badge: 'IA',
     nota: 4.6,
-    link: '/api/checkout/iavoice',
+    link: '/#/finalizar/iavoice',
   },
   {
     sigla: 'Vital Air',
@@ -82,7 +82,7 @@ const aparelhos = [
     rota: '/produto/vitalair',
     badge: 'TWS',
     nota: 4.8,
-    link: '/api/checkout/vitalair',
+    link: '/#/finalizar/vitalair',
   },
   {
     sigla: 'VoicePro Profissional',

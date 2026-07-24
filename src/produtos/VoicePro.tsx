@@ -41,7 +41,7 @@ export const voiceProGallery = [
 export const voiceProHeroImage = voiceProGallery[0]
 
 // O backend cria uma preferência Mercado Pago por compra.
-export const voiceProCheckoutLink = '/api/checkout/voicepro'
+export const voiceProCheckoutLink = '/#/finalizar/voicepro'
 
 export default function VoicePro() {
   useEffect(() => {

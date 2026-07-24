@@ -22,6 +22,8 @@ import VitalAir from "./produtos/VitalAir";
 import VoicePro from "./produtos/VoicePro";
 import SmartVoice from "./produtos/SmartVoice";
 import SoftVoice from "./produtos/SoftVoice";
+import FinalizarCompra from "./pages/FinalizarCompra";
+import Admin from "./pages/Admin";
 
 import {
   loadFacebookPixel,
@@ -100,6 +102,8 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/produto/voicepro" element={<VoicePro />} />
           <Route path="/produto/smartvoice" element={<SmartVoice />} />
           <Route path="/produto/softvoice" element={<SoftVoice />} />
+          <Route path="/finalizar/:product" element={<FinalizarCompra />} />
+          <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>
     </HashRouter>

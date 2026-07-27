@@ -29,6 +29,7 @@ export default function ProductActionStrip({
         <div className="grid gap-4 sm:grid-cols-2 lg:min-w-[420px]">
           <a
             href={buyHref}
+            data-google-ads-purchase="true"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-14 items-center justify-center rounded-2xl bg-[#8ef7ff] px-6 py-4 text-sm font-bold text-[#003b49] transition hover:bg-white lg:min-h-16 lg:text-base"

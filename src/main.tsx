@@ -30,7 +30,7 @@ import {
   trackPageView,
   refreshFbcFromUrl,
 } from "./analytics/fbpixel";
-import { initGoogleAds } from "./analytics/googleAds";
+import { gtag_report_conversion, initGoogleAds } from "./analytics/googleAds";
 
 // ID do Pixel via .env (Vite)
 const pixelId = import.meta.env.VITE_META_PIXEL_ID as string | undefined;
@@ -63,6 +63,26 @@ function InlineRoutePageView() {
   return null;
 }
 
+function PurchaseClickTracking() {
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      const element = event.target instanceof Element
+        ? event.target.closest('[data-google-ads-purchase="true"]')
+        : null;
+
+      // Cada CTA de compra dos produtos é marcado explicitamente.
+      if (element) {
+        gtag_report_conversion();
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
+
+  return null;
+}
+
 function BaseLayout() {
   return (
     <>
@@ -84,6 +104,7 @@ createRoot(document.getElementById("root")!).render(
           2) Inline (abaixo):
       */}
       <InlineRoutePageView />
+      <PurchaseClickTracking />
 
       <Routes>
         <Route element={<BaseLayout />}>

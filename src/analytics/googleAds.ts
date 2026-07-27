@@ -4,12 +4,13 @@ declare global {
   interface Window {
     dataLayer?: unknown[]
     gtag?: Gtag
+    gtag_report_conversion?: (url?: string) => boolean
   }
 }
 
 const googleAdsId = 'AW-17575630630'
 const conversionLabel = 'x5ZACJGfxNUcEKau27xB'
-const purchaseConversionLabel = 'xyUICK7kztUcEKau27xB'
+const purchaseConversionLabel = 'AQN2CMCI0dccEKau27xB'
 
 export function initGoogleAds() {
   if (!googleAdsId || document.querySelector('script[data-google-ads]')) return
@@ -35,11 +36,33 @@ export function trackGoogleAdsConversion(eventName: string, value = 1) {
 }
 
 export function trackPurchaseConversion(transactionId = '') {
-  if (!googleAdsId || !window.gtag) return
+  if (!googleAdsId || !window.gtag) return false
   window.gtag('event', 'conversion', {
     send_to: `${googleAdsId}/${purchaseConversionLabel}`,
     value: 1.0,
     currency: 'BRL',
     transaction_id: transactionId,
   })
+  return false
+}
+
+/** Registra uma conversão de compra conforme o snippet do Google Ads. */
+export function gtag_report_conversion(url?: string) {
+  const callback = () => {
+    if (typeof url !== 'undefined') window.location.href = url
+  }
+
+  if (!googleAdsId || !window.gtag) return false
+  window.gtag('event', 'conversion', {
+    send_to: `${googleAdsId}/${purchaseConversionLabel}`,
+    value: 1.0,
+    currency: 'BRL',
+    transaction_id: '',
+    event_callback: callback,
+  })
+  return false
+}
+
+if (typeof window !== 'undefined') {
+  window.gtag_report_conversion = gtag_report_conversion
 }

@@ -292,6 +292,7 @@ export default function Voxton() {
 
                 <a
                   href={ladoAtual.link}
+                  data-google-ads-purchase="true"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center rounded-xl bg-[#008B91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
@@ -502,6 +503,7 @@ export default function Voxton() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href={ladoAtual.link}
+              data-google-ads-purchase="true"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-[#7de8ff] shadow hover:bg-white/10 transition"
@@ -567,6 +569,7 @@ export default function Voxton() {
         <p className="text-2xl font-bold mb-4">Pronto para ouvir melhor todos os dias?</p>
         <a
           href={ladoAtual.link}
+          data-google-ads-purchase="true"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-gradient-to-r from-[#4A90E2] to-[#00979c] text-white py-4 px-8 rounded-full font-bold text-lg transition"

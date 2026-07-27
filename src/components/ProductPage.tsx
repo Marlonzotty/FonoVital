@@ -118,6 +118,7 @@ export default function ProductPage() {
 
             <motion.button
               onClick={() => navigate('/produto/voxton')}
+              data-google-ads-purchase="true"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.96 }}
               className="w-full sm:w-auto bg-[#0d7f83] text-white font-bold px-6 py-3 rounded-lg transition text-center text-base md:text-lg animate-pulse border-2 border-[#0b666a] shadow-lg"

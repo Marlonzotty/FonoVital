@@ -182,6 +182,7 @@ export default function TiposAparelhos() {
                     {item.esgotado ? (
                       <a
                         href={item.link}
+                        data-google-ads-purchase="true"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-red-500/80 text-white text-sm px-4 py-2 rounded-lg font-medium cursor-not-allowed"

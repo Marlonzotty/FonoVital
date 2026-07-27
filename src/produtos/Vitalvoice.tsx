@@ -216,6 +216,7 @@ export default function Vitalvoice() {
 
                 <a
                   href={dados.link}
+                  data-google-ads-purchase="true"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center rounded-xl bg-[#008B91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
@@ -455,6 +456,7 @@ export default function Vitalvoice() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href={dados.link}
+              data-google-ads-purchase="true"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-[#7de8ff] shadow hover:bg-white/10 transition"
@@ -490,6 +492,7 @@ export default function Vitalvoice() {
         </p>
         <a
           href={dados.link}
+          data-google-ads-purchase="true"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-[#008B91] hover:bg-[#005f6e] text-white py-4 px-8 rounded-full font-bold text-lg transition"

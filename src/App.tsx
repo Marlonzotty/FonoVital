@@ -279,6 +279,7 @@ export default function App() {
               <div className="flex flex-col gap-4 sm:flex-row">
                 <a
                   href={featuredProduct.link}
+                  data-google-ads-purchase="true"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-3d inline-flex items-center justify-center gap-2 text-base"
@@ -495,6 +496,7 @@ export default function App() {
                       {item.esgotado ? (
                         <a
                           href={item.link}
+                          data-google-ads-purchase="true"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-gray-700/50 text-gray-300 font-medium text-sm"

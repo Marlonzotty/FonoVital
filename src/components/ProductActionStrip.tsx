@@ -1,3 +1,5 @@
+import MercadoPagoSeal from './MercadoPagoSeal';
+
 type ProductActionStripProps = {
   buyHref: string;
   buyLabel?: string;
@@ -46,6 +48,7 @@ export default function ProductActionStrip({
           </a>
         </div>
       </div>
+      <MercadoPagoSeal />
     </section>
   );
 }

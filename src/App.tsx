@@ -117,7 +117,7 @@ const aparelhos = [
     badge: 'BT',
     nota: 4.5,
     novo: true,
-    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital',
+    link: '/#/finalizar/smartvoice',
   },
   {
     sigla: 'SoftVoice',

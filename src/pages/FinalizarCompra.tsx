@@ -2,6 +2,8 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import { trackPurchaseConversion } from '../analytics/googleAds';
+import MercadoPagoSeal from '../components/MercadoPagoSeal';
+import SocialProofVideos from '../components/SocialProofVideos';
 
 const products: Record<string, string> = {
   'galinha-pintadinha': 'Galinha Pintadinha',
@@ -29,5 +31,28 @@ export default function FinalizarCompra() {
     } catch (err) { setError(err instanceof Error ? err.message : 'Erro ao continuar'); setLoading(false); }
   }
   const fields = [['name', 'Nome completo'], ['cpf', 'CPF'], ['email', 'E-mail'], ['phone', 'Telefone'], ['zipCode', 'CEP'], ['street', 'Rua'], ['number', 'Número'], ['complement', 'Complemento (opcional)'], ['neighborhood', 'Bairro'], ['city', 'Cidade'], ['state', 'UF']];
-  return <main className="min-h-screen bg-slate-50 px-4 py-12"><form onSubmit={submit} className="mx-auto max-w-2xl rounded-3xl bg-white p-6 shadow-xl sm:p-10"><h1 className="text-3xl font-bold text-slate-900">Finalizar compra</h1><p className="mt-2 text-slate-600">{products[product] || 'Produto Fonovital'}</p><div className="mt-8 grid gap-4 sm:grid-cols-2">{fields.map(([key, label]) => <label key={key} className={key === 'email' || key === 'street' || key === 'name' ? 'sm:col-span-2' : ''}><span className="mb-1 block text-sm font-semibold text-slate-700">{label}{key !== 'complement' && ' *'}</span><input required={key !== 'complement'} value={form[key] || ''} onChange={update(key)} type={key === 'email' ? 'email' : 'text'} className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#008B91]" /></label>)}</div>{error && <p className="mt-5 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}<button disabled={loading} className="mt-8 w-full rounded-xl bg-[#008B91] px-5 py-4 font-bold text-white disabled:opacity-60">{loading ? 'Abrindo pagamento...' : 'Continuar para pagamento seguro'}</button></form></main>;
+  return (
+    <main className="min-h-screen bg-slate-50 px-4 py-12">
+      <div className="mx-auto mb-6 max-w-2xl rounded-3xl bg-white px-6 py-4 shadow-sm">
+        <MercadoPagoSeal />
+      </div>
+      <form onSubmit={submit} className="mx-auto max-w-2xl rounded-3xl bg-white p-6 shadow-xl sm:p-10">
+        <h1 className="text-3xl font-bold text-slate-900">Finalizar compra</h1>
+        <p className="mt-2 text-slate-600">{products[product] || 'Produto Fonovital'}</p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {fields.map(([key, label]) => (
+            <label key={key} className={key === 'email' || key === 'street' || key === 'name' ? 'sm:col-span-2' : ''}>
+              <span className="mb-1 block text-sm font-semibold text-slate-700">{label}{key !== 'complement' && ' *'}</span>
+              <input required={key !== 'complement'} value={form[key] || ''} onChange={update(key)} type={key === 'email' ? 'email' : 'text'} className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#008B91]" />
+            </label>
+          ))}
+        </div>
+        {error && <p className="mt-5 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+        <button disabled={loading} className="mt-8 w-full rounded-xl bg-[#008B91] px-5 py-4 font-bold text-white disabled:opacity-60">
+          {loading ? 'Abrindo pagamento...' : 'Continuar para pagamento seguro'}
+        </button>
+      </form>
+      <SocialProofVideos />
+    </main>
+  );
 }

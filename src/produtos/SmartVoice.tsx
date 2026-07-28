@@ -9,6 +9,7 @@ import {
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
 import ProductActionStrip from '../components/ProductActionStrip'
+import MercadoPagoSeal from '../components/MercadoPagoSeal'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
 import SocialProofVideos from '../components/SocialProofVideos'
@@ -171,7 +172,7 @@ export default function SmartVoice() {
                 </div>
 
                 <a
-                  href={whatsappLink}
+                  href={dados.link}
                   data-google-ads-purchase="true"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -179,6 +180,7 @@ export default function SmartVoice() {
                 >
                   COMPRAR AGORA
                 </a>
+                <MercadoPagoSeal />
               </div>
               </div>
               <SocialProofVideos />
@@ -356,6 +358,7 @@ export default function SmartVoice() {
               Falar com especialista
             </a>
           </div>
+          <MercadoPagoSeal />
         </div>
       </section>
 
@@ -379,6 +382,7 @@ export default function SmartVoice() {
         >
           GARANTA O SEU AGORA
         </a>
+        <MercadoPagoSeal />
       </section>
 
       <section className="w-full section-dark py-12 px-4 text-base lg:text-lg">

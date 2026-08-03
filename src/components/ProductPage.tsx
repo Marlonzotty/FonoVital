@@ -1,10 +1,12 @@
 ﻿import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ShieldCheck, Star, Truck, Repeat } from 'lucide-react';
 
 import voxton from '../assets/voxton/voxton.png';
 import certificados from '../assets/certificados.png';
+import RaVerifiedSeal from './RaVerifiedSeal';
+import MercadoPagoSeal from './MercadoPagoSeal';
 
 /** Declaração global para evitar erro TS */
 declare global {
@@ -20,7 +22,7 @@ declare global {
 
 export default function ProductPage() {
   const [currentImage, setCurrentImage] = useState(voxton);
-  const navigate = useNavigate();
+  const whatsappHref = 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Voxton%20Mini%20CIC.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.';
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -116,15 +118,17 @@ export default function ProductPage() {
               data-product-code="KQ4WBFEEML"
             ></div>
 
-            <motion.button
-              onClick={() => navigate('/produto/voxton')}
-              data-google-ads-purchase="true"
+            <motion.a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.96 }}
               className="w-full sm:w-auto bg-[#0d7f83] text-white font-bold px-6 py-3 rounded-lg transition text-center text-base md:text-lg animate-pulse border-2 border-[#0b666a] shadow-lg"
             >
-              COMPRAR AGORA
-            </motion.button>
+              Tenho interesse
+            </motion.a>
+            <MercadoPagoSeal />
 
             <Link
               to="/teste-auditivo"

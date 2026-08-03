@@ -10,7 +10,7 @@ import { voxtonHeroImage } from '../produtos/voxton';
 import { voxchargeHeroImage } from '../produtos/Voxcharge';
 import { iaVoiceHeroImage } from '../produtos/IAvoice';
 import { vitalAirHeroImage } from '../produtos/VitalAir';
-import { voiceProCheckoutLink, voiceProHeroImage } from '../produtos/VoicePro';
+import { voiceProHeroImage } from '../produtos/VoicePro';
 
 const renderStars = (nota: number) => {
   const estados: Array<'full' | 'half' | 'empty'> = [];
@@ -39,7 +39,7 @@ const aparelhos = [
     rota: '/produto/voxton',
     badge: 'CIC',
     nota: 4.3,
-    link: '/#/finalizar/voxton',
+    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Voxton%20Mini%20CIC.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.',
   },
   {
     sigla: 'Voxcharge Mini CIC',
@@ -68,7 +68,7 @@ const aparelhos = [
     rota: '/produto/iavoice',
     badge: 'IA',
     nota: 4.6,
-    link: '/#/finalizar/iavoice',
+    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20IAvoice%20Inteligente.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.',
   },
   {
     sigla: 'Vital Air',
@@ -82,7 +82,7 @@ const aparelhos = [
     rota: '/produto/vitalair',
     badge: 'TWS',
     nota: 4.8,
-    link: '/#/finalizar/vitalair',
+    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Vital%20Air.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.',
   },
   {
     sigla: 'VoicePro Profissional',
@@ -96,7 +96,7 @@ const aparelhos = [
     rota: '/produto/voicepro',
     badge: 'CIC',
     nota: 4.5,
-    link: voiceProCheckoutLink,
+    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20VoicePro%20Profissional.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.',
   },
 ];
 
@@ -182,7 +182,6 @@ export default function TiposAparelhos() {
                     {item.esgotado ? (
                       <a
                         href={item.link}
-                        data-google-ads-purchase="true"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-red-500/80 text-white text-sm px-4 py-2 rounded-lg font-medium cursor-not-allowed"
@@ -196,15 +195,17 @@ export default function TiposAparelhos() {
                         rel="noopener noreferrer"
                         className="bg-[#007c91] hover:bg-[#005f6e] text-white text-sm px-4 py-2 rounded-lg font-medium transition"
                       >
-                        Compre Agora
+                        Tenho interesse
                       </a>
                     ) : (
-                      <Link
-                        to={item.rota}
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="bg-[#007c91] hover:bg-[#005f6e] text-white text-sm px-4 py-2 rounded-lg font-medium transition"
                       >
-                        Compre Agora 
-                      </Link>
+                        Tenho interesse
+                      </a>
                     )}
                   </div>
                 </div>

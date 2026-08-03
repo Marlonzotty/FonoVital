@@ -48,14 +48,14 @@ export default function Voxcharge() {
     avaliacoes: 34,
     nota: 4.4,
     esgotado: true,
-    whatsapp: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
+    whatsapp: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Voxcharge%20Mini%20CIC%20Recarreg%C3%A1vel.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(voxchargeGallery[0].src)
   const parcela = (dados.precoAtual / 12).toFixed(2).replace('.', ',')
 
   const suporteWhatsapp =
-    'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
+    'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Voxcharge%20Mini%20CIC%20Recarreg%C3%A1vel.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.'
 
   return (
     <section className="pt-16 md:pt-20 min-h-screen hero-bg grid-bg font-body text-slate-900">

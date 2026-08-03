@@ -10,6 +10,7 @@ import Comments from '../components/Comments'
 import Footer from '../components/Footer'
 import ProductActionStrip from '../components/ProductActionStrip'
 import MercadoPagoSeal from '../components/MercadoPagoSeal'
+import RaVerifiedSeal from '../components/RaVerifiedSeal'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
 import SocialProofVideos from '../components/SocialProofVideos'
@@ -45,7 +46,7 @@ export default function SmartVoice() {
     parcelas: 12,
     avaliacoes: 18,
     nota: 4.5,
-    link: '/#/finalizar/smartvoice'
+    link: 'https://wa.me/55329999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20SmartVoice%20Bluetooth%20Inteligente.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(smartVoiceGallery[0].src)
@@ -113,7 +114,7 @@ export default function SmartVoice() {
   ]
 
   const whatsappLink = `https://wa.me/55329999069763?text=${encodeURIComponent(
-    `Olá, quero saber mais sobre o ${dados.nome}`
+    `Olá, tenho interesse no ${dados.nome}. Tenho algumas dúvidas antes de comprar.`
   )}`
 
   return (
@@ -172,13 +173,12 @@ export default function SmartVoice() {
                 </div>
 
                 <a
-                  href={dados.link}
-                  data-google-ads-purchase="true"
+                  href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center rounded-xl bg-[#008B91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
                 >
-                  COMPRAR AGORA
+                  Tenho interesse
                 </a>
                 <MercadoPagoSeal />
               </div>
@@ -341,13 +341,12 @@ export default function SmartVoice() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href={dados.link}
-              data-google-ads-purchase="true"
+              href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-[#7de8ff] shadow hover:bg-white/10 transition"
             >
-              Comprar agora
+              Tenho interesse
             </a>
             <a
               href={whatsappLink}
@@ -374,8 +373,7 @@ export default function SmartVoice() {
       <section className="w-full bg-white/5 py-16 px-4 text-center text-base lg:text-lg">
         <p className="text-2xl font-bold mb-4">Clareza profissional para todas as conversas.</p>
         <a
-          href={dados.link}
-          data-google-ads-purchase="true"
+          href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-[#008B91] hover:bg-[#005f6e] text-white py-4 px-8 rounded-full font-bold text-lg transition"

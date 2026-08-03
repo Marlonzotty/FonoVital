@@ -26,7 +26,15 @@ const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN;
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 const BACKEND_PUBLIC_URL = process.env.BACKEND_PUBLIC_URL || `http://localhost:${process.env.PORT || 3001}`;
 const ADMIN_KEY = process.env.ADMIN_KEY;
-const db = process.env.DATABASE_URL ? new pg.Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } }) : null;
+const DATABASE_URL = process.env.DATABASE_URL;
+const DATABASE_SSL = process.env.DATABASE_SSL === 'true'
+  || (process.env.DATABASE_SSL !== 'false' && DATABASE_URL && !/localhost|127\.0\.0\.1/.test(DATABASE_URL));
+const db = DATABASE_URL
+  ? new pg.Pool({
+      connectionString: DATABASE_URL,
+      ssl: DATABASE_SSL ? { rejectUnauthorized: false } : false,
+    })
+  : null;
 
 async function initDatabase() {
   if (!db) return;

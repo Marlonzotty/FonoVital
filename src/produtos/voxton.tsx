@@ -9,6 +9,7 @@ import {
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
 import ProductActionStrip from '../components/ProductActionStrip'
+import MercadoPagoSeal from '../components/MercadoPagoSeal'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
 import SocialProofVideos from '../components/SocialProofVideos'
@@ -60,21 +61,21 @@ export default function Voxton() {
         imagem: voxton,
         precoOriginal: 1399,
         precoAtual: 599.9,
-        link: '/#/finalizar/voxton'
+        link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Voxton%20Mini%20CIC%20(par).%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.'
       },
       direito: {
         label: 'LADO DIREITO',
         imagem: voxton,
         precoOriginal: 499,
         precoAtual: 399.9,
-        link: '/#/finalizar/voxton-direito'
+        link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Voxton%20Mini%20CIC%20(lado%20direito).%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.'
       },
       esquerdo: {
         label: 'LADO ESQUERDO',
         imagem: voxton,
         precoOriginal: 499,
         precoAtual: 399.9,
-        link: '/#/finalizar/voxton-esquerdo'
+        link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Voxton%20Mini%20CIC%20(lado%20esquerdo).%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.'
       }
     },
     avaliacoes: 21,
@@ -88,8 +89,9 @@ export default function Voxton() {
   const ladoAtual = dados.lados[opcao]
   const economia = (ladoAtual.precoOriginal - ladoAtual.precoAtual).toFixed(2).replace('.', ',')
 
-  const whatsappLink =
-    'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
+  const whatsappLink = `https://wa.me/5532999069763?text=${encodeURIComponent(
+    `Olá, tenho interesse no ${dados.nome}, opção ${ladoAtual.label}. Tenho algumas dúvidas antes de comprar.`
+  )}`
 
   const destaquesRapidos = [
     {
@@ -291,14 +293,14 @@ export default function Voxton() {
                 </div>
 
                 <a
-                  href={ladoAtual.link}
-                  data-google-ads-purchase="true"
+                  href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center rounded-xl bg-[#008B91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
                 >
-                  Comprar {opcao === 'par' ? 'o par' : `lado ${opcao}`}
+                  Tenho interesse
                 </a>
+                <MercadoPagoSeal />
               </div>
               </div>
               <SocialProofVideos />
@@ -502,13 +504,12 @@ export default function Voxton() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href={ladoAtual.link}
-              data-google-ads-purchase="true"
+              href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-[#7de8ff] shadow hover:bg-white/10 transition"
             >
-              Comprar {opcao === 'par' ? 'o par' : `lado ${opcao}`}
+              Tenho interesse
             </a>
             <a
               href={whatsappLink}
@@ -568,13 +569,12 @@ export default function Voxton() {
       <section className="w-full bg-white/5 py-16 px-4 text-center text-base lg:text-lg">
         <p className="text-2xl font-bold mb-4">Pronto para ouvir melhor todos os dias?</p>
         <a
-          href={ladoAtual.link}
-          data-google-ads-purchase="true"
+          href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-gradient-to-r from-[#4A90E2] to-[#00979c] text-white py-4 px-8 rounded-full font-bold text-lg transition"
         >
-          GARANTIR O MEU
+          Tenho interesse
         </a>
       </section>
 

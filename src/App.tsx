@@ -19,6 +19,8 @@ import {
 import Comments from './components/Comments';
 import Footer from './components/Footer';
 import PurchaseAlert from './components/PurchaseAlert';
+import RaVerifiedSeal from './components/RaVerifiedSeal';
+import MercadoPagoSeal from './components/MercadoPagoSeal';
 
 // Product images
 import { voxtonHeroImage } from './produtos/voxton';
@@ -27,7 +29,7 @@ import { iaVoiceHeroImage } from './produtos/IAvoice';
 import { vitalAirHeroImage } from './produtos/VitalAir';
 import bannerJunho from './assets/bannerjunho.png';
 
-import { voiceProCheckoutLink, voiceProHeroImage } from './produtos/VoicePro';
+import { voiceProHeroImage } from './produtos/VoicePro';
 import { smartVoiceHeroImage } from './produtos/SmartVoice';
 import { softVoiceHeroImage } from './produtos/SoftVoice';
 
@@ -100,7 +102,7 @@ const aparelhos = [
     rota: '/produto/voicepro',
     badge: 'PRO',
     nota: 4.5,
-    link: voiceProCheckoutLink,
+    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20VoicePro%20Profissional%20Digital.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.',
     destaque: true,
   },
   {
@@ -117,7 +119,7 @@ const aparelhos = [
     badge: 'BT',
     nota: 4.5,
     novo: true,
-    link: '/#/finalizar/smartvoice',
+    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20SmartVoice%20CIC%20Bluetooth%20Magn%C3%A9tico.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.',
   },
   {
     sigla: 'SoftVoice',
@@ -279,13 +281,12 @@ export default function App() {
               <div className="flex flex-col gap-4 sm:flex-row">
                 <a
                   href={featuredProduct.link}
-                  data-google-ads-purchase="true"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-3d inline-flex items-center justify-center gap-2 text-base"
                 >
                   <Zap size={20} />
-                  Comprar VoicePro
+                  Tenho interesse
                 </a>
                 <Link
                   to="/garantia"
@@ -496,7 +497,6 @@ export default function App() {
                       {item.esgotado ? (
                         <a
                           href={item.link}
-                          data-google-ads-purchase="true"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-gray-700/50 text-gray-300 font-medium text-sm"
@@ -504,15 +504,18 @@ export default function App() {
                           Avise-me
                         </a>
                       ) : item.sigla === 'VoicePro' ? (
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg btn-3d text-sm"
-                        >
-                          Comprar Agora
-                          <ChevronRight size={16} />
-                        </a>
+                        <>
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg btn-3d text-sm"
+                          >
+                            Tenho interesse
+                            <ChevronRight size={16} />
+                          </a>
+                          <MercadoPagoSeal />
+                        </>
                       ) : (
                         <Link
                           to={item.rota}

@@ -9,6 +9,8 @@ import {
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
 import ProductActionStrip from '../components/ProductActionStrip'
+import RaVerifiedSeal from '../components/RaVerifiedSeal'
+import MercadoPagoSeal from '../components/MercadoPagoSeal'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
 import SocialProofVideos from '../components/SocialProofVideos'
@@ -30,7 +32,7 @@ export const softVoiceGallery = [
 
 export const softVoiceHeroImage = softVoiceGallery[0]
 
-const compraLink = '/#/finalizar/softvoice'
+const compraLink = 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20SoftVoice%20Recarreg%C3%A1vel.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.'
 
 export default function SoftVoice() {
   useEffect(() => {
@@ -108,8 +110,9 @@ export default function SoftVoice() {
     'Manual do usuário'
   ]
 
-  const whatsappLink =
-    'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
+  const whatsappLink = `https://wa.me/5532999069763?text=${encodeURIComponent(
+    `Olá, tenho interesse no ${dados.nome}. Tenho algumas dúvidas antes de comprar.`
+  )}`
 
   return (
     <section className="pt-20 md:pt-24 min-h-screen hero-bg grid-bg font-body text-white">
@@ -177,14 +180,14 @@ export default function SoftVoice() {
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
-                    href={compraLink}
-                    data-google-ads-purchase="true"
+                    href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex w-full items-center justify-center rounded-full bg-[#008B91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#006d7e] shadow-lg"
                   >
-                    Comprar agora
+                    Tenho interesse
                   </a>
+                  <MercadoPagoSeal />
                   <a
                     href={whatsappLink}
                     target="_blank"
@@ -338,13 +341,12 @@ export default function SoftVoice() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href={dados.link}
-              data-google-ads-purchase="true"
+              href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#7de8ff] shadow hover:bg-white/10 transition"
             >
-              Comprar agora
+              Tenho interesse
             </a>
             <a
               href={whatsappLink}
@@ -377,8 +379,7 @@ export default function SoftVoice() {
       <section className="w-full bg-white/5 py-16 px-4 text-center text-base lg:text-lg">
         <p className="text-2xl font-bold mb-4 text-white">Som cristalino e seguro em cada conversa.</p>
         <a
-          href={dados.link}
-          data-google-ads-purchase="true"
+          href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-[#008B91] hover:bg-[#005f6e] text-white py-4 px-8 rounded-full font-bold text-lg transition"

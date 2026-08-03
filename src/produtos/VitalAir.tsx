@@ -12,6 +12,8 @@ import ProductActionStrip from '../components/ProductActionStrip'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
 import SocialProofVideos from '../components/SocialProofVideos'
+import RaVerifiedSeal from '../components/RaVerifiedSeal'
+import MercadoPagoSeal from '../components/MercadoPagoSeal'
 
 import vitalAirfundo from '../assets/vitalair/VitalAirfundo.jpg'
 import vitalAirBanner from '../assets/vitalair/VitalAirBanner.jpg'
@@ -59,14 +61,15 @@ export default function VitalAir() {
     parcelas: 12,
     avaliacoes: 42,
     nota: 4.8,
-    link: '/#/finalizar/vitalair'
+    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Vital%20Air.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.'
   }
 
   const [imagemSelecionada, setImagemSelecionada] = useState<string>(imagensGaleria[0].src)
   const economia = (dados.precoOriginal - dados.precoAtual).toFixed(2).replace('.', ',')
 
-  const whatsappLink =
-    'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital'
+  const whatsappLink = `https://wa.me/5532999069763?text=${encodeURIComponent(
+    `Olá, tenho interesse no ${dados.nome}. Tenho algumas dúvidas antes de comprar.`
+  )}`
 
   const destaquesRapidos = [
     {
@@ -316,14 +319,14 @@ export default function VitalAir() {
                 </div>
 
                 <a
-                  href={dados.link}
-                  data-google-ads-purchase="true"
+                  href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center rounded-xl bg-[#008B91] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#005f6e] sm:w-auto sm:self-start"
                 >
-                  COMPRAR AGORA
+                  Tenho interesse
                 </a>
+                <MercadoPagoSeal />
               </div>
               </div>
               <SocialProofVideos />
@@ -600,13 +603,12 @@ export default function VitalAir() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href={dados.link}
-              data-google-ads-purchase="true"
+              href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-[#7de8ff] shadow hover:bg-white/10 transition"
             >
-              Comprar agora
+              Tenho interesse
             </a>
             <a
               href={whatsappLink}
@@ -668,8 +670,7 @@ export default function VitalAir() {
           Controle sua audição com o Vital Air.
         </p>
         <a
-          href={dados.link}
-          data-google-ads-purchase="true"
+          href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-[#008B91] hover:bg-[#005f6e] text-white py-4 px-8 rounded-full font-bold text-lg transition"

@@ -12,7 +12,6 @@ import ProductActionStrip from '../components/ProductActionStrip'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'
 import SocialProofVideos from '../components/SocialProofVideos'
-import RaVerifiedSeal from '../components/RaVerifiedSeal'
 import MercadoPagoSeal from '../components/MercadoPagoSeal'
 
 import vitalAirfundo from '../assets/vitalair/VitalAirfundo.jpg'

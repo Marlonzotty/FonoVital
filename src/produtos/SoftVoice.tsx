@@ -9,7 +9,6 @@ import {
 import Comments from '../components/Comments'
 import Footer from '../components/Footer'
 import ProductActionStrip from '../components/ProductActionStrip'
-import RaVerifiedSeal from '../components/RaVerifiedSeal'
 import MercadoPagoSeal from '../components/MercadoPagoSeal'
 import ProductGallery from '../components/ProductGallery'
 import ProductRating from '../components/ProductRating'

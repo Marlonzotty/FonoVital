@@ -19,7 +19,6 @@ import {
 import Comments from './components/Comments';
 import Footer from './components/Footer';
 import PurchaseAlert from './components/PurchaseAlert';
-import RaVerifiedSeal from './components/RaVerifiedSeal';
 import MercadoPagoSeal from './components/MercadoPagoSeal';
 
 // Product images

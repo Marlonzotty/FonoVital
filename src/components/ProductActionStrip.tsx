@@ -7,9 +7,7 @@ type ProductActionStripProps = {
 };
 
 export default function ProductActionStrip({
-  buyHref,
   whatsappHref,
-  soldOut = false,
 }: ProductActionStripProps) {
   return (
     <section className="rounded-[32px] border border-[#8be4ea] bg-gradient-to-r from-[#003b49] via-[#005f6e] to-[#00a8b5] p-7 text-white shadow-[0_22px_60px_rgba(0,95,110,0.28)] sm:p-9 lg:p-10">

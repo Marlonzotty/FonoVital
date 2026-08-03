@@ -5,7 +5,6 @@ import { ShieldCheck, Star, Truck, Repeat } from 'lucide-react';
 
 import voxton from '../assets/voxton/voxton.png';
 import certificados from '../assets/certificados.png';
-import RaVerifiedSeal from './RaVerifiedSeal';
 import MercadoPagoSeal from './MercadoPagoSeal';
 
 /** Declaração global para evitar erro TS */

@@ -1,5 +1,4 @@
 ﻿import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { HiOutlineCreditCard } from 'react-icons/hi2';
 

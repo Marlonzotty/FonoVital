@@ -185,7 +185,7 @@ export default function TiposAparelhos() {
                         rel="noopener noreferrer"
                         className="bg-red-500/80 text-white text-sm px-4 py-2 rounded-lg font-medium cursor-not-allowed"
                       >
-                        Avise-me
+                        Compre agora
                       </a>
                     ) : item.sigla.includes('VoicePro') ? (
                       <a
@@ -194,7 +194,7 @@ export default function TiposAparelhos() {
                         rel="noopener noreferrer"
                         className="bg-[#007c91] hover:bg-[#005f6e] text-white text-sm px-4 py-2 rounded-lg font-medium transition"
                       >
-                        Tenho interesse
+                        Compre agora
                       </a>
                     ) : (
                       <a
@@ -203,7 +203,7 @@ export default function TiposAparelhos() {
                         rel="noopener noreferrer"
                         className="bg-[#007c91] hover:bg-[#005f6e] text-white text-sm px-4 py-2 rounded-lg font-medium transition"
                       >
-                        Tenho interesse
+                        Compre agora
                       </a>
                     )}
                   </div>

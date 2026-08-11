@@ -56,7 +56,7 @@ const aparelhos = [
     rota: '/produto/vitalair',
     badge: 'TWS',
     nota: 4.8,
-    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital',
+    link: '/#/finalizar/vitalair',
   },
   {
     sigla: 'Voxton Mini CIC',
@@ -71,7 +71,7 @@ const aparelhos = [
     rota: '/produto/voxton',
     badge: 'CIC',
     nota: 4.3,
-    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital',
+    link: '/#/finalizar/voxton',
   },
   {
     sigla: 'IAvoice Inteligente',
@@ -86,7 +86,7 @@ const aparelhos = [
     rota: '/produto/iavoice',
     badge: 'IA',
     nota: 4.6,
-    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital',
+    link: '/#/finalizar/iavoice',
   },
   {
     sigla: 'VoicePro',
@@ -101,7 +101,7 @@ const aparelhos = [
     rota: '/produto/voicepro',
     badge: 'PRO',
     nota: 4.5,
-    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20VoicePro%20Profissional%20Digital.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.',
+    link: '/#/finalizar/voicepro',
     destaque: true,
   },
   {
@@ -118,7 +118,7 @@ const aparelhos = [
     badge: 'BT',
     nota: 4.5,
     novo: true,
-    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20SmartVoice%20CIC%20Bluetooth%20Magn%C3%A9tico.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.',
+    link: '/#/finalizar/smartvoice',
   },
   {
     sigla: 'SoftVoice',
@@ -134,7 +134,7 @@ const aparelhos = [
     badge: 'CIC',
     nota: 4.4,
     novo: true,
-    link: 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20especialista%20da%20Fonovital',
+    link: '/#/finalizar/softvoice',
   },
   {
     sigla: 'Voxcharge',
@@ -285,7 +285,7 @@ export default function App() {
                   className="btn-3d inline-flex items-center justify-center gap-2 text-base"
                 >
                   <Zap size={20} />
-                  Tenho interesse
+                  Compre agora
                 </a>
                 <Link
                   to="/garantia"
@@ -500,7 +500,7 @@ export default function App() {
                           rel="noopener noreferrer"
                           className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-gray-700/50 text-gray-300 font-medium text-sm"
                         >
-                          Avise-me
+                          Compre agora
                         </a>
                       ) : item.sigla === 'VoicePro' ? (
                         <>
@@ -510,7 +510,7 @@ export default function App() {
                             rel="noopener noreferrer"
                             className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg btn-3d text-sm"
                           >
-                            Tenho interesse
+                            Compre agora
                             <ChevronRight size={16} />
                           </a>
                           <MercadoPagoSeal />
@@ -520,7 +520,7 @@ export default function App() {
                           to={item.rota}
                           className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg btn-3d text-sm"
                         >
-                          Ver Produto
+                          Compre agora
                           <ChevronRight size={16} />
                         </Link>
                       )}

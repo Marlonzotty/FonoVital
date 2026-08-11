@@ -35,12 +35,20 @@ const db = DATABASE_URL
       ssl: DATABASE_SSL ? { rejectUnauthorized: false } : false,
     })
   : null;
+let databaseReady = !db;
 
 async function initDatabase() {
   if (!db) return;
-  await db.query('CREATE TABLE IF NOT EXISTS orders (id BIGSERIAL PRIMARY KEY, external_reference TEXT UNIQUE, product TEXT NOT NULL, customer JSONB NOT NULL, amount NUMERIC NOT NULL, status TEXT NOT NULL DEFAULT \'created\', payment_id TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())');
-  await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS status_detail TEXT');
-  await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS webhook_received_at TIMESTAMPTZ');
+  try {
+    await db.query('CREATE TABLE IF NOT EXISTS orders (id BIGSERIAL PRIMARY KEY, external_reference TEXT UNIQUE, product TEXT NOT NULL, customer JSONB NOT NULL, amount NUMERIC NOT NULL, status TEXT NOT NULL DEFAULT \'created\', payment_id TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())');
+    await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS status_detail TEXT');
+    await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS webhook_received_at TIMESTAMPTZ');
+    await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS purchased_at TIMESTAMPTZ');
+    databaseReady = true;
+  } catch (error) {
+    databaseReady = false;
+    console.error('[DB] indisponível; checkout continuará sem registrar pedidos:', error);
+  }
 }
 
 // PreÃ§os e produtos ficam no servidor para impedir que o navegador altere o valor cobrado.
@@ -131,7 +139,7 @@ app.get('/api/checkout/:product', async (req, res) => {
       console.error('[Mercado Pago] erro ao criar preferÃªncia:', data);
       return res.status(502).json({ error: 'NÃ£o foi possÃ­vel criar o checkout' });
     }
-    if (db && product.sku === 'galinha-pintadinha') {
+    if (db && databaseReady && product.sku === 'galinha-pintadinha') {
       await db.query(
         'INSERT INTO orders (external_reference, product, customer, amount) VALUES ($1,$2,$3,$4) ON CONFLICT (external_reference) DO NOTHING',
         [data.external_reference, product.sku, JSON.stringify({ name: 'Teste Webhook', email: 'teste@fonovital.com.br', cpf: '', phone: '', zipCode: '', street: '', number: '', complement: '', neighborhood: '', city: '', state: '' }), product.price],
@@ -170,7 +178,13 @@ app.post('/api/checkout/:product', async (req, res) => {
     const data = await response.json();
     const checkoutUrl = MP_ACCESS_TOKEN.startsWith('TEST-') ? data.sandbox_init_point : data.init_point;
     if (!response.ok || !checkoutUrl) return res.status(502).json({ error: 'NÃ£o foi possÃ­vel criar o checkout', details: data });
-    if (db) await db.query('INSERT INTO orders (external_reference, product, customer, amount) VALUES ($1,$2,$3,$4) ON CONFLICT (external_reference) DO NOTHING', [data.external_reference, product.sku, JSON.stringify({ name, email, cpf, phone, zipCode, street, number, complement, neighborhood, city, state }), product.price]);
+    if (db && databaseReady) {
+      try {
+        await db.query('INSERT INTO orders (external_reference, product, customer, amount) VALUES ($1,$2,$3,$4) ON CONFLICT (external_reference) DO NOTHING', [data.external_reference, product.sku, JSON.stringify({ name, email, cpf, phone, zipCode, street, number, complement, neighborhood, city, state }), product.price]);
+      } catch (dbError) {
+        console.warn('[DB] pedido não registrado; checkout continuará normalmente:', dbError?.code || dbError?.message || dbError);
+      }
+    }
     return res.json({ checkoutUrl });
   } catch (error) {
     console.error('[Mercado Pago] erro:', error);
@@ -209,6 +223,7 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
     const result = await db.query(
       `UPDATE orders
        SET status = $1, status_detail = $2, payment_id = $3,
+           purchased_at = CASE WHEN $1 IN ('approved', 'authorized') THEN COALESCE(purchased_at, NOW()) ELSE purchased_at END,
            webhook_received_at = NOW(), updated_at = NOW()
        WHERE external_reference = $4
        RETURNING id, external_reference, status`,
@@ -231,14 +246,14 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
 
 app.get('/api/admin/orders', async (req, res) => {
   if (!ADMIN_KEY || req.get('x-admin-key') !== ADMIN_KEY) return res.status(401).json({ error: 'NÃ£o autorizado' });
-  if (!db) return res.status(503).json({ error: 'DATABASE_URL nÃ£o configurada' });
+  if (!db || !databaseReady) return res.status(503).json({ error: 'Banco de dados indisponível' });
   const result = await db.query('SELECT * FROM orders ORDER BY created_at DESC LIMIT 200');
   res.json(result.rows);
 });
 
 app.post('/api/admin/test-order', async (req, res) => {
   if (!ADMIN_KEY || req.get('x-admin-key') !== ADMIN_KEY) return res.status(401).json({ error: 'Não autorizado' });
-  if (!MP_ACCESS_TOKEN || !db) return res.status(503).json({ error: 'Mercado Pago ou banco não configurado' });
+  if (!MP_ACCESS_TOKEN || !db || !databaseReady) return res.status(503).json({ error: 'Mercado Pago ou banco não configurado' });
   const product = checkoutProducts['teste-webhook'];
   const externalReference = `${product.sku}-${Date.now()}`;
   const customer = { name: 'Teste Webhook', email: 'teste@fonovital.com.br', cpf: '', phone: '', zipCode: '', street: '', number: '', complement: '', neighborhood: '', city: '', state: '' };

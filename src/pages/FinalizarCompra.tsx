@@ -49,7 +49,7 @@ export default function FinalizarCompra() {
         </div>
         {error && <p className="mt-5 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
         <button disabled={loading} className="mt-8 w-full rounded-xl bg-[#008B91] px-5 py-4 font-bold text-white disabled:opacity-60">
-          {loading ? 'Abrindo pagamento...' : 'Continuar para pagamento seguro'}
+          {loading ? 'Processando...' : 'Compre agora'}
         </button>
       </form>
       <SocialProofVideos />

@@ -103,7 +103,7 @@ export default function Voxcharge() {
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center rounded-xl bg-teal-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-700 sm:w-auto sm:self-start"
                 >
-                  Me avise quando chegar
+                  Compre agora
                 </a>
               </div>
               </div>

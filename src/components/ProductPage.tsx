@@ -21,8 +21,6 @@ declare global {
 
 export default function ProductPage() {
   const [currentImage, setCurrentImage] = useState(voxton);
-  const whatsappHref = 'https://wa.me/5532999069763?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Voxton%20Mini%20CIC.%20Tenho%20algumas%20d%C3%BAvidas%20antes%20de%20comprar.';
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev === voxton ? certificados : voxton));
@@ -118,14 +116,12 @@ export default function ProductPage() {
             ></div>
 
             <motion.a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/#/finalizar/voxton"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.96 }}
               className="w-full sm:w-auto bg-[#0d7f83] text-white font-bold px-6 py-3 rounded-lg transition text-center text-base md:text-lg animate-pulse border-2 border-[#0b666a] shadow-lg"
             >
-              Tenho interesse
+              Compre agora
             </motion.a>
             <MercadoPagoSeal />
 

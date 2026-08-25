@@ -37,6 +37,12 @@ export default function Navbar() {
           >
             Garantia & Prazos
           </Link>
+          <Link
+            to="/termos-e-politicas"
+            className="hover:scale-105 transition-transform duration-200"
+          >
+            Termos e Políticas
+          </Link>
           <a
             href="https://www.17track.net/pt"
             className="hover:scale-105 transition-transform duration-200"
@@ -91,6 +97,13 @@ export default function Navbar() {
             className="block"
           >
             Garantia & Prazos
+          </Link>
+          <Link
+            to="/termos-e-politicas"
+            onClick={() => setMenuOpen(false)}
+            className="block"
+          >
+            Termos e Políticas
           </Link>
           <a
             href="https://www.17track.net/pt"

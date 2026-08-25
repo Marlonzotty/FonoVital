@@ -13,6 +13,7 @@ import Navbar from "./components/Navbar";
 import Rastreio from "./pages/Rastreio";
 import Garantia from "./pages/Garantia";
 import PosVenda from "./pages/PosVenda";
+import TermosPoliticas from "./pages/TermosPoliticas";
 
 import Voxton from "./produtos/voxton";
 import Voxcharge from "./produtos/Voxcharge";
@@ -113,6 +114,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/teste-auditivo" element={<TesteAuditivo />} />
           <Route path="/garantia" element={<Garantia />} />
           <Route path="/pos-venda" element={<PosVenda />} />
+          <Route path="/termos-e-politicas" element={<TermosPoliticas />} />
           <Route path="/rastreio" element={<Rastreio />} />
           <Route path="/cadastro" element={<CadastroModal />} />
           <Route path="/produto/voxton" element={<Voxton />} />

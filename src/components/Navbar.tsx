@@ -43,12 +43,12 @@ export default function Navbar() {
           >
             Termos e Políticas
           </Link>
-          <a
-            href="https://www.17track.net/pt"
+          <Link
+            to="/rastreio"
             className="hover:scale-105 transition-transform duration-200"
           >
             Rastreio
-          </a>
+          </Link>
           <button
             onClick={handleUnidadesClick}
             className="hover:scale-105 transition-transform duration-200"
@@ -105,13 +105,13 @@ export default function Navbar() {
           >
             Termos e Políticas
           </Link>
-          <a
-            href="https://www.17track.net/pt"
+          <Link
+            to="/rastreio"
             onClick={() => setMenuOpen(false)}
             className="block"
           >
             Rastreio
-          </a>
+          </Link>
           <button onClick={handleUnidadesClick} className="block">
             Unidades
           </button>

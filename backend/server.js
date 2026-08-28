@@ -14,7 +14,7 @@ dotenv.config({ path: join(backendDir, '.env') });
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ verify: (req, _, buffer) => { req.rawBody = buffer.toString('utf8'); } }));
 app.use(cookieParser());
 app.set('trust proxy', true); // permite obter o IP real atrÃ¡s de proxy/CDN
 
@@ -23,6 +23,9 @@ const PIXEL_ID = process.env.META_PIXEL_ID;
 const ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
 const TEST_EVENT_CODE = process.env.META_TEST_EVENT_CODE || ""; // opcional p/ testar no Events Manager
 const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN;
+// Mantenha esta chave somente no ambiente do backend (Render/cloud). Nunca a
+// exponha como VITE_ no frontend.
+const TRACK17_TOKEN = process.env.TRACK17_TOKEN;
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 const BACKEND_PUBLIC_URL = process.env.BACKEND_PUBLIC_URL || `http://localhost:${process.env.PORT || 3001}`;
 const ADMIN_KEY = process.env.ADMIN_KEY;
@@ -44,6 +47,11 @@ async function initDatabase() {
     await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS status_detail TEXT');
     await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS webhook_received_at TIMESTAMPTZ');
     await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS purchased_at TIMESTAMPTZ');
+    await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_number TEXT');
+    await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_carrier INTEGER');
+    await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_status TEXT');
+    await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_data JSONB');
+    await db.query('CREATE UNIQUE INDEX IF NOT EXISTS orders_tracking_number_unique ON orders (tracking_number) WHERE tracking_number IS NOT NULL');
     databaseReady = true;
   } catch (error) {
     databaseReady = false;
@@ -244,11 +252,142 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
   res.sendStatus(200);
 });
 
+/* ------------------------------ 17TRACK v2.4 ----------------------------- */
+function isTrackingNumber(number) {
+  return /^[A-Z0-9-]{5,50}$/.test(number);
+}
+
+function publicTrackingData(number, tracking) {
+  const trackInfo = tracking?.track_info || {};
+  const events = (trackInfo.tracking?.providers || [])
+    .flatMap((provider) => provider.events || [])
+    .map((event) => ({
+      time: event.time_iso || event.time_utc || event.time_raw?.date || null,
+      description: event.description_translation?.description || event.description || 'Atualização de rastreio',
+    }))
+    .sort((a, b) => String(b.time || '').localeCompare(String(a.time || '')));
+
+  return {
+    number,
+    carrier: trackInfo.tracking?.providers?.[0]?.provider?.name || null,
+    status: trackInfo.latest_status?.status || 'InfoReceived',
+    statusDetail: trackInfo.latest_status?.sub_status_descr || trackInfo.latest_status?.sub_status || null,
+    latestEvent: trackInfo.latest_event
+      ? {
+          time: trackInfo.latest_event.time_iso || trackInfo.latest_event.time_utc || trackInfo.latest_event.time_raw?.date || null,
+          description: trackInfo.latest_event.description_translation?.description || trackInfo.latest_event.description,
+        }
+      : null,
+    events,
+  };
+}
+
+app.post('/api/tracking', async (req, res) => {
+  const number = String(req.body?.number || '').trim().toUpperCase();
+  if (!isTrackingNumber(number)) {
+    return res.status(400).json({ error: 'Informe um código de rastreio válido.' });
+  }
+  if (!TRACK17_TOKEN) return res.status(503).json({ error: 'Rastreio temporariamente indisponível.' });
+
+  try {
+    // Consulta pública dos códigos já cadastrados na 17TRACK, sem depender
+    // do banco local. O cadastro é feito uma vez no painel da 17TRACK.
+    const response = await fetch('https://api.17track.net/track/v2.4/gettrackinfo', {
+      method: 'POST',
+      headers: { '17token': TRACK17_TOKEN, 'Content-Type': 'application/json' },
+      body: JSON.stringify([{ number, lang: 'pt' }]),
+    });
+    const data = await response.json();
+    const rejected = data?.data?.rejected?.[0];
+    const tracking = data?.data?.accepted?.[0];
+
+    if (!response.ok || !tracking) {
+      const errorCode = rejected?.error?.code || data?.code;
+      const message = errorCode === -18019902
+        ? 'Este código ainda não foi cadastrado para rastreio.'
+        : errorCode === -18019903
+          ? 'Não foi possível identificar a transportadora deste código.'
+          : rejected?.error?.message;
+      console.error('[17TRACK] erro na consulta:', response.status, rejected?.error?.code || data?.code);
+      return res.status(response.status === 429 ? 429 : errorCode === -18019912 ? 403 : 502).json({ error: message || 'Não foi possível consultar o rastreio agora.' });
+    }
+
+    res.set('Cache-Control', 'no-store');
+    return res.json(publicTrackingData(number, tracking));
+  } catch (error) {
+    console.error('[17TRACK] erro na consulta:', error);
+    return res.status(502).json({ error: 'Não foi possível consultar o rastreio agora.' });
+  }
+});
+
+app.post('/api/17track/webhook', async (req, res) => {
+  const signature = req.get('sign');
+  const expected = TRACK17_TOKEN && crypto.createHash('sha256').update(`${req.rawBody}/${TRACK17_TOKEN}`, 'utf8').digest('hex');
+  if (!signature || !expected || Buffer.byteLength(signature) !== Buffer.byteLength(expected) || !crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) {
+    console.warn('[17TRACK] webhook com assinatura inválida.');
+    return res.sendStatus(401);
+  }
+  if (!db || !databaseReady) return res.sendStatus(503);
+
+  const payload = req.body || {};
+  const updates = Array.isArray(payload.data?.accepted) ? payload.data.accepted : [payload.data];
+  try {
+    for (const update of updates) {
+      if (!update?.number) continue;
+      const status = update.track_info?.latest_status?.status || (payload.event === 'TRACKING_STOPPED' ? 'Stopped' : 'InfoReceived');
+      await db.query(
+        'UPDATE orders SET tracking_status = $1, tracking_data = $2, updated_at = NOW() WHERE tracking_number = $3 AND ($4::INTEGER IS NULL OR tracking_carrier = $4)',
+        [status, JSON.stringify(update), String(update.number).toUpperCase(), Number.isInteger(update.carrier) ? update.carrier : null],
+      );
+    }
+    return res.sendStatus(200);
+  } catch (error) {
+    console.error('[17TRACK] erro ao salvar webhook:', error);
+    return res.sendStatus(500);
+  }
+});
+
 app.get('/api/admin/orders', async (req, res) => {
   if (!ADMIN_KEY || req.get('x-admin-key') !== ADMIN_KEY) return res.status(401).json({ error: 'NÃ£o autorizado' });
   if (!db || !databaseReady) return res.status(503).json({ error: 'Banco de dados indisponível' });
   const result = await db.query('SELECT * FROM orders ORDER BY created_at DESC LIMIT 200');
   res.json(result.rows);
+});
+
+app.post('/api/admin/orders/:id/tracking', async (req, res) => {
+  if (!ADMIN_KEY || req.get('x-admin-key') !== ADMIN_KEY) return res.status(401).json({ error: 'Não autorizado' });
+  if (!db || !databaseReady || !TRACK17_TOKEN) return res.status(503).json({ error: 'Banco ou 17TRACK não configurado' });
+
+  const number = String(req.body?.number || '').trim().toUpperCase();
+  const carrier = Number(req.body?.carrier);
+  if (!isTrackingNumber(number)) return res.status(400).json({ error: 'Informe um código de rastreio válido.' });
+  if (!Number.isInteger(carrier) || carrier <= 0) return res.status(400).json({ error: 'Informe o código numérico da transportadora.' });
+
+  const order = await db.query('SELECT id FROM orders WHERE id = $1', [req.params.id]);
+  if (order.rowCount === 0) return res.status(404).json({ error: 'Pedido não encontrado.' });
+
+  try {
+    const response = await fetch('https://api.17track.net/track/v2.4/register', {
+      method: 'POST',
+      headers: { '17token': TRACK17_TOKEN, 'Content-Type': 'application/json' },
+      body: JSON.stringify([{ number, carrier, lang: 'pt', tag: String(req.params.id) }]),
+    });
+    const data = await response.json();
+    const rejected = data?.data?.rejected?.[0];
+    const accepted = data?.data?.accepted?.[0];
+    // Código já registrado ainda pode ser associado ao pedido local.
+    if (!response.ok || (!accepted && rejected?.error?.code !== -18019901)) {
+      return res.status(502).json({ error: rejected?.error?.message || 'A 17TRACK não aceitou o código.' });
+    }
+    await db.query(
+      'UPDATE orders SET tracking_number = $1, tracking_carrier = $2, tracking_status = $3, tracking_data = NULL, updated_at = NOW() WHERE id = $4',
+      [number, carrier, 'InfoReceived', req.params.id],
+    );
+    return res.json({ ok: true });
+  } catch (error) {
+    console.error('[17TRACK] erro ao registrar:', error);
+    return res.status(502).json({ error: 'Não foi possível registrar o rastreio.' });
+  }
 });
 
 app.post('/api/admin/test-order', async (req, res) => {

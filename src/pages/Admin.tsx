@@ -13,6 +13,8 @@ type Order = {
   created_at?: string;
   external_reference?: string;
   payment_id?: string;
+  tracking_number?: string;
+  tracking_carrier?: number;
   customer?: {
     name?: string;
     email?: string;
@@ -63,6 +65,7 @@ export default function Admin() {
   const [error, setError] = useState('');
   const [testUrl, setTestUrl] = useState('');
   const [testError, setTestError] = useState('');
+  const [trackingError, setTrackingError] = useState('');
 
   useEffect(() => {
     if (!authorized || !key) return undefined;
@@ -127,6 +130,22 @@ export default function Admin() {
     setTestUrl(data.checkoutUrl);
   }
 
+  async function registerTracking(order: Order) {
+    const number = window.prompt('Código de rastreio do pedido:', order.tracking_number || '')?.trim().toUpperCase();
+    if (!number) return;
+    const carrier = window.prompt('Código numérico da transportadora 17TRACK:', order.tracking_carrier ? String(order.tracking_carrier) : '');
+    if (!carrier) return;
+    setTrackingError('');
+    const response = await fetch(`/api/admin/orders/${order.id}/tracking`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+      body: JSON.stringify({ number, carrier: Number(carrier) }),
+    });
+    const data = await response.json();
+    if (!response.ok) { setTrackingError(data.error || 'Não foi possível cadastrar o rastreio.'); return; }
+    setOrders((current) => current.map((item) => item.id === order.id ? { ...item, tracking_number: number, tracking_carrier: Number(carrier) } : item));
+  }
+
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-12">
       <section className="mx-auto max-w-6xl rounded-3xl bg-white p-8 shadow-xl">
@@ -150,14 +169,16 @@ export default function Admin() {
             <div className="mt-8 overflow-x-auto">
               {loading && <p className="mb-4 text-sm text-slate-500">Atualizando pedidos...</p>}
               {error && <p className="mb-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+              {trackingError && <p className="mb-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">{trackingError}</p>}
               <table className="w-full text-left text-sm">
-                <thead><tr className="border-b"><th className="p-3">Data da compra</th><th className="p-3">Produto</th><th className="p-3">Cliente</th><th className="p-3">Valor</th><th className="p-3">Status</th><th className="p-3">Dados</th></tr></thead>
+                <thead><tr className="border-b"><th className="p-3">Data da compra</th><th className="p-3">Produto</th><th className="p-3">Cliente</th><th className="p-3">Valor</th><th className="p-3">Status</th><th className="p-3">Rastreio</th><th className="p-3">Dados</th></tr></thead>
                 <tbody>{orders.map((order) => <tr key={order.id} className="border-b align-top">
                   <td className="whitespace-nowrap p-3">{formatOrderDate(order.purchased_at || order.created_at)}</td>
                   <td className="p-3">{order.product}</td>
                   <td className="p-3">{order.customer?.name}<br />{order.customer?.email}</td>
                   <td className="p-3">R$ {Number(order.amount).toFixed(2).replace('.', ',')}</td>
                   <td className="p-3"><span className="font-semibold">{statusLabels[order.status] || order.status}</span>{order.status_detail && <><br /><small className="text-slate-500">{order.status_detail}</small></>}</td>
+                  <td className="p-3"><button type="button" onClick={() => registerTracking(order)} className="rounded-lg border border-[#008B91] px-3 py-2 text-xs font-semibold text-[#008B91]">{order.tracking_number || 'Cadastrar'}</button></td>
                   <td className="p-3"><details><summary className="cursor-pointer font-semibold text-[#008B91]">Abrir cliente</summary><div className="mt-3 min-w-64 space-y-1 text-xs text-slate-700"><p><b>CPF:</b> {order.customer?.cpf || '—'}</p><p><b>Telefone:</b> {order.customer?.phone || '—'}</p><p><b>CEP:</b> {order.customer?.zipCode || '—'}</p><p><b>Endereço:</b> {order.customer?.street || '—'}, {order.customer?.number || 's/n'}</p><p><b>Complemento:</b> {order.customer?.complement || '—'}</p><p><b>Bairro:</b> {order.customer?.neighborhood || '—'}</p><p><b>Cidade/UF:</b> {order.customer?.city || '—'} / {order.customer?.state || '—'}</p><hr className="my-2" /><p><b>Referência externa:</b> {order.external_reference}</p><p><b>ID pagamento:</b> {order.payment_id || 'Ainda não disponível'}</p></div></details></td>
                 </tr>)}</tbody>
               </table>

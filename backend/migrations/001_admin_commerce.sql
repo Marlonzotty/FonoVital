@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS products (id BIGSERIAL PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL DEFAULT '', image TEXT, sku TEXT NOT NULL UNIQUE, slug TEXT NOT NULL UNIQUE, price NUMERIC(12,2) NOT NULL CHECK (price >= 0), promotional_price NUMERIC(12,2), category TEXT, stock INTEGER, active BOOLEAN NOT NULL DEFAULT TRUE, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
+ALTER TABLE products ADD COLUMN IF NOT EXISTS source_product_id BIGINT REFERENCES products(id);
+ALTER TABLE products ADD COLUMN IF NOT EXISTS product_kind TEXT NOT NULL DEFAULT 'independent';
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS product_snapshot JSONB;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS quantity INTEGER NOT NULL DEFAULT 1;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS preference_id TEXT;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_history JSONB NOT NULL DEFAULT '[]'::jsonb;
+CREATE TABLE IF NOT EXISTS payment_events (id BIGSERIAL PRIMARY KEY, order_id BIGINT REFERENCES orders(id), payment_id TEXT, status TEXT, status_detail TEXT, payload JSONB, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), UNIQUE(payment_id, status, status_detail));

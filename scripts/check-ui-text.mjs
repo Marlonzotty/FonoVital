@@ -30,6 +30,10 @@ async function walk(dir) {
       const trimmed = line.trim()
       const prevTrimmed = index > 0 ? lines[index - 1].trim() : ''
 
+      if (/Ã[£©¡ª§µ³]|[\p{L}]\?{1,2}[\p{L}]/u.test(trimmed) && !trimmed.includes('://') && !trimmed.includes('/api/')) {
+        findings.push({ file: fullPath, line: lineNumber, reason: 'Possível texto com acentuação corrompida.', excerpt: trimmed })
+      }
+
       if (trimmed.includes('�')) {
         findings.push({
           file: fullPath,

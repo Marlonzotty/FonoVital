@@ -35,11 +35,11 @@ export function trackGoogleAdsConversion(eventName: string, value = 1) {
   })
 }
 
-export function trackPurchaseConversion(transactionId = '') {
+export function trackPurchaseConversion(transactionId: string, value: number) {
   if (!googleAdsId || !window.gtag) return false
   window.gtag('event', 'conversion', {
     send_to: `${googleAdsId}/${purchaseConversionLabel}`,
-    value: 1.0,
+    value,
     currency: 'BRL',
     transaction_id: transactionId,
   })
@@ -53,13 +53,7 @@ export function gtag_report_conversion(url?: string) {
   }
 
   if (!googleAdsId || !window.gtag) return false
-  window.gtag('event', 'conversion', {
-    send_to: `${googleAdsId}/${purchaseConversionLabel}`,
-    value: 1.0,
-    currency: 'BRL',
-    transaction_id: '',
-    event_callback: callback,
-  })
+  window.gtag('event', 'begin_checkout', { event_callback: callback })
   return false
 }
 

@@ -5,13 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:backend": "npm --prefix backend start",
+    "preview:process": "node scripts/preview-process.mjs",
+    "check": "node --check backend/server.js && npm test && npm run lint && npm run build",
     "check:ui-text": "node scripts/check-ui-text.mjs",
     "build": "npm run check:ui-text && tsc -b && vite build",
+    "test": "node --test tests",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@mercadopago/sdk-react": "^1.0.3",
+    "@phosphor-icons/react": "^2.1.10",
     "@tailwindcss/vite": "^4.1.10",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -28,6 +33,7 @@
     "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "@eslint/js": "^9.25.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",

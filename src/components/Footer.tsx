@@ -19,7 +19,7 @@ export default function Footer() {
 
     // se j existe script, s tenta renderizar
     if (document.getElementById(SCRIPT_ID)) {
-      const RA = (window as any).RA;
+      const RA = (window as Window & { RA?: { render: () => void } }).RA;
       if (RA && typeof RA.render === "function") {
         RA.render();
         setRaLoaded(true);

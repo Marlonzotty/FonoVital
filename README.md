@@ -1,4 +1,12 @@
-# React + TypeScript + Vite
+# FonoVital
+
+Guia atualizado: [processo operacional, configuração, testes e pendências](docs/processo-operacional.md).
+
+- Desenvolvimento: `npm run dev:backend` e `npm run dev`.
+- Validação completa: `npm run check`.
+- Prévia com dados fictícios, após build: `npm run preview:process`.
+
+## Referência original do template
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

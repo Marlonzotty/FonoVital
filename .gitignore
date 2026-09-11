@@ -24,3 +24,15 @@ dist-ssr
 *.sln
 *.sw?
 backend/.env.example
+
+# Local skill instructions (any directory and capitalization)
+[Ss][Kk][Ii][Ll][Ll].[Mm][Dd]
+
+# Local Specify configuration, scripts, and templates
+.specify/
+docs/processo-operacional.md
+specs/001-admin-commerce/research.md
+specs/001-admin-commerce/plan.md
+specs/001-admin-commerce/spec.md
+specs/001-admin-commerce/tasks.md
+specs/001-admin-commerce/checklists/requirements.md

@@ -1,0 +1,11 @@
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_updated_at TIMESTAMPTZ;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS stock_reserved BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS checkout_request_id TEXT;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS checkout_request_hash TEXT;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS checkout_url TEXT;
+CREATE UNIQUE INDEX IF NOT EXISTS orders_checkout_request_unique ON orders (checkout_request_id);
+ALTER TABLE payment_events ADD COLUMN IF NOT EXISTS event_key TEXT;
+ALTER TABLE payment_events DROP CONSTRAINT IF EXISTS payment_events_payment_id_status_status_detail_key;
+CREATE UNIQUE INDEX IF NOT EXISTS payment_events_event_key_unique ON payment_events (event_key);
+CREATE INDEX IF NOT EXISTS orders_created_at_idx ON orders (created_at DESC);
+CREATE INDEX IF NOT EXISTS orders_status_idx ON orders (status);

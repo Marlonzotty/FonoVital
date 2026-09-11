@@ -28,7 +28,6 @@ export default function PurchaseAlert() {
   });
 
   useEffect(() => {
-    let interval: number;
 
     const showAlert = () => {
       if (visible) return;
@@ -53,7 +52,7 @@ export default function PurchaseAlert() {
     };
 
     const firstTimeout = setTimeout(showAlert, 1000);
-    interval = window.setInterval(showAlert, 60000); // exibe a cada 60s
+    const interval = window.setInterval(showAlert, 60000); // exibe a cada 60s
 
     return () => {
       clearTimeout(firstTimeout);

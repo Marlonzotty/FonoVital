@@ -25,6 +25,7 @@ import SmartVoice from "./produtos/SmartVoice";
 import SoftVoice from "./produtos/SoftVoice";
 import FinalizarCompra from "./pages/FinalizarCompra";
 import Admin from "./pages/Admin";
+import PublicProduct from "./pages/PublicProduct";
 
 import {
   loadFacebookPixel,
@@ -50,7 +51,7 @@ function InlineRoutePageView() {
   const key = `${location.pathname}|${location.search}|${location.hash}`;
 
   useEffect(() => {
-    const g = window as any;
+    const g = window;
     if (g.__LAST_PAGEVIEW_KEY__ === key) return;
     g.__LAST_PAGEVIEW_KEY__ = key;
 
@@ -126,7 +127,9 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/produto/smartvoice" element={<SmartVoice />} />
           <Route path="/produto/softvoice" element={<SoftVoice />} />
         <Route path="/finalizar/:product" element={<FinalizarCompra />} />
+          <Route path="/pagamento/:outcome" element={<FinalizarCompra />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/produto-publico/:slug" element={<PublicProduct />} />
         </Route>
       </Routes>
     </HashRouter>

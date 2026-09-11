@@ -3,12 +3,12 @@
 /* -------------------------------------------------------------------------- */
 /* Tipos                                                                      */
 /* -------------------------------------------------------------------------- */
-type Fbq = ((method: string, ...args: any[]) => void) & {
-  callMethod?: (...args: any[]) => void;
-  push?: (...args: any[]) => void;
+type Fbq = ((method: string, ...args: unknown[]) => void) & {
+  callMethod?: (...args: unknown[]) => void;
+  push?: (...args: unknown[]) => void;
   loaded?: boolean;
   version?: string;
-  queue?: any[];
+  queue?: unknown[];
 };
 
 declare global {
@@ -111,18 +111,18 @@ export function loadFacebookPixel(pixelId: string) {
 
   const existing = getWindowFbq();
   if (!existing) {
-    const fbq: Fbq = function (...args: any[]) {
-      if ((fbq as any).callMethod) {
-        (fbq as any).callMethod.apply(fbq, args);
+    const fbq: Fbq = function (...args: unknown[]) {
+      if (fbq.callMethod) {
+        fbq.callMethod(...args);
       } else {
-        ((fbq as any).queue as any[]).push(args);
+        fbq.queue?.push(args);
       }
     } as Fbq;
 
-    (fbq as any).push = fbq as any;
-    (fbq as any).loaded = true;
-    (fbq as any).version = "2.0";
-    (fbq as any).queue = [];
+    fbq.push = ((...args: unknown[]) => fbq(String(args[0]), ...args.slice(1)));
+    fbq.loaded = true;
+    fbq.version = "2.0";
+    fbq.queue = [];
 
     const hasScript = !!document.querySelector('script[src*="fbevents.js"]');
     if (!hasScript) {
@@ -169,25 +169,28 @@ export function trackEvent(
 /* Exemplo: disparar Purchase e enviar para seu backend CAPI                  */
 /* -------------------------------------------------------------------------- */
 type PurchaseParams = {
+  externalReference: string;
   value: number;
   currency: string;
-  contents?: Array<any>;
+  contents?: Array<Record<string, unknown>>;
   endpoint?: string;
 };
 
 export async function trackPurchaseAndSendToCapi({
+  externalReference,
   value,
   currency,
   contents,
-  endpoint = "http://localhost:3001/api/meta/capi/purchase",
+  endpoint = "/api/meta/capi/purchase",
 }: PurchaseParams) {
-  const eventId =
-    typeof crypto !== "undefined" && "randomUUID" in crypto
-      ? crypto.randomUUID()
-      : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const receiptResponse = await fetch(`/api/orders/${encodeURIComponent(externalReference)}/status`);
+  if (!receiptResponse.ok) throw new Error('Não foi possível confirmar o pagamento.');
+  const receipt = await receiptResponse.json();
+  if (receipt.status !== 'approved') return;
+  const eventId = `purchase-${receipt.payment_id}`;
 
   // 1) Pixel (navegador)
-  trackEvent("Purchase", { value, currency, contents }, { eventID: eventId });
+  trackEvent("Purchase", { value: Number(receipt.amount), currency: 'BRL', contents }, { eventID: eventId });
 
   // 2) CAPI (backend)
   await fetch(endpoint, {
@@ -195,6 +198,7 @@ export async function trackPurchaseAndSendToCapi({
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       value,
+      external_reference: externalReference,
       currency,
       contents,
       event_id: eventId,

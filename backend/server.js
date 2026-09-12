@@ -127,6 +127,7 @@ const checkoutProducts = {
   softvoice: { title: 'SoftVoice Recarregável 16 Canais | Fonovital', price: 2699.9, sku: 'softvoice' },
   vitalair: { title: 'Vital Air Bluetooth Inteligente | Fonovital', price: 1999.0, sku: 'vitalair' },
   vitalvoice: { title: 'VitalVoice | Fonovital', price: 1399.9, sku: 'vitalvoice' },
+  'vital-wellness': { title: 'Vital Wellness | Fonovital', price: 350.0, sku: 'vital-wellness' },
   'galinha-pintadinha': { title: 'Galinha Pintadinha | Fonovital', price: 1.0, sku: 'galinha-pintadinha' },
 };
 
@@ -141,6 +142,7 @@ async function seedLegacyProducts() {
     vitalair: '/src/assets/vitalair/vitalairCel.jpg',
     'voxcharge': '/src/assets/voxcharge/voxcharge (5) (1).png',
     vitalvoice: '/src/assets/vitalVoice/vitalVoice.jpg',
+    'vital-wellness': '/src/assets/Vitalwellness/ChatGPT Image 11 de set. de 2026, 22_16_26.png',
   };
   for (const product of Object.values(checkoutProducts)) {
     await db.query(
@@ -505,11 +507,11 @@ app.get('/api/admin/financial-analysis', requireAdmin, async (_req, res) => {
     GROUP BY month ORDER BY month DESC`);
   const clients = await db.query(`SELECT month, jsonb_agg(client ORDER BY name) AS clients FROM (
     SELECT TO_CHAR(date_trunc('month', sale_date), 'YYYY-MM') AS month,
-      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'importado') AS client,
+      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'importado', 'record_id', id, 'record_type', 'legacy', 'sale_date', TO_CHAR(sale_date, 'YYYY-MM-DD')) AS client,
       COALESCE(customer->>'name','') AS name FROM financial_legacy_sales WHERE sale_date IS NOT NULL
     UNION ALL
     SELECT TO_CHAR(date_trunc('month', COALESCE(purchased_at, created_at) AT TIME ZONE 'America/Sao_Paulo'), 'YYYY-MM') AS month,
-      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'pedido atual') AS client,
+      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'pedido atual', 'record_id', id, 'record_type', 'order', 'sale_date', TO_CHAR(COALESCE(purchased_at, created_at) AT TIME ZONE 'America/Sao_Paulo', 'YYYY-MM-DD')) AS client,
       COALESCE(customer->>'name','') AS name FROM orders WHERE status = 'approved'
   ) grouped_clients GROUP BY month`);
   const clientsByMonth = Object.fromEntries(
@@ -519,6 +521,26 @@ app.get('/api/admin/financial-analysis', requireAdmin, async (_req, res) => {
     ...row,
     clients: clientsByMonth[String(row.month)] || [],
   })));
+});
+
+app.put('/api/admin/financial-analysis/:type/:id', requireAdmin, async (req, res) => {
+  if (!db || !databaseReady) return res.status(503).json({ error: 'Banco de dados indisponível' });
+  const type = String(req.params.type);
+  const id = Number(req.params.id);
+  const product = typeof req.body?.product === 'string' ? req.body.product.trim() : '';
+  const amount = Number(req.body?.amount);
+  const saleDate = String(req.body?.sale_date || '');
+  const customer = req.body?.customer;
+  const validDate = /^\d{4}-\d{2}-\d{2}$/.test(saleDate) && Number.isFinite(Date.parse(saleDate)) && new Date(saleDate).toISOString().slice(0, 10) === saleDate;
+  if (!['legacy', 'order'].includes(type) || !Number.isInteger(id) || id < 1 || !product || !Number.isFinite(amount) || amount < 0 || !validDate || !customer || typeof customer !== 'object' || Array.isArray(customer)) {
+    return res.status(400).json({ error: 'Dados financeiros inválidos.' });
+  }
+  const table = type === 'legacy' ? 'financial_legacy_sales' : 'orders';
+  const result = type === 'legacy'
+    ? await db.query(`UPDATE ${table} SET sale_date = $1, product = $2, customer = $3, amount = $4 WHERE id = $5 RETURNING id`, [saleDate, product, JSON.stringify(customer), amount, id])
+    : await db.query(`UPDATE ${table} SET purchased_at = $1::date, product = $2, customer = $3, amount = $4, updated_at = NOW() WHERE id = $5 AND status = 'approved' RETURNING id`, [saleDate, product, JSON.stringify(customer), amount, id]);
+  if (!result.rowCount) return res.status(404).json({ error: 'Lançamento financeiro não encontrado.' });
+  return res.json({ ok: true });
 });
 
 app.post('/api/admin/financial-analysis/import', requireAdmin, async (req, res) => {

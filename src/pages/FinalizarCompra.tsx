@@ -8,7 +8,7 @@ import SocialProofVideos from '../components/SocialProofVideos';
 const products: Record<string, string> = {
   'galinha-pintadinha': 'Galinha Pintadinha',
   voicepro: 'VoicePro Profissional Digital', voxton: 'Voxton Mini CIC', 'voxton-direito': 'Voxton Mini CIC — Lado Direito', 'voxton-esquerdo': 'Voxton Mini CIC — Lado Esquerdo',
-  iavoice: 'IAvoice Inteligência Auditiva', smartvoice: 'SmartVoice CIC Bluetooth', softvoice: 'SoftVoice Recarregável', vitalair: 'Vital Air Bluetooth', vitalvoice: 'VitalVoice',
+  iavoice: 'IAvoice Inteligência Auditiva', smartvoice: 'SmartVoice CIC Bluetooth', softvoice: 'SoftVoice Recarregável', vitalair: 'Vital Air Bluetooth', vitalvoice: 'VitalVoice', 'vital-wellness': 'Vital Wellness',
 };
 
 export default function FinalizarCompra() {

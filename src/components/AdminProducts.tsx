@@ -49,6 +49,9 @@ const payload = (f: Form) => ({
   stock: f.stock === "" ? null : Number(f.stock),
 });
 
+const money = (value: number | string | undefined) =>
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(value || 0));
+
 export default function AdminProducts({ onUnauthorized }: { onUnauthorized: () => void }) {
   const [products, setProducts] = useState<Product[]>([]),
     [form, setForm] = useState<Form>(empty),
@@ -438,11 +441,11 @@ export default function AdminProducts({ onUnauthorized }: { onUnauthorized: () =
                     </span>
                   </div>
                   <p className="mt-2 text-sm">
-                    Preço: R$ {Number(p.price).toFixed(2)}
+                    Preço: {money(p.price)}
                     {p.promotional_price && (
                       <>
                         {" "}
-                        · Promoção: R$ {Number(p.promotional_price).toFixed(2)}
+                        · Promoção: {money(p.promotional_price)}
                       </>
                     )}
                   </p>

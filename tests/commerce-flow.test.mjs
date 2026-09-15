@@ -58,6 +58,7 @@ test('processo comercial integrado em PostgreSQL isolado', async t => {
     reference = (await responses.find(r => r.status === 200).json()).externalReference;
     assert.equal(h.preferences[0].items[0].unit_price, 80);
     assert.equal(h.preferences[0].external_reference, reference);
+    assert.equal(h.preferences[0].payment_methods.installments, 5);
     const order = (await h.database.query('SELECT * FROM orders')).rows[0];
     assert.equal(order.status, 'created');
     assert.equal(order.product_snapshot.price, 80);

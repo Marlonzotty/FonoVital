@@ -35,6 +35,20 @@ type Metrics = {
   failed_amount: number | string;
   cancelled_count: number;
   top_product?: { product: string; quantity: number } | null;
+  monthly?: Array<{ month: string; count: number; amount: number | string; site_count: number; whatsapp_count: number }>;
+  origins?: Array<{ origin: string; count: number; amount: number | string }>;
+  payment_methods?: Array<{ method: string; count: number; amount: number | string }>;
+};
+type FinancialClient = {
+  amount?: number | string;
+  origin?: string;
+  payment_method?: string;
+};
+type FinancialRow = {
+  month: string;
+  total_count: number;
+  total_amount: number | string;
+  clients?: FinancialClient[];
 };
 const labels: Record<string, string> = {
   created: "Pendente",
@@ -61,9 +75,7 @@ const tones: Record<string, string> = {
   refunded: "bg-slate-200 text-slate-700",
 };
 const money = (v: number | string | undefined) =>
-  `R$ ${Number(v || 0)
-    .toFixed(2)
-    .replace(".", ",")}`;
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(v || 0));
 const value = (v: string | undefined) => v || "—";
 const address = (c: Customer | undefined) => {
   const x = c || {};
@@ -83,6 +95,8 @@ const customerText = (o: Order) => {
     value(c.cpf),
   ].join("\t");
 };
+const chartColors = ["#2857c5", "#008b91", "#f59e0b", "#e85d75", "#7c3aed", "#64748b"];
+const chartNumber = (v: number | string | undefined) => Number(v || 0);
 
 export default function Admin() {
   const nav = useNavigate();
@@ -90,6 +104,7 @@ export default function Admin() {
   const [auth, setAuth] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
   const [metrics, setMetrics] = useState<Metrics | null>(null);
+  const [financialRows, setFinancialRows] = useState<FinancialRow[]>([]);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
@@ -107,25 +122,27 @@ export default function Admin() {
       headers: { "Content-Type": "application/json", ...(init.headers || {}) },
     });
     const d = await r.json().catch(() => ({}));
-    if (r.status === 401) { requestId.current++; setAuth(false); setSelected(null); setOrders([]); setMetrics(null); }
+    if (r.status === 401) { requestId.current++; setAuth(false); setSelected(null); setOrders([]); setMetrics(null); setFinancialRows([]); }
     if (!r.ok)
       throw new Error(d.error || "Não foi possível concluir a operação.");
     return d;
   }, []);
-  const onUnauthorized = useCallback(() => { requestId.current++; setAuth(false); setSelected(null); setOrders([]); setMetrics(null); setError('Sessão expirada. Entre novamente.'); }, []);
+  const onUnauthorized = useCallback(() => { requestId.current++; setAuth(false); setSelected(null); setOrders([]); setMetrics(null); setFinancialRows([]); setError('Sessão expirada. Entre novamente.'); }, []);
   const load = useCallback(async () => {
     const currentRequest = ++requestId.current;
     setBusy(true);
     try {
-      const [o, m] = await Promise.all([
+      const [o, m, f] = await Promise.all([
         api(
           `/api/admin/orders?search=${encodeURIComponent(search)}&status=${encodeURIComponent(status)}&month=${encodeURIComponent(month)}`,
         ),
         api(`/api/admin/metrics?month=${encodeURIComponent(month)}`),
+        api("/api/admin/financial-analysis"),
       ]);
       if (currentRequest !== requestId.current) return;
       setOrders(o);
       setMetrics(m);
+      setFinancialRows(f);
       setError("");
     } catch (e) {
       if (currentRequest === requestId.current) setError(e instanceof Error ? e.message : "Erro ao carregar.");
@@ -199,8 +216,30 @@ export default function Admin() {
         </form>
       </main>
     );
+  const monthly = financialRows;
+  const financialClients = financialRows.flatMap(row => row.clients || []);
+  const origins = Object.entries(financialClients.reduce<Record<string, { count: number; amount: number }>>((groups, item) => {
+    const origin = item.origin === "pedido atual" ? "site" : "whatsapp";
+    const group = groups[origin] || { count: 0, amount: 0 };
+    group.count += 1;
+    group.amount += chartNumber(item.amount);
+    groups[origin] = group;
+    return groups;
+  }, {})).map(([origin, data]) => ({ origin, ...data }));
+  const paymentMethods = Object.entries(financialClients.reduce<Record<string, { count: number; amount: number }>>((groups, item) => {
+    const method = item.payment_method?.trim() || "Não informado";
+    const group = groups[method] || { count: 0, amount: 0 };
+    group.count += 1;
+    group.amount += chartNumber(item.amount);
+    groups[method] = group;
+    return groups;
+  }, {})).map(([method, data]) => ({ method, ...data }));
+  const financialCount = financialRows.reduce((sum, item) => sum + item.total_count, 0);
+  const financialAmount = financialRows.reduce((sum, item) => sum + chartNumber(item.total_amount), 0);
   const cards = metrics
     ? [
+        ["Vendas totais", financialCount, money(financialAmount)],
+        ["Valor total", "", money(financialAmount)],
         ["Pedidos", metrics.total_orders, ""],
         ["Aprovados", metrics.approved_count, money(metrics.approved_amount)],
         ["Pendentes", metrics.pending_count, money(metrics.pending_amount)],
@@ -208,6 +247,16 @@ export default function Admin() {
         ["Cancelados", metrics.cancelled_count, ""],
       ]
     : [];
+  const maxMonthlyAmount = Math.max(...monthly.map(item => chartNumber(item.total_amount)), 1);
+  const originTotal = origins.reduce((sum, item) => sum + chartNumber(item.amount), 0);
+  let originOffset = 0;
+  const originGradient = origins.length && originTotal > 0
+    ? `conic-gradient(${origins.map((item, index) => {
+        const start = originOffset;
+        originOffset += (chartNumber(item.amount) / originTotal) * 100;
+        return `${chartColors[index % chartColors.length]} ${start}% ${originOffset}%`;
+      }).join(", ")})`
+    : "#e2e8f0";
   const menu = [
     { label: "Visão geral", icon: House, target: "overview" },
     { label: "Financeiro", icon: CurrencyDollar, target: "financial" },
@@ -286,6 +335,34 @@ export default function Admin() {
               </div>
             ))}
           </div>
+        )}
+        {metrics && activeSection === "Métricas" && (
+          <section className="mt-6 space-y-5" aria-label="Métricas financeiras completas">
+            <div className="grid gap-5 lg:grid-cols-[280px_1fr]">
+              <article className="rounded-2xl border border-slate-100 bg-slate-50 p-5">
+                <h2 className="text-lg font-bold text-slate-900">Origem das movimentações</h2>
+                <p className="mt-1 text-xs text-slate-500">Site e lançamentos via WhatsApp, todos os meses.</p>
+                <div className="mx-auto mt-5 h-40 w-40 rounded-full" style={{ background: originGradient }} aria-label="Gráfico pizza por origem" />
+                <div className="mt-5 space-y-2 text-sm">
+                  {origins.map((item, index) => <div key={item.origin} className="flex items-center justify-between gap-3"><span className="flex items-center gap-2"><i className="h-3 w-3 rounded-full" style={{ backgroundColor: chartColors[index % chartColors.length] }} />{item.origin === "site" ? "Site" : "WhatsApp"}</span><span className="font-semibold">{money(item.amount)}</span></div>)}
+                </div>
+              </article>
+              <article className="rounded-2xl border border-slate-100 bg-white p-5">
+                <h2 className="text-lg font-bold text-slate-900">Evolução mensal</h2>
+                <p className="mt-1 text-xs text-slate-500">Pedidos do site + valores importados, por mês.</p>
+                {!monthly.length ? <p className="mt-8 text-sm text-slate-500">Nenhum lançamento financeiro.</p> : <div className="mt-6 flex min-h-56 items-end gap-2 overflow-x-auto border-b border-slate-200 pb-1 sm:gap-4">
+                  {monthly.map(item => <div key={item.month} className="flex min-w-14 flex-1 flex-col items-center justify-end gap-2"><span className="text-[10px] font-semibold text-slate-500">{money(item.total_amount)}</span><div className="w-full rounded-t-lg bg-[#2857c5]" style={{ height: `${Math.max((chartNumber(item.total_amount) / maxMonthlyAmount) * 170, 8)}px` }} title={`${item.month}: ${money(item.total_amount)}`} /><span className="text-[10px] text-slate-500">{item.month.slice(5)}/{item.month.slice(2, 4)}</span></div>)}
+                </div>}
+              </article>
+            </div>
+            <article className="rounded-2xl border border-slate-100 bg-slate-50 p-5">
+              <h2 className="text-lg font-bold text-slate-900">Métodos de pagamento</h2>
+              <p className="mt-1 text-xs text-slate-500">Todos os pedidos do site e lançamentos recebidos pelo WhatsApp.</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {paymentMethods.map(item => <div key={item.method} className="rounded-xl bg-white p-4"><p className="text-xs font-semibold uppercase text-slate-500">{item.method}</p><p className="mt-1 text-xl font-bold text-slate-900">{money(item.amount)}</p><p className="text-xs text-slate-500">{item.count} lançamento(s)</p></div>)}
+              </div>
+            </article>
+          </section>
         )}
         {(activeSection === "Clientes" || activeSection === "Visão geral") && <>
         <div className="mt-6 grid gap-3 md:grid-cols-[1fr_220px]">

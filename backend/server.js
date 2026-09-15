@@ -68,13 +68,16 @@ async function initDatabase() {
     await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS quantity INTEGER NOT NULL DEFAULT 1');
     await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS preference_id TEXT');
     await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_history JSONB NOT NULL DEFAULT \'[]\'::jsonb');
+    await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_method TEXT');
     await db.query('CREATE TABLE IF NOT EXISTS payment_events (id BIGSERIAL PRIMARY KEY, order_id BIGINT REFERENCES orders(id), payment_id TEXT, status TEXT, status_detail TEXT, payload JSONB, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), UNIQUE(payment_id, status, status_detail))');
     await db.query(`CREATE TABLE IF NOT EXISTS financial_legacy_sales (
       id BIGSERIAL PRIMARY KEY, source_sheet TEXT NOT NULL, source_row INTEGER NOT NULL,
       sale_date DATE, product TEXT NOT NULL, customer JSONB NOT NULL DEFAULT '{}'::jsonb,
       amount NUMERIC(12,2) NOT NULL DEFAULT 0, commission NUMERIC(12,2), paid BOOLEAN,
+      payment_method TEXT,
       imported_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), UNIQUE(source_sheet, source_row)
     )`);
+    await db.query('ALTER TABLE financial_legacy_sales ADD COLUMN IF NOT EXISTS payment_method TEXT');
     await db.query(await readFile(join(backendDir, 'migrations/002_process_integrity.sql'), 'utf8'));
     await seedLegacyProducts();
     databaseReady = true;
@@ -255,6 +258,7 @@ app.post('/api/checkout/:product', async (req, res) => {
       headers: { Authorization: `Bearer ${MP_ACCESS_TOKEN}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         items: [{ id: product.sku, title: product.name, quantity, currency_id: 'BRL', unit_price: snapshot.price }],
+        payment_methods: { installments: 5 },
         back_urls: { success: returnUrl('sucesso'), pending: returnUrl('pendente'), failure: returnUrl('falha') },
         external_reference: externalReference,
         notification_url: `${BACKEND_PUBLIC_URL}/api/mercadopago/webhook`,
@@ -348,10 +352,10 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
         await client.query(
           `UPDATE orders SET status = $1, status_detail = $2, payment_id = $3,
              purchased_at = CASE WHEN $1 = 'approved' THEN COALESCE(purchased_at, $5::timestamptz) ELSE purchased_at END,
-             webhook_received_at = NOW(), updated_at = NOW(), payment_updated_at = $5, stock_reserved = $6,
+             payment_method = COALESCE($7, payment_method), webhook_received_at = NOW(), updated_at = NOW(), payment_updated_at = $5, stock_reserved = $6,
              payment_history = COALESCE(payment_history, '[]'::jsonb) || jsonb_build_array(jsonb_build_object('payment_id',$3::text,'previous_status',status,'status',$1::text,'status_detail',$2::text,'updated_at',$5::text))
            WHERE id = $4`,
-          [nextStatus, payment.status_detail || null, String(payment.id), order.id, updatedAt, reserved],
+          [nextStatus, payment.status_detail || null, String(payment.id), order.id, updatedAt, reserved, payment.payment_method_id || payment.payment_type_id || payment.payment_method?.name || null],
         );
       }
       await client.query('COMMIT');
@@ -492,7 +496,36 @@ app.get('/api/admin/metrics', requireAdmin, async (req, res) => {
     COUNT(*) FILTER (WHERE status IN ('cancelled','refunded'))::int AS cancelled_count
     FROM orders ${filter.clause ? `WHERE ${filter.clause}` : ''}`, filter.values);
   const top = await db.query(`SELECT product, SUM(quantity)::int AS quantity FROM orders WHERE status = 'approved' ${filter.clause ? `AND ${filter.clause}` : ''} GROUP BY product ORDER BY quantity DESC LIMIT 1`, filter.values);
-  return res.json({ ...result.rows[0], top_product: top.rows[0] || null });
+  const monthly = await db.query(`SELECT month, COUNT(*)::int AS count, COALESCE(SUM(amount), 0)::numeric AS amount,
+      COUNT(*) FILTER (WHERE origin = 'site')::int AS site_count,
+      COUNT(*) FILTER (WHERE origin = 'whatsapp')::int AS whatsapp_count
+    FROM (
+      SELECT TO_CHAR(date_trunc('month', COALESCE(purchased_at, created_at) AT TIME ZONE 'America/Sao_Paulo'), 'YYYY-MM') AS month, amount, 'site' AS origin
+      FROM orders
+      UNION ALL
+      SELECT TO_CHAR(date_trunc('month', sale_date), 'YYYY-MM'), amount, 'whatsapp'
+      FROM financial_legacy_sales WHERE sale_date IS NOT NULL
+    ) entries GROUP BY month ORDER BY month`);
+  const origins = await db.query(`SELECT origin, COUNT(*)::int AS count, COALESCE(SUM(amount), 0)::numeric AS amount
+    FROM (
+      SELECT amount, 'site' AS origin FROM orders
+      UNION ALL
+      SELECT amount, 'whatsapp' FROM financial_legacy_sales WHERE sale_date IS NOT NULL
+    ) entries GROUP BY origin ORDER BY origin`);
+  const paymentMethods = await db.query(`SELECT COALESCE(NULLIF(payment_method, ''), 'Não informado') AS method,
+      COUNT(*)::int AS count, COALESCE(SUM(amount), 0)::numeric AS amount
+    FROM (
+      SELECT payment_method, amount FROM orders
+      UNION ALL
+      SELECT payment_method, amount FROM financial_legacy_sales WHERE sale_date IS NOT NULL
+    ) entries GROUP BY 1 ORDER BY amount DESC`);
+  return res.json({
+    ...result.rows[0],
+    top_product: top.rows[0] || null,
+    monthly: monthly.rows,
+    origins: origins.rows,
+    payment_methods: paymentMethods.rows,
+  });
 });
 
 app.get('/api/admin/financial-analysis', requireAdmin, async (_req, res) => {
@@ -507,11 +540,11 @@ app.get('/api/admin/financial-analysis', requireAdmin, async (_req, res) => {
     GROUP BY month ORDER BY month DESC`);
   const clients = await db.query(`SELECT month, jsonb_agg(client ORDER BY name) AS clients FROM (
     SELECT TO_CHAR(date_trunc('month', sale_date), 'YYYY-MM') AS month,
-      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'importado', 'record_id', id, 'record_type', 'legacy', 'sale_date', TO_CHAR(sale_date, 'YYYY-MM-DD')) AS client,
+      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'importado', 'payment_method', payment_method, 'record_id', id, 'record_type', 'legacy', 'sale_date', TO_CHAR(sale_date, 'YYYY-MM-DD')) AS client,
       COALESCE(customer->>'name','') AS name FROM financial_legacy_sales WHERE sale_date IS NOT NULL
     UNION ALL
     SELECT TO_CHAR(date_trunc('month', COALESCE(purchased_at, created_at) AT TIME ZONE 'America/Sao_Paulo'), 'YYYY-MM') AS month,
-      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'pedido atual', 'record_id', id, 'record_type', 'order', 'sale_date', TO_CHAR(COALESCE(purchased_at, created_at) AT TIME ZONE 'America/Sao_Paulo', 'YYYY-MM-DD')) AS client,
+      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'pedido atual', 'payment_method', payment_method, 'record_id', id, 'record_type', 'order', 'sale_date', TO_CHAR(COALESCE(purchased_at, created_at) AT TIME ZONE 'America/Sao_Paulo', 'YYYY-MM-DD')) AS client,
       COALESCE(customer->>'name','') AS name FROM orders WHERE status = 'approved'
   ) grouped_clients GROUP BY month`);
   const clientsByMonth = Object.fromEntries(
@@ -543,6 +576,21 @@ app.put('/api/admin/financial-analysis/:type/:id', requireAdmin, async (req, res
   return res.json({ ok: true });
 });
 
+app.delete('/api/admin/financial-analysis/:type/:id', requireAdmin, async (req, res) => {
+  if (!db || !databaseReady) return res.status(503).json({ error: 'Banco de dados indisponível' });
+  const type = String(req.params.type);
+  const id = Number(req.params.id);
+  if (!['legacy', 'order'].includes(type) || !Number.isInteger(id) || id < 1) {
+    return res.status(400).json({ error: 'Lançamento financeiro inválido.' });
+  }
+  const table = type === 'legacy' ? 'financial_legacy_sales' : 'orders';
+  const result = type === 'legacy'
+    ? await db.query(`DELETE FROM ${table} WHERE id = $1 RETURNING id`, [id])
+    : await db.query(`DELETE FROM ${table} WHERE id = $1 AND status = 'approved' RETURNING id`, [id]);
+  if (!result.rowCount) return res.status(404).json({ error: 'Lançamento financeiro não encontrado.' });
+  return res.json({ ok: true });
+});
+
 app.post('/api/admin/financial-analysis/import', requireAdmin, async (req, res) => {
   if (!db || !databaseReady) return res.status(503).json({ error: 'Banco de dados indisponível' });
   const rows = Array.isArray(req.body?.rows) ? req.body.rows : [];
@@ -555,6 +603,7 @@ app.post('/api/admin/financial-analysis/import', requireAdmin, async (req, res) 
       || typeof row.amount !== 'number' || !Number.isFinite(row.amount) || row.amount < 0
       || (row.commission != null && (typeof row.commission !== 'number' || !Number.isFinite(row.commission) || row.commission < 0))
       || (row.paid != null && typeof row.paid !== 'boolean')
+      || (row.payment_method != null && (typeof row.payment_method !== 'string' || row.payment_method.length > 120))
       || (row.customer != null && (typeof row.customer !== 'object' || Array.isArray(row.customer)))
       || (row.sale_date != null && (!/^\d{4}-\d{2}-\d{2}$/.test(row.sale_date) || !Number.isFinite(Date.parse(row.sale_date)) || new Date(row.sale_date).toISOString().slice(0, 10) !== row.sale_date))) return res.status(400).json({ error: 'Registro financeiro inválido. Nenhuma alteração foi aplicada.' });
     const key = JSON.stringify([row.source_sheet.trim(), row.source_row]);
@@ -568,9 +617,9 @@ app.post('/api/admin/financial-analysis/import', requireAdmin, async (req, res) 
     if (req.body?.replace_source_sheet && req.body.replace !== true) await client.query('DELETE FROM financial_legacy_sales WHERE source_sheet = $1', [String(req.body.replace_source_sheet)]);
     if (req.body?.replace_month && req.body.replace !== true) await client.query("DELETE FROM financial_legacy_sales WHERE sale_date >= ($1 || '-01')::date AND sale_date < (($1 || '-01')::date + INTERVAL '1 month')", [String(req.body.replace_month)]);
     for (const row of rows) {
-      await client.query(`INSERT INTO financial_legacy_sales (source_sheet, source_row, sale_date, product, customer, amount, commission, paid)
-        VALUES ($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT (source_sheet, source_row) DO UPDATE SET sale_date=EXCLUDED.sale_date, product=EXCLUDED.product, customer=EXCLUDED.customer, amount=EXCLUDED.amount, commission=EXCLUDED.commission, paid=EXCLUDED.paid`,
-        [row.source_sheet.trim(), row.source_row, row.sale_date || null, row.product, JSON.stringify(row.customer || {}), row.amount, row.commission ?? null, row.paid ?? null]);
+      await client.query(`INSERT INTO financial_legacy_sales (source_sheet, source_row, sale_date, product, customer, amount, commission, paid, payment_method)
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT (source_sheet, source_row) DO UPDATE SET sale_date=EXCLUDED.sale_date, product=EXCLUDED.product, customer=EXCLUDED.customer, amount=EXCLUDED.amount, commission=EXCLUDED.commission, paid=EXCLUDED.paid, payment_method=EXCLUDED.payment_method`,
+        [row.source_sheet.trim(), row.source_row, row.sale_date || null, row.product, JSON.stringify(row.customer || {}), row.amount, row.commission ?? null, row.paid ?? null, row.payment_method?.trim() || null]);
     }
     await client.query('COMMIT');
   } catch (error) { await client.query('ROLLBACK'); throw error; }

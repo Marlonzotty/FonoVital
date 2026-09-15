@@ -11,6 +11,7 @@ type Client = {
   cpf?: string;
   product?: string;
   amount?: number | string;
+  payment_method?: string;
   origin?: string;
   record_id?: number;
   record_type?: "legacy" | "order";
@@ -24,10 +25,14 @@ type Row = {
   legacy_count: number;
   clients?: Client[];
 };
+type Product = {
+  id: number;
+  name: string;
+  sku: string;
+  active: boolean;
+};
 const money = (value: number | string | undefined) =>
-  `R$ ${Number(value || 0)
-    .toFixed(2)
-    .replace(".", ",")}`;
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(value || 0));
 const clientText = (client: Client) =>
   [
     client.name || "",
@@ -134,12 +139,20 @@ const sanitizeClient = (client: Client): Client => {
 
 const normalizeRows = (data: unknown): Row[] =>
   Array.isArray(data)
-    ? data.map((row: Row) => ({
-        ...row,
-        clients: Array.isArray(row.clients)
-          ? row.clients.map(sanitizeClient).filter((client) => isConcrete(client.name))
-          : [],
-      }))
+    ? data.map((row: Row) => {
+        const clients = Array.isArray(row.clients)
+          ? row.clients.map(sanitizeClient)
+          : [];
+        return {
+          ...row,
+          clients,
+          total_count: clients.length,
+          total_amount: clients.reduce((totalCents, client) => {
+            const amount = Number(client.amount);
+            return Number.isFinite(amount) ? totalCents + Math.round(amount * 100) : totalCents;
+          }, 0) / 100,
+        };
+      })
     : [];
 
 export default function FinancialAnalysis({
@@ -154,7 +167,10 @@ export default function FinancialAnalysis({
   const [error, setError] = useState("");
   const [whatsappText, setWhatsappText] = useState("");
   const [importProduct, setImportProduct] = useState("");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [productsError, setProductsError] = useState("");
   const [importAmount, setImportAmount] = useState("");
+  const [importPaymentMethod, setImportPaymentMethod] = useState("");
   const [importDate, setImportDate] = useState(today);
   const [importBusy, setImportBusy] = useState(false);
   const [importMessage, setImportMessage] = useState("");
@@ -162,6 +178,7 @@ export default function FinancialAnalysis({
   const [editingClient, setEditingClient] = useState("");
   const [editDraft, setEditDraft] = useState<Record<string, string>>({});
   const [editBusy, setEditBusy] = useState(false);
+  const [deletingClient, setDeletingClient] = useState("");
   useEffect(() => {
     fetch("/api/admin/financial-analysis", { credentials: "include" })
       .then(async (response) => {
@@ -178,6 +195,27 @@ export default function FinancialAnalysis({
             : "Erro ao carregar análise.",
         ),
       );
+  }, [onUnauthorized]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/admin/products", { credentials: "include" })
+      .then(async (response) => {
+        const data = await response.json();
+        if (response.status === 401) onUnauthorized();
+        if (!response.ok) throw new Error(data.error || "Não foi possível carregar os produtos.");
+        if (!cancelled) {
+          setProducts(
+            (Array.isArray(data) ? data : [])
+              .filter((product: Product) => product.active)
+              .sort((a: Product, b: Product) => a.name.localeCompare(b.name)),
+          );
+        }
+      })
+      .catch((reason) => {
+        if (!cancelled) setProductsError(reason instanceof Error ? reason.message : "Erro ao carregar os produtos.");
+      });
+    return () => { cancelled = true; };
   }, [onUnauthorized]);
 
   async function importWhatsappCustomer(event: React.FormEvent) {
@@ -203,6 +241,7 @@ export default function FinancialAnalysis({
             product: importProduct.trim(),
             customer,
             amount,
+            payment_method: importPaymentMethod.trim() || undefined,
           }],
         }),
       });
@@ -213,6 +252,7 @@ export default function FinancialAnalysis({
       setWhatsappText("");
       setImportProduct("");
       setImportAmount("");
+      setImportPaymentMethod("");
       setRows([]);
       const refreshed = await fetch("/api/admin/financial-analysis", { credentials: "include" });
       if (refreshed.ok) {
@@ -299,6 +339,28 @@ export default function FinancialAnalysis({
     }
   }
 
+  async function deleteClient(client: Client, key: string) {
+    if (!client.record_id || !client.record_type || !window.confirm("Excluir este lançamento financeiro?")) return;
+    setDeletingClient(key);
+    setImportMessage("");
+    try {
+      const response = await fetch(`/api/admin/financial-analysis/${client.record_type}/${client.record_id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const data = await response.json();
+      if (response.status === 401) onUnauthorized();
+      if (!response.ok) throw new Error(data.error || "Não foi possível excluir o lançamento.");
+      setImportMessage("Lançamento excluído.");
+      const refreshed = await fetch("/api/admin/financial-analysis", { credentials: "include" });
+      if (refreshed.ok) setRows(normalizeRows(await refreshed.json()));
+    } catch (reason) {
+      setImportMessage(reason instanceof Error ? reason.message : "Erro ao excluir o lançamento.");
+    } finally {
+      setDeletingClient("");
+    }
+  }
+
   return (
     <section className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-6">
       <h2 className="text-xl font-bold text-slate-900">Análise financeira</h2>
@@ -318,11 +380,24 @@ export default function FinancialAnalysis({
           rows={4}
           className="mt-3 w-full rounded-lg border p-3 text-sm"
         />
-        <div className="mt-3 grid gap-3 sm:grid-cols-3">
-          <input aria-label="Produto do lançamento" value={importProduct} onChange={(event) => setImportProduct(event.target.value)} placeholder="Produto" className="rounded-lg border p-3 text-sm" />
+        <div className="mt-3 grid gap-3 sm:grid-cols-4">
+          <select
+            aria-label="Produto do lançamento"
+            required
+            value={importProduct}
+            onChange={(event) => setImportProduct(event.target.value)}
+            className="rounded-lg border p-3 text-sm"
+          >
+            <option value="">Produto</option>
+            {products.map((product) => (
+              <option key={product.id} value={product.name}>{product.name}</option>
+            ))}
+          </select>
           <input aria-label="Valor do lançamento" inputMode="decimal" value={importAmount} onChange={(event) => setImportAmount(event.target.value)} placeholder="Valor (ex.: 1.299,90)" className="rounded-lg border p-3 text-sm" />
+          <input aria-label="Método de pagamento" value={importPaymentMethod} onChange={(event) => setImportPaymentMethod(event.target.value)} placeholder="Método (Pix, cartão...)" className="rounded-lg border p-3 text-sm" />
           <input aria-label="Data do lançamento" type="date" value={importDate} onChange={(event) => setImportDate(event.target.value)} className="rounded-lg border p-3 text-sm" />
         </div>
+        {productsError && <p className="mt-2 text-xs text-red-700" role="alert">{productsError}</p>}
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <button type="submit" disabled={importBusy} className="rounded-lg bg-[#008B91] px-4 py-2 text-sm font-semibold text-white disabled:opacity-60">
             {importBusy ? "Adicionando..." : "Adicionar à análise"}
@@ -437,12 +512,15 @@ export default function FinancialAnalysis({
                               ) : (
                                 <>
                                   <p className="font-semibold">{client.name || "Cliente sem nome"}</p>
-                                  <p className="text-slate-600">{client.product || "Produto não informado"} · {money(client.amount)}</p>
+                                  <p className="text-slate-600">{client.product || "Produto não informado"} · {money(client.amount)}{client.payment_method ? ` · ${client.payment_method}` : ""}</p>
                                   <p className="text-slate-500">{[client.city, client.state].filter(Boolean).join(" · ")}</p>
                                   {isConcrete(client.address) && <p className="text-xs text-slate-500">{client.address}</p>}
                                   {(isConcrete(client.zipCode) || isConcrete(client.cpf)) && <p className="text-xs text-slate-500">{[isConcrete(client.zipCode) ? `CEP: ${client.zipCode}` : "", isConcrete(client.cpf) ? `CPF: ${client.cpf}` : ""].filter(Boolean).join(" · ")}</p>}
                                   {(isConcrete(client.email) || isConcrete(client.phone)) && <p className="text-xs text-slate-400">{client.email || client.phone} · {client.origin}</p>}
                                   <div className="mt-3 flex flex-wrap gap-2">
+                                    <button type="button" disabled={deletingClient === clientKey} onClick={() => void deleteClient(client, clientKey)} className="rounded-lg border border-red-300 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:opacity-60">
+                                      {deletingClient === clientKey ? "Excluindo..." : "Excluir"}
+                                    </button>
                                     <button type="button" onClick={() => startEditing(client, clientKey)} className="rounded-lg border border-[#2857c5] px-3 py-1.5 text-xs font-semibold text-[#2857c5] hover:bg-[#f1f5ff]">Editar</button>
                                     <button type="button" onClick={() => void copyClient(client, clientKey)} className="rounded-lg border border-[#008B91] px-3 py-1.5 text-xs font-semibold text-[#008B91] hover:bg-[#effafa]">
                                       {copiedClient === clientKey ? "Copiado" : "Copiar em sequência"}

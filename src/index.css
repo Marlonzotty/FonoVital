@@ -250,6 +250,25 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 14px 28px rgba(11, 127, 133, 0.22);
 }
 
+.vital-wellness-page .btn-3d,
+.vital-cta {
+  animation: glow-pulse 2.2s ease-in-out infinite;
+}
+
+.vital-wellness-page .btn-3d:hover,
+.vital-wellness-page .btn-3d:focus-visible,
+.vital-cta:hover,
+.vital-cta:focus-visible {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vital-wellness-page .btn-3d,
+  .vital-cta {
+    animation: none;
+  }
+}
+
 /* ===== FLOATING PARTICLES ===== */
 .particle {
   position: absolute;

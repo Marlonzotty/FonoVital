@@ -2,8 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { trackPurchaseConversion } from '../analytics/googleAds';
+import { loadFacebookPixel, trackEvent } from '../analytics/fbpixel';
 import MercadoPagoSeal from '../components/MercadoPagoSeal';
 import SocialProofVideos from '../components/SocialProofVideos';
+
+const vitalWellnessPixelId = '4833094476935342';
 
 const products: Record<string, string> = {
   'galinha-pintadinha': 'Galinha Pintadinha',
@@ -22,6 +25,9 @@ export default function FinalizarCompra() {
   const cepRequest = useRef<AbortController | null>(null);
   const checkoutRequest = useRef<{ payload: string; id: string } | null>(null);
   useEffect(() => () => cepRequest.current?.abort(), []);
+  useEffect(() => {
+    if (product === 'vital-wellness') loadFacebookPixel(vitalWellnessPixelId);
+  }, [product]);
   useEffect(() => {
     const controller = new AbortController();
     setError(''); setCatalog(null); setReceipt(null);
@@ -87,6 +93,16 @@ export default function FinalizarCompra() {
   async function submit(e: FormEvent) {
     e.preventDefault(); if (loading || !catalog?.available) return; setLoading(true); setError('');
     try {
+      if (product === 'vital-wellness') {
+        const value = Number(catalog.promotional_price || catalog.price) * quantity;
+        trackEvent('InitiateCheckout', {
+          value,
+          currency: 'BRL',
+          content_ids: [product],
+          content_type: 'product',
+          num_items: quantity,
+        });
+      }
       const payload = JSON.stringify({ product, ...form, quantity });
       if (checkoutRequest.current?.payload !== payload) checkoutRequest.current = { payload, id: crypto.randomUUID() };
       const response = await fetch(`/api/checkout/${encodeURIComponent(product)}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, quantity, request_id: checkoutRequest.current.id }) });

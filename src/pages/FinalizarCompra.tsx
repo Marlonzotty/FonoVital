@@ -102,6 +102,13 @@ export default function FinalizarCompra() {
           content_type: 'product',
           num_items: quantity,
         });
+        trackEvent('Purchase', {
+          value,
+          currency: 'BRL',
+          content_ids: [product],
+          content_type: 'product',
+          num_items: quantity,
+        });
       }
       const payload = JSON.stringify({ product, ...form, quantity });
       if (checkoutRequest.current?.payload !== payload) checkoutRequest.current = { payload, id: crypto.randomUUID() };

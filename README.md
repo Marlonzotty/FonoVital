@@ -2,7 +2,7 @@
 
 Guia atualizado: [processo operacional, configuração, testes e pendências](docs/processo-operacional.md).
 
-- Desenvolvimento: `npm run dev:backend` e `npm run dev`.
+- Desenvolvimento: `npm run dev` (inicia frontend e backend). Para iniciar somente o backend: `npm run dev:backend`.
 - Validação completa: `npm run check`.
 - Prévia com dados fictícios, após build: `npm run preview:process`.
 

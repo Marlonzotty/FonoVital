@@ -126,6 +126,30 @@ test('processo comercial integrado em PostgreSQL isolado', async t => {
     assert.equal((await h.request('/api/admin/metrics?month=2026-99', { admin: true })).status, 400);
     assert.equal((await (await h.request('/api/admin/metrics?month=2000-01', { admin: true })).json()).total_orders, 0);
   });
+  await t.test('admin order results are newest first with a stable date tie-breaker', async () => {
+    const insert = (product, status, createdAt) => h.database.query(
+      'INSERT INTO orders (external_reference, product, customer, amount, status, created_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
+      [`sort-${product}`, product, JSON.stringify(customer), 10, status, createdAt],
+    );
+    const oldest = await insert('sort-oldest', 'pending', '2026-01-01T10:00:00Z');
+    const tiedFirst = await insert('sort-tied', 'pending', '2026-02-01T10:00:00Z');
+    const tiedLast = await insert('sort-tied-later', 'pending', '2026-02-01T10:00:00Z');
+    const newest = await insert('sort-newest', 'approved', '2026-03-01T10:00:00Z');
+    const ids = { oldest: oldest.rows[0].id, tiedFirst: tiedFirst.rows[0].id, tiedLast: tiedLast.rows[0].id, newest: newest.rows[0].id };
+
+    const all = await (await h.request('/api/admin/orders', { admin: true })).json();
+    const positioned = all.filter(row => Object.values(ids).includes(row.id)).map(row => row.id);
+    assert.deepEqual(positioned, [ids.newest, ids.tiedLast, ids.tiedFirst, ids.oldest]);
+
+    const search = await (await h.request('/api/admin/orders?search=sort-tied', { admin: true })).json();
+    assert.deepEqual(search.map(row => row.id), [ids.tiedLast, ids.tiedFirst]);
+
+    const status = await (await h.request('/api/admin/orders?status=pending', { admin: true })).json();
+    assert.deepEqual(status.filter(row => [ids.oldest, ids.tiedFirst, ids.tiedLast].includes(row.id)).map(row => row.id), [ids.tiedLast, ids.tiedFirst, ids.oldest]);
+
+    const month = await (await h.request('/api/admin/orders?month=2026-02', { admin: true })).json();
+    assert.deepEqual(month.map(row => row.id), [ids.tiedLast, ids.tiedFirst]);
+  });
   await t.test('importação é idempotente e lote inválido não apaga histórico', async () => {
     const row = { source_sheet: 'Teste', source_row: 1, product: 'Modelo', amount: 90, sale_date: '2026-09-01', paid: true };
     for (let i = 0; i < 2; i++) assert.equal((await h.request('/api/admin/financial-analysis/import', { method: 'POST', admin: true, body: { rows: [row] } })).status, 200);

@@ -23,6 +23,8 @@ type Order = {
   created_at?: string;
   external_reference?: string;
   payment_id?: string;
+  fulfillment_status?: string;
+  tracking_number?: string;
   customer?: Customer;
 };
 type Metrics = {
@@ -95,8 +97,16 @@ const customerText = (o: Order) => {
     value(c.cpf),
   ].join("\t");
 };
+const fulfillmentLabels: Record<string, string> = { new: "Novo", confirmed: "Confirmado", preparing: "Em preparo", shipped: "Enviado", cancelled: "Cancelado" };
 const chartColors = ["#2857c5", "#008b91", "#f59e0b", "#e85d75", "#7c3aed", "#64748b"];
 const chartNumber = (v: number | string | undefined) => Number(v || 0);
+const sortOrdersByDate = (items: Order[]) => [...items].sort((first, second) => {
+  const firstDate = first.created_at ? new Date(first.created_at).getTime() : Number.NEGATIVE_INFINITY;
+  const secondDate = second.created_at ? new Date(second.created_at).getTime() : Number.NEGATIVE_INFINITY;
+  const safeFirstDate = Number.isNaN(firstDate) ? Number.NEGATIVE_INFINITY : firstDate;
+  const safeSecondDate = Number.isNaN(secondDate) ? Number.NEGATIVE_INFINITY : secondDate;
+  return safeSecondDate - safeFirstDate || second.id - first.id;
+});
 
 export default function Admin() {
   const nav = useNavigate();
@@ -111,6 +121,7 @@ export default function Admin() {
   const [error, setError] = useState("");
   const [selected, setSelected] = useState<Order | null>(null);
   const [copied, setCopied] = useState(false);
+  const [fulfillmentBusy, setFulfillmentBusy] = useState(false);
   const [activeSection, setActiveSection] = useState("Visão geral");
   const [month, setMonth] = useState("");
   const [refresh, setRefresh] = useState(0);
@@ -140,7 +151,7 @@ export default function Admin() {
         api("/api/admin/financial-analysis"),
       ]);
       if (currentRequest !== requestId.current) return;
-      setOrders(o);
+      setOrders(sortOrdersByDate(o));
       setMetrics(m);
       setFinancialRows(f);
       setError("");
@@ -187,6 +198,17 @@ export default function Admin() {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch { setError("Não foi possível copiar os dados."); }
+  }
+  async function updateFulfillment(status: string) {
+    if (!selected) return;
+    if (status === "cancelled" && !window.confirm("Cancelar apenas a operação deste pedido? O pagamento Mercado Pago não será alterado.")) return;
+    setFulfillmentBusy(true);
+    try {
+      const updated = await api(`/api/admin/orders/${selected.id}/fulfillment`, { method: "PATCH", body: JSON.stringify({ status }) }) as Order;
+      setSelected(updated);
+      setOrders(current => current.map(order => order.id === updated.id ? { ...order, ...updated } : order));
+    } catch (reason) { setError(reason instanceof Error ? reason.message : "Não foi possível atualizar o pedido."); }
+    finally { setFulfillmentBusy(false); }
   }
   if (!auth)
     return (
@@ -268,8 +290,8 @@ export default function Admin() {
     setActiveSection(label);
   };
   return (
-    <main className="min-h-screen bg-[#f5f7fb] p-3 sm:p-6">
-      <div className="mx-auto flex max-w-[1440px] gap-5">
+    <main className="min-h-screen bg-[#f5f7fb] p-2 sm:p-6">
+      <div className="mx-auto flex max-w-[1440px] gap-4 lg:gap-5">
         <aside className="sticky top-6 hidden h-[calc(100vh-3rem)] w-[224px] shrink-0 flex-col rounded-[22px] border border-[#e3e8f3] bg-white p-4 shadow-[0_12px_35px_rgba(30,58,138,0.06)] lg:flex">
           <div className="flex items-center justify-between px-2 py-2">
             <img src={logo} alt="Fonovital" className="h-10 w-auto max-w-[150px] object-contain object-left" />
@@ -294,35 +316,35 @@ export default function Admin() {
             <button type="button" onClick={logout} className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-slate-500 hover:bg-red-50 hover:text-red-600"><SignOut size={20} /> Sair</button>
           </div>
         </aside>
-        <section className="min-w-0 flex-1 rounded-[22px] bg-white p-4 shadow-[0_12px_35px_rgba(30,58,138,0.06)] sm:p-8">
-        <header className="flex flex-wrap items-center justify-between gap-3">
+        <section className="min-w-0 flex-1 rounded-[18px] bg-white p-4 shadow-[0_12px_35px_rgba(30,58,138,0.06)] sm:rounded-[22px] sm:p-8">
+        <header className="flex flex-col gap-4 border-b border-slate-100 pb-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="mb-1 text-xs font-bold uppercase tracking-[0.16em] text-[#2857c5]">Painel administrativo</p>
-            <h1 className="text-3xl font-bold text-slate-900">{activeSection}</h1>
+            <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">{activeSection}</h1>
             <p className="text-sm text-slate-500">
               Operação, pagamentos e catálogo
             </p>
           </div>
-          <div className="flex gap-2">
-            <button onClick={() => { void load(); setRefresh(v => v + 1); }} className="rounded-xl border px-4 py-2">
+          <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto">
+            <button onClick={() => { void load(); setRefresh(v => v + 1); }} disabled={busy} className="min-h-11 rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-60">
               Atualizar
             </button>
-            <button onClick={logout} className="rounded-xl border px-4 py-2">
+            <button onClick={logout} className="min-h-11 rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-red-50 hover:text-red-700">
               Sair
             </button>
           </div>
         </header>
-        <nav aria-label="Navegação administrativa" className="mt-5 flex flex-wrap gap-2 lg:hidden">{menu.map(item => <button key={item.label} type="button" onClick={() => goTo(item.label)} className={`rounded-lg px-3 py-2 text-sm ${activeSection === item.label ? 'bg-[#008B91] text-white' : 'border'}`}>{item.label}</button>)}</nav>
-        <label className="mt-5 flex flex-wrap items-center gap-3 text-sm">Mês de análise <input aria-label="Mês de análise" type="month" value={month} onChange={event => setMonth(event.target.value)} className="rounded-lg border p-2" /><button type="button" className="text-[#008B91]" onClick={() => setMonth('')}>Todos os meses</button></label>
+        <nav aria-label="Navegação administrativa" className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:hidden">{menu.map(item => <button key={item.label} type="button" onClick={() => goTo(item.label)} className={`min-h-11 rounded-xl px-3 py-2 text-sm font-semibold transition ${activeSection === item.label ? 'bg-[#008B91] text-white shadow-sm' : 'border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>{item.label}</button>)}</nav>
+        <label className="mt-5 flex flex-col gap-2 rounded-xl bg-slate-50 p-3 text-sm font-semibold text-slate-700 sm:flex-row sm:items-center">Mês de análise <input aria-label="Mês de análise" type="month" value={month} onChange={event => setMonth(event.target.value)} className="min-h-10 rounded-lg border border-slate-200 bg-white px-3 py-2" /><button type="button" className="min-h-10 text-left text-[#008B91] hover:underline sm:ml-1" onClick={() => setMonth('')}>Todos os meses</button></label>
         {error && <p role="alert" className="mt-4 text-red-700">{error}</p>}
         {activeSection === "Visão geral" && (
           <>
             <div><AdminProducts key={refresh} onUnauthorized={onUnauthorized} /></div>
-            <div><FinancialAnalysis key={refresh} month={month} onUnauthorized={onUnauthorized} /></div>
+            <div><FinancialAnalysis key={refresh} month={month} onUnauthorized={onUnauthorized} onViewOrder={(id) => void api(`/api/admin/orders?search=${id}`).then((results) => setSelected((results as Order[]).find(order => order.id === id) || null))} /></div>
           </>
         )}
         {activeSection === "Produtos" && <AdminProducts key={refresh} onUnauthorized={onUnauthorized} />}
-        {activeSection === "Financeiro" && <FinancialAnalysis key={refresh} month={month} onUnauthorized={onUnauthorized} />}
+        {activeSection === "Financeiro" && <FinancialAnalysis key={refresh} month={month} onUnauthorized={onUnauthorized} onViewOrder={(id) => void api(`/api/admin/orders?search=${id}`).then((results) => setSelected((results as Order[]).find(order => order.id === id) || null))} />}
         {metrics && (activeSection === "Visão geral" || activeSection === "Métricas") && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {cards.map((c) => (
@@ -365,19 +387,21 @@ export default function Admin() {
           </section>
         )}
         {(activeSection === "Clientes" || activeSection === "Visão geral") && <>
-        <div className="mt-6 grid gap-3 md:grid-cols-[1fr_220px]">
+        <div className="mt-6 rounded-2xl border border-slate-100 bg-slate-50 p-3 sm:p-4">
+          <p className="mb-3 text-sm font-semibold text-slate-700">Localizar pedidos</p>
+          <div className="grid gap-3 md:grid-cols-[1fr_220px]">
           <input
             aria-label="Buscar pedidos"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Nome, e-mail, telefone, código, SKU ou referência"
-            className="rounded-xl border p-3"
+            className="min-h-11 rounded-xl border border-slate-200 bg-white p-3 text-sm outline-none transition focus:border-[#008B91] focus:ring-2 focus:ring-[#008B91]/20"
           />
           <select
             aria-label="Filtrar status"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="rounded-xl border p-3"
+            className="min-h-11 rounded-xl border border-slate-200 bg-white p-3 text-sm outline-none transition focus:border-[#008B91] focus:ring-2 focus:ring-[#008B91]/20"
           >
             <option value="">Todos os status</option>
             {Object.entries(labels).map(([v, l]) => (
@@ -386,6 +410,7 @@ export default function Admin() {
               </option>
             ))}
           </select>
+          </div>
         </div>
         {busy && <p className="mt-4 text-sm text-slate-500">Atualizando…</p>}
         {error && (
@@ -404,7 +429,30 @@ export default function Admin() {
           </p>
         )}
         {orders.length > 0 && (
-          <div className="mt-6 overflow-x-auto">
+          <>
+          <div className="mt-6 grid gap-3 lg:hidden">
+            {orders.map((o) => (
+              <article key={o.id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Pedido #{o.id}</p>
+                    <p className="mt-1 truncate font-bold text-slate-900">{o.product}</p>
+                    <p className="mt-1 text-sm text-slate-600">{value(o.customer?.name)}</p>
+                  </div>
+                  <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-bold ${tones[o.status] || "bg-slate-100"}`}>{labels[o.status] || o.status}</span>
+                </div>
+                <dl className="mt-4 grid grid-cols-2 gap-3 border-y border-slate-100 py-3 text-sm">
+                  <div><dt className="text-xs text-slate-500">Data</dt><dd className="mt-1 font-medium">{o.created_at ? new Date(o.created_at).toLocaleString("pt-BR") : "—"}</dd></div>
+                  <div><dt className="text-xs text-slate-500">Valor</dt><dd className="mt-1 font-bold">{money(o.amount)}</dd></div>
+                </dl>
+                <div className="mt-4 grid grid-cols-2 gap-2">
+                  <button type="button" onClick={() => setSelected(o)} className="min-h-11 rounded-xl border border-[#008B91] px-3 py-2 text-sm font-semibold text-[#008B91]">Ver cliente</button>
+                  {o.customer?.phone ? <a target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center justify-center rounded-xl bg-[#25D366] px-3 py-2 text-sm font-semibold text-white" href={`https://wa.me/${(() => { const digits = o.customer!.phone!.replace(/\D/g, ""); return digits.length <= 11 ? `55${digits}` : digits; })()}?text=${encodeURIComponent(`Olá! Sobre o pedido #${o.id} (${o.product}).`)}`}>WhatsApp</a> : <span className="flex min-h-11 items-center justify-center rounded-xl bg-slate-100 px-3 text-sm text-slate-400">Sem telefone</span>}
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-6 hidden overflow-x-auto lg:block">
             <table className="w-full min-w-[980px] text-left text-sm">
               <thead>
                 <tr className="border-b text-slate-500">
@@ -477,6 +525,7 @@ export default function Admin() {
               </tbody>
             </table>
           </div>
+          </>
         )}
         </>}
         {selected && (
@@ -500,7 +549,21 @@ export default function Admin() {
                   Fechar
                 </button>
               </div>
-              <div className="mt-5 space-y-3 text-sm">
+              <div className="mt-5 space-y-4 text-sm">
+                <section className="rounded-xl border border-slate-200 bg-white p-4">
+                  <h3 className="font-bold text-slate-900">Pagamento</h3>
+                  <p className="mt-1 text-slate-600">Mercado Pago: <strong>{labels[selected.status] || selected.status}</strong></p>
+                  <p className="mt-1 text-xs text-slate-500">O status financeiro é atualizado pelo Mercado Pago e não muda com ações operacionais.</p>
+                </section>
+                <div className="rounded-xl bg-slate-50 p-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Operação</p>
+                  <p className="mt-1 font-bold text-slate-900">{fulfillmentLabels[selected.fulfillment_status || "new"]}</p>
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    {[["confirmed", "Confirmar"], ["preparing", "Preparar"], ["shipped", "Enviar"], ["cancelled", "Cancelar"]].map(([status, label]) => <button key={status} type="button" disabled={fulfillmentBusy || selected.fulfillment_status === status} onClick={() => void updateFulfillment(status)} className="min-h-10 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:border-[#008B91] hover:text-[#008B91] disabled:opacity-50">{label}</button>)}
+                  </div>
+                  {selected.tracking_number && <p className="mt-3 text-xs text-slate-500">Rastreio: {selected.tracking_number}</p>}
+                </div>
+                <section className="rounded-xl border border-slate-200 bg-white p-4"><h3 className="font-bold text-slate-900">Cliente</h3>
                 <p>
                   <b>Nome:</b> {value(selected.customer?.name)}
                 </p>
@@ -528,6 +591,7 @@ export default function Admin() {
                 <p>
                   <b>CPF:</b> {value(selected.customer?.cpf)}
                 </p>
+                </section>
               </div>
               <button
                 onClick={() => copy(selected)}

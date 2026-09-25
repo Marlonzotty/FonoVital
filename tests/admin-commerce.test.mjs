@@ -42,6 +42,10 @@ test('webhook persiste uma transição por evento e não duplica histórico', ()
 
 test('interfaces administrativas e pública estão conectadas', () => {
   assert.match(admin, /AdminProducts/);
+  assert.match(admin, /sortOrdersByDate/);
+  assert.match(admin, /setOrders\(sortOrdersByDate\(o\)\)/);
+  assert.match(admin, /Localizar pedidos/);
+  assert.match(admin, /Pedido #\{o\.id\}/);
   assert.match(product, /api\/admin\/products/);
   assert.match(product, /Copiar link/);
   assert.match(publicPage, /api\/products/);

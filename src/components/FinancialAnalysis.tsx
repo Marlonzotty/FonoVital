@@ -16,6 +16,7 @@ type Client = {
   record_id?: number;
   record_type?: "legacy" | "order";
   sale_date?: string;
+  added_at?: string;
 };
 type Row = {
   month: string;
@@ -143,6 +144,13 @@ const normalizeRows = (data: unknown): Row[] =>
         const clients = Array.isArray(row.clients)
           ? row.clients.map(sanitizeClient)
           : [];
+        clients.sort((first, second) => {
+          const firstDate = first.added_at ? new Date(first.added_at).getTime() : Number.NEGATIVE_INFINITY;
+          const secondDate = second.added_at ? new Date(second.added_at).getTime() : Number.NEGATIVE_INFINITY;
+          const safeFirstDate = Number.isNaN(firstDate) ? Number.NEGATIVE_INFINITY : firstDate;
+          const safeSecondDate = Number.isNaN(secondDate) ? Number.NEGATIVE_INFINITY : secondDate;
+          return safeSecondDate - safeFirstDate || Number(second.record_id || 0) - Number(first.record_id || 0);
+        });
         return {
           ...row,
           clients,
@@ -158,9 +166,11 @@ const normalizeRows = (data: unknown): Row[] =>
 export default function FinancialAnalysis({
   month = "",
   onUnauthorized,
+  onViewOrder,
 }: {
   month?: string;
   onUnauthorized: () => void;
+  onViewOrder?: (orderId: number) => void;
 }) {
   const [rows, setRows] = useState<Row[]>([]);
   const [openMonth, setOpenMonth] = useState("");
@@ -516,8 +526,15 @@ export default function FinancialAnalysis({
                                   <p className="text-slate-500">{[client.city, client.state].filter(Boolean).join(" · ")}</p>
                                   {isConcrete(client.address) && <p className="text-xs text-slate-500">{client.address}</p>}
                                   {(isConcrete(client.zipCode) || isConcrete(client.cpf)) && <p className="text-xs text-slate-500">{[isConcrete(client.zipCode) ? `CEP: ${client.zipCode}` : "", isConcrete(client.cpf) ? `CPF: ${client.cpf}` : ""].filter(Boolean).join(" · ")}</p>}
-                                  {(isConcrete(client.email) || isConcrete(client.phone)) && <p className="text-xs text-slate-400">{client.email || client.phone} · {client.origin}</p>}
+                                  <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+                                    {(isConcrete(client.email) || isConcrete(client.phone)) && <span>{client.email || client.phone}</span>}
+                                    <span className="rounded-full bg-slate-100 px-2 py-0.5 font-semibold text-slate-500">{client.origin === "pedido atual" ? "Site" : "WhatsApp"}</span>
+                                  </div>
                                   <div className="mt-3 flex flex-wrap gap-2">
+                                    <button type="button" onClick={() => {
+                                      if ((client.record_type === "order" || client.origin === "pedido atual") && client.record_id) onViewOrder?.(client.record_id);
+                                      else startEditing(client, clientKey);
+                                    }} className="rounded-lg border border-[#008B91] px-3 py-1.5 text-xs font-semibold text-[#008B91] hover:bg-[#effafa]">Ver cliente e status</button>
                                     <button type="button" disabled={deletingClient === clientKey} onClick={() => void deleteClient(client, clientKey)} className="rounded-lg border border-red-300 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:opacity-60">
                                       {deletingClient === clientKey ? "Excluindo..." : "Excluir"}
                                     </button>

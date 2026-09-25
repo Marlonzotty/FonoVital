@@ -55,6 +55,8 @@ async function initDatabase() {
     await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_carrier INTEGER');
     await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_status TEXT');
     await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_data JSONB');
+    await db.query("ALTER TABLE orders ADD COLUMN IF NOT EXISTS fulfillment_status TEXT NOT NULL DEFAULT 'new'");
+    await db.query('ALTER TABLE orders ADD COLUMN IF NOT EXISTS fulfillment_updated_at TIMESTAMPTZ');
     await db.query('CREATE UNIQUE INDEX IF NOT EXISTS orders_tracking_number_unique ON orders (tracking_number) WHERE tracking_number IS NOT NULL');
     await db.query(`CREATE TABLE IF NOT EXISTS products (
       id BIGSERIAL PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL DEFAULT '', image TEXT,
@@ -478,7 +480,7 @@ app.get('/api/admin/orders', requireAdmin, async (req, res) => {
   const status = String(req.query.status || '').trim();
   if (status) { values.push(status); where.push(`status = $${values.length}`); }
   if (search) { values.push(`%${search}%`); where.push(`(id::text ILIKE $${values.length} OR tracking_number ILIKE $${values.length} OR product_snapshot->>'name' ILIKE $${values.length} OR product ILIKE $${values.length} OR external_reference ILIKE $${values.length} OR payment_id ILIKE $${values.length} OR customer->>'name' ILIKE $${values.length} OR customer->>'email' ILIKE $${values.length} OR customer->>'phone' ILIKE $${values.length})`); }
-  const result = await db.query(`SELECT * FROM orders ${where.length ? `WHERE ${where.join(' AND ')}` : ''} ORDER BY created_at DESC LIMIT 500`, values);
+  const result = await db.query(`SELECT * FROM orders ${where.length ? `WHERE ${where.join(' AND ')}` : ''} ORDER BY created_at DESC, id DESC LIMIT 500`, values);
   res.json(result.rows);
 });
 
@@ -538,14 +540,14 @@ app.get('/api/admin/financial-analysis', requireAdmin, async (_req, res) => {
       UNION ALL SELECT date_trunc('month', sale_date), 0, 0, COUNT(*)::int, COALESCE(SUM(amount),0)::numeric
       FROM financial_legacy_sales WHERE sale_date IS NOT NULL GROUP BY 1) grouped
     GROUP BY month ORDER BY month DESC`);
-  const clients = await db.query(`SELECT month, jsonb_agg(client ORDER BY name) AS clients FROM (
+  const clients = await db.query(`SELECT month, jsonb_agg(client ORDER BY added_at DESC, record_id DESC) AS clients FROM (
     SELECT TO_CHAR(date_trunc('month', sale_date), 'YYYY-MM') AS month,
-      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'importado', 'payment_method', payment_method, 'record_id', id, 'record_type', 'legacy', 'sale_date', TO_CHAR(sale_date, 'YYYY-MM-DD')) AS client,
-      COALESCE(customer->>'name','') AS name FROM financial_legacy_sales WHERE sale_date IS NOT NULL
+      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'importado', 'payment_method', payment_method, 'record_id', id, 'record_type', 'legacy', 'sale_date', TO_CHAR(sale_date, 'YYYY-MM-DD'), 'added_at', imported_at) AS client,
+      imported_at AS added_at, id AS record_id FROM financial_legacy_sales WHERE sale_date IS NOT NULL
     UNION ALL
     SELECT TO_CHAR(date_trunc('month', COALESCE(purchased_at, created_at) AT TIME ZONE 'America/Sao_Paulo'), 'YYYY-MM') AS month,
-      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'pedido atual', 'payment_method', payment_method, 'record_id', id, 'record_type', 'order', 'sale_date', TO_CHAR(COALESCE(purchased_at, created_at) AT TIME ZONE 'America/Sao_Paulo', 'YYYY-MM-DD')) AS client,
-      COALESCE(customer->>'name','') AS name FROM orders WHERE status = 'approved'
+      customer || jsonb_build_object('product', product, 'amount', amount, 'origin', 'pedido atual', 'payment_method', payment_method, 'record_id', id, 'record_type', 'order', 'sale_date', TO_CHAR(COALESCE(purchased_at, created_at) AT TIME ZONE 'America/Sao_Paulo', 'YYYY-MM-DD'), 'added_at', created_at) AS client,
+      created_at AS added_at, id AS record_id FROM orders WHERE status = 'approved'
   ) grouped_clients GROUP BY month`);
   const clientsByMonth = Object.fromEntries(
     clients.rows.map(row => [String(row.month), Array.isArray(row.clients) ? row.clients.filter(Boolean) : []]),
@@ -660,6 +662,19 @@ app.post('/api/admin/orders/:id/tracking', requireAdmin, async (req, res) => {
     console.error('[17TRACK] erro ao registrar:', error);
     return res.status(502).json({ error: 'Não foi possível registrar o rastreio.' });
   }
+});
+
+app.patch('/api/admin/orders/:id/fulfillment', requireAdmin, async (req, res) => {
+  if (!db || !databaseReady) return res.status(503).json({ error: 'Banco de dados indisponível.' });
+  const status = String(req.body?.status || '');
+  if (!['confirmed', 'preparing', 'shipped', 'cancelled'].includes(status)) return res.status(400).json({ error: 'Status operacional inválido.' });
+  const current = await db.query('SELECT fulfillment_status FROM orders WHERE id = $1', [req.params.id]);
+  if (!current.rowCount) return res.status(404).json({ error: 'Pedido não encontrado.' });
+  const currentStatus = current.rows[0].fulfillment_status || 'new';
+  const transitions = { new: ['confirmed', 'cancelled'], confirmed: ['preparing', 'cancelled'], preparing: ['shipped', 'cancelled'], shipped: [], cancelled: [] };
+  if (!transitions[currentStatus]?.includes(status)) return res.status(409).json({ error: 'Esta transição operacional não é permitida.' });
+  const result = await db.query('UPDATE orders SET fulfillment_status = $1, fulfillment_updated_at = NOW(), updated_at = NOW() WHERE id = $2 RETURNING *', [status, req.params.id]);
+  return res.json(result.rows[0]);
 });
 
 function productInput(body) {
